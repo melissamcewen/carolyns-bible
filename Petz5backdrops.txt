@@ -1,0 +1,277 @@
+
+
+This is a note on changing Petz  5 backdrops, for hexers.  
+I assume that you have a hex editor and that you know how to use 
+it; if not, find and download one that appeals to you and learn 
+how to use it and all its features.  This "howto" also assumes 
+that you already know the basics of hexing petz files.
+
+NOTE As always, keep backups.  As I say, this "howto" is for people 
+who already know how to use a hex editor and how to look for items 
+inside files with it.
+
+If you want to change your backdrops in Petz 5 original scenes,
+either use Resource Hacker to change them or use your hex editor as I did 
+with my kitchen scene. 
+
+If you're using Resource Hacker, as I say in my bitmap-changing howto
+on the Infobits page, make sure that your chosen bitmap is renamed so 
+as _not_ to have a .bmp extension.  Call it Mypic.bmm or something, just
+so as it's not Mypic.bmp.  Now open the playscene in Resource Hacker,
+get to the BMP section such that you actually see the picture on the 
+right-hand side, right-click and choose Replace Resource, browse to find 
+Mypic.bmm (or whatever you renamed it to) and click on it, then fill in 
+BMP under Resource Type, Kitchen under Resource Name (or whatever playscene
+name is the original in your chosen one), 1033 under Language, then hit 
+Replace.  Don't forget to Save after that. 
+
+If you're using a hex editor, you can do it two ways; Internal and
+External.  The External method includes how to change sounds.
+
+1) The Internal method:
+
+For this, you need to locate the two big bitmaps.  There is another 
+bitmap, a small one, which is the icon; of course you can change that 
+also.  Search for the uppercase letters BM and you should be taken to 
+the first bitmap, which is directly below the scene's ID number.  
+If you don't know what I'm talking about, please read one of my basic 
+hexing tutorials.  Now, the first BM is likely to be the icon -- this
+depends on which scene you're editing.  See the "addendum" at the bottom
+of this "howto" to check.  The addendum also tells you how large the
+relevant icon is.  If you're using a scene with the icon first, you
+have to find the start of the next bitmap.  Then open your own
+bitmap into the hex editor and select the whole of it.  You want to
+copy/paste it over the backdrop that's already in the scene; if it's a 
+smaller size in bytes than the backdrop, then just select the relevant 
+number of bytes in the scene, starting at the beginning of the backdrop 
+bitmap of course, before choosing "paste".
+
+Each backdrop is 2,359,352 bytes long (hexadecimal 240038), so if 
+you copy your own over it in a hex editor, make sure that you don't 
+make yours any bigger than 2,359,352.  You can make it smaller of
+course, and fill out the remainder of the bitmap space with null 
+bytes.  The icons vary in size in different scenes, so you're going 
+to have to be careful in finding the start of the backdrop, but
+the backdrops are all the same size.
+
+Some scenes have no "night" backdrop, such as the Haunted Mansion,
+which also happens to have the backdrop _before_ the icon, so if
+you're editing that one you need to be aware of that. Arabia also 
+has the icon after the backdrops. And some scenes have a third 
+backdrop, such as the Salon and South Seas which have a different 
+one also for a rainy day.  The Adoption Centre has a rainy day one; 
+it also, curiously, has an old Petz 4 one tucked away in there which 
+is in 256 colour and 787,510 (hex C0436) bytes long after the icon.
+
+2) The external method:
+
+This one is fun and flexible, and allows you to easily edit sounds etc
+in the scene as well, just as with hexing the Petz 3 and 4 scenes,
+without having to keep opening it in Resource Hacker or taking care
+over sizes in the hex editor.
+
+First, you need to find the List of everything that's in the .env file.
+This List is above the first bitmap and the ID number, and in the Kitchen 
+the start of it looks like this:
+
+00040064 0000 0000 0000 0000 0300 4200 4D00 5000 ..........B.M.P.
+00040080 0C00 4900 4300 4F00 4E00 5F00 4B00 4900 ..I.C.O.N._.K.I.
+00040096 5400 4300 4800 4500 4E00 0700 4B00 4900 T.C.H.E.N...K.I.
+00040112 5400 4300 4800 4500 4E00 0800 4B00 4900 T.C.H.E.N...K.I.
+00040128 5400 4300 4800 4500 4E00 4E00 0300 5300 T.C.H.E.N.N...S.
+00040144 5000 5200 1000 4B00 4900 5400 4300 4800 P.R...K.I.T.C.H.
+00040160 4500 4E00 5F00 4300 4100 4200 4900 4E00 E.N._.C.A.B.I.N.
+
+Now, if you want to re-direct your bitmaps to your hard drive, first
+you want to make the game think that they are not inside this file.
+You do this by changing one letter in B.M.P to something else; for
+instance, change it to B.M.N.  Now you need to provide some bitmaps
+or your game will crash when you try to go to the kitchen.  You do this
+by creating a directory, using Windows Explorer or My Computer, off
+your game's root directory, called "art".  Then create another off that
+one, which must be called "sprites", then another off that called "Area",
+and finally another off that called "Kitchen".  So you have a set of
+directories, off your game's main directory, which looks like this:
+
+\art\sprites\area\kitchen
+
+Now put two background bitmaps (for day and night) and one icon bitmap 
+into this kitchen directory and call them Kitchen.bmp, Kitchenn.bmp and 
+icon_kitchen.bmp.  When you next start up the game and go to the kitchen, 
+your bitmaps will be in place.
+Note that some scenes have three background bitmaps if there is a "rain" 
+one too -- such as the South Seas, where it is called SOUTHSEASR
+
+The joy of this method is that once you've done it you can very easily 
+change the bitmaps again any time you wish without the use of any hex editor.
+
+For the sounds, you can do a similar thing; make the game think that there
+are no sounds in the .env file by changing something in the List of everything
+that's in the file.  You can see this in the Kitchen; there are several
+sounds lists in this scene (T.X.T is followed by a series of list-names):
+
+
+00040480 0300 5400 5800 5400 0D00 4100 4200 4F00 ..T.X.T...A.B.O.
+00040496 5500 5400 5F00 4B00 4900 5400 4300 4800 U.T._.K.I.T.C.H.
+00040512 4500 4E00 0E00 4200 4500 5600 4500 4E00 E.N...B.E.V.E.N.
+00040528 5400 5F00 4B00 4900 5400 4300 4800 4500 T._.K.I.T.C.H.E.
+00040544 4E00 1300 5300 4F00 5500 4E00 4400 5300 N...S.O.U.N.D.S.
+00040560 5F00 4100 5200 4500 4100 5F00 4B00 4900 _.A.R.E.A._.K.I.
+00040576 5400 4300 4800 4500 4E00 1B00 5300 4F00 T.C.H.E.N...S.O.
+00040592 5500 4E00 4400 5300 5F00 4100 5200 4500 U.N.D.S._.A.R.E.
+00040608 4100 5F00 4B00 4900 5400 4300 4800 4500 A._.K.I.T.C.H.E.
+00040624 4E00 5F00 4300 4100 4200 4900 4E00 4500 N._.C.A.B.I.N.E.
+00040640 5400 1A00 5300 4F00 5500 4E00 4400 5300 T...S.O.U.N.D.S.
+00040656 5F00 4100 5200 4500 4100 5F00 4B00 4900 _.A.R.E.A._.K.I.
+00040672 5400 4300 4800 4500 4E00 5F00 4600 5200 T.C.H.E.N._.F.R.
+00040688 4900 4400 4700 4500 1800 5300 4F00 5500 I.D.G.E...S.O.U.
+00040704 4E00 4400 5300 5F00 4100 5200 4500 4100 N.D.S._.A.R.E.A.
+00040720 5F00 4B00 4900 5400 4300 4800 4500 4E00 _.K.I.T.C.H.E.N.
+00040736 5F00 5300 4900 4E00 4B00 1A00 5300 4F00 _.S.I.N.K...S.O.
+00040752 5500 4E00 4400 5300 5F00 4100 5200 4500 U.N.D.S._.A.R.E.
+00040768 4100 5F00 4B00 4900 5400 4300 4800 4500 A._.K.I.T.C.H.E.
+00040784 4E00 5F00 5700 4900 4E00 4400 4F00 5700 N._.W.I.N.D.O.W.
+
+and then you see W.A.V followed by a load of sound-names:
+
+00040800 0300 5700 4100 5600 1200 4500 4E00 5600 ..W.A.V...E.N.V.
+00040816 5F00 4300 4100 4200 4900 4E00 4500 5400 _.C.A.B.I.N.E.T.
+00040832 4300 4C00 4F00 5300 4500 3000 3000 1200 C.L.O.S.E.0.0...
+
+You can simply change a letter of W.A.V and place your sounds,
+which must of course be mono WAV files (can be 16-bit) and named:
+
+env_refridgeratoron00.wav
+env_refridgeratorhum02.wav
+env_refridgeratoroff00.wav
+env_cabintetopen00.wav
+env_cabintetopen01.wav
+env_cabintetopen08.wav
+env_cabintetopen09.wav
+env_cabinetclose00.wav
+env_cabinetclose02.wav
+env_cabinetclose13.wav
+env_fridgeopen00.wav
+env_fridgeopen01.wav
+env_fridgeopen08.wav
+env_fridgeopen08.wav
+env_fridgeclose00.wav
+env_fridgeclose02.wav
+env_fridgeclose13.wav
+env_fridgegrating01.wav
+env_fridgegrating02.wav
+env_sinkon1.wav
+env_sinkwaterflowing03.wav
+env_sinkoff1.wav
+env_sinkoff2.wav
+env_sinkdrip01.wav
+env_sinkdrip02.wav
+ktch_birdschirp03.wav
+ktch_birdschirp18.wav
+ktch_birdschirp19.wav
+ktch_birdschirping23.wav
+ktch_birdschirping24.wav
+ktch_birdschirping25.wav
+ktch_birdschirping26.wav
+ktch_birdschirping27.wav
+ktch_birdschirping28.wav
+ktch_birdschirping29.wav
+ktch_birdschirping30.wav
+ktch_birdschirping31.wav
+ktch_birdschirping32.wav
+ktch_windowopen.wav
+ktch_windowclose.wav
+
+into this directory, that you create off the game's root directory:
+
+Art\Sprites\Area\Kitchen\Sounds\
+
+If you want to change the sounds' names, then you can either change
+them inside the sounds texts -- search inside the .env file for 
+
+Sounds root path=.
+
+Each instance of "Sounds root path=." is the start of a sounds list,
+a simple little text file.  If you edit them inside the playscene, you
+will need to keep each list the same size as before. 
+
+But if you want to have these little sounds lists external also, 
+first of all you need to change a letter of T.X.T in the List of everything
+that's in the .env -- so that the game doesn't think there are any .txt files
+in there -- and then copy each of the sounds texts into a new file in the hex 
+editor, save them as .txt files:
+
+Sounds_Area_Kitchen.txt
+Sounds_Area_Kitchen_Cabinet.txt
+Sounds_Area_Kitchen_Fridge.txt
+Sounds_Area_Kitchen_Window.txt
+Sounds_Area_Kitchen_Sink.txt
+
+For instance, the sink one will contain
+
+Sounds root path=.
+Art\Sprites\Area\Kitchen\Sounds\env_sinkon1.wav
+Art\Sprites\Area\Kitchen\Sounds\env_sinkwaterflowing03.wav
+Art\Sprites\Area\Kitchen\Sounds\env_sinkoff1.wav
+Art\Sprites\Area\Kitchen\Sounds\env_sinkoff2.wav
+Art\Sprites\Area\Kitchen\Sounds\env_sinkdrip01.wav
+Art\Sprites\Area\Kitchen\Sounds\env_sinkdrip02.wav
+
+and put them in the directory:
+
+\Art\Sprites\Area\Kitchen\
+
+You can then edit each sound's name inside each small text file
+to suit yourself.  If you like, you can list the same sound for
+each .wav or you can put NONE.WAV where you don't want a sound.
+The point is that the game expects to see a certain number of sound
+names and, although it won't crash if you don't have that number,
+it won't necessarily play the sounds that you expect at the correct
+time.  If you do this external sounds-list method of changing T.X.T,
+remember that there are two other small text files also:
+
+Bevent_Kitchen.txt
+About_Kitchen.txt
+
+these are not important, but if you don't have About_Kitchen.txt in
+your \Art\Sprites\Area\Kitchen\ directory, the game will crash when
+you try to see "about area" from the menu bar.  The file would normally
+have one or more numbers in it which point to info from the main game
+resource files, for instance the kitchen one contains
+
+740
+741
+742
+743
+
+but if you have nothing or nonsense in it, the "about" will work but be
+empty.
+
+
+Addendum:
+==========
+
+For Petz 5 hexers, here is a list of which scenes have the icons after 
+the backdrops, the size of the icons in hexadecimal, and in which order 
+they have their bitmaps:
+
+Fantasy Castle: backdrop, night back, icon size hex 06F8
+Wild West: Icon size 07A2, backdrop, night back
+Snowscene: Icon size 06F2, backdrop, night back
+South Seas: Icon size 06F0, backdrop, night back, rainy back
+Haunted Mansion: backdrop, Icon size 06F8
+Nursery: Icon size 06F8, backdrop, night back
+Salon: Icon size 06F8, backdrop, night back, rainy back
+Adoption Centre: backdrop, night back, rainy back, Icon size 06F0, oldadopioncentre
+Backyard: backdrop, night back, rainy back, icon size 06F0
+Beach: backdrop, night back, rainy back, icon size 06F0
+Family Room: backdrop, night back, rainy back, icon size 06F0
+Arabia: backdrop, night back, icon size 06F0
+Asian Temple: backdrop, night back, rainy back, icon size 06F8
+Circus: backdrop, night back, icon size 06F2
+Kitchen: Icon size 06F0, backdrop, night back
+
+
+Enjoy
+
+Carolyn Horn

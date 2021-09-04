@@ -1,0 +1,52 @@
+
+Question:
+=========
+I have a playscene for Petz 4, I would like to convert or at least recreate it in P5.  Help!
+
+
+Answer:
+=======
+If it's an Editor-made scene (as opposed to hex), then you'll need to extract the graphics and 
+sounds using a hex editor (ResHacker won't see 'em).  Then you'll need to either build the
+playscene in the P5 Editor or make a hexed scene with the backdrop, in the same manner as for
+a Petz 3 playscene.  I've got a quick "howto" up at my site for Petz 5 people who want to change
+backdrops and sounds.  If you use the latter method, you'll either have to bear with the fact
+that you can't alter the filmstrips or you'll have to edit them out of the scene.  There are
+some limited possibilities in swapping filmstrip .spr files from other P5 items, but there is
+no way as yet (March 2004) of editing them.
+
+The betting is that several of the graphics are jpegs, although there might also be bitmaps.  
+If they are bitmaps, they will start with BM, if they are jpegs they will start 6 bytes in 
+front of the text string JFIF, and for sounds you're looking for RIFF.
+
+Here's my method for this kind of stripping; there might be a better method, but this is quick 
+for me.  Open a copy of the file in your hex editor.  Search for JFIF.  Position your cursor six 
+bytes in front of that -- those bytes will probably be hex FFD8FFE00010.  Select from there to 
+the end of the file, copy to a new file in the hex editor, save as firstpic.jpg.  Now take that 
+file and search for the next instance of JFIF.  Select from the 6-byte intro in front of that to 
+the end of the file, and cut.  Save; that's your first jpeg.  Now open a new empty file in the 
+hex editor and Paste.  Save as secondpic.jpg.  Repeat the process until you've reached the last 
+JFIF.  Now open the original file and do the same with RIFF to get the sounds.  Finally, there 
+are likely to be bitmaps in there also.  Don't go just searching for BM because there will 
+probably be some of those in the middle of the wav files; you need to be able to identify the 
+real bitmaps.  Now, the Editor-made files actually have a handy way of finding them:  look for 
+.bmp because the Editor lists the url of the file before the file itself.  It does this for the 
+other files in there also, but those are quick 'n' easy to find without it.  Right, the BM 
+which comes shortly after the .bmp is what you want to put your cursor in front of and strip 
+out as shown above for the jpegs.
+
+Eventually you will have all the files chopped out and on your hard drive.  There'll be bits 
+of text at the ends of the files, you can chop them off if you like or just open them in a 
+paint program (or sound editor for wavs) and re-save.
+
+Now you can build your own playscene with those files; enjoy!
+
+On the other hand, if you're asking whether P4 Editor-made files can be simply made to work 
+in P5, my answer is I dunno for sure but I don't believe so.  From the few that I've looked 
+into, P5 Editor-made files seem to have a slightly different structure, and they start with 
+UbiSoft's name instead of P.F.Magic's.
+
+Enjoy!
+
+Carolyn
+

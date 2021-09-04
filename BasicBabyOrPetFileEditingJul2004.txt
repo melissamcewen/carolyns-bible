@@ -1,0 +1,285 @@
+
+
+Basic .pet or .baby file editing.
+=================================
+
+Baby files and pet files are written to by the game, if they are 
+in the "Adopted" directory, every time you run the game.  Stored 
+in these small files are all the information on the shape and colour 
+as well as the personality, mood, and every other item that can 
+change when you play with your adoptees.  Each time the game writes 
+to these little files, there is a tiny possibility that it may corrupt 
+the file.  So _please_ everyone -- keep backup copies of your petz 
+or babyz at every important stage in their lives.  And never, ever 
+hex-edit one without first making a safe copy.
+
+To copy your pet or baby, use Windows Explorer or My Computer to 
+navigate to the game's Adopted Petz or Adopted Babyz directory.  
+Right-click on any files that are in there and drag-and-drop (choosing 
+"copy) to any other directory that you choose on your hard drive.
+
+Okay, now you want to hex edit your pet or baby.  You will perhaps 
+have seen my tutorials so far and been confused by them; don't panic.  
+First off you need to get a hex editor.  This isn't so very hard, 
+there are loads which you can find and download for free from the 
+internet; just go to www.google.com and enter Freeware "Hex Editor" 
+into the search box.  You'll see loads to choose from.  Don't try
+to edit baby or pet files in Reshacker or any other Resouurce Editor;
+petz and babyz are save-game files, not resource files, and cannot be
+edited except with a hex editor.
+
+For pet or baby editing, it's best to get one which has a "calculate 
+checksum" facility.  Hex Workshop has this facility; it's not freeware, 
+it's shareware and available from http://www.bpsoft.com/ There are 
+probably others that can do this also, but Hex Workshop is the one 
+I use at present.
+
+So, when you've got your hex editor, practise using it on unimportant 
+things for a while just so that you get used to it -- exactly as you 
+would with any tool.  Most hex editors' interface are arranged in much 
+the same way; there is a left-hand pane with numbers which start at 
+the top at 00.  This is the "address" area, i.e. it shows you how 
+many bytes down the file your cursor has been placed.  Then there 
+is a wider, central pane; this displays the data that makes up the 
+file which has been opened in the hex editor, and it shows that data 
+in hexadecimal numbers.  Then there is a narrower pane on the right-
+hand side, and this contains the hex editor's best attempt to show 
+all the bytes in the form of ASCII characters.  Some characters have 
+no ASCII equivalent, and for those the hex editor may show dots or 
+spaces or weird characters.
+
+When you've got used to the interface on your hex editor, _then_ 
+you can open a baby or pet file into it and try to do some 
+editing -- although it's best if you start by editing something 
+a little easier, such as clothes for the game.
+
+How to hex edit a .pet/.baby file
+=================================
+
+You can so very easily corrupt a pet or baby unless you know exactly what 
+you're doing.  The problem is that for these files, you have to not 
+only make sure that the file stays exactly the same length, but also 
+that the checksum remains the same.  I repeat what I say above; 
+make sure you keep a backup copy of your precious pet or baby file 
+before you start.
+
+As I say above you need a hex editor, and one that will give you a 
+checksum for a selected area of a file is pretty much essential if 
+you're going to do a lot of changes unless you're good at juggling 
+numbers in your head.  Hex Workshop has a "generate checksum" feature, 
+and if you look around the Internet you will doubtless find other 
+editors which will do the job.  In Hex Workshop you can press the 
+F12 key to get it to calculate checksums; I don't know how other 
+editors do it.
+
+Let's suppose that you want to change the colour of your petz' or 
+babyz' eye.  The part you want to edit starts with pfmagic (in babyz) 
+or p.f.magic (in petz) and continues on with a texture list and then 
+a _load_ of numbers etc.  Where the numbers stop and null bytes start 
+(that's where the hexadecimal-numbers pane shows a lot of 00 numbers) 
+is the end part of the relevant data.  So, the area that you want to 
+find: 
+
+in the babyfile starts very like this:
+
+00006896 | 0000 00F8 0000 0000 0000 0070 666D 6167 | ...........pfmag
+00006912 | 6963 3100 5B54 6578 7475 7265 204C 6973 | ic1.[Texture Lis
+00006928 | 745D 0A5C 6172 745C 6175 746F 6275 696C | t].\art\autobuil
+00006944 | 645C 6861 6972 332E 626D 7020 3120 3235 | d\hair3.bmp 1 25
+
+or in the petfile starts very like this:
+
+00001750 | 00F8 0000 00F8 0000 0000 0000 0070 2E66 | .............p.f
+00001760 | 2E6D 6167 6963 7065 747A 4949 4900 5B54 | .magicpetzIII.[T
+00001770 | 6578 7475 7265 204C 6973 745D 0A5C 6172 | exture List].\ar
+
+What you want to do is to highlight the whole of the pet's text/numbers 
+data section, from .magic1 or .magicpetzIII to the end of the numbers, 
+which will look something like this -- remember, these are only examples, 
+they are a baby and a Scottie pet of mine, your pet or baby's data will 
+be a little different:
+
+in my baby:
+
+00025312 | 3736 3137 3220 2D30 2E32 3736 3137 3220 | 76172 -0.276172 
+00025328 | 2D30 2E39 3230 3537 3520 3437 202D 3120 | -0.920575 47 -1 
+00025344 | 3020 2D31 202D 3120 2D31 2030 0A00 AACC | 0 -1 -1 -1 0....
+00025360 | BB03 B406 0000 0000 0000 0000 0000 0000 | ................
+
+in my pet:
+
+000047F0 | 436F 6C6F 7220 4172 6561 735D 0A31 2034 | Color Areas].1 4
+00004800 | 3820 3020 3120 3320 3420 350A 3220 3334 | 8 0 1 3 4 5.2 34
+00004810 | 2072 616D 7062 6173 653A 2031 2032 0A00 |  rampbase: 1 2..
+00004820 | AACC BB03 CB1A 0000 0000 0000 0000 0000 | ................
+
+and then it's a good idea to calculate the checksum of this section.  
+Make a note of it.  If your hex editor doesn't have that feature, then 
+you're going to have to keep a note of exactly what numbers you change 
+and to what they are changed.
+
+The whole point with this checksum business is that when you change 
+one byte in the .pet or .baby file, you must change another one to 
+compensate.  So if I change a "1" to "4" then I must remove 3 from 
+some other number, "9" to "6" for instance.  And it's very easy to 
+get this wrong; checking the checksum as you go will help keep you 
+on track.
+
+Don't be confused by this business of decreasing or increasing numbers.
+Each individual character is separate and must be compensated for
+separately.  For instance, if you change an eye colour number from 77 
+to 25, you need to compensate by increasing numbers elsewhere by five and 
+two (7-2=5, 7-5=2) _not_ by fifty-two (77-25=52)!
+
+You can of course find what you want in there and edit it in the hex 
+editor itself,  where the eye colour for instance (in my example pet -- 
+it's done the same way in the .baby file) would be, in the [Ballz Info] 
+section, the "2" here:
+
+000028E0 | 0A32 3434 2032 2030 2030 2034 2037 202D | .244 2 0 0 4 7 -
+000028F0 | 3120 310A 3335 2032 3520 3020 3520 3020 | 1 1.35 25 0 5 0 
+
+An explanation: find the [Ballz Info] section by doing a find or search 
+for [Ballz Info] in your hex editor.  Note that the dot in front of the 
+244 is 0A in the hexadecimal pane; this a "line feed" character and 
+shows you that 244 is the first number on this particular line.  The 
+first number in a line is the colour of the ball, and the second number 
+is the outline.  Since you are editing eye colour, what you are really 
+editing is the outline colour of the iris.  Therefore in this example 
+I am changing the "2".
+
+I want my Scottie to have one blue eye, so I change that 2 to 4 
+(hex 34):
+
+000028E0 | 0A32 3434 2034 2030 2030 2034 2037 202D | .244 4 0 0 4 7 -
+
+Now I need to reduce another number by 2.  It needs to be a number 
+that doesn't make any real difference to the look of my pet or baby.  
+So I find the [Paint ballz] section, which you can be pretty sure to 
+find in any normal pet or baby file.  Remember that the numbers in 
+your pet or baby will be a little different from the ones in my 
+example, as of course yours will have different size and colour 
+ballz.  But here's the start of my Scottie's [Paint ballz]:
+
+00002CF0 | 5061 696E 7420 4261 6C6C 7A5D 0A39 2035 | Paint Ballz].9 5
+00002D00 | 3220 3020 302E 3935 3738 3236 2030 2E32 | 2 0 0.957826 0.2
+
+now, 0.957826 is the diameter of the paint ball and is just a fraction 
+of the simple number "1" -- all six of the numbers after the period 
+or point are decimal-place numbers, and the ones near the end can be 
+changed without making any noticeable difference.  So I can reduce the 
+6 at the end of it by 2 -- 0.957826 changes to 0.957824.
+
+Remember the best place always to compensate for altered numbers is in 
+the Paint Ballz section, where no-one is going to notice a change in those 
+long strings of numbers beyond the decimal points.  You can use other
+numbers, such as linez thicknesses or outline colours etc to compensate
+if your file has no Paint Ballz, but you do need to know which numbers
+you're editing.  See the "TIP" section below for more details.
+
+Remember that the petfile has two copies of everything in this 
+text/numbers data section -- two [Ballz Info], for instance.  This 
+is because it uses the data from the lower of the two copies (from 
+the second texture list onwards) for when it is a puppy or kitten, 
+and the upper of the two copies for when it becomes fully adult.
+If you're changing colours, the game will only pay attention to those
+in the adult part, so make sure it's the adult, or first, part that
+you edit.  But for sizes etc it will allow differences between
+the two, so you can make changes between the two if you wish.
+
+Babyz also have two copies, presumably because there was an aborted 
+attempt by P.F.Magic to make babyz grow, and I mention in other,
+advanced "howto"s ways of making the "baby" and "adult" sections work
+the way they do in Petz.
+
+TIP  (don't read this if alternative ideas/solutions confuse you)
+=================================================================
+
+You can "cheat" a little to make it easier, as I have done sometimes when
+a lot of stuff needs editing in a .pet or .baby file, and copy all the 
+data section out into a new file, saved as (for example) "xxx.txt".  Then 
+open it in Wordpad, _not_ Notepad this time because Notepad changes null 
+bytes to spaces and Wordpad doesn't if you remember to save as text.  
+(Of course, if you have downloaded the free Programmers' File Editor, 
+that's even better: http://www.lancs.ac.uk/people/cpaap/pfe )
+
+Voila!  You see it all laid out in columns, and if you compare it to the 
+relevant .lnz file (extracted from the appropriate breedfile as shown 
+in my other tutorials, or taken from my easy-edit kits) you'll see which 
+line of numbers relates to which ball etc.  You can then alter whatever 
+you want -- but remember to keep a note of what you've changed.  And you
+_must_ save as text, because otherwise Wordpad will corrupt the file.
+
+TIP 2 -- when your pet or baby has no Paint Ballz
+==================================================
+
+Actually this is quite advanced hexing, but I put it here for completeness.
+So, what if you want to change its eye or eyelid colour... but the .pet 
+(or .baby) file doesn't HAVE a paintballz section?  where do you change it?  
+Okay...   
+
+That's trickier and requires that you understand what you're looking at 
+inside the file. With complex stuff I copy the .lnz out into a new file in 
+the hex editor, save it as petlnz.txt, and open it in Wordpad -- not Notepad 
+this time, Wordpad. Then I can see it laid out properly and see which number 
+is which, changing numbers carefully. Say you have a pet with 244 eyelid and 
+you want to change to 62:  
+
+We start of course by removing the 4 from the end of 244, and increasing the 
+4 to 6, shifting it to in front of the 2, so that we just have an adjustment 
+of 2 to make to an existing number as well as adding that extra 4 in 
+somewhere:  
+
+[256 Eyelid Color]  
+244 -1  
+
+changed to  
+
+[256 Eyelid Color]  
+62 -1  
+
+Now, in linez, near the bottom we have:  
+
+45 46 9 -1 244 244 100 100 0 0  
+46 47 9 -1 244 244 100 100 0 0  
+47 48 9 -1 244 244 100 100 0 0  
+3 2 5 -1 244 244 95 95 0 0  
+6 2 5 -1 244 244 95 95 0 0  
+
+From the breedfile we see that in Linez the number columns are as follows:  
+startball, endball, fuzz, colour, Lfcolour, Rtcolour, sThick, eThick, and 
+then in the petfile there are two extra columns which usually contain zeroes 
+and which it's wise to leave alone.  
+
+Right! A couple of lines are only 95 thick, so we can add a 4 onto one of
+those and reduce a 5 by 2, so as to get this:  
+
+6 2 5 -1 244 244 95 934 0 0  
+
+which would fix the size and the checksum. All okay as far as it goes, but that
+would produce a dreadful thick line which would "draw" on the screen at certain
+times when the pet moves (remember we've changed the thickness of the line at 
+one end)  
+
+so you want to cut that down and spread it out a bit amongst the other outlines.
+I'd do that by changing the lines thus:  
+
+45 46 9 -1 244 244 100 104 0 0  
+46 47 9 -1 244 244 100 104 0 0  
+47 48 9 -1 244 244 100 103 0 0  
+3 2 5 -1 244 244 95 95 0 0  
+6 2 5 -1 244 244 95 104 0 0  
+
+See? Spreading the load, as it were, by reducing the 934 to 104 and increasing
+three 100s to 104, 104, and 103. It's not as simple as when you've got paint
+Ballz to fool around with, but so long as you bear in mind what exactly it is 
+that you're making larger or smaller, it all works out okay.  
+
+When you don't have [Paint Ballz], it really depends on the individual pet 
+or baby as to what exactly you can change without it looking wrong. 
+
+But I hope that helped
+
+Enjoy
+
+Carolyn Horn

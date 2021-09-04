@@ -1,0 +1,20 @@
+
+
+For those who want to get the picture of their pet out of the pet file:
+
+Open your pet in a hex editor.  Search for the uppercase ASCII letter string:
+
+PFMAGICPETZIII
+
+You are looking for the second instance of this string; the first one is directly above the information about the pet, who owns it, etc.  The second instance is just before the start of the bitmap.  Six bytes after this, you will see an open bracket -- "(" -- and you want to put your cursor directly in fromt of this.  Select from here to the end of the file.  Choose Copy, then open a new file in the hex editor and choose Paste.  Save this new file as xxx.bmp (or whatever you choose), and keep it open in the editor.
+
+Now open into the hex editor the tiny file, "header", that I've included in this zipfile.  Select it all.  Place your cursor at the start of your xxx.bmp, in front of that open bracket symbol, and choose "Paste".  Save.  The file should now open into any graphics program.  If you re-save it from within a graphics program, the unneccessary end part of the file will be stripped off; this is neat but you don't need to do it.
+
+If you're doing this in order to make an Adoption Centre bitmap for a new breed that you're making, you need to select and save out the current Adoption centre bitmap, then open both this and your pet's picture into your paing program and copy the pet's picture into the Adoption centre one.  You will need to use the eyedropper or "pick colour" tool to select the magenta background colour from the original Adoption Centre bitmap, and use the flood fill tool to put that into the dark blue background which came with your pet's picture.  Save.  You will now have a picture which is in the correct format for the Adoption Centre -- which, believe it or not, is still in the old 256 colours format.  It sounds more complicated than it is; it's just a bit less simple than the good old days of being able to use pet2bmp :-)
+
+Have fun
+
+Carolyn Horn
+
+
+

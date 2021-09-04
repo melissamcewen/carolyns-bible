@@ -1,0 +1,398 @@
+How to hex Petz Toys
+====================
+
+Contents: Hex editors, Tinker, Resource Hacker and other useful tools
+          How to make a new Petz 2, 3, 4 or 5 toy from an original.
+          Changing the sounds.
+Addendum: Making sure the game will find your new filmstrip --
+               (How to make the non-overwriting toy use your filmstrip etc, and not the one from the original.)
+
+You need a hex editor! (and useful tools)
+========================================
+
+Tools.
+======
+
+For Toyz editing you want Tinker, available from my "Nicholas' Tools" page.
+Since the magical day when I grabbed a passing programmer, Nicholas, and suggested that
+a filmstrip editor would be handy, the toy (and filmstrip) editing scene has become 
+a relatively easy pleasure instead of the chore that it used to be.  Put simply, what 
+Tinker does is show you the filmstrips that are in your chosen file and then allow you 
+to export them as separate bitmaps and re-import them when you've edited them.  For a
+proper howto on using Tinker, check out the link to Kishi Kat's tutorial from my page
+of Nicholas' tools.  Trust me, this way of extracting and inserting filmstrips is a lot
+quicker and less laborious than doing it all by hand.
+
+To do it my old way by hand, you need a hex editor.  And actually even with more modern
+tools available, such as Resource Hacker and Tinker, it's still necessary at times to have
+a hex editor.  If you don't have one, there are loads of them available for download, and 
+they all do the same basic tasks, although some of them have complicated "bells and 
+whistles" too for power-users.  You can get various freeware ones, such as: 
+AXE VERSION 2.0 or 2.1 downloadable from my site or from Daniel Wright's Odd-Petz site.
+Hexedit, from http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+
+All of them are pretty straightforward to install.  If you have the shortcut to your chosen 
+one on your desktop, you can drag-and-drop any file you want to investigate onto it.  
+They all show files in a similar way: there are three sections, the left-hand one being 
+the "Address" section and containing numbers which show which byte you're looking at 
+(in Hex numbers usually), and it starts at 00.  The middle section is the meat of the 
+thing, being the actual data of the file shown as hexadecimal numbers.  The right-hand 
+side shows the file itself also, but in this case as raw ASCII so that you see it as a 
+mix of weird symbols or dots and text.  Most of the time you will be looking at that 
+right-hand section in order to find or fiddle with bits of text.
+
+You can also use a modern-day Resource Editor such as ResHacker, which a lot of people
+now use for .lnz file editing and inserting or removing bitmaps etc, but be warned -- 
+a lot of people find that Reshacker is frustrating, causing crashes etc, after a file 
+has been edited a few times.
+
+Other useful tools
+------------------
+
+Notepad.exe.  Came with Windows.  Used for altering the CLZ files -- in clothes -- and 
+LNZ files -- in some toyz and in breedz -- which are actually text files.  A grand
+alternative to Notepad.exe is Nicholas' LNZPro.
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package of 
+your choice) to edit texture files and filmstrip frames.
+
+Sndrec32.exe -- comes with Windows, I think -- or preferably some better Wav sound 
+editor. this is if you want to change the sounds which any given toy makes. There are 
+quite a few freeware or shareware Wav file editors on the Internet.  Try 
+http://www.winfiles.com/apps/98/wav.html and see which one suits you best.
+
+A Note about Catz 1 and Dogz 1
+==============================
+
+Catz 1 and Dogz 1 are different and not covered in this "howto", since they do not have
+external .toy files in the same way as the later games, but you _can_ edit toyz for those 
+two games.  If you have Exescope, you can look at Dogzdll.dll or Catzrezx.dll and 
+Catzdll.dll and see the bitmaps in the "resource" section.  You can either export them 
+via ExeScope or you could try in a hex editor.  They are just bitmaps, so you can edit 
+and re-import them. It's a long and fiddly job, but if you're keen on a now look for your 
+game you can do it.
+
+How to make a new Petz 2, 3, 4 or 5 toy from an original.
+===============================================================
+
+There is really not much difference between Petz 2 and Petz 3 or 4 toy files, from the 
+hexer's point of view.  Petz 3 and 4 have the usual "offset byte" (ID number) which Petz 2 
+doesn't use, but that's about it.  Petz 5 has a different type of filmstrip, which makes
+it essential to use "Tinker", the SPR-editing tool for toyz in that game.  I am _not_ going 
+to try suggesting a method for editing Petz 5 SPR files by hand, it's just too complicated, 
+long-winded and dull. Use Tinker instead :-)
+
+Toy files are really very similar in structure to Scene, Breed and Clothes files.  An 
+experienced hexer will see the familiar list of items near the top which looks like this 
+in Petz 3 (using the Auto-Rolling Ball as an example)
+
+..........F.L.H.
+..B.A.L.L._.A.1.
+..B.A.L.L._.A.1.
+_.A.W.A.Y...F.L.
+M...T.X.T...B.E.
+V.E.N.T._.B.A.L.
+
+etc, and in Petz 2
+
+..........B.D.T.
+..B.A.L.L._.A.1.
+0...B.A.L.L._.A.
+1.1...B.H.D...B.
+A.L.L._.A.1...F.
+L.H...B.A.L.L._.
+
+etc.  This is just the List of All That's In The File.  Looking at it, you can see that there 
+are some filmstrips (FLH/FLM files, a LNZ file which is rare in a toy file but very handy, 
+some other TXT stuff (in fact, the screen tips), a BMP (a texture file) which is also rare, 
+and some SOUNDS.)
+
+Most toy files don't have the LNZ; if they don't, and you want to edit those, read my various
+"howto"s on filmstrip editing.  Note that if you're making a new toy for Petz 5, use Tinker, 
+unless you want to have fun with swapping .spr files around (study my mad-scientist .spr-swapping 
+"howto", and my various Petz 5 toyz, if you want to figure that out).
+
+Note that if you're making non-overwriting toyz in Petz 5, you _must_ make changes in the 
+Case NameInfo.lkv file which should be in your game's Resource\Keys directory, and you
+must change the "Case ListSize" string in the Petz 5 entry in the Registry.  See my
+"Getting all the Petz 5 toys in your toycase" howto if you want to do it by hand, or use the
+"Modify Toycase" feature in Tinker if you want the easy method.
+
+We can, of course, alter the on-screen tips and sounds for all Petz 2, 3 and 4 toyz :-)
+
+Of toys which do contain the LNZ, we have (if I recall aright) only the Auto-Rolling Ball, the Fish 
+Bone, the bone, the tug-toy, the milk bottle, and the stick or Driftwood in Petz 3, 4 or 5, and only the 
+Auto-Rolling Ball, milk, bone, stick, and tug-toy  in Petz 2.  The milk's .lnz is in the main resource 
+.dll files as is the bone, stick, and tug-toy, and the fishbone is a "hidden" toy.  I imagine that this 
+scarcity of .lnz-based toyz is why  there was such a limited variety of available hexed toyz until 
+I figured out the filmstrips.  It may be that some of the later, downloadable toyz will have the LNZ 
+section; I haven't looked at them all.
+
+Okay, the first thing you want to do is to make your new toy capable of showing up separately in 
+the toy cupboard.  For Petz 3, 4 and 5 you need to change the "offset number"; it's not as easy to 
+spot as in the breedz, but it's there, just below the list which I've just been talking about.  
+(NOTE: If the file has been altered using a resource editor such as ResHacker, the ID number is 
+not here, instead it will have shifted down to below where you rename the toy.)
+After the list there will be Sprite_XXXX_XX, where the "X"s are basically whatever the name of the 
+toy is, then some null bytes (Hex 00), then <name of toy>.  so in the Fish Bone toy it will look 
+like this:
+
+..S.C.P.........
+....Sprite_Bone_
+F1..............
+....Fish Bone...
+................   <--this is a line of null bytes
+.....'..........   <--this is the line with the offsets.
+
+In the Hex numbers part of the editor, the line with the offsets looks like this:
+
+0000 0000 1927 0000 0100 0000 0000 0000
+
+What you need to change is either the 19 or the 27 to a hex number of your choice.  
+In each official toy, of course, one of these two numbers will be different from that 
+in every other toy.  Yours will have to not clash with any of those if it's to show up.
+
+In case you're not familiar with the way Hex numbers count upwards, here's a table of 
+our normal Decimal system alongside the Hexadecimal:
+
+Dec	Hex
+ 0	00
+ 1	01
+ 2	02
+ 3	03
+ 4	04
+ 5	05
+ 6	06
+ 7	07
+ 8	08
+ 9	09
+ 10	0A
+ 11	0B
+ 12	0C
+ 13	0D
+ 14	0E
+ 15	0F
+ 16	10
+ 17	11
+ 18	12
+etc
+
+If you're still not sure, use the calculator that comes with Windows; choose View > 
+Scientific.  You can then put in a number in Decimal (Dec) and see it converted to Hex.
+
+For Petz 2, Petz 3, Petz 4, Petz 5, you want now to rename your toy.  Either search for the hex 
+string 50004600 or go down to the end of the file and scroll back up until you get to 
+the part which says P.F...M.a.g.i.c.,. .I.n.c and then some null bytes and the name of 
+the toy  twice.  Petz 3 has three dots and a further few letters after that (in the 
+case of the Auto-Rolling Ball it is ...B.a.l.l._.A.1).  Don't touch those yet; the program 
+needs that bit to remain aziz until you make a bunch of other changes.
+
+Replace the letters in the two names with those of your chosen one.  Don't go changing 
+the dots in between the letters -- those _have_ to be null bytes (hex 00).  Now, if the 
+name is longer than the original, you'll have to add the extra letters to the end of the 
+name, with 00 between each letter.  This makes the breedfile longer than it was so, in 
+the area of null bytes after the B.a.l.l._.A.1 (or whatever it is in your chosen original), 
+delete four bytes.  Also, the letter count is wrong.  "Eh?  Wot letter count?"  I hear you 
+cry...  Well, take a look at the three dots between the two names, in the hex section of 
+the editor.  You should see (for the Auto-Rolling Ball), 00 11 00. This tells the program 
+that the name is 17 letters long. You need to tell the program that your name is however 
+many -- say, 18 letters long -- so, change that 11 to 12 -- in front of the first name 
+too! -- and the letter count is correct.
+
+If the new name were to be shorter than the original, you could leave the letter count 
+alone and simply fill in the unused letters with null bytes.
+
+Now, of course, you must raname your .toy file to the same name as you have just entered 
+inside it :-)
+
+This was as far as we could go until I found out how to edit the filmstrips, and if
+you go no further than that I'm afraid all new toys will look like the ones they were 
+hexed from while they're actually on the toy shelf -- but they will at least be separate toys.
+
+You can of course make them look different on the shelf if you change the on-shelf
+filmstrip -- in Petz II, 3 and 4 by editing the filmstrip or in Petz 5 by swapping it
+with some other, as I say above, or by using Tinker.  We have so many choices these days :-)
+To make the change of filmstrip show up properly in a totally separate toy, and not just
+pick up on the same filmstrips as the original, you need to change certain pointers inside
+the toy.  That's what the B.a.l.l._A.1 is a part of.  I go into this sort of thing in my
+filmstrip-editing tutorial, but I'll append the appropriate part to the end of this one
+for your convenience.
+
+For the ones which do have that all-important .LNZ file, you can do a lot of shape, 
+fuzz, and colour altering.
+
+Now, the .lnz section.  In Petz 3 toys you can get there by searching for [Num Ballz].  
+In all three -- Driftwood, Auto-Rolling Ball, and Fish Bone, just select from this point 
+down to PFM_[V2.001] and copy this to a new file in the editor; save it as a .txt file and 
+open it in Notepad to edit.   In the Petz 2 Auto-Rolling Ball, search for [Key Ballz] and 
+select from there down to PFM_[V2.001] and save that as a Notepad-openable textfile.
+
+If you're hexing the toyz which have their .lnz sections in the .dll files, you will 
+either need to extract the toy and put it onto your hard drive in an external directory 
+such as:
+
+\ptzfiles\milk
+
+(where "milk" would be "tugs" or "bone" or "stic" for those other toyz) or insert the 
+.lnz into the toy using ResHacker.
+
+You will see that this text section is very like a breedfile .lnz, but much simpler.  
+As with breedfiles, try changing the [Default Scales], the textures (put your own texture
+in a directory of your choice and redirect the Texture List to it), any [Add Ball] or 
+[Paint Ballz], and of course the colours, fuzz amount and ball sizes in [Ballz Info].  
+Remember, though, that whatever you add or subtract must be compensated for by adding 
+or removing un-needed stuff like spaces.
+
+The Auto-Rolling Ball moves around by itself, so of course the items that you make 
+from it will also move independently, and it has a furfile bitmap inside the .toy file, 
+so you can replace that.  It can either be changed within the .toy file (search for 
+BM and select from there to the start of [Num Ballz], copy it out to a new bitmap, 
+alter it to suit, and re-paste over the original) or you can use external bitmaps 
+(changing the [Texture List] to point to the correct directory and .bmp file).  
+The other toys can of course use any external .bmp you want, as long as you change 
+that [Texture List].
+
+The on-screen tips can be found by searching for:
+
+Sounds root path=
+
+The tips will be directly above that, and you can alter them to suit yourself -- 
+making sure, of course, that you don't change the amount of text.  If your text is 
+shorter, fill out with spaces, and just don't make it longer.
+
+This on-screen tips editing doesn't work for Petz 5 of course, as all you have there
+is a 3-character number to edit.  Altering that to some other number makes it point to
+a different descriptive text inside the Petz 5.exe file.  Altering those three numbers
+to three spaces makes it that no descriptive text appears on screen.
+
+Changing the sounds.
+====================
+
+Directly after the on-screen tips you have the list of sounds, starting from 
+
+Sounds root path=
+
+and continuing on to the last .wav.  If you don't want your new sounds to clash with 
+the ones which are in the original toy file, you had better change the names of the 
+sounds both here and in the listing I mention at the beginning of this tutorial.  
+Just changing one letter of each sound in both lists will do the trick -- for instance, 
+in the Auto-Rolling Ball, you could change ball_move1.wav to ball_movx.wav and, in the 
+other list, B.A.L.L._.M.O.V.E.1 to B.A.L.L._.M.O.V.X.1.
+
+Then, find the sound which you want to change by searching for the correct instance 
+of RIFF -- remember that the upper list, the one which has dots between the letters, 
+shows the sounds in order of appearance.  Highlight from the beginning of the RIFF 
+you want to the beginning of the next one, copy it to a new file, name it <whatever 
+you want>.wav, and edit it in a wave-file editor.  Make sure that it is saved as the 
+same type of wav file -- 22,050 Hz, 4 bit, Mono -- and that it is either exactly the 
+same length in bytes or a few bytes smaller.  If it's smaller, you can add the 
+necessary number of null bytes (hex 00) to it in the hex editor in order to make 
+it up to the correct size.  Once it's correct, copy and paste it back into its original 
+position in the toy file.
+
+If you don't want to make the sounds internal, you can of course put your own in a 
+subdirectory on your hard drive, and make sure that the game finds them by altering 
+the list which starts "Sounds root path=" to point to that directory.  Remember not 
+to make this text section any different in size from the original; if your sound 
+names are shorter, fill out with spaces.  If you want silence instead of a particular 
+sound, replace the name with NONE.WAV.
+
+If you're intending to distribute your new file to others, and you've made the 
+sound files external, it's a good idea to highlight the whole RIFF section inside 
+the .toy file and replace the section with the same number of null bytes (hex 00).  
+This means it will zip up smaller and be quicker to download.
+
+Here's the part from my filmstrip-editing tutorial, to help you see how to make the
+toy really look as you intended.  This example uses the pot of flowers toy.  The
+technique is the same for Petz II, 3, 4, 5 and Babyz:
+
+Making sure the game will find your new filmstrip
+=================================================
+
+Okay, now your toy looks gorgeous but we want to be sure that when it's renamed and 
+renumbered and your original toy (or whatever) is put back into the game it still 
+works as you intended.
+
+You need to change the pointers inside the file, therefore, in order that the game 
+doesn't get confused and (for instance) only produce the original yellow butterflies 
+and not your glorious blues. In those Petz "Blowers" and babyz "Blooms" of mine, I had 
+to change all these references to sprites that are within the .toy file to make sure 
+it picked up the one from my altered file and not the original -- and of course 
+it works both ways, the game gets muddled and picks up whichever it thinks is the 
+correct one.  To illustrate what I'm trying to say, look at this, in the area where 
+you see things like Thickness and Mouselike listed:
+
+000071B0 0700 0044 5844 6F77 6E6C 6F61 6400 0000 ...DXDownload...
+000071C0 5370 7269 7465 5F42 466C 795F 5831 0000 Sprite_BFly_X1..
+000071D0 5370 7269 7465 5F42 6F77 6C5F 4632 0000 Sprite_Bowl_F2..
+000071E0 5573 6564 4600 0000 5573 6564 4500 0000 UsedF...UsedE...
+000071F0 5573 6564 4400 0000 5573 6564 4300 0000 UsedD...UsedC...
+00007200 4772 6F77 4200 0000 4772 6F77 4100 0000 GrowB...GrowA...
+00007210 4772 6162 6265 6446 0000 0000 4772 6162 GrabbedF....Grab
+00007220 6265 6445 0000 0000 4772 6162 6265 6444 bedE....GrabbedD
+00007230 0000 0000 4772 6162 6265 6443 0000 0000 ....GrabbedC....
+00007240 4772 6162 6265 6442 0000 0000 4772 6162 GrabbedB....Grab
+00007250 6265 6441 0000 0000 4177 6179 4600 0000 bedA....AwayF...
+
+The bowl sprite name had to be changed from the normal flower's Sprite_Bowl_F1 to 
+Sprite_Bowl_F2 (or F2 is what I chose, anyway).  I left the X1 alone because that 
+doesn't get affected in this instance. Then, a bit lower down you get more references 
+to Bfly and Bowl sprites, which need to be changed; I changed the Bfly ones here 
+because that affects the colour of the butterfly that appears:
+
+00007700 2E3F 4156 4669 6C6D 7374 7269 7040 4000 .?AVFilmstrip@@.
+00007710 5C41 7274 5C53 7072 6974 6573 5C54 6F79 \Art\Sprites\Toy
+00007720 7A5C 426F 776C 5F46 325C 4246 6C79 5F4F z\Bowl_F2\BFly_O
+00007730 322E 666C 6D00 0000 5C41 7274 5C53 7072 2.flm...\Art\Spr
+00007740 6974 6573 5C54 6F79 7A5C 426F 776C 5F46 ites\Toyz\Bowl_F
+00007750 315C 4246 6C79 5F59 322E 666C 6D00 0000 1\BFly_Y2.flm...
+
+Then of course there's the List, it needs to be changed or the game will crash because 
+it can't find the renamed sprite.  I didn't bother to change the pointers to the sounds, 
+as I used the same ones as were in the Flowers.  It would be possible to change the sounds, 
+of course, by altering the sounds list pointer to a different one and having those sounds 
+external to the file.
+
+00008300 0700 4200 4600 4C00 5900 5F00 4F00 3200 ..B.F.L.Y._.O.2.
+00008310 0700 4200 4600 4C00 5900 5F00 5900 3200 ..B.F.L.Y._.Y.2.
+00008320 0700 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008330 0C00 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008340 5F00 4100 5700 4100 5900 0300 4600 4C00 _.A.W.A.Y...F.L.
+00008350 4D00 0300 5400 5800 5400 0E00 4200 4500 M...T.X.T...B.E.
+00008360 5600 4500 4E00 5400 5F00 4200 4F00 5700 V.E.N.T._.B.O.W.
+00008370 4C00 5F00 4600 3200 0E00 5300 4F00 5500 L._.F.2...S.O.U.
+00008380 4E00 4400 5300 5F00 4200 4F00 5700 4C00 N.D.S._.B.O.W.L.
+00008390 5F00 4600 3100 0000 0000 0000 0000 0000 _.F.1...........
+000083A0 0200 0000 5370 7269 7465 5F42 6F77 6C5F ....Sprite_Bowl_
+000083B0 4632 0000 0000 0000 0000 0000 0000 0000 F2..............
+000083C0 0000 0000 466C 6F77 6572 7300 0000 0000 ....Flowers.....
+000083D0 0000 0000 0000 0000 0000 0000 0000 0000 ................
+000083E0 0000 0000 1F30 0000 0300 0000 5370 7269 .....0......Spri
+
+And finally, this, down in the naming section (once again, the game will likely crash 
+if this hasn't been changed to exactly the same as the stuff above:
+
+00781088 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781104 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781120 0700 4200 6F00 7700 6C00 5F00 4600 3200 ..B.o.w.l._.F.2.
+
+Check out the similar areas in your files, change the names of any sprites or bitmaps that 
+might end up "clashing", and eureka!  Your toy will retain the colours you chose for it 
+and not pick up the colours in the original toy.
+
+Finally of course, for the Petz 3, Petz 4 and babyz games, your new toy or item of clothing 
+will need to have its own ID number (what we all call the Offset Byte).   This comes below 
+the list shown above, about 24 bytes after the word "Flowers" on its own, and here in my 
+Blowers for Petz 4 you'll see that the number I chose was 1F30:
+
+000083E0 0000 0000 1F30 0000 0300 0000 5370 7269 .....0......Spri
+000083F0 7465 5F42 466C 795F 5831 0000 0000 0000 te_BFly_X1......
+00008400 0000 0000 0000 0000 0000 0000 4275 7474 ............Butt
+00008410 6572 666C 7900 0000 0000 0000 0000 0000 erfly...........
+
+Enjoy!
+
+Carolyn
+

@@ -1,0 +1,254 @@
+
+NOTE:  If you haven't had any experience at all with hexing, in particular with hexing baby or pet files, please read my tutorial BasicBabyOrPetEditing  I shall not repeat it here, as advanced hexers should know how to follow this "howto".  I will simply repeat as always -- make sure you have kept safe a copy of the file that you are trying to edit.
+
+Included in this "howto" are:
+
+Giving Babyz Belly-buttons
+Removing digits to make a lower eye-colour number in a pet
+Adding digits to make a higher eye-colour number
+
+(The eye colour stuff would work for babyz also, it's just that the examples are for petz.)
+
+Giving babyz Belly-buttons
+--------------------------
+
+If you want to adopt a new babyz, but you want it to have a bellybutton, look at the .lnz section of your choice and go to [Paint Ballz].  Do _not_ bother with the bellybutton in [Add Ball]; the one you want is in [Paint Ballz].  You'll see something that looks very like this:
+
+#2.Y;- Bellybutton- outy
+#1.Z;- Bellybutton- inny
+;4, 10      0, .4, -1  45  244   0  2  -1  -1 0, 0
+##
+
+sometimes it also has this, which you can ignore:
+
+; took out bellybutton temporarily, it's interfering with clothes
+
+now, remove the semi-colon that's in front of the 4:
+
+4, 10     0, .4, -1  45  244   0  2  -1  -1 0, 0
+
+and to make sure that you will get the belly-button, comment-out the "#" lines (which are actually variations).  You do this by putting a semi-colon in front of each -- and if you are using a hex editor as opposed to a Resource Hacker, make sure you compensate for the extra bytes by removing two spaces (I chose the ones in front of the two words Bellybutton).  So now I have:
+
+;#2.Y;-Bellybutton- outy
+;#1.Z;-Bellybutton- inny
+4, 10     0, .4, -1  45  244   0  2  -1  -1 0, 0
+;##
+
+The next baby you adopt using that .lnz will have a bellybutton.
+
+If you want to add a bellybutton to an already-adopted baby, it's a bit more complicated.  You have to add a line of code to the [Paint Ballz] area and remove other stuff to compensate.  
+
+What you want to add is
+
+4 10 0 .4 -1 45 244 0 2 -1 -1 0  and you need to add a hex byte 0A (line feed) to separate it from the other lines of code.  Once you've added it, the file will be 32 bytes too large. Delete those 32 bytes from the long numbers in the [Paint Ballz] area.  
+
+Here's an example of how I did it, using a baby of mine called Gerri.  Remember, your own babyz' data will be different:
+
+Her [Paint Ballz] area before I started:
+
+[Paint Ballz]
+0 -15 0.707107 0 -0.707107 226 -1 0 -1 -1 -1 0
+4 -8 0.707107 0 -0.707107 226 -1 0 -1 -1 -1 0
+4 -8 -0.228086 -0.608229 -0.760286 226 -1 0 -1 -1 -1 0
+4 -8 -0.980581 0.196116 0 226 -1 0 -1 -1 -1 0
+4 -8 0.298142 0.596285 -0.745356 226 -1 0 -1 -1 -1 0
+4 -8 0.55689 -0.238667 0.795557 226 -1 0 -1 -1 -1 0
+4 -8 -0.571548 0.0816497 0.816497 226 -1 0 -1 -1 -1 0
+4 -8 -0.286039 0.0953463 -0.953463 226 -1 0 -1 -1 -1 0
+4 -8 0.544949 -0.3114 -0.778499 226 -1 0 -1 -1 -1 0
+4 -8 -0.154303 -0.617213 0.771517 226 -1 0 -1 -1 -1 0
+8 -15 0 0.371391 -0.928477 226 -1 0 -1 -1 -1 0
+8 -15 0.870388 0.348155 -0.348155 226 -1 0 -1 -1 -1 0
+8 35 0.19518 0.09759 -0.9759 46 -1 0 -1 -1 -1 0
+9 -15 -0.650945 0.390567 -0.650945 226 -1 0 -1 -1 -1 0
+9 35 0 0.0995037 -0.995037 46 -1 0 -1 -1 -1 0
+63 30 0.16169 -0.808452 -0.565916 12 -1 6 -1 -1 0 0
+63 60 0.0995037 -0.995037 0 12 -1 6 -1 -1 0 0
+63 80 0.0816497 -0.571548 0.816497 12 -1 6 -1 -1 0 0
+63 60 -0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+63 60 0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+71 -15 0.707107 0.707107 0 226 -1 0 -1 -1 -1 0
+72 -15 0 0.707107 -0.707107 226 -1 0 -1 -1 -1 0
+94 -20 0 0.514496 0.857493 226 -1 0 -1 -1 -1 0
+95 -20 0 -0.847998 0.529999 226 -1 0 -1 -1 -1 0
+
+Many of the numbers in there are "chicken pox" or similar spots, and you shouldn't try to remove those -- the game will probably take a different paint ball and hide it until the spots are due if you do -- and the rest (the lines starting with 63) are hair on the head.  Most babyz will have hair-on-the-head paint ballz there, and some hexies will have some body "paint" too.  Anyway the point is, you don't want to  remove the whole of a line of code, you just want to remove odd bytes where it doesn't matter, and that means taking away individual numbers from the end of the long decimal numbers such as 0.707107 etc.  You can remove minus signs too, from the chicken pox spots, because who cares where on the baby the spots appear?  So you can find and delete equivalents of all the numbers and the minus-signs in 4 10 0 .4 -1 45 244 0 2 -1 -1 0.  But that still leaves you with 11 spaces, one period and a line feed (hex 0A).  Well, what I did with Gerri was, I noted the checksum before I started and then removed thirteen numbers 0 from the tail ends of those long numbers.  So I now had this:
+
+[Paint Ballz]
+0 -15 0.777 0 0.777 226 -1 0 -1 -1 -1 0
+4 -8 0.777 0 0.777 226 -1 0 -1 -1 -1 0
+4 -8 -0.22886 0.689 -0.76286 226 -1 0 -1 -1 -1 0
+4 -8 -0.9881 0.196116 0 226 -1 0 -1 -1 -1 0
+4 -8 0.29812 0.596285 -0.75356 226 -1 0 -1 -1 -1 0
+4 -8 0.55689 -0.238667 0.795557 226 -1 0 -1 -1 -1 0
+4 -8 -0.57158 0.81697 0.81697 226 -1 0 -1 -1 -1 0
+4 -8 -0.286039 0.953463 -0.953463 226 -1 0 -1 -1 -1 0
+4 -8 0.544949 -0.3114 -0.778499 226 -1 0 -1 -1 -1 0
+4 -8 -0.15433 -0.617213 0.771517 226 -1 0 -1 -1 -1 0
+8 -15 0 0.371391 -0.928477 226 -1 0 -1 -1 -1 0
+8 -15 0.87388 0.348155 -0.348155 226 -1 0 -1 -1 -1 0
+8 35 0.19518 0.9759 -0.9759 46 -1 0 -1 -1 -1 0
+9 -15 -0.650945 0.390567 -0.650945 226 -1 0 -1 -1 -1 0
+9 35 0 0.0995037 -0.995037 46 -1 0 -1 -1 -1 0
+63 30 0.16169 -0.808452 -0.565916 12 -1 6 -1 -1 0 0
+63 60 0.0995037 -0.995037 0 12 -1 6 -1 -1 0 0
+63 80 0.0816497 -0.571548 0.816497 12 -1 6 -1 -1 0 0
+63 60 -0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+63 60 0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+71 -15 0.707107 0.707107 0 226 -1 0 -1 -1 -1 0
+72 -15 0 0.707107 -0.707107 226 -1 0 -1 -1 -1 0
+94 -20 0 0.514496 0.857493 226 -1 0 -1 -1 -1 0
+95 -20 0 -0.847998 0.529999 226 -1 0 -1 -1 -1 0
+4 10 0 .4 -1 45 244 0 2 -1 -1 0
+
+On calculating the difference in the checksum before and after my changes, I found I needed to make up 216, which I could do by increasing 27 of the numbers by 8.  So I changed 27 numbers 1 to 9:
+
+[Paint Ballz]
+0 -15 0.777 0 0.777 226 -1 0 -1 -1 -1 0
+4 -8 0.777 0 0.777 226 -1 0 -1 -1 -1 0
+4 -8 -0.22886 0.689 -0.76286 226 -1 0 -1 -1 -1 0
+4 -8 -0.9889 0.996996 0 226 -1 0 -1 -1 -1 0
+4 -8 0.29892 0.596285 -0.75356 226 -1 0 -1 -1 -1 0
+4 -8 0.55689 -0.238667 0.795557 226 -1 0 -1 -1 -1 0
+4 -8 -0.57958 0.89697 0.89697 226 -1 0 -1 -1 -1 0
+4 -8 -0.286039 0.953463 -0.953463 226 -1 0 -1 -1 -1 0
+4 -8 0.544949 -0.3994 -0.778499 226 -1 0 -1 -1 -1 0
+4 -8 -0.95433 -0.697293 0.779597 226 -1 0 -1 -1 -1 0
+8 -15 0 0.379399 -0.928477 226 -1 0 -1 -1 -1 0
+8 -15 0.87388 0.348955 -0.348955 226 -1 0 -1 -1 -1 0
+8 35 0.99598 0.9759 -0.9759 46 -1 0 -1 -1 -1 0
+9 -15 -0.650945 0.390567 -0.650945 226 -1 0 -1 -1 -1 0
+9 35 0 0.0995037 -0.995037 46 -1 0 -1 -1 -1 0
+63 30 0.96969 -0.808452 -0.565996 12 -1 6 -1 -1 0 0
+63 60 0.0995037 -0.995037 0 12 -1 6 -1 -1 0 0
+63 80 0.0896497 -0.579548 0.896497 12 -1 6 -1 -1 0 0
+63 60 -0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+63 60 0.666667 -0.666667 0.333333 12 -1 6 -1 -1 0 0
+71 -15 0.707107 0.707107 0 226 -1 0 -1 -1 -1 0
+72 -15 0 0.707107 -0.707107 226 -1 0 -1 -1 -1 0
+94 -20 0 0.514496 0.857493 226 -1 0 -1 -1 -1 0
+95 -20 0 -0.847998 0.529999 226 -1 0 -1 -1 -1 0
+4 10 0 .4 -1 45 244 0 2 -1 -1 0
+
+I saved, ran the game, and hey presto!  My Gerri has a belly-button!
+
+I include a copy of Gerri both before and after the belly-button change so that you can see for yourselves what's been changed.
+
+Removing digits to make a lower eye-colour number in a pet:
+-----------------------------------------------------------
+
+These are just examples, of course, your own pet's data will be different.  And you will remember to have a backup of the pet before you start, won't you?
+
+Wally's original eyes are number 5:  
+
+00009328 3420 3020 3120 3220 3520 3020 310A 3234 4 0 1 2 5 0 1.24
+00009344 3420 3520 3020 3020 3820 3132 202D 3120 4 5 0 0 8 12 -1 
+00009360 2D31 0A32 3434 2035 2030 2030 2038 2031 -1.244 5 0 0 8 1
+00009376 3220 2D31 202D 310A 3935 2032 3434 2030 2 -1 -1.95 244 0
+
+
+I want them to be 65.
+
+So I add a 6 in front of each eye's outline colour 5:
+
+00009328 3420 3020 3120 3220 3520 3020 310A 3234 4 0 1 2 5 0 1.24
+00009344 3420 3635 2030 2030 2038 2031 3220 2D31 4 65 0 0 8 12 -1
+00009360 202D 310A 3234 3420 3635 2030 2030 2038  -1.244 65 0 0 8
+00009376 2031 3220 2D31 202D 310A 3935 2032 3434  12 -1 -1.95 244
+
+Now, down in Paint Ballz this particular pet happens to have a couple of numbers 6 that I can remove from the end of long numbers:
+
+00010192 3120 3631 200A 3331 2036 3220 0A5B 5061 1 61 .31 62 .[Pa
+00010208 696E 7420 4261 6C6C 7A5D 0A31 3620 3530 int Ballz].16 50
+00010224 2030 2030 2E39 3537 3832 3620 302E 3238  0 0.957826 0.28
+00010240 3733 3438 2037 3520 2D31 2030 202D 3120 7348 75 -1 0 -1 
+00010256 2D31 202D 3120 310A 3137 2035 3020 3020 -1 -1 1.17 50 0 
+00010272 302E 3935 3738 3236 2030 2E32 3837 3334 0.957826 0.28734
+
+So I just remove a 6 from 0.957826 and another from the next 0.957826:
+
+00010192 3120 3631 200A 3331 2036 3220 0A5B 5061 1 61 .31 62 .[Pa
+00010208 696E 7420 4261 6C6C 7A5D 0A31 3620 3530 int Ballz].16 50
+00010224 2030 2030 2E39 3537 3832 2030 2E32 3837  0 0.95782 0.287
+00010240 3334 3820 3735 202D 3120 3020 2D31 202D 348 75 -1 0 -1 -
+00010256 3120 2D31 2031 0A31 3720 3530 2030 2030 1 -1 1.17 50 0 0
+00010272 2E39 3537 3832 2030 2E32 3837 3334 3820 .95782 0.287348 
+
+And eureka, Wally has brown eyes instead of purple.
+
+That was particularly easy because Wally had a pair of numbers 6 that could be removed from the Paint Ballz, but you just need to remove any number from the tail-end of a long Paint Ball number and then adjust the sizes of other parts of the long numbers so as to make the checksum the same.
+
+Adding digits to make a higher eye-colour number
+------------------------------------------------
+
+Witchy's original eyes are number 187:
+
+00012960 3020 3820 3020 360A 3335 2032 3434 2030 0 8 0 6.35 244 0
+00012976 2032 2030 2038 2030 2035 0A32 3434 2031  2 0 8 0 5.244 1
+00012992 3837 2030 2030 2033 2039 202D 3120 2D31 87 0 0 3 9 -1 -1
+00013008 0A32 3434 2031 3837 2030 2030 2033 2039 .244 187 0 0 3 9
+00013024 202D 3120 2D31 0A33 3520 2D31 2030 2030  -1 -1.35 -1 0 0
+
+I want them to be number 2.  To show you the "before" and "after", I enclose two versions of the same pet, one of which has been renamed "Wicthy".  The first stage was to remove the 1 from each iris outline:
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2038  2 0 8 0 5.244 8
+00012992 3720 3020 3020 3320 3920 2D31 202D 310A 7 0 0 3 9 -1 -1.
+00013008 3234 3420 3837 2030 2030 2033 2039 202D 244 87 0 0 3 9 -
+00013024 3120 2D31 0A33 3520 2D31 2030 2030 202D 1 -1.35 -1 0 0 -
+
+Then scrolling down to paint ballz, where Witchy had this:
+
+00013840 200A 3331 2036 3220 0A5B 5061 696E 7420  .31 62 .[Paint 
+00013856 4261 6C6C 7A5D 0A31 2037 3520 2D30 2E36 Ballz].1 75 -0.6
+00013872 3736 3731 3620 302E 3239 3030 3231 2030 76716 0.290021 0
+00013888 2E36 3736 3731 3620 3335 202D 3120 3220 .676716 35 -1 2 
+
+
+I changed it so that two of those numbers have an extra 1 on the end (hex 31):
+
+00013840 200A 3331 2036 3220 0A5B 5061 696E 7420  .31 62 .[Paint 
+00013856 4261 6C6C 7A5D 0A31 2037 3520 2D30 2E36 Ballz].1 75 -0.6
+00013872 3736 3731 3631 2030 2E32 3930 3032 3131 767161 0.2900211
+00013888 2030 2E36 3736 3731 3620 3335 202D 3120  0.676716 35 -1 
+
+Right, now I want to remove the 8 from 87 on each iris outline:
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2037  2 0 8 0 5.244 7
+00012992 2030 2030 2033 2039 202D 3120 2D31 0A32  0 0 3 9 -1 -1.2
+00013008 3434 2037 2030 2030 2033 2039 202D 3120 44 7 0 0 3 9 -1 
+
+and I want to change the 7 (hex 37) to a 2 (hex 32):
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2032  2 0 8 0 5.244 2
+00012992 2030 2030 2033 2039 202D 3120 2D31 0A32  0 0 3 9 -1 -1.2
+00013008 3434 2032 2030 2030 2033 2039 202D 3120 44 2 0 0 3 9 -1 
+
+And finally I make up for the two removed numbers 8 and for the reduction of 7 to 2 in Paint Ballz, where I add an 8 two two of the long numbers and then I change two numbers 1 to 6.  Where the Paint ballz section did look like this:
+
+00013840 3631 200A 3331 2036 3220 0A5B 5061 696E 61 .31 62 .[Pain
+00013856 7420 4261 6C6C 7A5D 0A31 2037 3520 2D30 t Ballz].1 75 -0
+00013872 2E36 3736 3731 3620 302E 3239 3030 3231 .676716 0.290021
+00013888 2030 2E36 3736 3731 3620 3335 202D 3120  0.676716 35 -1 
+00013904 3220 2D31 2037 2030 2030 0A33 2034 3520 2 -1 7 0 0.3 45 
+00013920 3020 2D30 2E36 2030 2E38 2031 3520 2D31 0 -0.6 0.8 15 -1
+00013936 2033 202D 3120 3520 3020 300A 3132 2036  3 -1 5 0 0.12 6
+00013952 3520 302E 3637 3637 3136 2030 2E36 3736 5 0.676716 0.676
+00013968 3731 3620 302E 3239 3030 3231 2031 3520 716 0.290021 15 
+
+I now have this:
+
+00013840 3331 2036 3220 0A5B 5061 696E 7420 4261 31 62 .[Paint Ba
+00013856 6C6C 7A5D 0A31 2037 3520 2D30 2E36 3736 llz].1 75 -0.676
+00013872 3731 3631 2030 2E32 3930 3032 3131 2030 7161 0.2900211 0
+00013888 2E36 3736 3736 3638 2033 3520 2D31 2032 .6767668 35 -1 2
+00013904 202D 3120 3720 3020 300A 3320 3435 2030  -1 7 0 0.3 45 0
+00013920 202D 302E 3620 302E 3820 3135 202D 3120  -0.6 0.8 15 -1 
+00013936 3320 2D31 2035 2030 2030 0A31 3220 3635 3 -1 5 0 0.12 65
+00013952 2030 2E36 3736 3736 3638 2030 2E36 3736  0.6767668 0.676
+00013968 3731 3620 302E 3239 3030 3231 2031 3520 716 0.290021 15 
+
+I check that the checksum and size of file are the same, and eureka!  A pet with green eyes instead of red.
+
+Hope that helps
+
+Carolyn

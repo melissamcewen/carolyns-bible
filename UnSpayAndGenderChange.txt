@@ -1,0 +1,179 @@
+
+NOTE:  If you haven't had any experience at all with hexing, in particular 
+with hexing baby or pet files, please read my tutorial BasicBabyOrPetEditing  
+I shall not repeat it here, as advanced hexers should know how to follow this 
+"howto".  I will simply repeat as always -- make sure you have kept safe a 
+copy of the file that you are trying to edit.
+
+Un-neutering a spayed pet and changing gender
+=============================================
+
+This could be handy for anyone who adopted a neutered pet and wants to breed 
+from it, or for anyone who has trouble getting a particular gender (e.g. male 
+Calico) of pets to come out of the Adoption Centre.  
+
+What you need to look for, either when un-neutering a pet or when changing a 
+male to a female etc, is one byte which is set to "01" when it needs to be 
+"00" or vice versa.  Sounds like a tall order, but in fact it's not so hard 
+to find.  Look for 
+
+p.f.magicpetz
+
+You want the third instance of this in the petfile.  Please note that the 
+example which I am showing you here is from one or two particular pets.  Your 
+pets may have the p.f.magic positioned slightly differently.  The thing to 
+do is _not_ look at my example and think that you have to look fo something 
+which is identical; you have to look for p.f.magicpetz and then you have to 
+work with the bytes which are between III and YALP.
+
+
+So, bearing in mind the way things can look different in different editors, 
+here's the sort of thing you want to see:
+
+For female, un-neutered, the second byte after III is 01 and the third is 00:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+Male un-neutered, second byte is 00 and thrid is 00:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+Female neutered, second byte is 01 and third is 01:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+male neutered, second byte is 00 and third is 01:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+To recap, it's all in those 8 bytes directly after the III.  If the second 
+byte is 01, it's a female; if 00, a male.  If the third byte is 01, it's 
+spayed; if 00, not spayed.  You can of course change these.  But remember -- 
+this is a petfile, so you have to keep the checksum the same.  What you can 
+do, if you're not just changing a neutered male to a non-neutered female or 
+something else that just swaps an 01 and 00, is scroll up until you get to 
+the text/numbers data, where there are a bunch of Paint Ballz numbers, and 
+reduce or increase a number there by the amount you increased or decreased 
+the bytes in the neuter/gender area.  If this confuses you, see my 
+Basic pet-editing "howto".
+
+Changing the pink or blue line around pet picture in Family Tree
+================================================================
+
+So, you've changed the gender and now your pet has the wrong colour outline
+in the family tree.  No worries...
+
+First make a backup copy of your pet of course :-)  Then open the petfile in 
+the hex editor and search for PfMaGiCpEtZIII
+
+This is where it gets a bit tricky to explain...  you want the part which 
+lies after the name of the adopter.  I can best explain by showing an extract 
+from one of my pets.  Remember that the positioning of PfMaGiCpEtZIII and most 
+of the bytes in this area will be different to varying degrees in your own 
+particular pet:
+
+00007740 0000 0000 5066 4D61 4769 4370 4574 5A49 ....PfMaGiCpEtZI
+00007750 4949 00FF 689C 3BF8 A379 91DE BF1B 41A3 II..h.;..y....A.
+00007760 2886 B9B0 1766 0405 0000 0054 6967 656F (....f.....Tigeo
+00007770 0500 0000 5461 6262 7907 0000 0043 6172 ....Tabby....Car
+00007780 6F6C 796E F15D 253E 0000 0000 0100 0000 olyn.]%>........
+00007790 0100 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+000077A0 0000 E75D 253E 0000 0000 00FF 9E01 00E7 ...]%>..........
+000077B0 5D25 3EE7 5D25 3E00 0000 0000 0000 0000 ]%>.]%>.........
+000077C0 0000 0000 5046 4D41 4749 4350 4554 5A49 ....PFMAGICPETZI
+000077D0 4949 0088 3500 0028 0000 006C 0000 0050 II..5..(...l...P
+
+You can see that there's the name of the pet -- Tigeo -- then the breed -- 
+Tabby -- then the adopter's name -- Carolyn.  Right, this is a male pet and 
+I want to change it to female _and_ have the blue line changed to pink.  
+At the moment I cannot see the pet in the family tree because it's been 
+adopted from the Adoption Centre, so I want to change the colour of the 
+line _and_ I want to be able to check that it worked.  Well, see how there 
+are two instances of hex number 01 between the two instances of Carolyn:
+
+6F6C 796E F15D 253E0000 0000 0100 0000
+0100
+
+It's the second of those that's the colour.  Normally it's set to 01 where 
+it's blue and 03 where it's pink.  It appears that 00 is also blue and 02 
+is pink, although I haven't seen any pets which have those numbers.  So 
+what I want to do is to change that second 01 to 02 or 03 to make it pink, 
+and I want to reduce some other byte by 1 or 2 to make up for the extra.  
+I chose to change one letter of the first instance of my name; probably 
+you can change some other number if you're fussy about the name.  Okay, 
+that works -- the pet comes out fine.  But because it's an adoption-centre 
+pet, I can't check the outline yet in the profile.  Being impatient, I don't 
+want to wait until it becomes a parent, so I change the "number of generations" 
+byte, which is the first of those two 01 bytes, to 02 -- and change that 
+letter of my name again.  So now the area looks like this:
+
+00007780 6F6C 796B F15D 253E 0000 0000 0200 0000 olyk.]%>........
+00007790 0300 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+
+The pet comes out fine and I can check that the outline is indeed now pink 
+in the Family Tree.  If I wanted to be correct, I could now change the number 
+of generations back to 01 and the last letter of my name to l.  The finished 
+pet would then look like this:
+
+00007780 6F6C 796C F15D 253E 0000 0000 0100 0000 olyl.]%>........
+00007790 0300 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+
+And there you have it; correctly-outlined pictures for your Family Tree.
+
+Okay, the above "howto" just shows the first gen, but this outline thing works 
+for pets of more than one generation;  the byte is always in the same position 
+relative to the pet (and owner)'s name in the Family Tree. Here's an 8th gen 
+one I did for somebody:
+
+the byte to change was there, just not quite as easy to spot as in the example 
+I gave -- it's a little confusing because the second instance of your name isn't 
+right there (it's at the end of the family tree to mark the fact that you are 
+the current owner).  Also, the "number of generations" byte is hex 19.  Where 
+you need to look is directly after the owner's name that comes after the pet's 
+name and breed.  Here's how she looked before the change:
+
+00006450 0000 0000 5066 4D61 4769 4370 4574 5A49 ....PfMaGiCpEtZI
+00006460 4949 0002 F234 3C75 160F AA10 20D7 1197 II...4u<.... ...
+00006470 3300 045A 83D0 6D08 0000 0050 656E 6368 3..Z..m....Pench
+00006480 616E 7406 0000 0043 616C 6963 6F08 0000 ant....Calico...
+00006490 004B 7269 7374 696E 6100 0000 0097 89BB .Kristina.......
+000064A0 3C19 0000 0000 0129 B9D9 9DF7 9ED5 11A2 <......)........
+000064B0 08FB EDC5 0C93 2A07 0000 0055 696E 6B61 ......*....Uinka
+000064C0 6C61 0900 0000 416C 6C65 7920 4361 7407 la....Alley Cat.
+
+Now, if in the hex section you count 9 bytes from the end of Kristina 
+(hex 61 being the hex number for a of course), you'll see hex 19:
+
+6100 0000 0097 89BB
+3C19
+
+Then, count four bytes beyond that:
+
+3C19 0000 0000
+
+And that last 00 is the byte which tells the game that your pet's picture has a 
+blue outline.  Change that to 02 and it will be pink. You'll have to reduce 
+something else by 2; in the case of this pet, I scrolled up to the trusty 
+[Paint Ballz] section and found this:
+
+00004390 2030 2030 2E39 3537 3832 3620 302E 3238  0 0.957826 0.28
+
+in which I changed a 6 to a 4 to get this:
+
+00004390 2030 2030 2E39 3537 3832 3420 302E 3238  0 0.957824 0.28
+
+Saved the pet, and eureka!  Pink outline.  
+
+So, this technique should work for any pet; 9 bytes after the end of the owner's 
+(or adopter's) name is the generation number and 4 bytes after that is the outline colour.
+
+Cheers
+
+Carolyn
+
+
+

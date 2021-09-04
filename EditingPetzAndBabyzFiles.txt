@@ -1,0 +1,413 @@
+
+NOTE:  If you haven't had any experience at all with hexing, in particular with hexing baby or pet files, please read my tutorial BasicBabyOrPetEditing  I shall not repeat it here, as advanced hexers should know how to follow this "howto".  I will simply repeat as always -- make sure you have kept safe a copy of the file that you are trying to edit.
+
+Advanced Editing
+================
+
+None of this is any use at all, by the way, for rescuing pets that look okay but which the game says is "corrupt"; the problem with such files is that you can't know what was changed to make the game think it's corrupted and so you can't change it back again.  I repeat once more -- always, always keep backup copies of your pets or babyz at all important stages of their lives.
+
+Note: I've found and figured out many little useful editable points in babyz and petz.  One thing still left to be found is what bytes "unstick" a pregnant mum which has got stuck.  There are however, perfectly good unsticking methods, all of which are easy to find details of on the Internet and all of which involve using the computer's clock (you will find it in the systray, usually at the bottom right of the screen).  The Petz 5 helpfile warns against using this clock method for unsticking pregnant pets, but so far there are no reports of any problems that I've heard as long as the clock is always set _forward_ and never _back_ while the mother is still pregnant.
+
+Anyway, on with the various special items that can be edited:
+
+Making the babyz Walk
+=====================
+
+It is possible to edit the baby file to make it a "walker", but for this you need to find and edit a byte in the binary part of the baby file.  Please note that you need to take my example as precisely that; it will not look _exactly_ like the same area of your baby. I can only point you to the general area and hope that you can see what I see.
+
+In some babyz it looks like this:
+
+00007520 0100 0000 0900 0000 0000 0000 0000 0000 ................
+00007530 0000 0000 0000 0000 DA0B 0000 0000 0000 ................
+00007540 0011 0000 00F1 FFFF FFF8 FFFF FFF8 FFFF ................
+00007550 FFF8 FFFF FFF8 FFFF FFF8 FFFF FFF8 FFFF ................
+00007560 FFF8 FFFF FFF8 FFFF FFF8 FFFF FFF1 FFFF ................
+00007570 FFF1 FFFF FFF1 FFFF FFF1 FFFF FFF1 FFFF ................
+00007580 FFEC FFFF FFEC FFFF FF11 0000 0000 0000 ................
+00007590 0001 0000 0002 0000 0003 0000 0004 0000 ................
+000075A0 0005 0000 0006 0000 0007 0000 0008 0000 ................
+000075B0 0009 0000 000A 0000 000B 0000 0010 0000 ................
+000075C0 001D 0000 001E 0000 001F 0000 0020 0000 ............. ..
+000075D0 0002 0000 0000 3200 0000 FFFF FFFF 7AE2 ......2.......z.
+000075E0 A139 FFFF FFFF 7AE2 A139 FFFF FFFF 7AE2 .9....z..9....z.
+000075F0 A139 0000 0000 0000 0000 0000 0000 0100 .9..............
+00007600 0000 7300 0000 0000 0000 0000 0000 5768 ..s...........Wh
+00007610 6974 6520 4469 6170 6572 0000 0000 0000 ite Diaper......
+
+In some, more like this:
+
+00006DD0 0000 0100 0000 0900 0000 0000 0000 0000 ................
+00006DE0 0000 0000 0000 0000 0000 EE05 0000 0000 ................
+00006DF0 0000 0000 0000 0000 0000 0003 0000 0000 ................
+00006E00 3200 0000 FFFF FFFF 57EE 213A 6C00 0000 2.......W.!:l...
+00006E10 B31D 743A FFFF FFFF 57EE 213A 0000 0000 ..t:....W.!:....
+00006E20 0000 0000 0000 0000 0100 0000 7300 0000 ............s...
+00006E30 0100 0000 574B CF0B FCD5 234A 9E2C ADF1 ....WK....#J.,..
+00006E40 39C1 3CAA BE1D 743A 0000 0000 0000 0000 9.<...t:........
+00006E50 5768 6974 6520 4469 6170 6572 0000 0000 White Diaper....
+00006E60 0000 0000 0000 0000 0000 0000 0000 0000 ................
+
+You'll notice that there is a White Diaper close by.  This is not always the case, but there is always a Diaper of some sort not very far from the area.
+
+Anyway, the part that needs to be changed is within the 14 bytes that starts like this in the top example
+
+00007520 0100 0000 0900 0000 0000 0000 0000 0000 ................
+00007530 0000 0000 0000 0000 DA0B
+
+If you want this baby to walk -- and walk almost immediately -- change that to
+
+00007520 0100 0000 0900 0000 0900 0000 0900 0000 ................
+00007530 0900 0000 0900 0000 DA0B
+
+and in the lower of my two examples, it's this part:
+
+00006DD0 0000 0100 0000 0900 0000 0000 0000 0000 ................
+00006DE0 0000 0000 0000 0000 0000 EE05
+
+change to
+
+00006DD0 0000 0100 0000 0900 0000 0900 0000 0900 ................
+00006DE0 0000 0900 0000 0900 0000 EE05
+
+And don't forget to compensate for the altered checksum, in the usual [Paint ballz] area!  Check out my Basic "howto" if you don't know what I mean by that.
+
+Un-neutering a spayed pet and changing gender
+=============================================
+
+This could be handy for anyone who adopted a neutered pet and wants to breed from it, or for anyone who has trouble getting a particular gender (e.g. male Calico) of pets to come out of the Adoption Centre.  
+
+What you need to look for, either when un-neutering a pet or when changing a male to a female etc, is one byte which is set to "01" when it needs to be "00" or vice versa.  Sounds like a tall order, but in fact it's not so hard to find.  Look for 
+
+p.f.magicpetz
+
+You want the third instance of this in the petfile.  Please note that the example which I am showing you here is from one or two particular pets.  Your pets may have the p.f.magic positioned slightly differently.  The thing to do is _not_ look at my example and think that you have to look fo something which is identical; you have to look for p.f.magicpetz and then you have to work with the bytes which are between III and YALP.
+
+
+So, bearing in mind the way things can look different in different editors, here's the sort of thing you want to see:
+
+For female, un-neutered, the second byte after III is 01 and the third is 00:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+Male un-neutered, second byte is 00 and thrid is 00:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+Female neutered, second byte is 01 and third is 01:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+male neutered, second byte is 00 and third is 01:
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+To recap, it's all in those 8 bytes directly after the III.  If the second byte is 01, it's a female; if 00, a male.  If the third byte is 01, it's spayed; if 00, not spayed.  You can of course change these.  But remember -- this is a petfile, so you have to keep the checksum the same.  What you can do, if you're not just changing a neutered male to a non-neutered female or something else that just swaps an 01 and 00, is scroll up until you get to the text/numbers data, where there are a bunch of Paint Ballz numbers, and reduce or increase a number there by the amount you increased or decreased the bytes in the neuter/gender area.  If this confuses you, see my Basic "howto".
+
+More on rescuing runaways, unsticking pregnancies, and errors.
+==============================================================
+
+RESCUING RUNAWAYS (and changing age etc) in Petz 3, 4 and 5.
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+As always, keep backup copies of any pet you are about to edit.  Also for their safety, remove from the Adopted Petz directory all other pets.
+
+This works with Petz 3, 4 and 5 and is an alternative to the Registry hack which only works with Petz II to 4.  At present I haven't found a way to make this new method work in Petz II, so Petz II runaways can only be brought back in to the game via the registry hack, and if you put them away they will usually still be classed as runaways.  The only other way around that, as far as I know, is to import the pet into one of the later games, but if you don't have the later games then of course that's no good.
+
+In Petz 5 there is sometimes a chance to get runaways back, via the Adoption Centre notice board, but this doesn't always work and if you mess that up the pet is gone for good.  This is therefore intended particularly for Petz 5 owners, although the trick works just as well on Petz 3 and Petz 4 pets.
+
+You need a hex editor such as Hex Workshop.  I'm sorry, but you do; if you're frightened of using a hex editor, then try asking someone who is happy using one to help you.  And if you are not used to editing pets, then please read and understand my tutorial on Basic Pet Editing first.
+
+Okay, open the pet in the hex editor and go to file offset address 00000CE3 (if you've got your hex editor set to show the file offset in decimal numbers, then that address is  00003299).  This byte contains the "energy" of the pet, and can never be greater than hex 64 as it represents a "percentage" number and hexadecimal 64 is decimal 100.  The next few bytes contain the current state of the pet's fullness, fatness etc.
+
+So here's an example of a pet's data at this point.  Please note that this is only an example; the numbers in this area of your petfile are almost bound to be different because your pet will be in a different state of energy, fullness etc.  What I'm showing you here is how to see what bytes to look for; they start at 00000CE3 and each single number has 3 00 bytes before the next.  Some of the actual bytes you're looking for will be 00, so you need to concentrate:
+
+00000CE0 | 0000 0022 0000 0000 0000 0022 0000 0000 | ..."......."....
+00000CF0 | 0000 0000 0000 0000 0000 000A 0000 0064 | ...............2
+00000D00 | 0000 0032 0000 0057 0293 D401 0023 0000 | ...d...W.....#..
+
+and here's a breakdown of what it all means (as I say, remember that the actual numbers will be different in your pet):
+
+hexadec.   dec.	what it is
+--------- ----- ----------
+2200 0000  34	energy
+0000 0000  0	fullness
+2200 0000  34	fatness
+0000 0000  0	sickness
+0000 0000  0	catnipped
+0000 0000  0	fleas
+0A00 0000  10	horniness
+6400 0000  100	neglect
+3200 0000  50	age
+
+Right, this pet is a runaway -- its "neglect" is very high indeed, actually 100%.  I think a pet can run away when that byte is 50% or more, but I've not tested what number it is when the pet first runs away.  So, what you need to do is to change the "64" which is in that slot to "00" and change, say, the "00" in the "fullness" slot to "64".  This keeps the checksum the same and is nice for the pet :-)
+
+It will now not be a runaway any longer.
+
+Age can be changed quickly too; make it 01 for a very young pet and 64 for a fully grown one.
+
+You can of course edit all those other values also; 64 for energy makes the pet very bouncy and a high number in horniness helps the pet to breed quickly.
+
+NOTE that Omar and Kerry of the OK Cattery http://users.eastlink.ca/~okazmi/index.html have produced a handy utility that allows you to monitor and change your pet's emotions etc in the game; it's a registry hack and you might find that handier than the hex-editing.  If you prefer to hex edit rather than use a registry hack, that's fine too.  But for Petz 5 runaways when the notice-board isn't working properly, you will have to hex edit the relevant byte.
+
+For Petz II runaways
+++++++++++++++++++++
+
+I still find that the only method which works to get Petz II runaways into your game is the one where you place the hexadecimal numbers that are at the beginning of your .pet file into the Registry.  This also works for Petz 3 and 4 runaways, although I have now found the alternative, possibly better method for them.
+
+First of all, it's best to remove all your other pets from the Adopted pets directory while you concentrate on the Runaway.
+
+Open your runaway .pet file in your Hex editor.  Look at the first two bytes in the Hex numbers section of the editor; in the ASCII section they will look like two dots or weird characters just before the name of the pet.  It's the Hex numbers that you want to note, though.  They will be numbers such as B9 0B (or it may be grouped as BD0B in some hex editors -- it's still two bytes).  Make a note of these numbers.
+
+Here's an example of what the start of a petfile looks like in a hex editor; yours will of course be a little different:
+
+00000000 | B90B 4A65 6D69 6D61 0000 0000 0000 0000 | ..Jemima........
+00000016 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00000032 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+
+The first two bytes of the above example are the first two numbers that you see, reading from left to right and starting at the top, in the middle section of the editor (the part between the | | lines).  So the first two bytes, in this example, are B90B.
+
+Now run Regedit.exe.  Regexit.exe is a program which is in your Windows directory -- click on the Start button, choose Run, and type into the box Regedit.exe.  You'll get something that looks a little like Windows Explorer. Navigate, clicking on the crosses on the left hand side as you would with W.E., to (in the case of Petz 4)
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 4\4.00.00
+
+In Petz 3 it will be:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 3\3.00.01
+
+And in Petz 2:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01
+
+Click on that "directory" of 4.00.00 (or 3.00.01 or 1.00.01)
+
+Now look at the Right-hand side. Scroll down to "Pets in Playpen" and double-click on it.  _Replace_ the first two digits (which are probably 00, if all your pets have run away!) with the first two-digit number you noted down -- in my example, B9, and replace the next two-digit byte with 0B.  So the Value data will look like this: B9 0B 00 00 00 00 00 00.  There will be 8 two-digit numbers only -- no more than that; it allows for two mothers with their babies to be in the game at once, you see.  In Petz 2, of course, there will only be four of these numbers, as you can only have a total of two pets out at once.
+
+Click "ok" and close Regedit.exe.
+
+If you're having trouble knowing how to replace a number rather than just typing in at the beginning (which doesn't work; the game simply deletes them):
+
+When you double-clicked on "Pets in playpen", you got a small dialogue box which looks like a tiny hex editor, with the cursor at the top lefthand side.  Use it as you would a hex editor; either left-click on the left side of the number you're replacing and drag the mouse across it before releasing the button, or press the SHIFT key and the right-pointing cursor key together.  Once the number is highlighted, you can type in the new number.
+
+Make sure that your pet's .pet file is in your game's "Adopted Petz" subdirectory, and all required .dog or .cat files are in the relevant directories. Run the game, and your chosen pet should come out of the door right away.  Give it a fair bit of cossetting to make it happy again.  It'll still be classed as "Runaway", as you will see if you click on the "pick a pet" button  and scroll down so that it highlights the pet in question. You can close the program and open it again and the pet will still  come out for you as long as its first two bytes are in the registry  and the pet file is in the "Adopted petz" directory, and eventually (given enough care) it should stop being classed as Runaway.
+
+Stubborn runaways -- Petz II
+---------------------------
+
+In Petz II, your pet _may_ never be re-classified as non-runaway, even though it will appear to be very happy, even after you try the time-trick that I suggest below.  Don't worry about it; just put that pet's bytes in the Registry whenever you want it to come out to play.  You could make this nice and simple by making a small text file in notepad and putting into it everything that's between the ****** marks below:
+
+******
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01]
+
+"Pets in Playpen"=hex:b8,0b,00,00
+
+******
+
+Now, change the b8,0b to whatever your pet's two bytes are (in my example case, b9,0b) and save the text file with a .reg extension, as something like mypet.reg.  Now you can close the game and double-click on this file every time you want your pet to come out.
+
+Stubborn runaways -- Petz 3 or 4
+--------------------------------
+
+After you've tried this "first-byte numbers in the registry" trick, and you've been playing with the pet in the game, sometimes it will not be regarded by the game as non-runaway, no matter how much care you give it.
+
+In such a case, close the game, put back your computer's clock by several years, open the game and give the pet plenty of care, then close the game and put the clock back to the correct date.  The pet should return properly soon after.
+
+(Just in case you've forgotten, the clock is changed by double-clicking on the date in the systray in the bottom right-hand corner of the screen, then changing the calendar date on the resulting dialogue screen, and press "Apply".)
+
+Errors
+-------
+
+If you find that putting the bytes in the Registry and the pet in the Adopted Petz folder, and then opening the game, causes it to produce an error message about a missing breedfile or .lnz, then you may have some of the same problems as can emerge when a baby is about to be born from a stuck pregnancy.  Read the information below on error messages, and with any luck your problem can be solved.
+
+UNSTICKING PREGNANCIES (Works for Petz 3 and Petz 4
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+(may possibly work for Petz 5, but absolutely _keep backups_ as always.  Putting the clock _back_ in Petz 5 might make things worse for the pet)
+
+This causes owners a lot of distress; their favourite pet is pregnant and due to some bug in the game, she never comes to term.
+
+Once again, it's a good idea to remove all your other pets from the Adopted pets directory to a temporary one while you concentrate on the poor stuck mum-to-be.  It's also quite a good idea to make a copy of this pregnant dog or cat in that temporary directory in case of accidents.
+
+Okay, now put the date of your computer forward by a year or so, and and start up the game. If she's still stuck, put her back through the door (you don't need to close the game, putting her away does a quick "save") and change the date forward by another year or two.  Bring her back out.  If she's still stuck, repeat this until she does give birth.  
+
+If you get as far as 2037 (putting her back through the door each time you are going to alter the clock), and she still doesn't produce, you have a real problem pregnancy on your hands.  Putting the clock any further forward might produce the baby, but it will cause your game to crash if you try to select it.  
+
+Remember, _do not_ go any further forward than 2037!!
+
+So now, put her away and alter the clock back to 1980.  She might produce the baby then...  If not, try alternating 2037 with 1980 a few times.  If none of this works, overwrite her with a copy of the copy that you took before starting, and try again, not bothering with any interim years -- just go straight to 2037, bring her out, back to 1980, bring her out, back to 2037, and so on.
+ 
+So far, if there has been no corruption in the mother or baby's data, this treatment has always worked for me.
+
+When she _does_ give birth, remember to change the clock back to the proper date, and then after you've closed the game you can bring all your other pets back from their temporary home.
+
+If the baby is about to be born and you get an error message, then you've got a different problem on your hands.  See the list of errors and possible solutions below.
+
+ERROR MESSAGES
+++++++++++++++
+
+The errors that I've come up against to far are:
+
+Breedfile missing.
+------------------
+
+1) Sometimes that's a legitimate error -- the baby needs some breedfile that you don't have in your Resource\dogz or Resource\catz directory.  The solution is of course to find that file and put it in the right place.
+
+2) Sometimes the message is really puzzling -- it's asking, say, for the Petz3\Resource\catz\Lion.cat breedfile and you've _got_ that.  Okay, this one is tricky; most times I've found that the problem is a wrong "offset byte".  Don't panic!  It's just the byte which hexers have to change in order for their breedfiles to show up separately -- actually an ID number.  If you look at the breedfile in a hex editor and search for the string BM you'll see a line of dots above that.  Look in the hexadecimal numbers section of the editor, and you'll see a bunch of numbers that look like this:
+
+0000 0000 EB03 0000 0100 0000 0000 0000
+
+EB03 are the important numbers; they will be different for each breedfile.
+
+Now look at your pet file in the hex editor.  There are two places you can look for the number; often you can find it as described in a) below.  If all you see in that place are null bytes (hex 00) then go on to my description b) below:
+
+a)
+====
+
+Search for the word Resource.  The first instance of the word is part of the directory string for the main breedfile for that pet; \Resource\catz\Lion.cat, for instance.  Okay, search for the next instance of the word, go on past any which refer to clothes files, and eventually you'll come to a part with at least one, probably more, breedfiles similarly listed, each separated by six dots.  Now this is the bit that might muddle you, but it's simple really.  If you look in the Hex numbers section, you'll see that a few bytes before each of the \Resource strings in this section there are numbers which look very like the offset bytes of the relevant breedfiles.  So, with my petfile example, I see
+
+........\Resourc
+e\Catz\Lion.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+And on the hex side of the editor I see
+
+0000 A203 1700 0000 5C52 6573 6F75 7263
+
+etc.  Well, the A203 are the offset numbers for the Lion breedfile that I've got.  Similarly, the first two hex numbers of each six in-between dots in the rest of the list are the offsets for the other listed breedfiles.  If any one of these numbers is not right, you will need to go to the breedfile in question and change the offset number there -- _don't_ try to hex edit the _pet_ file!!  So, if my Lion breed's number were F104, I'd have to change it to A203 in order to prevent the error message for this particular pet.  However, you might find that all is exactly right here -- but wait, we're not done yet!  Because this petfile has a baby hidden in it too, you need to find another \Resource area; continue searching, and further down the file you'll see it.  Maybe this is where a breedfile is listed with a wrong offset number.  If so, fix it as I say above.  The game will probably now allow the baby to be born.
+
+b)
+====
+
+You find there's only one breedfile listed in the Resource area and nothing but null bytes before it.  Okay, you need to look elsewhere in the file.  You need to find the section below YALP:
+
+000066B0 | 0000 0000 0000 0070 2E66 2E6D 6167 6963 | .......p.f.magic
+000066C0 | 7065 747A 4949 4900 0100 0000 0300 0000 | petzIII.........
+000066D0 | 5941 4C50 1E00 0000 1E00 0000 3AC4 9239 | YALP........:..9
+
+scroll down a bit until you see a bunch of FFFF FFFFs.
+
+00006A60 | FFFF FFFF 0000 0000 0164 0000 0001 00FF | .........d......
+00006A70 | FFFF FF00 0000 0001 6400 0000 0100 FFFF | ........d.......
+00006A80 | FFFF 0000 0000 0164 0000 0001 00FF FFFF | .......d........
+00006A90 | FF00 0000 0001 6400 0000 0100 FFFF FFFF | ......d.........
+00006AA0 | 0000 0000 0164 0000 0001 00FF FFFF FF00 | .....d..........
+
+Carry on scrolling; you'll come to a solitary set of 00FF FFFF FF00:
+
+00006E10 | 0000 0000 0019 0000 00FF FFFF FF00 0000 | ................
+00006E20 | 0000 6400 0000 0100 0550 0000 7B34 0000 | ..d......P..{4..
+
+Right, the number you want is 10 bytes after 00FF FFFF FF00.  In this case it is 0550. In a petfile containing a baby there is of course another YALP section as well as Resource; do the same thing down there to get the number for the baby's breedfile. As with a) above, if any one of these numbers is not right, you will need to go to the breedfile in question and change the offset number there -- don't try to hex edit the _pet_ file unless you really know what you're doing; there are something like 25 places where you would need to change it, and balancing the checksum would be tricky for most.
+
+3) Sometimes the error message states that a required file called, impossibly, <<NULL>> is missing.  This error is similar to 2); perform the same trick, and the mother and baby should appear okay.
+
+4) Sometimes the message tells you that you need another impossible file; it seems to munge together the name of your main petz directory and the name of a proper breedfile, so for instance if it's a lion that's being looked for on my machine it will ask for D:\Petz3LION.  Okay, I check to see that the offset ID byte is as required; yup, no problem there.  This one turned out to be even more subtle in the ones that I've rescued so far...  Open the pet file and look through those \Resource listings again.  The mother's list looks fine, much like the list I show above.  The baby's listing, further down the petfile, however, looks a little strange:
+
+........\Resourc
+e\Catz\LION.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+See?  The LION is all in upper-case here.  What I've found works so far in a case like this is, get the breedfile which is part of the munged error message and which is shown slightly differently in the listing, and go down to where it is renamed -- a search for the hex string 50004600 will get you there -- and replace (in this case) the ion with ION.  Eureka!  The mother now will come out complete with baby.  Don't ask me why this works -- I only know that it has done so for me and that I hope it will do so for you.
+
+4a) Another twist on the impossible missing file which is a munged-together mix of the directory and a breedfile:  I was recently sent a pregnant pet which came from a line of Chihuahuas.  In this case, the mother ran perfectly with the game's regular Chihuahua breedfile in place, but when the baby was due to be born, the message on my machine stated that it required Petz3chihuahua.dog.
+
+In this case it doesn't help to change the name to one with a lower-case "c" because the same breedfile is also needed with the uppercase "C".  So we need to alter the petfile itself.  Right, please remember to make a backup copy of the pet and put it somewhere safe!  And remember that this is just an example, it will look different in your pet's file.  Now open the pet file and look through those \Resource listings.  The mother's list looks fine, with just one type of dog with the correct F303 ID number and the correct .dog name:
+
+00023904 0000 0000 0000 0001 0000 00F3 031C 0000 ................
+00023920 005C 5265 736F 7572 6365 5C44 6F67 7A5C .\Resource\Dogz\
+00023936 4368 6968 7561 6875 612E 646F 6770 2E66 Chihuahua.dogp.f
+00023952 2E6D 6167 6963 7065 747A 4949 4900 0100 .magicpetzIII...
+
+The baby's listing, further down the petfile, however, shows this:
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 6368 6968 7561 urce\Dogz\chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0063 J.@.o'.........c
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+
+The ID number is still correct at F303 (look in the Hexadecimal part of the editor, a few bytes before \Reso on that first line in my example to see it) but the dog file has that lowercase c.  You want to change that to an uppercase one.  This means changing hex 63 to 43, and you will need to make up the extra amount (which is 20 hex, or 32 decimal) to keep the checksum the same.  In the case of this example pet, it happened to have a family tree which included the name Chihuahua (with capital C):
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 6368 6968 7561 urce\Dogz\chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0063 J.@.o'.........c
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+00048288 0000 0000 0A00 0000 0301 890E 4E63 E440 ............Nc.@
+00048304 D711 BD3C 0040 056F 2717 0600 0000 5769 ...<.@.o'.....Wi
+00048320 6C6C 6F77 0900 0000 4368 6968 7561 6875 llow....Chihuahu
+00048336 610E 0000 0053 696E 6461 7220 4B65 6E6E a....Sindar Kenn
+00048352 656C 7300 0000 00B7 5EE0 4009 0000 0003 els.....^.@.....
+00048368 0181 988D B0AF 3CD4 11B9 0D8D 8430 4FEA ......<......0O.
+00048384 3004 0000 0053 7461 7209 0000 0043 6869 0....Star....Chi
+00048400 6875 6168 7561 0500 0000 4369 6E64 7900 huahua....Cindy.
+
+so I got around the problem by simply changing one of those to have a lower-case c; effectively, I swapped the two.  This sort of thing is easy to do and works because the family tree is just documentation really, for viewing.  But we're not done yet.  See where the word chihuahua is repeated, shortly after "chihuahua.dog"?  That also needs to be changed to have an uppercase "c", and it can also be swapped if there are enough names with C in them in the family tree area.  This is how my example looks after I've edited it:
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 4368 6968 7561 urce\Dogz\Chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0043 J.@.o'.........C
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+00048288 0000 0000 0A00 0000 0301 890E 4E63 E440 ............Nc.@
+00048304 D711 BD3C 0040 056F 2717 0600 0000 5769 ...<.@.o'.....Wi
+00048320 6C6C 6F77 0900 0000 6368 6968 7561 6875 llow....chihuahu
+00048336 610E 0000 0053 696E 6461 7220 4B65 6E6E a....Sindar Kenn
+00048352 656C 7300 0000 00B7 5EE0 4009 0000 0003 els.....^.@.....
+00048368 0181 988D B0AF 3CD4 11B9 0D8D 8430 4FEA ......<......0O.
+00048384 3004 0000 0053 7461 7209 0000 0063 6869 0....Star....chi
+00048400 6875 6168 7561 0500 0000 4369 6E64 7900 huahua....Cindy.
+
+The mother can now give birth.
+
+Corrupt pet
+-----------
+
+This message comes up as the game opens, and after that it ignores the pet. I'm afraid you are stuffed if you've got one of these.  The only thing to do with a much-loved pet is to take its data and make a new, cloned pet from that.  If you do this right, the pet will be identical to your original in every way, it will simply be missing its history.  The method I use for cloning pets is mentioned in detail in my tutorial on converting pet files to breeds, and cloning pets.
+
+Petz has performed an Illegal Error
+-----------------------------------
+
+Sometimes this is caused by a particular hexed breedfile's sounds or error in naming.  If it's the sounds -- for instance, my Petz 3 horsez version with compressed internal sounds -- then you can get a version of the breedfile which doesn't have compressed sounds, or you can get a sound program such as Winamp which should enable your sound card to use such sounds.  There are very few breedfiles with internal compressed sounds; I think only my Petz 3 Horse Equus, and Dawn's Petz 3 Guinea Pigs, and these both have non-compressed alternatives available at the download sites.
+
+Another solvable "illegal error" is the one that occurs when a couple which is "in love" is about to announce a pregnancy.  The heart comes up and you get something about a missing .lnz and then a crash.  The answer to this is usually in the naming area.  Search the breedfile for the hex string 50004600 and you get to the right place.  Make sure that the hex-number letter-count in front of the name is exactly the same as the number of letters in the name.  Check also that there isn't an extra null-byte (hex 00) between the end of the name and the two-letter bit at the end of it or a missing one -- for instance the Tabby should look like this:
+
+..T.i.g.e.r...T.
+a.b.b.y...T.a...
+
+and not
+
+..T.i.g.e.r...T.
+a.b.b.y..T.a....
+
+or
+
+..T.i.g.e.r...T.
+a.b.b.y....T.a..
+
+note that the central dot between the "r" of Tiger and the "T" of Tabby should show as 05 in the hex section of the editor, because there are 5 letters in Tabby, and the central dot between the "y" of Tabby and the "T" of Ta should be 02.
+
+If you have to add or remove a null byte in the bit between a.b.b.y and T.a, then make sure that you compensate for that by removing or adding a null byte (hex 00) after the T.a.
+
+Another possibility, if all is well in this area, is that there has been an error in the allocation of textures by the maker of the breedfile.  For instance, if only three textures are listed and one of the alternative paint ballz or add ballz uses texture number "4", then a crash will probably happen sometime...
+
+Finally, there is a possibility that a pair can run perfectly well with a breedfile which has the "wrong" ID number (what we call the "offset byte").  You will need to look inside the petfiles, particularly of the female, to find the numbers for all the breedfiles which she uses.  See the "Breedfile missing", section 2), above for how to tackle that.
+
+I hope this clears up some problems for people
+
+Cheers
+
+Carolyn
+
+
+

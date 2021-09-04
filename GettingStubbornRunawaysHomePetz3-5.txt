@@ -1,0 +1,47 @@
+
+Getting Stubborn Runaways "home"
+===============================
+
+First of all, I want you to know that this is about some fairly advanced pet-hexing; for something more basic, please refer to my tutorial on "basic petfile editing".  Okay, on with this particular "howto".
+
+This works with Petz 3, 4 and 5 and is an alternative to the Registry hack which only works with Petz II to 4.  At present I haven't found a way to make this new method work in Petz II, so Petz II runaways can only be brought back in to the game via the registry hack, and if you put them away they will still be classed as runaways.  The only way around that, as far as I know, is to import the pet into one of the later games, but if you don't have the later games then of course that's no good.
+
+In Petz 5 there is sometimes a chance to get runaways back, via the Adoption Centre notice board, but this doesn't always work and if you mess that up the pet is gone for good.  This is therefore intended particularly for Petz 5 owners, although the trick works just as well on Petz 3 and Petz 4 pets.
+
+You need a hex editor such as Hex Workshop.  I'm sorry, but you do; if you're frightened of using a hex editor, then try asking someone who is happy using one to help you.  But this is really a very simple job, so if you concentrate you can do it.  First, though -- and I can't emphasise this enough -- make a backup copy of your pet and put it somewhere safe on your hard drive.  And if you are not used to editing pets, then please read and understand my tutorial on Basic Pet Editing first.
+
+Okay, open the pet in the hex editor and go to file offset address 00000CE3 (if you've got your hex editor set to show the file offset in decimal numbers, then that address is  00003299).  This byte contains the "energy" of the pet, and can never be greater than hex 64 as it represents a "percentage" number and hexadecimal 64 is decimal 100.  The next few bytes contain the current state of the pet's fullness, fatness etc.
+
+So here's an example of a pet's data at this point.  Please note that this is only an example; the numbers in this area of your petfile are almost bound to be different because your pet will be in a different state of energy, fullness etc.  What I'm showing you here is how to see what bytes to look for; they start at 00000CE3 and each single number has 3 00 bytes before the next.  Some of the actual bytes you're looking for will be 00, so you need to concentrate:
+
+00000CE0 | 0000 0022 0000 0000 0000 0022 0000 0000 | ..."......."....
+00000CF0 | 0000 0000 0000 0000 0000 000A 0000 0064 | ...............2
+00000D00 | 0000 0032 0000 0057 0293 D401 0023 0000 | ...d...W.....#..
+
+and here's a breakdown of what it all means (as I say, remember that the actual numbers will be different in your pet):
+
+hexadec.   dec.	what it is
+--------- ----- ----------
+2200 0000  34	energy
+0000 0000  0	fullness
+2200 0000  34	fatness
+0000 0000  0	sickness
+0000 0000  0	catnipped
+0000 0000  0	fleas
+0A00 0000  10	horniness
+6400 0000  100	neglect
+3200 0000  50	age
+
+Right, this pet is a runaway -- its "neglect" is very high indeed, actually 100%.  I think a pet can run away when that byte is 50 or more, but I've not tested what number it is when the pet first runs away.  So, what you need to do is to change the "64" which is in that slot to "00" and change, say, the "00" in the "fullness" slot to "64".  This keeps the checksum the same and is nice for the pet :-)
+
+It will now not be a runaway any longer.  Enjoy.
+
+Carolyn Horn
+
+
+
+
+
+
+
+

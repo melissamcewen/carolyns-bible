@@ -1,0 +1,550 @@
+
+Included in the Zipfile with this "howto":
+=========================================
+
+BasicBabyOrPetFileEditing.txt -- this is the basics, just in case you need it.
+EditingPetzAndBabyzFiles.txt -- this contains some advanced editing (see details below)
+PetfileEditingChangingFurs.txt -- uses a tabby cat as example, but works the same way for any pet or baby
+Two example pet files with 6 bitmaps (furfiles)
+One example baby file
+
+See my EditingPetzAndBabyzFiles.txt file for earlier advanced items such as:
+Making Babyz walk
+Un-neutering a spayed pet and changing gender
+Rescuing runaways, unsticking pregnancies, and errors.
+Changing age, energy, horniness etc in pets
+
+What's in _this_ "howto":
+=========================
+
+Changing health etc in your adopted babyz
+Changing the pink or blue line around pet picture in Family Tree
+Yet another error message in petz...
+Tips on editing the ballz etc in a .pet file
+Tips on editing the ballz, textures etc in a .baby file
+
+NOTE:  If you haven't had any experience
+========================================
+
+If you've had no experience at all with hexing, in particular with hexing baby or pet files, please read my tutorial BasicBabyOrPetEditing,  I shall not repeat it here, as advanced hexers should know how to follow this "howto".  I will simply repeat as always -- make sure you have kept safe a copy of the file that you are trying to edit.  Also note that you cannot edit actual .baby or .pet files in a Resource editor -- they are not true Resource files.
+
+Okay, on with the show.  Remember, always _always_ keep a backup copy of your pet or baby somewhere safe before you start, and never have other petz or babyz in the Adopted directory when you are fiddling around like this.
+
+Changing health etc in your adopted babyz
+=========================================
+
+You'd like to clear up your babyz' chicken pox quickly, or make it older or fatter/thinner or less hungry or not sick and so on?  Well, there's a particular place in each baby where this kind of information is stored in the form of percentages, and you can change one byte to between 0 and 100 (which is 64, remember, in hexadecimal numbers) for each of the following:  
+
+Energy
+Fullness
+Fatness
+Sickness
+Medicined
+Fever
+Chicken Pox
+Neglect
+Age
+
+A warning that it's unwise to set Age to 0, this might crash the game.
+
+So, where are these magic bytes?  Well, open your chosen baby into your hex editor and scroll down to address 0DE8.  What I show below is simply an example, using one of my babyz, so remember that the numbers will look different in yours.  But the address should always be the same.
+
+Here, then, is what the area might look like in a typical baby:
+
+00000DE0 0000 0000 0000 0000 6400 0000 6400 0000 ........d...d...
+00000DF0 3200 0000 3200 0000 3400 0000 3200 0000 2...2...4...2...
+00000E00 0000 0000 0000 0000 3400 0000 B225 F390 ........4....%..
+00000E10 0100 2900 0000 8502 0000 0000 0000 0000 ..).............
+
+Okay, breaking it down this is what we have:
+
+6400 0000 Energy	
+6400 0000 Fullness	
+3200 0000 Fatness	
+3200 0000 Sickness	
+3400 0000 Medicined	
+3200 0000 Fever		
+0000 0000 Chicken Pox	
+0000 0000 Neglect	
+3400 0000 Age		
+
+Tsk, Carolyn has rather overindulged the baby -- and allowed it to get a little bit sick and feverish.  Well, what we want to do is to reduce those three items to 0.  But we need to compensate of course for any reduction or the baby file will be corrupted.  As it happens, there are some unused bytes a little further on, so we can overwrite a few 00 bytes with 32; here's how I did it:
+
+
+00000DE0 0000 0000 0000 0000 6400 0000 6400 0000 ........d...d...
+00000DF0 0000 0000 0000 0000 3400 0000 0000 0000 ........4.......
+00000E00 0000 0000 0000 0000 3400 0000 B225 F390 ........4....%..
+00000E10 0100 2900 0000 8502 0000 0000 0000 0000 ..).............
+00000E20 3232 3200 0000 0000 0000 0000 0000 0000 222.............
+
+And there we are.  A happy, healthy baby.
+
+Changing the pink or blue line around pet picture in Family Tree
+================================================================
+
+I tried to tell someone who asked about this via email a while ago, but the message bounced; can't remember who it was, but here is the answer for everyone now:
+
+First make a backup copy of your pet of course :-)  Then open the petfile in the hex editor and search for PfMaGiCpEtZIII
+
+This is where it gets a bit tricky to explain...  you want the part which lies after the name of the adopter.  I can best explain by showing an extract from one of my pets.  Remember that the positioning of PfMaGiCpEtZIII and most of the bytes in this area will be different to varying degrees in your own particular pet:
+
+00007740 0000 0000 5066 4D61 4769 4370 4574 5A49 ....PfMaGiCpEtZI
+00007750 4949 00FF 689C 3BF8 A379 91DE BF1B 41A3 II..h.;..y....A.
+00007760 2886 B9B0 1766 0405 0000 0054 6967 656F (....f.....Tigeo
+00007770 0500 0000 5461 6262 7907 0000 0043 6172 ....Tabby....Car
+00007780 6F6C 796E F15D 253E 0000 0000 0100 0000 olyn.]%>........
+00007790 0100 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+000077A0 0000 E75D 253E 0000 0000 00FF 9E01 00E7 ...]%>..........
+000077B0 5D25 3EE7 5D25 3E00 0000 0000 0000 0000 ]%>.]%>.........
+000077C0 0000 0000 5046 4D41 4749 4350 4554 5A49 ....PFMAGICPETZI
+000077D0 4949 0088 3500 0028 0000 006C 0000 0050 II..5..(...l...P
+
+You can see that there's the name of the pet -- Tigeo -- then the breed -- Tabby -- then the adopter's name -- Carolyn.  Right, this is a male pet and I want to change it to female _and_ have the blue line changed to pink.  At the moment I cannot see the pet in the family tree because it's been adopted from the Adoption Centre, so I want to change the colour of the line _and_ I want to be able to check that it worked.  Well, see how there are two instances of hex number 01 between the two instances of Carolyn:
+
+6F6C 796E F15D 253E0000 0000 0100 0000
+0100
+
+It's the second of those that's the colour.  Normally it's set to 01 where it's blue and 03 where it's pink.  It appears that 00 is also blue and 02 is pink, although I haven't seen any pets which have those numbers.  So what I want to do is to change that second 01 to 02 or 03 to make it pink, and I want to reduce some other byte by 1 or 2 to make up for the extra.  I chose to change one letter of the first instance of my name; probably you can change some other number if you're fussy about the name.  Okay, that works -- the pet comes out fine.  But because it's an adoption-centre pet, I can't check the outline yet in the profile.  Being impatient, I don't want to wait until it becomes a parent, so I change the "number of generations" byte, which is the first of those two 01 bytes, to 02 -- and change that letter of my name again.  So now the area looks like this:
+
+00007780 6F6C 796B F15D 253E 0000 0000 0200 0000 olyk.]%>........
+00007790 0300 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+
+The pet comes out fine and I can check that the outline is indeed now pink in the Family Tree.  If I wanted to be correct, I could now change the number of generations back to 01 and the last letter of my name to l.  The finished pet would then look like this:
+
+00007780 6F6C 796C F15D 253E 0000 0000 0100 0000 olyl.]%>........
+00007790 0300 0007 0000 0043 6172 6F6C 796E 0000 .......Carolyn..
+
+And there you have it; correctly-outlined pictures for your Family Tree.
+
+Okay, the above "howto" just shows the first gen, but this outline thing works for pets of more than one generation;  the byte is always in the same position relative to the pet (and owner)'s name in the Family Tree. Here's an 8th gen one I did for somebody:
+
+the byte to change was there, just not quite as easy to spot as in the example I gave -- it's a little confusing because the second instance of your name isn't right there (it's at the end of the family tree to mark the fact that you are the current owner).  Also, the "number of generations" byte is hex 19.  Where you need to look is directly after the owner's name that comes after the pet's name and breed.  Here's how she looked before the change:
+
+00006450 0000 0000 5066 4D61 4769 4370 4574 5A49 ....PfMaGiCpEtZI
+00006460 4949 0002 F234 3C75 160F AA10 20D7 1197 II...4u<.... ...
+00006470 3300 045A 83D0 6D08 0000 0050 656E 6368 3..Z..m....Pench
+00006480 616E 7406 0000 0043 616C 6963 6F08 0000 ant....Calico...
+00006490 004B 7269 7374 696E 6100 0000 0097 89BB .Kristina.......
+000064A0 3C19 0000 0000 0129 B9D9 9DF7 9ED5 11A2 <......)........
+000064B0 08FB EDC5 0C93 2A07 0000 0055 696E 6B61 ......*....Uinka
+000064C0 6C61 0900 0000 416C 6C65 7920 4361 7407 la....Alley Cat.
+
+Now, if in the hex section you count 9 bytes from the end of Kristina (hex 61 being the hex number for a of course), you'll see hex 19:
+
+6100 0000 0097 89BB
+3C19
+
+Then, count four bytes beyond that:
+
+3C19 0000 0000
+
+And that last 00 is the byte which tells the game that your pet's picture has a blue outline.  Change that to 02 and it will be pink. You'll have to reduce something else by 2; in the case of this pet, I scrolled up to the trusty [Paint Ballz] section and found this:
+
+00004390 2030 2030 2E39 3537 3832 3620 302E 3238  0 0.957826 0.28
+
+in which I changed a 6 to a 4 to get this:
+
+00004390 2030 2030 2E39 3537 3832 3420 302E 3238  0 0.957824 0.28
+
+Saved the pet, and eureka!  Pink outline.  
+
+So, this technique should work for any pet; 9 bytes after the end of the owner's (or adopter's) name is the generation number and 4 bytes after that is the outline colour.
+
+Yet another error message in petz...
+====================================
+
+This one is pretty unusual, but it can crop up.  In Petz 3 and Petz 5 it produces a simple "illegal error" notice when a particular pregnant pet tries to come out (sometimes even if it's simply in the Adopted Petz directory), and in Petz 4 it produces one of those "debug" messages saying something about loading pet data that's void.  It's a little different from that awful "corrupt pet" message which can't be solved because it actually crashes the game.
+
+The point here is that the problem pet is pregnant and that there is a problem with the baby.  If the problem isn't solved by any of the suggestions in my earlier "howto", then it is probably an un-named just-born baby. It's most likely that the mother tried to come out at the moment when her baby was being born, and that there was a glitch in the game or the user closed it just as the baby's certificate came up.  The baby has no name, and the game cannot cope with this.  So, here's what to do:
+
+Open the pet in your hex editor.  Search for the exact upper-and-lower-case text string PfMaGiCpEtZIII -- this will get you to a "family tree" area, the first of which is the family tree of the mother.  The second instance of PfMaGiCpEtZIII will get you to the baby's family tree (in the case of Petz 5 litters, each baby has a separate one, so you will most likely need to repeat this for each baby).  Each family tree ends with PFMAGICPETZIII.
+
+I'll use as an example a mother Miniphant which I was sent recently to fix.  She was a Miniphant who had been adopted originally by someone called Robin, and her babe's father was a Phantele who had been adopted originally by a chap called Ray.  The baby was being born in a game owned by Russ.  In the babe's family tree, you can see those details in amongst all the parts which won't make sense to you:
+
+00011160 FF3D 0000 0000 5066 4D61 4769 4370 4574 .=....PfMaGiCpEt
+00011170 5A49 4949 00D7 5B9C 3BA0 06B9 390F 10D7 ZIII..[.;...9...
+00011180 1188 0900 022A C008 4100 0000 0008 0000 .....*..A.......
+00011190 0050 6861 6E74 656C 6504 0000 0052 7573 .Phantele....Rus
+000111A0 7300 0000 0024 B3FF 3D02 0000 0000 01F3 s....$..=.......
+000111B0 1031 324E 02D7 1188 0900 022A C008 4106 .12N.......*..A.
+000111C0 0000 0050 696E 6B69 6509 0000 004D 696E ...Pinkie....Min
+000111D0 6970 6861 6E74 0500 0000 526F 6269 6E24 iphant....Robin$
+000111E0 8EE5 3D00 0000 0001 0000 0003 0000 016B ..=............k
+000111F0 1727 F75C 02D7 1188 0900 022A C008 4107 .'.\.......*..A.
+00011200 0000 0050 6861 6E74 6F6D 0800 0000 5068 ...Phantom....Ph
+00011210 616E 7465 6C65 0300 0000 5261 792C A5E5 antele....Ray,..
+00011220 3D00 0000 0001 0000 0001 0000 0400 0000 =...............
+00011230 5275 7373 0000 0000 24B3 FF3D 0000 0000 Russ....$..=....
+00011240 00D7 9101 0024 B3FF 3D24 B3FF 3D00 0000 .....$..=$..=...
+00011250 0000 0000 0000 0000 0000 928D 0100 24B3 ..............$.
+00011260 FF3D 24B3 FF3D 0000 0000 0000 0000 0000 .=$..=..........
+00011270 0000 0050 464D 4147 4943 5045 545A 4949 ...PFMAGICPETZII
+00011280 4900 8835 0000 2800 0000 6C00 0000 5000 I..5..(...l...P.
+
+Remember that these details will be very different in your own pet; this is just an example, to show you what to look for.  Right, look at the bit between ZIII and Phantele.  There should be a name for the babe in there somewhere!  No name -- that's definitely what's causing the game to crash, and we need to fix it.  I can tell you that the name should be inserted such that there are four bytes between it and Phantele, and that itself it has to have a letter-count four bytes in front of it.  Let's see if I can make that clearer.  See, in the hex section of the hex editor, how there is (in this example)  0008 0000 in the line above the word Phantele?  Well, that 08 is the letter-count which tells the game that Phantele is 8 letters long, and it is four bytes in front of Phantele -- in the hex part of the editor it's like this 0008 0000 0050 6861 6E74 656C 65 and then you get the letter-count for Russ (04) then three 00 bytes and then the hex representation of Russ (52 7573 73).  See how it works?
+
+Okay, we need to keep the file length the same and the checksum the same.  Well, there's a simple way of doing it.  Put a letter-count of 01 in the correct place, reduce the letter-count for Russ from 04 to 03, cut the last s from the end of Russ and insert that s in the correct place for the baby's name.  Yes, I know I went through that too fast :-)  So here it is again:  
+
+1) Reduce the 04 that's in front of Russ to 03. Save.
+2) cut the last s from Russ' name. Save.
+3) find the 08 that's in front of Phantele and place your cursor directly before it; now insert the letter s (or hex 73). Save.
+4) move the cursor back until it's positioned four bytes in front of that s which you have inserted. Select that fourth byte (it should be 00, if it isn't something's wrong).  Now replace that 00 with 01.  Save.
+
+Here's how it looks now in my example:
+
+00011160 FF3D 0000 0000 5066 4D61 4769 4370 4574 .=....PfMaGiCpEt
+00011170 5A49 4949 00D7 5B9C 3BA0 06B9 390F 10D7 ZIII..[.;...9...
+00011180 1188 0900 022A C008 4101 0000 0073 0800 .....*..A....s..
+00011190 0000 5068 616E 7465 6C65 0300 0000 5275 ..Phantele....Ru
+000111A0 7300 0000 0024 B3FF 3D02 0000 0000 01F3 s....$..=.......
+
+You have now given the baby the name of "s" and the proud mum can come out into your game again.  Later, in the game, you will be able to rename the babe to something more sensible.
+
+
+Tips on editing the ballz etc in a .pet file
+============================================
+
+For most editing I would say: "whatever you do, avoid using Wordpad because it changes some vital stuff when you save."  _However_, if you take due care it just so happens that Wordpad can be useful in this particular case.  This is how I edit the "text" part of a petfile -- it doesn't work for the kind of binary editing that I mention above, but it does for basic stuff such as changing ball colours etc:
+
+Open the pet in Hex Workshop (or your chosen hex editor).  Search for [Texture List] and you will get to the start of the pet's .lnz section, or "text" area.  Select from the beginning of that to the end of the .lnz; I can only explain where that is by pointing out that the readable numbers, letters and spaces in the ASCII pane of your hex editor finish and you will see some weird characters or dots and a load of null bytes (hex 00 in the hexadecimal pane of the editor).  The readable numbers are the end of the .lnz, and so you want to select to the end of those.  Choose Copy, then choose Open New File in the editor and when the new, empty file is open choose Paste.  Save as petlnz.txt.
+
+Now open petlnz.txt in Wordpad.  Not my usual trusty Notepad or any other wordprocessing software; _Wordpad_.  Now you can see the file as it should be seen, as a simpler version of the breedfile's .lnz without the programmers' comments and without variations.
+
+If you then open a copy of the _breedfile's_ .lnz section in Notepad or by viewing it in a Resource Editor or VIM or whatever you choose, you can scroll down the pet's information side by side with the breed's and you'll see which data is linked to which ball.  For instance, take the data from the Ballz Info section of my trusty Tigeo pet:
+
+[Ballz Info]
+65 244 0 1 -2 3 3 1
+65 244 0 1 0 3 3 1
+65 244 0 3 1 0 1 1
+65 244 0 3 1 5 3 1
+65 244 0 1 -2 -10 0 3
+65 244 0 1 0 -10 0 2
+65 244 0 3 -1 10 1 3
+65 244 0 1 1 -6 0 0
+65 244 0 1 -1 -15 0 0
+65 244 0 1 -1 15 0 0
+65 244 0 1 -1 -15 0 0
+65 244 0 1 -1 15 0 0
+65 244 0 2 -2 4 1 4
+65 244 0 2 0 4 1 5
+201 244 0 0 2 9 -1 -1
+201 244 0 0 2 9 -1 -1
+65 244 0 1 -2 5 5 0
+65 244 0 1 0 7 5 0
+65 244 0 1 -1 5 5 0
+65 244 0 1 0 5 5 0
+65 244 0 1 -2 7 5 0
+65 244 0 1 -1 5 5 0
+65 244 0 1 -1 4 5 1
+65 244 0 1 -1 4 5 1
+65 244 0 1 0 0 0 0
+65 244 0 2 -2 -5 3 5
+65 244 0 2 0 -5 3 4
+244 135 0 0 3 11 -1 -1
+244 135 0 0 3 11 -1 -1
+
+(etc)
+
+and then look at the equivalent area of the Tabby breedfile:
+;col    outCol    spklCl     fuzz     otlntTyp  sizeDif    group   texture
+[Ballz Info]
+65,      244,      244,        1,       -2,        3,        3,       1    eBall_ankleL,
+65,      244,      244,        1,        0,        3,        3,       1    eBall_ankleR,
+65,      244,      244,        3,        1,        0,        1,       1    eBall_belly,
+65,      244,      244,        3,        1,        5,        3,       1    eBall_butt,
+65,      244,      244,        1,       -2,      -10,        0,       3    eBall_cheekL,
+65,      244,      244,        1,        0,      -10,        0,       2    eBall_cheekR,
+65,      244,      244,        3,       -1,       10,        1,       3    eBall_chest,
+65,      244,      244,        1,        1,       -6,        0,       0    eBall_chin,
+65,      244,      244,        1,       -1,      -15,        0,       0    eBall_earL1,
+65,      244,      244,        1,       -1,       15,        0,       0    eBall_earL2,
+65,      244,      244,        1,       -1,      -15,        0,       0    eBall_earR1,
+65,      244,      244,        1,       -1,       15,        0,       0    eBall_earR2,
+65,      244,      244,        2,       -2,        4,        1,       4    eBall_elbowL,
+65,      244,      244,        2,        0,        4,        1,       5    eBall_elbowR,
+201,     244,       -1,        0,        2,        9,       -1,      -1    eBall_eyeL,
+201,     244,       -1,        0,        2,        9,       -1,      -1    eBall_eyeR,
+65,      244,      244,        1,       -2,        5,        5,       0    eBall_fingerL1,
+65,      244,      244,        1,        0,        7,        5,       0    eBall_fingerL2,
+65,      244,      244,        1,       -1,        5,        5,       0    eBall_fingerL3,
+65,      244,      244,        1,        0,        5,        5,       0    eBall_fingerR1,
+65,      244,      244,        1,       -2,        7,        5,       0    eBall_fingerR2,
+65,      244,      244,        1,       -1,        5,        5,       0    eBall_fingerR3,
+65,      244,      244,        1,       -1,        4,        5,       1    eBall_handL,
+65,      244,      244,        1,       -1,        4,        5,       1    eBall_handR,
+65,      244,      244,        1,        0,        0,        0,       0    eBall_head,
+65,      244,      244,        2,       -2,       -5,        3,       5    eBall_hipL,
+65,      244,      244,        2,        0,       -5,        3,       4    eBall_hipR,
+244,     105,      244,        0,        3,       11,       -1,      -1    eBall_irisL,
+244,     105,      244,        0,        3,       11,       -1,      -1    eBall_irisR,
+
+(etc)
+
+You can tell quite easily from this that Tigeo is a typical tabby, but that his iris outlines (i.e. eye colour) are an unusual shade of green.  It may be that I want to change one eye to be blue, or number 145 instead of of 135.  In Wordpad, just change the 3 of 135 to a 4, scroll down to the [Paint Ball] area which in this particular pet looks like this:
+
+[Paint Ballz]
+16 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+
+(etc)
+
+and reduce the 6 of 0.957826 to a 5.  Do the same two actions in the second [Ballz Info] and [Paint Ballz] sections -- every pet has two of these, one for the Adult pet and one for the kitten or puppy stage.
+
+Save (as Text Document -- that is important!), open the altered petlnz.txt into Hex Workshop and check that the checksum and size of file are the same for it and for that section of the petfile, and then paste it back into the same place from whence you copied it.
+
+You can do this particular alteration in the hex editor direct, of course, if you are good at finding the right place; in hex workshop it looks like this on this particular pet:
+
+00003100 3020 3220 3020 2D35 2033 2034 0A32 3434 0 2 0 -5 3 4.244
+00003110 2031 3335 2030 2030 2033 2031 3120 2D31  135 0 0 3 11 -1
+00003120 202D 310A 3234 3420 3133 3520 3020 3020  -1.244 135 0 0 
+00003130 3320 3131 202D 3120 2D31 0A36 3520 3234 3 11 -1 -1.65 24
+
+The dot before each 244 is hex 0A, which is the start of a line, and the iris ball is colour 244 with outline colour 135.  But for more complex editing you might want to try my Wordpad method.  Remember one thing, however -- if you're going to try copying several lines from one part of the file to another in Wordpad, you'll need to do a bit of fixing afterwards; it doesn't handle the end-of-line copying correctly.  Or, to be more accurate, it changes the hex 0A (the linefeed character) which marks the end or start of each line to 0D0A (carriage return/ line feed).  It is in fact possible to copy and paste sections of the .lnz in Wordpad, but you must remember afterwards to do a search/replace in the hex editor to change all instances of 0D0A back to 0A.
+
+For a more complex editing example, specifically regarding textures on pets, see my "howto" (with example pets) on editing tabby stripes.  You can really do a lot of creative stuff in a petfile, although you are constrained by the need to keep the file size and checksum the same for the whole pet -- and indeed for each significant section of the petfile.  It won't do, for example, to remove some bytes from the .lnz section and add them in some other part of the pet such as the bitmap.
+
+
+Tips on editing the ballz, textures etc in a .baby file
+=======================================================
+
+As I say in the pet section, for most editing I would say: "whatever you do, avoid using Wordpad because it changes some vital stuff when you save."  _However_, if you take due care it just so happens that Wordpad can be useful in this particular case.  This is how I edit the "text" part of a .baby file -- it doesn't work for the kind of binary editing that I mention in "changing health" etc, but it does for basic stuff such as changing ball colours etc:
+
+Open the baby in Hex Workshop (or your chosen hex editor).  Search for [Texture List] and you will get to the start of the pet's .lnz section, or "text" area.  Select from the beginning of that to the end of the .lnz; I can only explain where that is by pointing out that the readable numbers, letters and spaces in the ASCII pane of your hex editor finish and you will see some weird characters or dots and a load of null bytes (hex 00 in the hexadecimal pane of the editor).  The readable numbers are the end of the .lnz, and so you want to select to the end of those.  Choose Copy, then choose Open New File in the editor and when the new, empty file is open choose Paste.  Save as babylnz.txt.
+
+Now open babylnz.txt in Wordpad.  Not my usual trusty Notepad or any other wordprocessing software; _Wordpad_.  Now you can see the file as it should be seen, as a simpler version of the BabyzRez.dll's .lnz sections without the programmers' comments and without variations.
+
+(NOTE -- When you've finished editing, you need to Save [as Text Document -- that is important!].  Then open the altered babylnz.txt into Hex Workshop and check that the checksum and size of file are the same for it and for that section of the babyz' file, and then paste it back into the same place from whence you copied it.)
+
+If you then open a copy of the relevant Babyz .lnz section from BabyzRez.dll in Notepad or by viewing the DLL file in a Resource Editor or VIM or whatever you choose, you can scroll down the babyz' information side by side with the resource's and you'll see which data is linked to which ball -- also which number is in which column (outline, fuzz, texture etc).  For instance, take the data from the Ballz Info section of my trusty Tinytim baby, who was adopted from the Ab.lnz -- you can tell which .lnz a baby was adopted from by this: 
+
+[Little one]
+Ab.lnz
+
+The Ballz Info of my example baby starts like this; remember that yours will have different data:
+
+[Ballz Info]
+49 18 0 -1 -2 0 8 -1
+49 18 0 -1 0 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 1 -4 8 -1
+49 18 0 -1 1 5 8 -1
+49 18 0 -1 1 5 8 -1
+49 18 0 -1 -1 -4 8 -1
+49 18 0 -1 -2 -3 8 -1
+49 18 0 -1 0 -3 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+13 18 0 -1 -1 3 8 -1
+13 18 0 -1 -1 3 8 -1
+13 18 0 -1 -1 3 8 -1
+15 45 0 -1 -1 9 8 -1
+15 45 0 -1 -1 9 8 -1
+12 244 0 -1 -1 1 8 5
+12 244 0 -1 -1 1 8 5
+12 244 0 -1 -1 1 8 5
+12 244 0 -1 -1 1 8 5
+12 105 0 -1 -1 1 8 5
+12 105 0 -1 -1 1 8 5
+12 244 0 -1 -1 1 8 5
+12 105 0 -1 -1 1 8 5
+12 105 0 -1 -1 1 8 5
+12 105 0 -1 -1 1 8 5
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 -10 8 -1
+49 18 0 -1 -1 0 8 -1
+49 18 0 -1 -1 0 8 -1
+15 244 0 -1 -1 0 8 -1
+15 244 0 -1 -1 0 8 -1
+244 16 0 -1 3 15 8 -1
+244 16 0 -1 3 15 8 -1
+
+
+and in the Ab.lnz it looks like this:
+
+;col  outCol spklC fuzz otlnt sizeD group texture 
+[Ballz Info]
+45,	18,	-1,	-1,	-2,	0,	8,	-1	//0	ankleL       	
+45,	18,	-1,	-1,	 0,	0,	8,	-1	//1	ankleR       	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//2	archL        	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//3	archR        	
+45,	18,	-1,	-1,	 1,	-4,	8,	-1	//4	belly        	
+45,	18,	-1,	-1,	 1,	5,	8,	-1	//5	bigtoeL      	
+45,	18,	-1,	-1,	 1,	5,	8,	-1	//6	bigtoeR      	
+45,	18,	-1,	-1,	-1,	-4,	8,	-1	//7	bridge       	
+45,	18,	-1,	-1,	-2,	-3,	8,	-1	//8	cheekL       	
+45,	18,	-1,	-1,	 0,	-3,	8,	-1	//9	cheekR       	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//10	chestL       	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//11	chestR       	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//12	chin1        	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//13	chin2        	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//14	chin3        	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//15	chin4        	
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//16	ear1L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//17	ear1R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//18	ear2L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//19	ear2R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//20	ear3L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//21	ear3R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//22	ear4L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//23	ear4R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//24	ear5L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//25	ear5R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//26	ear6L        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//27	ear6R        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//28	earcenterL   
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//29	earcenterR   
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//30	elbowL       
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//31	elbowR       
+13,	18,	-1,	-1,	-1,	3,	8,	-1	//32	extra1      
+13,	18,	-1,	-1,	-1,	3,	8,	-1	//33	extra2      
+13,	18,	-1,	-1,	-1,	3,	8,	-1	//34	extra3
+15,	45,	-1,	-1,	-1,	9,	8,	-1	//35	eyeL         
+15,	45,	-1,	-1,	-1,	9,	8,	-1	//36	eyeR         
+12,	244,	-1,	-1,	-1,	1,	8,	5	//37	eyebrow1L    
+12,	244,	-1,	-1,	-1,	1,	8,	5	//38	eyebrow1R    
+12,	244,	-1,	-1,	-1,	1,	8,	5	//39	eyebrow2L  
+12,	244,	-1,	-1,	-1,	1,	8,	5	//40	eyebrow2R
+12,	105,	-1	-1,	-1,	1,	8,	5	//41	eyebrow3L    
+12,	105,	-1,	-1,	-1,	1,	8,	5	//42	eyebrow3R    
+12,	244,	-1,	-1,	-1,	1,	8,	5	//43	eyebrow4L   
+12,	105,	-1,	-1,	-1,	1,	8,	5	//44	eyebrow4R    
+12,	105,	-1,	-1,	-1,	1,	8,	5	//45	eyebrow5L    
+12,	105,	-1,	-1,	-1,	1,	8,	5	//46	eyebrow5R    
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//47	finger_index1L  
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//48	finger_index1R  
+45,	18,	-1,	-1,	1,	0,	8,	-1	//49	finger_index2L  
+45,	18,	-1,	-1,	1,	0,	8,	-1	//50	finger_index2R  
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//51	finger_middle1L 
+45,	18,	-1,	-1, 	-1,	0,	8,	-1	//52	finger_middle1R 
+45,	18,	-1,	-1,	1,	0,	8,	-1	//53	finger_middle2L 
+45,	18,	-1,	-1,	1,	0,	8,	-1	//54	finger_middle2R 
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//55	finger_pinky1L  
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//56	finger_pinky1R  
+45,	18,	-1,	-1,	1,	0,	8,	-1	//57	finger_pinky2L  
+45,	18,	-1,	-1,	1,	0,	8,	-1	//58	finger_pinky2R  
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//59	football1L   
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//60	football1R   
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//61	football2L   
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//62	football2R   
+45,	18,	-1,	-1,	-1,	-20,	8,	-1	//63	head
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//64	heelL        
+45,	18,	-1,	-1,	-1,	0,	8,	-1	//65	heelR        
+15,	244,	-1,	-1,	-1,	0,	8,	-1	//66	hipL         
+15,	244,	-1,	-1,	-1,	0,	8,	-1	//67	hipR         
+244,	134,	-1,	-1,	3, 	15,	8,	-1	//68	irisL        
+244,	134,	-1,	-1,	3, 	15,	8,	-1	//69	irisR        
+
+Here you can see that Tinytim has a brown variation in eye colour (the iris outline), as it is 16 instead of the basic 134 of the [Ballz Info], and he is obviously a hexie as his body ballz are all 49 instead of the normal 45 (or 43 variation).  Actually I'd rather like him to have pale purple eyes, so I'll choose 26 and change the 1 to 2 in each eye.  Then I'll go down to [Paint Ballz] where I can easily make up for the incresed numbers:
+
+[Paint Ballz]
+0 -15 0.707107 0 -0.707107 226 -1 0 -1 -1 -1 0
+
+I can change the end 7 of each 0.707107 to 6.
+
+Then I should repeat the whole exercise down in the second area of [Ballz Info] and [Paint Ballz] -- this is because babyz retains the same format as Petz, where the upper section is the "adult" one and the lower section the "puppy or kitten" one.  
+
+You can do this particular alteration in the hex editor direct, of course, if you are good at finding the right place; in hex workshop the iris looks like this on this particular baby:
+
+00003CF0 2D31 202D 3120 3020 3820 2D31 0A32 3434 -1 -1 0 8 -1.244
+00003D00 2032 3620 3020 2D31 2033 2031 3520 3820  26 0 -1 3 15 8 
+00003D10 2D31 0A32 3434 2032 3620 3020 2D31 2033 -1.244 26 0 -1 3
+00003D20 2031 3520 3820 2D31 0A31 3520 3234 3420  15 8 -1.15 244 
+
+The dot before each 244 is hex 0A, which is the start of a line, and the iris ball is colour 244 with the outline colour (once I'd edited it) of 26.  
+
+But for more complex editing you might want to try my Wordpad method.  Remember one thing, however -- if you're going to try copying several lines from one part of the file to another in Wordpad, you'll need to do a bit of fixing afterwards; it doesn't handle the end-of-line copying correctly.  Or, to be more accurate, it changes the hex 0A (the linefeed character) which marks the end or start of each line to 0D0A (carriage return/ line feed).  It is in fact possible to copy and paste sections of the .lnz in Wordpad, but you must remember afterwards to do a search/replace in the hex editor to change all instances of 0D0A back to 0A.
+
+The "growing" has been disabled in Babyz -- but of course we can cause it to happen, if we wish, as well as causing hair to grow, by having the [Default Scales], plus [Add Ball] and [Paint Ballz] sizes for hair different between the two sections.  Not all items will change because not all take the "kitten" data into account; for instance, textures and main ballz colours are taken from the "adult" part's information for both stages.
+
+So let's try making the baby a hairless mini to start with and let him grow into a normal size with a full head of hair.  The whole process of growing will take only 15 days, by the way, but is quite fun to watch.  For this, we want to change things in the "kitten" stage only.
+
+The "kitten" stage is the lower part, so we need to change the [Default Scales] down there:
+
+[Default Scales]
+100
+100
+
+to something like
+
+[Default Scales]
+75
+75
+
+this is a little complicated, but not impossible; we need to increase the 1 of each 100 by 6 to make 7, and the first 0 by 5.  then we need to delete the second 0 of each 100.  Finally, down in the [Paint Ballz] area we need to reduce four numbers, two by 6 and two by 5, and add two 0 numbers.  So, we had this:
+
+[Paint Ballz]
+0 -15 0.707106 0 -0.707106 226 -1 0 -1 -1 -1 0
+4 -8 0.707107 0 -0.707107 226 -1 0 -1 -1 -1 0
+
+After making the changes that I suggest, we have
+
+[Paint Ballz]
+0 -15 0.7071000 0 -0.7071010 226 -1 0 -1 -1 -1 0
+4 -8 0.707101 0 -0.707102 226 -1 0 -1 -1 -1 0
+
+My wee one doesn't have any Add Ball hair (nothing using ball 63 as the base ball in the Add Ball section), but he does have Paint Ball hair:
+
+63 30 0.17609 -0.880451 -0.440225 10 -1 6 -1 -1 3 0
+63 40 0.196116 -0.980581 0 10 -1 6 -1 -1 3 0
+63 50 0.140028 -0.70014 0.70014 10 -1 6 -1 -1 3 0
+63 50 -0.472866 -0.78811 0.394055 10 -1 6 -1 -1 3 0
+63 40 0.581914 -0.727393 0.363696 10 -1 6 -1 -1 3 0
+63 60 0 -0.406138 0.913812 10 -1 4 -1 -1 3 0
+
+This is easy -- change the ball diameter to 0 on each, and put the deleted number onto the end of the first of the long numbers:
+
+63 0 0.176093 -0.880451 -0.440225 10 -1 6 -1 -1 3 0
+63 0 0.1961164 -0.980581 0 10 -1 6 -1 -1 3 0
+63 0 0.1400285 -0.70014 0.70014 10 -1 6 -1 -1 3 0
+63 0 -0.4728665 -0.78811 0.394055 10 -1 6 -1 -1 3 0
+63 0 0.5819144 -0.727393 0.363696 10 -1 6 -1 -1 3 0
+63 0 0 -0.4061386 0.913812 10 -1 4 -1 -1 3 0
+
+Now his hair will grow from baldness through patchiness to a full head of hair.
+
+Well, now you perhaps want him to be blond rather than dark.  That's a little more tricky; the texture number for these hair ballz is 3, which means it's the fourth texture in the list (texture numbers always start with the first one being texture 0).  And when you look at the list, you see that the particular texture is B_DarkBrown3_trans.bmp, which you'll have to replace with B_Blond1.bmp. Of course there are extra letters to be removed here and replaced somewhere, but don't panic -- the good old paint ballz' long decimal-place numbers are an excellent dumping-ground for those.  Just pop the extra letters, one each, on the end of those numbers, and adjust various other numbers there ghto compensate for the reduced 3 to 1, w (hex 77) to l (hex 6C), and r (hex 72) to d (hex 64)
+
+When you're done, Save (as text document -- as I said before, that's important). Then open it into your hex editor along with the baby file, check that the file size and checksum are definitely the same as before, and if so then copy/paste it into the same place from which you first copied it out.
+
+I include a copy of the baby that I've used here as an example.
+
+Enjoy!
+
+Carolyn Horn
+
+

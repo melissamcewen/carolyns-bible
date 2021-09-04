@@ -1,0 +1,207 @@
+
+The ID number, or "the byte", or "The offset byte"
+==================================================
+
+This applies to all the games from Petz 3 onwards.  It also applies to Babyz,
+apart (obviously) from the breedfile thing.  It is yet another attempt to
+explain about ID numbers, because for some reason it seems that people cannot
+find my previous ID-number info at my Tutorial pages.  I have no idea why this
+is so, since the information has been up for quite some time but as it's 
+a Frequently Asked Question, here's the answer all over again, told slightly
+differently.
+
+So, this "howto" tries to explain about the ID number, or the number which
+used to be referred to as the "offset byte" by hexers.  You need a unique
+ID number for each breed in your game (actually also for each toy, clothing
+item and playscene).  This applies to all the games from Petz 3 onwards.
+petz II and earlier didn't have this feature.
+
+The ID number in a breed is extremely important, not just for making
+breedz show up separately but also when breeding your petz.  If the ID
+number in the breedfile is wrong, the game will crash when the pet
+tries to announce a "happy event".
+
+Today, since ResHacker became usable as an editor of petz resource files,
+it's a little more complicated to find the ID number than it used to be. 
+ResHacker shifts the ID number down to the naming area of the breed.  So
+if the breedfile that you're trying to fix has been Reshacked, the ID 
+number is down here, where the breed has been named:
+
+00430640 2900 2000 3100 3900 3900 3700 2000 5000 ). .1.9.9.7. .P.
+00430656 4600 2E00 4D00 6100 6700 6900 6300 2C00 F...M.a.g.i.c.,.
+00430672 2000 4900 6E00 6300 2E00 0000 0000 0000  .I.n.c.........
+00430688 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00430704 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00430720 0400 5300 7000 6F00 7400 0500 5300 6B00 ..S.p.o.t...S.k.
+00430736 7500 6E00 6B00 0200 4400 6D00 0000 0000 u.n.k...D.m.....
+00430752 0000 0000 0000 0000 0100 0000 4461 6C6D ............Dalm
+00430768 6174 6961 6E53 7072 6974 6500 0000 0000 atianSprite.....
+00430784 0000 0000 0000 0000 0000 0000 5370 6F74 ............Spot
+00430800 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00430816 0000 0000 0000 0000 0000 0000 F703 0000 ................
+00430832 0100 0000 0000 0000 0000 0000 0000 0000 ................
+
+while in the Dalmatian, or any breed that has been edited from it in a
+hex editor, the ID number is here, above the BM which is the start of
+the bitmap, as stated in my pre-Reshack-days tutorials:
+
+00033552 4500 4500 4900 3400 0800 4400 4D00 4600 E.E.I.4...D.M.F.
+00033568 4C00 4500 4500 4900 3500 0000 0000 0000 L.E.E.I.5.......
+00033584 0100 0000 4461 6C6D 6174 6961 6E53 7072 ....DalmatianSpr
+00033600 6974 6500 0000 0000 0000 0000 0000 0000 ite.............
+00033616 0000 0000 5370 6F74 0000 0000 0000 0000 ....Spot........
+00033632 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00033648 0000 0000 F703 0000 0100 0000 0000 0000 ................
+00033664 424D C029 0000 0000 0000 3204 0000 2800 BM.)......2...(.
+00033680 0000 6900 0000 5900 0000 0100 0800 0000 ..i...Y.........
+
+Right.  The ID number is actually a few bytes beyond the word Spot,
+which is of course the default name which you are offere to give a pet
+that you're adopting at the AC.  To see the ID number, you need to look
+in the hexadecimal pane of your hex editor. Spot is shown as 5370 6F74
+and then there are a load of null bytes (hex 00)and finally you come to
+a 2-byte number (in the case of the dali, it's F703).  That is the ID
+number, and you need to change one or both of those numbers in your
+hexed breed in order to make it show up separately.  Of course, the
+number F703 will be different in any other original breedfile, so
+do try to understand what you're looking at.
+
+Either of the two bytes F7 and 03 can be changed to any other hexadecimal 
+number.  In case you're not familiar with the way Hex numbers count upwards, 
+here's a table of our normal Decimal system alongside the Hexadecimal:
+
+Dec	Hex
+ 0	00
+ 1	01
+ 2	02
+ 3	03
+ 4	04
+ 5	05
+ 6	06
+ 7	07
+ 8	08
+ 9	09
+ 10	0A
+ 11	0B
+ 12	0C
+ 13	0D
+ 14	0E
+ 15	0F
+ 16	10
+ 17	11
+ 18	12
+etc
+
+If you're still not sure, use the calculator that comes with Windows; choose 
+View > Scientific.  You can then put in a number in Decimal (Dec) and see it 
+converted to Hex.
+
+Although you can easily choose a number that won't clash with other breeds on 
+your computer, if you want to make your breed available to others, you're going 
+to come up against one small problem that we all have; making sure that our 
+breeds don't clash with anyone else's.  Back in Petz 3 days, when the PetzGallery
+was going strong, people with PetzGallery Standard numbers could be sure of making
+breedz which didn't clash with either other members' breedz or the original ones.
+Nowadays there is a partial list at the P.O.N.D site http://zeva.sphosting.com/pond/
+
+The alternative is to put a note with your breedfile to the effect that it might 
+clash with other breeds, and that the downloader will have to shuffle breeds around 
+until they find out which ones are clashing.  The clash does no harm -- it simply 
+means that one or other breed won't work.
+
+Other files -- toyz etc
+=======================
+
+In the case of clothes and toyz etc, the same basic idea applies; for instance,
+with the Stick toy, search for Stick and after one or two instances of the word 
+you'll find you're in the right place, with Sprite_Stick_X1 above it and the ID
+number below.
+
+Some toyz are a little more complicated because they are, in a way, two toyz in one,
+such as the cheese with cheese crumb, or the sprays such as the flea spray:
+
+00025280 5700 4100 5600 0600 5300 5000 5200 4100 W.A.V...S.P.R.A.
+00025296 5900 3200 0000 0000 0000 0000 0000 0000 Y.2.............
+00025312 0200 0000 5370 7269 7465 5F53 7072 615F ....Sprite_Spra_
+00025328 4631 0000 0000 0000 0000 0000 0000 0000 F1..............
+00025344 0000 0000 466C 6561 2053 7072 6179 2042 ....Flea Spray B
+00025360 6F74 746C 6500 0000 0000 0000 0000 0000 ottle...........
+00025376 0000 0000 4B27 0000 0300 0000 5370 7269 ....K'......Spri
+00025392 7465 5F4D 6973 745F 4631 0000 0000 0000 te_Mist_F1......
+00025408 0000 0000 0000 0000 0000 0000 466C 6561 ............Flea
+00025424 204D 6973 7400 0000 0000 0000 0000 0000  Mist...........
+00025440 0000 0000 0000 0000 0000 0000 4C27 0000 ............L'..
+00025456 0100 0000 0000 0000 0100 0000 0000 0000 ................
+00025472 0555 7365 6441 0008 0000 0007 0000 0092 .UsedA..........
+
+The ID number for the bottle is after the name Flea Spray Bottle and is 4B27, 
+and the ID number for the flea spray is after Flea Mist and is 4C27.  In the 
+Wool Scratching Post, things are simpler:
+
+00017616 5200 4100 5400 4300 4800 5000 4F00 5300 R.A.T.C.H.P.O.S.
+00017632 5400 3000 3800 0000 0000 0000 0000 0000 T.0.8...........
+00017648 0100 0000 5370 7269 7465 5F50 6F73 745F ....Sprite_Post_
+00017664 5731 0000 0000 0000 0000 0000 0000 0000 W1..............
+00017680 0000 0000 576F 6F6C 2053 6372 6174 6368 ....Wool Scratch
+00017696 696E 6720 506F 7374 0000 0000 0000 0000 ing Post........
+00017712 0000 0000 3C27 0000 0300 0000 0000 0000 ....<'..........
+
+And the number is 3C27, coming after the words Wool Scratching Post.
+
+Clothing is much the same, like the Sorcerer Pants for instance:
+
+00017088 5300 5700 4900 5A00 4100 5200 4400 0000 S.W.I.Z.A.R.D...
+00017104 0100 0000 5370 7269 7465 5F43 6C6F 745F ....Sprite_Clot_
+00017120 5061 6E74 7357 697A 6172 6400 0000 0000 PantsWizard.....
+00017136 0000 0000 536F 7263 6572 6572 2050 616E ....Sorcerer Pan
+00017152 7473 0000 0000 0000 0000 0000 0000 0000 ts..............
+00017168 0000 0000 A63A 0000 0300 0000 0000 0000 .....:..........
+00017184 5B46 6C61 7420 436C 6F74 6869 6E67 5D20 [Flat Clothing] 
+
+Here the number is below the words Sorcerer Pants and is A63A.
+
+Now, the problem with clothes and with toyz is that the allowed range of ID numbers
+is a lot smaller than with breedfiles.  And no, I don't know what the range is; I've
+not been interested enough in clothes to find out, and with toyz, so few are made
+by hexers to make it worth finding out.  You'll just have to experiment with finding
+which numbers will work in your game.  The best advice I can give is that you run
+the game with only your toy or clothing item in the toyz or clothes directory, to
+check that your hexing and re-naming work.  Then give it a new ID number and open
+the game again; if it's disappeared, the number was not a good choice.  Try another
+number until you find one that works.  Then put all the other clothes or toyz back
+in the game, and if yours still shows up then it doesn't clash.  If it doesn't,
+go back to trying ne ID numbers until you get one that works.
+
+The original game Area files also have ID numbers, and if you're editing one of those
+in a hex editor (as opposed to making a new one in the P4 or P5 Playscene editor),
+you will need to rename yours and give it also its own ID number.  And it's in the
+same kind of place in the .env file as in all the other files; below the List of 
+Everything That's In The File, and the name (in this example, Beach), and above the
+BM start of the bitmap:
+
+00044304 4400 4900 4E00 4F00 5500 5400 3000 3400 D.I.N.O.U.T.0.4.
+00044320 0100 0000 4172 6561 5F42 6561 6368 0000 ....Area_Beach..
+00044336 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00044352 0000 0000 4265 6163 6800 0000 0000 0000 ....Beach.......
+00044368 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00044384 0000 0000 8A13 0000 0100 0000 0000 0000 ................
+00044400 424D 3800 2400 0000 0000 3600 0000 2800 BM8.$.....6...(.
+
+And here you can see that it's 8A13.  it may seem difficult to spot at first, but
+you'll get used to it.
+
+Now please, folks -- I've explained as best I can.  Please please stop writing to me
+to ask about the dratted ID number!
+
+Cheers
+
+Carolyn Horn
+
+
+
+
+
+
+
+
+

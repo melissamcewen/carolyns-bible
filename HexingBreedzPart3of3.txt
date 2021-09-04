@@ -1,0 +1,364 @@
+part 3 of Tutorial for "editing Petz breedfiles, and what can be done for saved pets".
+======================================================================================
+
+Contents: Ballz list for Catz
+          Ballz list for Dogz
+          Petz II-5 colours (note, I have a colour chart also up at my site which
+                    will show the colours more exactly)
+          Acknowledgements
+
+For Catz 4:
++++++++++++
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+The main list goes from 0-66:
+
+0	ankleL,
+1	ankleR,
+2	belly,
+3	butt,
+4	cheekL,
+5	cheekR,
+6	chest,
+7	chin,
+8	earL1,
+9	earL2,
+10	earR1,
+11 	earR2,
+12	elbowL,
+13	elbowR,
+14	eyeL,
+15	eyeR,
+16	fingerL1,
+17	fingerL2,
+18	fingerL3,
+19	fingerR1,
+20	fingerR2,
+21	fingerR3,
+22	handL,
+23	handR,
+24	head,
+25	hipL,
+26	hipR,
+27	irisL,
+28	irisR,
+29	jaw,
+30	jowlL
+31	jowlR,
+32	kneeL,
+33	kneeR,
+34	knuckleL,
+35	knuckleR,
+36	neck,
+37	nose,
+38	shoulderL,
+39	shoulderR,
+40	snout
+41	soleL (i.e. the foot),
+42	soleR (i.e. the foot),
+43	tail1 (nearest to the butt),
+44	tail2,
+45	tail3,
+46	tail4,
+47	tail5,
+48	tail6 (tip),
+49	toeL1,
+50	toeL2,
+51	toeL3,
+52	toeR1,
+53	toeR2,
+54	toeR3,
+55	tongue1,
+56	tongue2,
+57	whiskerL1
+58	whiskerL2,
+59	whiskerL3,
+60	whiskerR1
+61	whiskerR2,
+62	whiskerR3,
+63	wristL,
+64	wristR,
+65	zorient,
+66	ztrans
+
+The Animator's Add Balls are a little different in each breed, because of 
+the different needs that different breedz have.  For instance, the Tabby 
+cat has stripes which need to be specified...  You can work them out by 
+studying the relevant breed's .LNZ, so I include only the more standard 
+ones here:
+
+67 mount align ball
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball
+75 utility ball
+76 utility ball
+(there's probably no need to touch 67-76 usually)
+
+The following are different in some breeds; just check out the one you're working with:
+
+77 } nose
+78 }
+79 }
+
+80 } head -- Ears region
+81 }
+82 }
+85 }
+86 }
+87 } left side top of head in front of ear (near jowl and cheek)
+88 }
+89 } right side top of head in front of ear (near jowl and cheek)
+90 } ears
+91 }
+
+92} Fangs (See Alleycat) or Ruff (see maine Coon)
+93}
+
+For Dogz 4:
++++++++++++
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+The main list goes from 0-66:
+
+0	;L ankle
+1	;L eyebrow1
+2   	;L eyebrow2
+3  	;L eyebrow3
+4  	;L ear1
+5  	;L ear2
+6 	;L ear3
+7   	;L elbow
+8    	;L eye
+9   	;L finger1
+10   	;L finger2
+11  	;L finger3
+12  	;L foot
+13 	;L hand
+14 	;L iris
+15	;L jowl
+16	;L knee
+17	;L nostril
+18	;L shoulder
+19	;L hip
+20	;L toe1
+21	;L toe2
+22	;L toe3
+23	;L wrist
+24	;R ankle
+25	;R eyebrow1
+26	;R eyebrow2
+27	;R eyebrow3
+28	;R ear1
+29	;R ear2
+30	;R ear3
+31	;R elbow
+32	;R eye
+33	;R finger1
+34	;R finger2
+35	;R finger3
+36	;R foot
+37	;R hand
+38	;R iris
+39	;R jowl
+40	;R knee
+41	;R nostril
+42	;R shoulder
+43	;R hip
+44	;R toe1
+45	;R toe2
+46	;R toe3
+47	;R wrist
+48	;belly
+49	;butt
+50	;chest
+51	;chin
+52	;head
+53	;jaw
+54	;neck
+55	;nose (bottom)
+56	;snout
+57	;tail1
+58	;tail2
+59	;tail3
+60	;tail4
+61	;tail5
+62	;tail6
+63	;tongue1
+64	;tongue2
+65	;Z-trans
+66	;Z-orient
+
+The Animator's Add Balls are a little different in each breed, because of 
+the different needs that different breedz have.  For instance, the Poodle 
+has tufts which need to be specified...  You can work them out by studying 
+the relevant breed's .LNZ, so I include only the more standard ones here:
+
+67 mount align ball 
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball 
+75 utility ball 
+76 utility ball 
+(there's probably no need to touch 67-76 usually)
+
+The following are different in some breeds; just check out the one you're 
+working with:
+
+77   } ears outside; top spot on left 
+78   }       and second from top right 
+79   }       and second from top left?
+80   } ears outside, top spot on right 
+81   }      and third from top on R
+82   }      third from top spot on L 
+
+83   } tail
+84   }  
+85   }
+86   }
+87   }
+
+88   }  tongue (or chin)
+
+89   } test cover up part of jowls
+90   } test cover up part of jowls
+91   } cheek/jowls; go from cheek or mouth 
+92   }              corners to snout or nose
+
+93   } Inside mouth at front above chin; L
+94   } Inside mouth at front above chin; R
+
+As an example of differences and extra balls, take the Poodle:
+poodle head puff 89-91
+poodle puffs 92-95
+poodle puffs without outlines for unshaved poodles 96-99
+
+Petz II-5 colours
+++++++++++++++
+
+Here's a list which is pretty much complete; this is rough descriptions only, 
+but I have provided also an HTML colour chart which should make them clearer.  
+Silver of Silver's Petz, now long gone, had a chart also which was very nicely 
+presented although incomplete, which spurred me on to try and make one for 
+myself and include the remaining colours of the 256.
+
+0       black
+1       dark Red
+2       dark Green
+3       dark Yellow (this is really more like an olive green)
+4       dark Blue
+5       dark Magenta
+6       dark Cyan (teal?)
+7       dark Grey
+8       light Grey
+9       Red
+10-19   pale greys (higher numbers darker)
+20-29   greys (higher numbers darker)
+30-39   blacks
+40-49   fawny browns (higher numbers darker)
+50-59   dark reddish browns (higher numbers darker -- 59 almost black)
+60-69   mid browns (60-63 with hint of orange) (higher numbers darker)
+70-79   pinks (higher numbers darker)
+80-89   reds (higher numbers darker)
+90-99   dark browns (greenish) (higher numbers darker -- 97-99 almost black)
+100-109 brown-greens (higher numbers darker)
+110-119 grey-blues; 110-113 steel blues (higher numbers darker)
+120-129 earthy green-browns (higher numbers darker)
+130-139 greens (higher numbers darker)
+140-149 blues (higher numbers darker)
+150-159 pale blues (higher numbers darker)
+160-169 yellows (higher numbers darker; 167-169 green-yellows)
+170     white
+171     pale turquoisey blue
+172-179 pale blues and blue-greys
+180-187 earthy pinks and reds (higher numbers darker)
+188-189 dark reds (almost black)
+190-198 greens and blue/greens (higher numbers darker -- 197-198 almost black)
+199     white
+200     white
+201     very pale yellow
+202     very pale pink-brown
+203     dark green
+204     very pale green
+205     pale grey-green
+206     orange-yellow
+207     greyer pale grey-green
+208     darker pale grey-green
+209     greyish mauve
+210     mauve-er greyish mauve
+211-212 darker oranges
+213     orangey red
+214     olive/earth green
+215     green-brown
+216     purplish slate grey
+217     green
+218     bright green
+219     brown
+220     bright red
+221-222 browns
+223     mauvey red
+224-225 purple-blues
+226-227 dark blue-greys
+228     dark brown
+229     royal blue
+230-231 greys
+232     white
+233-234 black
+235     chocolate brown
+236     white
+237-238 pale greys
+240     royal blue
+241     white
+242     pale grey
+243     royal blue
+244     black
+245     white
+246     dark blue-grey
+247     black
+248     dark grey
+249     bright red
+250     lime green
+251     yellow
+252     bright blue
+233     bright pinky-purple
+254     bright pale blue
+255     white
+
+
+When you're trying out colours, it's best to switch the texture 
+to "off" in the ball you're using (i.e.set its number in the Texture 
+column to -1), or you may not see the colour properly.  You can 
+experiment with a mixture of bitmaps and ball-colours to get the 
+effect you want, of course.
+
+ACKNOWLEDGEMENTS
+================
+
+I want  to say a big "thank you" to Birgit of the PetzGallery for her 
+encouragement and ideas, especially while I was struggling with the 
+sound files in Petz 3 and just about ready to give up.  It was really thanks to 
+her that I got my horse to have such full adult sounds.  
+
+I'd also like to thank Anso who was the first to showcase my breeds
+and who has been so very enthusiastic about them and full of new
+ideas.
+
+And to Abby of Petzwarehouse, who spurred me on to gather all my
+notes together at last into an (I hope) coherent tutorial...
+and who continued to encourage me, even hosting my growing site,
+while I threw together all sorts of tutorials, "howto"s and game-
+fixes.  Bless you for your patience and help!
+
+++++++++++++end of tutorial
+
+Enjoy!
+
+Carolyn Horn

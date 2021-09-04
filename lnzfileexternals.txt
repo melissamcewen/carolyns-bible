@@ -1,0 +1,238 @@
+
+A tip for "fast-hexing", i.e for making breed changes while the game is
+running.  It also allows you to make very small downloads of over-
+writing breedz because, after the initial download of a suitably
+"doctored" breed, your downloaders will only need to get the latest
+.lnz files.  With a little extra work, the method can also be used
+to make quick conversions between game-versions.
+
+This is for people who understand what they are doing when they
+hex breedfiles etc.  It's not a "how to hex"; it's just a useful
+tip or note for hexers who want the full control that you get 
+from using a hex editor plus even more speed and flexibility than 
+you get from using a Resource Editor such as ResHacker.  If you're 
+scared that people might be able to steal your stuff more easily, 
+or that they will re-distribute your items with bits missing, then
+simply use this as a fast, efficient way of seeing your changes, or
+to make litterz speedily.
+
+The main point of this is that if you want to be able to edit breedz 
+and see what they are going to look like right away, this is how to
+do it.  All you need is a tiny change to the breedfile itself, and the
+ability to use Notepad.exe.
+
+To deal with big lnz files, and if you want to test things "on the 
+fly", it's possible to re-direct the game to see the .lnz externally 
+and completely bypass either the need for using ResHacker or 
+copy/pasting into a hex editor.  You can then use the trusty Notepad 
+to edit the relevant .lnz without having to close the game, and you 
+won't get the occasional disconcerting crashes that Reshacker can 
+be prone to during re-compilations.  The re-direction is a simple 
+bit of hexing, you just find L.N.Z in the "List of all that's in 
+the file" (this is the list that I talk about in my tutorials, it's 
+directly above the BM of the Adoption Centre bitmap) and change a 
+letter so that the game doesn't think there's a .lnz in the file. 
+
+For instance, in the poodle the list starts like this:
+
+00055856 0400 4600 4900 4600 4900 0500 5300 4B00 ..F.I.F.I...S.K.
+00055872 4900 4E00 3100 0300 4C00 4E00 5A00 0200 I.N.1...L.N.Z...
+00055888 5000 4400 0500 5000 4400 5000 5500 5000 P.D...P.D.P.U.P.
+00055904 0600 5200 4100 5700 5F00 5000 4400 0900 ..R.A.W._.P.D...
+00055920 5200 4100 5700 5F00 5000 4400 5000 5500 R.A.W._.P.D.P.U.
+00055936 5000 0300 5300 4300 5000 0300 5400 5800 P...S.C.P...T.X.
+00055952 5400 0D00 4200 4500 5600 4500 4E00 5400 T...B.E.V.E.N.T.
+00055968 5F00 4400 4F00 4700 5F00 5000 4400 0500 _.D.O.G._.P.D...
+00055984 5000 4400 5300 4E00 4400 0300 5700 4100 P.D.S.N.D...W.A.
+00056000 5600 0E00 5000 4F00 5F00 4200 4100 5200 V...P.O._.B.A.R.
+
+Changing the Z to a second N does the trick:
+
+00055856 0400 4600 4900 4600 4900 0500 5300 4B00 ..F.I.F.I...S.K.
+00055872 4900 4E00 3100 0300 4C00 4E00 4E00 0200 I.N.1...L.N.N...
+
+ Then you copy the .lnz sections out to new files (either using ResHacker
+or a hex editor) and save them as the correct names -- e.g. for persian- 
+based breedz,  pr.lnz and prkit.lnz -- and pop them into a directory, 
+off the game's root directory, created thusly:
+
+\ptzfiles\cat\pr\
+
+For people who have trouble understanding where to make these 
+subdirectories, look for where your game's .exe is; that's the
+root directory off which you need to make the pztfiles one, and then
+you make the cat one off the ptzfiles one, and so on.
+
+NOTE:  The files _must_ have the extension of .lnz, not .lnz.txt, or
+this won't work.  It's best if you make sure that the file extensions
+are visible in Windows Explorer (or My Computer); to do this, go to
+the View menu at the top, choose Options, and make sure that the
+"Hide MS-DOS file extensions" is _not_ ticked.  You can then easily
+rename a file to have the correct extension by right-clicking on the file.
+
+Of course the "pr" directory is different for other breedz -- "ac"
+for Alley Catz, for instance, and the "cat" is "dog" for dogz breedz.
+You can have a kitten (or pup) actually out at the Adoption Centre 
+and change the .lnz section in Notepad, get another kitten or pup 
+out, and see how it compares with the one that's already out, and so on.
+
+This has another big advantage; it means that converting from one version
+of the game to another, even when you have huge, complex .lnz files, is
+as simple for everyone as it used to be before people started to use
+ResHacker and similar resource editors.
+
+But you need to do a _little_ more work to make sure that converted hexies
+don't overwrite each other.  Most hexers keep the base-"folders" names in 
+their breedz, which means that, say, all your Great Dane-based hexies' 
+gd.lnz files would overwrite each other unless you make another small 
+change or two.  Here's how to do it so they don't either overwrite or 
+crash the game, using poodle-based breedz as example.
+
+What you need to remember is that the game needs to find certain basic
+files -- such as .lnz, scp etc, in a specific hard-wired "folder" either
+inside the resource .cat or .dog or .dll file or on the hard drive.  We
+have very little leeway in what we can rename here.  In the case of .lnz
+files, the game looks for this: ptzfiles, then cat or dog -- these are
+hardwired in the engine's processes, i.e. not changeable -- then the
+2-letter identifying mnemonic, then the _same_ 2-letter .lnz file.  It
+has to be the same two letters, there seems to be no way round that.  So
+the structure needs to be
+
+\ptzfiles\dog\xy\xy.lnz
+
+where xy is the 2-letter mnemonic.  In the case of an un-doctored Great
+Dane-based breed, that would be gd\gd.lnz, or in the case of an
+un-doctored poodle, pd\pd.lnz.  And of course all the same-name .lnz
+files will overwrite each other, so we need to do a tiny bit of dog-
+file-doctoring.
+
+So, take my poodle.  I want it to use normal poodle sounds which, at the
+moment, are internal, and I want it to use an external set of .lnz files
+which won't overwrite others, plus I want to be able to import
+previously adopted poodles and have them breed with new ones.  (I also
+actually want to experiment with different external .scp files, but that
+just needs to be treated in the same way as external .lnz files, and is
+not important here.)
+
+Right.  The poodle has four .lnz files which I copy out, save and name:
+
+pd.lnz
+pdpup.lnz
+raw_pd.lnz
+raw_pdpup.lnz
+
+I shall change the mnemonic to pp, so I rename them:
+
+pp.lnz
+pppup.lnz
+raw_pp.lnz
+raw_pppup.lnz
+
+and inside them I change these lines:
+
+in pp.lnz:
+
+[Sounds]
+\ptzfiles\dog\pp\pdsnd.txt
+[Little one]
+pppup.lnz
+
+in pppup.lnz:
+
+[Default Linez File]
+\ptzfiles\dog\pp\pp.lnz
+
+in raw_pp.lnz:
+
+[Sounds]
+\ptzfiles\dog\pp\pdsnd.txt
+[Little one]
+raw_pppup.lnz
+
+in raw_pppup.lnz:
+
+[Default Linez File]
+\ptzfiles\dog\pp\raw_pp.lnz
+
+(Note, I would only change the sounds line if I'm keeping the sounds
+internal.  Actually I'm in process of making all my sound-stripped
+breedz un-mute by redirecting the sounds to the hard drive, so I would
+keep the \ptzfiles\dog\pd\pdsnd.txt azis, but if you want it to pick up
+internal sounds you need to change it to \ptzfiles\dog\pp\pdsnd.txt)
+
+Okay, now I open the Poodle-based file into my hex editor and find this
+section:
+
+00050240 4C69 7665 6C69 6E65 7373 0000 5C50 747A Liveliness..\Ptz
+00050256 4669 6C65 735C 646F 675C 4245 7665 6E74 Files\dog\BEvent
+00050272 5F44 6F67 5F4D 6978 6564 2E74 7874 0000 _Dog_Mixed.txt..
+00050288 5C50 747A 4669 6C65 735C 646F 675C 7064 \PtzFiles\dog\pd
+00050304 5C42 4576 656E 745F 446F 675F 5044 2E74 \BEvent_Dog_PD.t
+00050320 7874 0000 5C50 747A 4669 6C65 735C 646F xt..\PtzFiles\do
+00050336 675C 7064 5C70 642E 6C6E 7A00 5C50 747A g\pd\pd.lnz.\Ptz
+00050352 4669 6C65 735C 646F 675C 646F 672E 7363 Files\dog\dog.sc
+00050368 7000 0000 5C50 747A 4669 6C65 735C 646F p...\PtzFiles\do
+00050384 675C 7064 5C70 642E 7363 7000 0000 0000 g\pd\pd.scp.....
+
+I have to change some of the instances of "pd" to "pp" -- all instances
+of the "directory" \pd\ have to be changed to \pp\ plus the pd.lnz and
+pd.scp names need to be changed to pp.lnz and pp.scp.
+
+00050240 4C69 7665 6C69 6E65 7373 0000 5C50 747A Liveliness..\Ptz
+00050256 4669 6C65 735C 646F 675C 4245 7665 6E74 Files\dog\BEvent
+00050272 5F44 6F67 5F4D 6978 6564 2E74 7874 0000 _Dog_Mixed.txt..
+00050288 5C50 747A 4669 6C65 735C 646F 675C 7070 \PtzFiles\dog\pp
+00050304 5C42 4576 656E 745F 446F 675F 5044 2E74 \BEvent_Dog_PD.t
+00050320 7874 0000 5C50 747A 4669 6C65 735C 646F xt..\PtzFiles\do
+00050336 675C 7070 5C70 702E 6C6E 7A00 5C50 747A g\pp\pp.lnz.\Ptz
+00050352 4669 6C65 735C 646F 675C 646F 672E 7363 Files\dog\dog.sc
+00050368 7000 0000 5C50 747A 4669 6C65 735C 646F p...\PtzFiles\do
+00050384 675C 7070 5C70 702E 7363 7000 0000 0000 g\pp\pp.scp.....
+
+And of course we've already changed the L.N.Z to something else in the
+"List of all that's in the file".  Nothing else needs to be changed
+there unless we're experimenting with .scp sections, in which case S.C.P
+needs to be changed in the same way -- to X.C.P or some such.
+
+There's one more thing that needs to be changed now, apart from the
+normal breed name, ID and AC picture; that's the 2-letter mnemonic which
+comes after the name in the naming area near the .dog file's end:
+
+00731040 0400 4600 6900 6600 6900 0600 5000 6F00 ..F.i.f.i...P.o.
+00731056 6F00 6400 6C00 6500 0200 5000 6400 0000 o.d.l.e...P.d...
+
+to
+
+00731040 0400 4600 6900 6600 6900 0600 5000 6F00 ..F.i.f.i...P.o.
+00731056 6F00 6400 6C00 6500 0200 5000 7000 0000 o.d.l.e...P.p...
+
+Eureka!  As long as you put your .lnz files into 
+
+\ptzfiles\dog\pp\
+
+The pets will come out of the AC, and will breed with others previously
+adopted.  I know, because I just now tested it :-)
+
+You can do this redirection to the hard drive with many things in the 
+game files, not just the .lnz. As examples of this, my latest little 
+piece on editing Petz 5 playscenes, and my earlier "howto" on giving 
+hidden and difficult toyz their on-shelf graphics, use this technique.  
+Basically for most things, you edit the relevant item's name in the "List 
+of all that's in the file" so that the game thinks it's not in there, and 
+then you copy out the actual item from within the breedfile (or Toy or 
+clothing or playscene etc) and pop it into a directory, on your hard 
+drive, that the game is actually looking for.
+
+I keep meaning to update my tutorials to take these kinds of tips and 
+hints into account, but I always seem to be too busy to get things 
+written up clearly.  I hope that this little extra "howto" will help
+people to deal with conversions and on-the-fly "hexing" more easily.  
+
+I hope this helps people who have problems both with adding stuff with 
+old-fashioned hexing, and with the new Reshacker quirks.
+
+Enjoy
+
+Carolyn Horn
+
+

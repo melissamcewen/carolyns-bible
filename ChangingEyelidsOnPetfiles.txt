@@ -1,0 +1,253 @@
+
+
+Changing eyelids in a petfile
+==============================
+
+Well, eyelids are pretty easy but you need to be aware of some things: 
+
+1. Always, always keep a copy safe somewhere of any file that you intend to edit, but 
+_particularly_ so with a pet file. 
+
+2. When you edit a pet file you need to keep the size of the file the same _and_ the 
+checksum. Which means that if you change a digit from, say, 1 to 3, you will have to 
+compensate for that by reducing a digit somewhere else by 2. If you change a digit from 4 
+to 3, you will have to increase a digit somewhere else by 1. Simple arithmetic, but it 
+makes my eyeballs rotate all the same; I never was too good with maths  A good place for 
+making those compensating reductions or increasings is in the [Paint Ball] section, where 
+you see numbers like 0.707107 which are long decimal-place numbers and so if you change a 
+digit near the end of such a number it will be completely un-noticeable on your pet. If you 
+have a rare pet which doesn't have a [Paint Ballz] section, it'll be a little trickier to 
+find a number which won't show if it's changed, but most pets do have that section because 
+they have paw pads. 
+
+3. Eyelid changes tend not to show up until you choose "restore original colours" in the 
+game. In Babyz you actually have to change a binary byte within the file because there is 
+no such game-option, so Petz players are lucky  
+
+4. To change the eyelid colour, open the pet in the hex editor and search for [256 eyelid 
+color] and it will look something like this: 
+
+00006688 | 3233 0A30 2030 0A5B 3235 3620 4579 656C | 23.0 0.[256 Eyel 
+00006704 | 6964 2043 6F6C 6F72 5D0A 3635 2032 0A5B | id Color].65 2.[ 
+
+in the above example, if you want pink eyelids, change the 6 of 65 to 7. Then go to the 
+[Paint Ballz] area which will look something like this: 
+
+00015744 | 0A5B 5061 696E 7420 4261 6C6C 7A5D 0A30 | .[Paint Ballz].0 
+00015760 | 2037 3020 2D30 2E37 3235 3437 3620 302E | 70 -0.725476 0. 
+
+and reduce a digit by 1, for instance in this example the second 7 in that long 
+decimal-place number can be reduced to 6. 
+
+Save. Start the game. Curse because you somehow got it wrong and corrupted the pet. Start 
+again with a fresh copy of the pet (you _did_ obey item no. 1 in this "howto", didn't 
+you??) and do it again, being more careful this time. Start the game, bring out pet, scream 
+because the eyelids look the same, remember item no. 3 in this "howto", and choose "restore 
+original colours" for that pet. Eureka!! Pink eyelids! (Ewwww...) 
+
+Changing numbers to more or fewer digits
+========================================
+
+Ah, but how do we go about hexing the eyelids if the original number is a 3 digit number 
+and we want to change it to a 2 digit number?  Did you try that, but couldn't work out what 
+to do with the extra digit?  No problem, that can be done too...  I've got that in another 
+"howto" somewhere -- hang on (rummage rummage riffle riffle) yes, here it is. Relates to 
+eye colours, but the same principle applies to any number which needs more or fewer digits: 
+
+Adding digits to make a higher eye-colour number in a pet: 
+----------------------------------------------------------- 
+
+These are just examples, of course, your own pet's data will be different. And you will 
+remember to have a backup of the pet before you start, won't you? 
+
+Wally's original eyes are number 5: 
+
+00009328 3420 3020 3120 3220 3520 3020 310A 3234 4 0 1 2 5 0 1.24 
+00009344 3420 3520 3020 3020 3820 3132 202D 3120 4 5 0 0 8 12 -1 
+00009360 2D31 0A32 3434 2035 2030 2030 2038 2031 -1.244 5 0 0 8 1 
+00009376 3220 2D31 202D 310A 3935 2032 3434 2030 2 -1 -1.95 244 0 
+
+I want them to be 65. 
+
+So I add a 6 in front of each eye's outline colour 5: 
+
+00009328 3420 3020 3120 3220 3520 3020 310A 3234 4 0 1 2 5 0 1.24 
+00009344 3420 3635 2030 2030 2038 2031 3220 2D31 4 65 0 0 8 12 -1 
+00009360 202D 310A 3234 3420 3635 2030 2030 2038 -1.244 65 0 0 8 
+00009376 2031 3220 2D31 202D 310A 3935 2032 3434 12 -1 -1.95 244 
+
+Now, down in Paint Ballz this particular pet happens to have a couple of numbers 6 that I 
+can remove from the end of long numbers: 
+
+00010192 3120 3631 200A 3331 2036 3220 0A5B 5061 1 61 .31 62 .[Pa 
+00010208 696E 7420 4261 6C6C 7A5D 0A31 3620 3530 int Ballz].16 50 
+00010224 2030 2030 2E39 3537 3832 3620 302E 3238 0 0.957826 0.28 
+00010240 3733 3438 2037 3520 2D31 2030 202D 3120 7348 75 -1 0 -1 
+00010256 2D31 202D 3120 310A 3137 2035 3020 3020 -1 -1 1.17 50 0 
+00010272 302E 3935 3738 3236 2030 2E32 3837 3334 0.957826 0.28734 
+
+So I just remove a 6 from 0.957826 and another from the next 0.957826: 
+
+00010192 3120 3631 200A 3331 2036 3220 0A5B 5061 1 61 .31 62 .[Pa 
+00010208 696E 7420 4261 6C6C 7A5D 0A31 3620 3530 int Ballz].16 50 
+00010224 2030 2030 2E39 3537 3832 2030 2E32 3837 0 0.95782 0.287 
+00010240 3334 3820 3735 202D 3120 3020 2D31 202D 348 75 -1 0 -1 - 
+00010256 3120 2D31 2031 0A31 3720 3530 2030 2030 1 -1 1.17 50 0 0 
+00010272 2E39 3537 3832 2030 2E32 3837 3334 3820 .95782 0.287348 
+
+And eureka, Wally has brown eyes instead of purple. 
+
+That was particularly easy because Wally had a pair of numbers 6 that could be removed from 
+the Paint Ballz, but you just need to remove any number from the tail-end of a long Paint 
+Ball number and then adjust the sizes of other parts of the long numbers so as to make the 
+checksum the same. 
+
+Removing digits to make a lower eye-colour number 
+------------------------------------------------ 
+
+Witchy's original eyes are number 187: 
+
+00012960 3020 3820 3020 360A 3335 2032 3434 2030 0 8 0 6.35 244 0 
+00012976 2032 2030 2038 2030 2035 0A32 3434 2031 2 0 8 0 5.244 1 
+00012992 3837 2030 2030 2033 2039 202D 3120 2D31 87 0 0 3 9 -1 -1 
+00013008 0A32 3434 2031 3837 2030 2030 2033 2039 .244 187 0 0 3 9 
+00013024 202D 3120 2D31 0A33 3520 2D31 2030 2030 -1 -1.35 -1 0 0 
+
+I want them to be number 2. The first stage was to remove the 1 from each iris outline: 
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2038 2 0 8 0 5.244 8 
+00012992 3720 3020 3020 3320 3920 2D31 202D 310A 7 0 0 3 9 -1 -1. 
+00013008 3234 3420 3837 2030 2030 2033 2039 202D 244 87 0 0 3 9 - 
+00013024 3120 2D31 0A33 3520 2D31 2030 2030 202D 1 -1.35 -1 0 0 - 
+
+Then scrolling down to paint ballz, where Witchy had this: 
+
+00013840 200A 3331 2036 3220 0A5B 5061 696E 7420 .31 62 .[Paint 
+00013856 4261 6C6C 7A5D 0A31 2037 3520 2D30 2E36 Ballz].1 75 -0.6 
+00013872 3736 3731 3620 302E 3239 3030 3231 2030 76716 0.290021 0 
+00013888 2E36 3736 3731 3620 3335 202D 3120 3220 .676716 35 -1 2 
+
+
+I changed it so that two of those numbers have an extra 1 on the end (hex 31): 
+
+00013840 200A 3331 2036 3220 0A5B 5061 696E 7420 .31 62 .[Paint 
+00013856 4261 6C6C 7A5D 0A31 2037 3520 2D30 2E36 Ballz].1 75 -0.6 
+00013872 3736 3731 3631 2030 2E32 3930 3032 3131 767161 0.2900211 
+00013888 2030 2E36 3736 3731 3620 3335 202D 3120 0.676716 35 -1 
+
+Right, now I want to remove the 8 from 87 on each iris outline: 
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2037 2 0 8 0 5.244 7 
+00012992 2030 2030 2033 2039 202D 3120 2D31 0A32 0 0 3 9 -1 -1.2 
+00013008 3434 2037 2030 2030 2033 2039 202D 3120 44 7 0 0 3 9 -1 
+
+and I want to change the 7 (hex 37) to a 2 (hex 32): 
+
+00012976 2032 2030 2038 2030 2035 0A32 3434 2032 2 0 8 0 5.244 2 
+00012992 2030 2030 2033 2039 202D 3120 2D31 0A32 0 0 3 9 -1 -1.2 
+00013008 3434 2032 2030 2030 2033 2039 202D 3120 44 2 0 0 3 9 -1 
+
+And finally I make up for the two removed numbers 8 and for the reduction of 7 to 2 in 
+Paint Ballz, where I add an 8 two two of the long numbers and then I change two numbers 1 
+to 6. Where the Paint ballz section did look like this: 
+
+00013840 3631 200A 3331 2036 3220 0A5B 5061 696E 61 .31 62 .[Pain 
+00013856 7420 4261 6C6C 7A5D 0A31 2037 3520 2D30 t Ballz].1 75 -0 
+00013872 2E36 3736 3731 3620 302E 3239 3030 3231 .676716 0.290021 
+00013888 2030 2E36 3736 3731 3620 3335 202D 3120 0.676716 35 -1 
+00013904 3220 2D31 2037 2030 2030 0A33 2034 3520 2 -1 7 0 0.3 45 
+00013920 3020 2D30 2E36 2030 2E38 2031 3520 2D31 0 -0.6 0.8 15 -1 
+00013936 2033 202D 3120 3520 3020 300A 3132 2036 3 -1 5 0 0.12 6 
+00013952 3520 302E 3637 3637 3136 2030 2E36 3736 5 0.676716 0.676 
+00013968 3731 3620 302E 3239 3030 3231 2031 3520 716 0.290021 15 
+
+I now have this: 
+
+00013840 3331 2036 3220 0A5B 5061 696E 7420 4261 31 62 .[Paint Ba 
+00013856 6C6C 7A5D 0A31 2037 3520 2D30 2E36 3736 llz].1 75 -0.676 
+00013872 3731 3631 2030 2E32 3930 3032 3131 2030 7161 0.2900211 0 
+00013888 2E36 3736 3736 3638 2033 3520 2D31 2032 .6767668 35 -1 2 
+00013904 202D 3120 3720 3020 300A 3320 3435 2030 -1 7 0 0.3 45 0 
+00013920 202D 302E 3620 302E 3820 3135 202D 3120 -0.6 0.8 15 -1 
+00013936 3320 2D31 2035 2030 2030 0A31 3220 3635 3 -1 5 0 0.12 65 
+00013952 2030 2E36 3736 3736 3638 2030 2E36 3736 0.6767668 0.676 
+00013968 3731 3620 302E 3239 3030 3231 2031 3520 716 0.290021 15 
+
+I check that the checksum and size of file are the same, and eureka! A pet with green eyes 
+instead of red.  Nifty, huh?
+
+What if my pet has no [Paint Ballz]??
+======================================
+
+Right.  The above stuff works if your pet has a [Paint Ballz] section, which they normally 
+do (paw pads are paint ballz).  What if your pet has no paint ballz?  Can you do it then?  
+Sure you can!  That's trickier and requires that you understand what you're looking at 
+inside the file. 
+
+With complex stuff I copy the .lnz out into a new file in the hex editor, save it as 
+petlnz.txt, and open it in Wordpad -- not Notepad this time, Wordpad. Then I can see it 
+laid out properly and see which number is which, changing individual numbers carefully.  I 
+then save it as a "text document", and the file doesn't corrupt.  It can be opened into the 
+hex editor again and copy/pasted over the pet's original .lnz data.  For those of you who 
+don't know, the adult's .lnz is the bit which starts with [Texture List] and finishes just 
+before the next [Texture List], and the kitten or puppy's .lnz starts with that second 
+[Texture List] and goes on to the end of the editable numbers, usually finishing up with 
+something like [Adjust Clothing] or [Fur Color Areas].
+
+Okay, say you have a pet with 244 eyelid and you want to change to 62.  (I'm using an 
+example pet here, the data in yours will be different of course): 
+
+We start of course by removing the 4 from the end of 244, and increasing the 4 to 6, 
+shifting it to in front of the 2, so that we just have an adjustment of 2 to make to an 
+existing number as well as adding that extra 4 in somewhere: 
+
+[256 Eyelid Color] 
+244 -1 
+
+changed to 
+
+[256 Eyelid Color] 
+62 -1 
+
+Now, in linez, near the bottom, in this particular petfile we have: 
+
+45 46 9 -1 244 244 100 100 0 0 
+46 47 9 -1 244 244 100 100 0 0 
+47 48 9 -1 244 244 100 100 0 0 
+3 2 5 -1 244 244 95 95 0 0 
+6 2 5 -1 244 244 95 95 0 0 
+
+From the breedfile we see that in Linez the number columns are as follows: 
+startball, endball, fuzz, colour, Lfcolour, Rtcolour, sThick, eThick, and then in the 
+petfile there are two extra columns which usually contain zeroes and which it's wise to 
+leave alone. 
+
+Right! A couple of outlines are only 95 thick, so we can add a 4 onto one of those and 
+reduce a 5 by 2, so as to get this: 
+
+6 2 5 -1 244 244 95 934 0 0 
+
+which would fix the size and the checksum. All okay as far as it goes, but that would 
+produce a dreadful thick line which would "draw" on the screen at certain times when the 
+pet moves (remember we've changed the thickness of the linez side) 
+
+so you want to cut that down and spread it out a bit amongst the other outlines. I'd do 
+that by changing the lines thus: 
+
+45 46 9 -1 244 244 100 104 0 0 
+46 47 9 -1 244 244 100 104 0 0 
+47 48 9 -1 244 244 100 103 0 0 
+3 2 5 -1 244 244 95 95 0 0 
+6 2 5 -1 244 244 95 104 0 0 
+
+See? Spreading the load, as it were, by reducing the 934 to 104 and increasing three 100s 
+ti 104, 104, and 103. It's not as simple as when you've got paint Ballz to fool around 
+with, but so long as you bear in mind what exactly it is that you're making larger or 
+smaller, it all works out okay. 
+
+So, when you don't have [Paint Ballz], it really depends on the individual pet as to what 
+exactly you can change without it looking wrong. But I hope that helped.
+
+Hope that helps 
+
+Carolyn 

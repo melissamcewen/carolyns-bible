@@ -1,0 +1,64 @@
+
+All original P.F.Magic and Studio Mythos breedz have their ID numbers
+where I state in my tutorials and howtos; between the List of everything
+that's in the file and the start of the bitmap.  In the case of the 
+Labrador, that would look like this in Hex Workshop:
+
+00037616 5F00 5700 4800 4900 4D00 5000 4500 5200 _.W.H.I.M.P.E.R.
+00037632 3000 3400 0C00 4C00 4200 5F00 5700 4800 0.4...L.B._.W.H.
+00037648 4900 4D00 5000 4500 5200 3000 3500 0000 I.M.P.E.R.0.5...
+00037664 0100 0000 4C61 6272 6164 6F72 5370 7269 ....LabradorSpri
+00037680 7465 0000 0000 0000 0000 0000 0000 0000 te..............
+00037696 0000 0000 4C75 636B 7900 0000 0000 0000 ....Lucky.......
+00037712 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00037728 0000 0000 FB03 0000 0100 0000 0000 0000 ................
+00037744 424D C029 0000 0000 0000 3204 0000 2800 BM.)......2...(.
+
+The number is in the line above BM here, and is FB03.
+
+Now, you've downloaded a hexie and you cannot find the ID number there --
+in fact, the bitmap comes directly after the List and looks like this:
+
+00037616 0C00 4C00 4200 5F00 5700 4800 4900 4D00 ..L.B._.W.H.I.M.
+00037632 5000 4500 5200 3000 3400 0C00 4C00 4200 P.E.R.0.4...L.B.
+00037648 5F00 5700 4800 4900 4D00 5000 4500 5200 _.W.H.I.M.P.E.R.
+00037664 3000 3500 424D C229 0000 0000 0000 3604 0.5.BM.)......6.
+
+Well, the reason you can't find the ID is because this breedfile was edited 
+using ResHacker.  I can tell this by the position of the ID number, which 
+always appears to be shifted to just after the naming area in a ResHacked file.  
+So, search for the naming area (look for hex 50004600 as usual), and then 
+look at the few lines below it:
+
+00765936 2900 2000 3100 3900 3900 3700 2000 5000 ). .1.9.9.7. .P.
+00765952 4600 2E00 4D00 6100 6700 6900 6300 2C00 F...M.a.g.i.c.,.
+00765968 2000 4900 6E00 6300 2E00 0000 0000 0000  .I.n.c.........
+00765984 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00766000 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00766016 0500 4C00 7500 6300 6B00 7900 0B00 4100 ..L.u.c.k.y...A.
+00766032 5200 2000 5300 7000 7200 6900 6E00 6700 R. .S.p.r.i.n.g.
+00766048 6500 7200 0200 4C00 7200 0000 0000 0000 e.r...L.r.......
+00766064 0100 0000 4C61 6272 6164 6F72 5370 7269 ....LabradorSpri
+00766080 7465 0000 0000 0000 0000 0000 0000 0000 te..............
+00766096 0000 0000 4C75 636B 7900 0000 0000 0000 ....Lucky.......
+00766112 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00766128 0000 0000 7A03 0000 0100 0000 0000 0000 ....z...........
+
+Okay, see where you've got LabradorSprite, then Lucky?  The ID number is a couple 
+of lines below that, and in this case is 7A03.
+
+It may be that other resource editors place the ID number elsewhere.  If so,
+don't panic; just look for the <breedname>Sprite (in this case LabradorSprite) 
+and the default Adoption Centre pet name (in this case Lucky), and you will find
+the ID number a couple of lines below it.  Not as simple to find, perhaps, but
+once you know what you're looking for it should get easier for you.
+
+In the case of clothes and toyz etc, the same basic idea applies; for instance,
+with the Stick toy, search for Stick and after one or two instances of the word 
+you'll find you're in the right place, with Sprite_Stick_X1 above it and the ID
+number below.
+
+Good luck
+
+Carolyn Horn
+

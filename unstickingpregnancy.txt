@@ -1,0 +1,55 @@
+UNSTICKING PREGNANCIES (Works for Petz 3 and Petz 4 and Petz 5)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+This causes owners a lot of distress; their favourite pet is pregnant 
+and due to some bug in the game, she never comes to term.  You've
+tried everything you can think of, including putting the clock forward
+for several years, and the poor thing is still stuck?  Well, I have a
+method (which does still involve using the clock) which has worked on
+every single stuck pregnancy, even the most stubborn.  So here it is:
+
+Remember  _keep backups_ always before starting.  And don't have other 
+petz in your Adopted Petz directory while you're doing this; only the 
+single problem pet.
+
+1. Remove all your other pets from the Adopted pets directory to a 
+temporary one while you concentrate on the poor stuck mum-to-be.  
+It's also important to make a copy of this pregnant dog or cat in that 
+temporary directory (or somewhere else) in case of accidents.  Remember, 
+pets are saved-game files, and any game can make random errors in a 
+saved-game file even when you're not fiddling with it.
+
+2. Close the game and Forward your clock to 2037. Putting the clock any 
+further forward might produce the baby, but it will cause your game 
+to crash if you try to select that baby afterwards.  Remember, _do not_ 
+go any further forward than 2037!!  Open the game and bring her out.  
+Is the baby born?
+
+2.a If no, no problem.  Put her away or close the game and alter the 
+clock back to 1980.  She might produce the baby then.  If not, repeat
+steps 2 and 2.a, alternating 2037 with 1980, until the baby is born and 
+you can move on to step 2.b
+
+2.b If yes, good -- close the game, re-set your clock to the correct date, 
+make another copy of your pet to put somewhere safe in case there's any
+problem later (there never is, but I have a passion for backups which 
+I've learned the hard way over many years), and then carry on. 
+
+So far, if the cause was not a corruption in the mother or baby's data (and 
+of course the game always reports corruptions), this treatment has always 
+worked for me.  The most times I've had to time-swap before getting the 
+most stubborn of pregnancies unstuck is about 6.
+
+When she _does_ give birth, remember to change the clock back to the proper 
+date, and then after you've closed the game you can bring all your other 
+pets back from their temporary home.
+
+If the baby is about to be born and you get an error message, then you've 
+got a different problem on your hands.  See the list of errors and possible 
+solutions in my other "howtos".
+
+Enjoy!
+
+Carolyn Horn
+
+

@@ -1,0 +1,441 @@
+Tutorial for editing Petz 3 and Petz 4 clothes
+==============================================
+
+Contents:    Hex editors and other useful tools
+             Editing Clothes files 
+             A note on petz 4 Hosts' clothes
+
+Tools.
+======
+
+
+To do it my way, you need a hex editor.  If you don't have one, there are loads of 
+them available for download, and they all do the same basic tasks, although some of 
+them have complicated "bells and whistles" too for power-users.  You can get various 
+freeware ones, such as: 
+AXE VERSION 2.0 or 2.1 downloadable from my site or from Daniel Wright's Odd-Petz site.
+Hexedit, from http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+
+All of them are pretty straightforward to install.  If you have the shortcut to your chosen 
+one on your desktop, you can drag-and-drop any file you want to investigate onto it.  
+They all show files in a similar way: there are three sections, the left-hand one being 
+the "Address" section and containing numbers which show which byte you're looking at 
+(in Hex numbers usually), and it starts at 00.  The middle section is the meat of the 
+thing, being the actual data of the file shown as hexadecimal numbers.  The right-hand 
+side shows the file itself also, but in this case as raw ASCII so that you see it as a 
+mix of weird symbols or dots and text.  Most of the time you will be looking at that 
+right-hand section in order to find or fiddle with bits of text.
+
+You can also use a modern-day Resource Editor such as ResHacker, which a lot of people
+now use, but be warned -- a lot of people find that Reshacker is frustrating, causing
+crashes etc, after a file has been edited a few times.
+
+Other useful tools
+------------------
+
+Notepad.exe -- came with Windows.  Used for altering the CLZ files (which are actually
+text files).  
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package of 
+your choice) to edit texture files.
+
+Editing Clothes files
+=====================
+
+Before you start editing your new clothing, make sure that you have a copy 
+of the original somewhere safe.  Also keeping copies of the new file as you 
+go along is no bad thing.
+
+Another thing to remember -- and this is important -- is that the file must 
+be exactly the same size after you've finished.  You can see what size the 
+file is at any time by right-clicking on it in Windows Explorer and choosing 
+"properties".
+
+THE BYTE
+--------
+
+This something which is very important if you want your clothing to show up 
+separately in the clothes closet: the offset byte/ID number.  Don't panic!  This 
+is actually very simple when you know what to look for.  
+
+I'm going to use as my example the Antlers.clo file which I modified to make my 
+Swedish Elk's antlers.  Other clothing may be slightly different -- i.e. where 
+the Antlers file has "[Add Clothing]" the buckskin pants have "[Flat Clothing]", 
+and the offset bytes will have different numbers, etc -- but this is easy to 
+figure out if you just concentrate a little.
+
+Okay, the offset bytes come above [Add Clothing]; in the line directly above 
+for Petz 3, and a few lines above in Petz 4, directly above the on-screen tips.  
+(NOTE -- in clothing which makes use of internal bitmaps for textures, these 
+bytes will come just before the bitmap which comes before the [Flat Clothing].  
+Just search for the first instance of BM and it's the line above _that_ which 
+you're going to look for.) If you look in the hex numbers section of the editor, 
+you will see a series of numbers which look like this:
+
+0000 853E 0000 0200
+
+Either of the two bytes 85 and 3E can be changed to just about any other 
+hexadecimal number.  In case you're not familiar with the way Hex numbers 
+count upwards, here's a table of our normal Decimal system alongside the 
+Hexadecimal:
+
+Dec	Hex
+ 0	00
+ 1	01
+ 2	02
+ 3	03
+ 4	04
+ 5	05
+ 6	06
+ 7	07
+ 8	08
+ 9	09
+ 10	0A
+ 11	0B
+ 12	0C
+ 13	0D
+ 14	0E
+ 15	0F
+ 16	10
+ 17	11
+ 18	12
+etc
+
+If you're still not sure, use the calculator that comes with Windows; 
+choose View > Scientific.  You can then put in a number in Decimal (Dec) 
+and see it converted to Hex.
+
+Although you can easily choose a number that won't clash with other clothes 
+on your computer, if you want to make them available to others, you're going 
+to come up against one small problem that we all have; making sure that they 
+don't clash with anyone else's.  There's no guaranteed way of assuring this 
+for clothes (no system such as the PetzGallery standard for breedz), so it's 
+best to put a warning to this effect with the file or you'll get _lots_ of 
+email about it.
+
+THE NAME
+--------
+
+Okay, now that you've done the byte, now you want to rename the file.    First 
+off, you'll need to physically name it, so save what you've done so far and exit 
+from the hex editor.  Name the breed and re-open it into the editor.  Now search 
+for the Hex string:
+
+50004600
+
+This gets you down to the bottom of the file, where the bit that looks like 
+P.F.M.a.g.i.c starts, and just above the breed name which looks like
+
+000072D0 0000 0000 0000 0000 0700 4100 6E00 7400 ..........A.n.t.
+000072E0 6C00 6500 7200 7300 0700 4100 6E00 7400 l.e.r.s...A.n.t.
+000072F0 6C00 6500 7200 7300 0F00 4300 6C00 6F00 l.e.r.s...C.l.o.
+00007300 7400 5F00 4800 6100 7400 4100 6E00 7400 t._.H.a.t.A.n.t.
+00007310 6C00 6500 7200 7300 0000 0000 0000 0000 l.e.r.s.........
+
+Don't touch the C.l.o.t._.H.a.t.A.n.t.l.e.r.s.  Just change each of the 
+two A.n.t.l.e.r.s to your chosen name.
+
+Don't go changing the dots in between the letters -- those _have_ to be null 
+bytes (hex 00).  Now, if it's longer than the original name you'll have to add 
+the final letters, with 00 between each letter.  This makes the clothesfile 
+longer than it was so, in the area of null bytes after C.l.o.t._.H.a.t.A.n.t.l.e.r.s 
+delete the same number of bytes.  Also, the letter count is wrong.  "Eh?  Wot 
+letter count?"  I hear you cry...  Well, take a look at the three dots between 
+the two A.n.t.l.e.r.s, in the hex section of the editor.  You should see 00 07 00. 
+This tells the program that Antlers is 7 letters long. You need to tell the 
+program that yours is 9 letters long (or whatever) -- so, change that 07 to 09 
+and the letter count is correct.  You'll need to do the same to the number 07 
+which is before the first A.n.t.l.e.r.s also.
+
+If the new name were to be shorter than the original, you could leave the letter
+count alone and simply fill in the unused letters with null bytes.
+
+You should now be able to open your file and the original in the same game.  
+However, remember that your item will look exactly the same as the original 
+while it's on the shelf; so far in Petz 5 we haven't found a way of editing the 
+little filmstrip graphics for that, although you can use a Resource Editor to change
+the current filmstrip for, say, a copy of a toy on-shelf filmstrip .spr (or you can 
+make it externally if you don't want to use a Resource Editor).  In Petz 3 and Petz 4 
+of course the filmstrip is editable; see my tutorials on filmstrip editing to see how.
+
+So unless you alter the filmstrip, the Antlers will still look like toy antlers until 
+you pick it off the shelf.  With all hats and "add ball" clothes it's the same; with 
+other items of clothing, such as shirts, pants and socks, you actually need to put 
+them on a pet before they will look as you intended.
+
+If you're not changing filmstrips, in Petz 3 and 4 what you can do to help pick it 
+out from among all the other identical antlers is to turn on your onscreen tips 
+and make sure that the tips for this set are unique.  In Petz 3 The tips are 
+just above where you rename the file, in Petz 4 they are just above the [Add Clothing]; 
+simply put your own text where it says "Dress up your petz in these reindeer antlers!" or 
+"Antlers complete the reindeer outfit".  Whichever item of clothing you are hexing, 
+the tips tend to be in either of those two places.
+
+In Petz 5, unless you do as I say above with filmstrips, there is no way of identifying
+your own item until it's off the shelf or on the pet.  The on-screen tips are all
+inside the big Petz 5 .dll file, and the most that you can do in clothes, toyz or
+breedz is to make the game not find the on-screen tip by overwriting the 3-digit reference 
+number with spaces.  In the Antelrs, that number is 569:
+
+000052E0 0000 0000 D73A 0000 0300 0000 0000 0000 .....:..........
+000052F0 3536 3909 5809 3009 3009 3009 3009 2D31 569.X.0.0.0.0.-1
+00005300 092D 3109 2D31 092D 3109 2D31 092D 3109 .-1.-1.-1.-1.-1.
+00005310 3009 3109 3730 0930 0D0A 0000 0000 0000 0.1.70.0........
+00005320 5B41 6464 2043 6C6F 7468 696E 675D 203B [Add Clothing] ;
+
+So you'd change it to look like this:
+
+000052E0 0000 0000 D73A 0000 0300 0000 0000 0000 .....:..........
+000052F0 2020 2009 5809 3009 3009 3009 3009 2D31    .X.0.0.0.0.-1
+00005300 092D 3109 2D31 092D 3109 2D31 092D 3109 .-1.-1.-1.-1.-1.
+00005310 3009 3109 3730 0930 0D0A 0000 0000 0000 0.1.70.0........
+00005320 5B41 6464 2043 6C6F 7468 696E 675D 203B [Add Clothing] ;
+
+
+BITMAPS
+-------
+
+Although the Antlers don't have a bitmap texture file, some clothing does.  When you 
+spool down the file it comes directly after the offset byte. The part which starts 
+with BM is what I'm talking about here; highlight from the beginning of BM to the 
+beginning of [Flat Clothing]; copy that to a new file, save it as a .bmp file and 
+edit it to suit yourself in a  paint package.  Make sure that the edited bitmap is 
+exactly the same size before you copy it back over the section in the clothes file.
+
+You can of course ignore this bitmap entirely and make a .bmp of your own size and 
+style; you would need to put this in a suitable subdirectory and make sure that the 
+texture list in the .CLZ file (mentioned below) points to it.
+
+The bitmap should be 256-colour.
+
+Remember that Petz 5 will crash if any bitmap is not some multiple of 32 pixels by
+some multiple of 32 pixels in size (32x32, 32x64 etc)  
+
+THE MAIN PART OF THE CLOTHING; THE SIZE, SHAPE, ETC
+---------------------------------------------------
+
+Now we come to the core of the clothing; the .CLZ file which makes up the shape, 
+size and what part of the body it's going to fit onto.
+
+In a "hat" type item it starts with
+
+[Add Clothing]
+
+and continues down to 
+
+end ; linez
+
+(Some clothing might not have the ; linez at the end, but if so you should be able 
+to figure out where the letters and numbers have finished and the binary stuff starts 
+if you look closely.  Many of the "flat clothing" items finish with "end ; paintballs")
+
+Now, this whole section is actually an area of ordinary ASCII text (letters and numbers).  
+You'll probably want to do lots of editing here...  There are three ways of doing this.  
+Either laboriously go through it, byte by byte, in the hex editor; many people do that.  
+Or, if you're familiar with Vim, you can edit it pretty quickly; the drawback is that you 
+have to be familiar with Vim's quirks.  Don't ask me how to use it or even where to find
+it -- Vim hates me and the feeling is mutual ;-)
+
+Or, if you like using Notepad, just copy out the whole area from "[Add Clothing]" to 
+"; linez" into a new file, save it as a .txt file, edit it in Notepad, and re-save it 
+in the right place in the file.  I use the last -- i.e. the Notepad method -- because 
+I'm comfortable with it.  _Don't_ use Wordpad or any more sophisticated program such 
+as Word, as that can put in hidden characters that you don't want.
+
+With hat objects such as the antlers, the general rule is that the ball information 
+is actual extra balls which construct the item and which are then attached to the pet.  
+So we have "add balls" and "linez", the initial columns of which relate to the actual 
+balls in the clothing itself.  With shirts, pants etc (or [Flat clothing] objects), 
+we usually see "ballinfo" and "paintballs", the initial columns of which relate to 
+whichever ball each section of shirt/pants attaches itself to in the pet.  Basically, 
+in this latter type of clothing, the balls cover each specified pet ball.
+
+The following annotated .CLZ is given assuming that you are using Notepad; it will look 
+different to you in a Hex editor, because you won't see them as columns, just a constant 
+wrap-around stream of letters and numbers.  
+
+[Add Clothing] ; reindeer antlers
+; kind: Shirt,Pant,Sock_FrontL,Sock_FrontR,Sock_BackL,Sock_BackR,Tail,Hat,Hat2,EarringL,EarringR,NoseThing,NoseThing2,Glasses
+Hat
+
+This tells the game it's a hat object.
+
+; textures                           isremapable    width height (optional)
+\art\textures\hair10.bmp             1
+end ; textures
+
+This tells the game what texture you're going to use.  You can redirect it to a bitmap 
+in a directory of your choice, of course.
+
+; petscale  ballscale  baseBallSize  numPetBalls numPetLines
+  90        103        65            
+
+I think that's pretty easy to understand; change the numbers to the scales you want.
+
+This next part tells the game if a cat or dog can wear it, and where exactly:
+
+;bBall offset       color  outCol  fuzz  colGroup  outType  size  texture
+#2.A ; Dog
+-52    0,-80,-13    59     55      1     0         -1       0    0
+#1 ; Cat
+-24    0,-80,-13    59     55      1     0         -1        0    0
+##
+
+This next bit is the "addballz" which describe the bottom of the antlers from the 
+headband to first spike. Remember, in this case the first column relates to the ball 
+_within the antler ball set_ to which the added ball is attached.  If this were not 
+the case, you'd see the antlers attaching themselves to one of the ankles :-)
+
+The first two lines are from headband up.  Remember that the columns are the same as those above:
+Ball  offset       color  outCol  fuzz  colGroup  outType  size  texture
+(first added ball onwards)
+0      20,15,0         65     55     2     0       -1      25	   0
+0      -20,15,0        65     55     2     0       -1      25    0
+0      50,-25,10       65     55    2     0       -1      25    0
+0      -50,-25,10      65     55    2     0       -1      25    0
+(5th added ball onwards) this bit is the headband.
+0     12,13,0     59     55      2     0         1       10   0
+0     -12,13,0    59     55      2     0         1       10   0
+0     28,28,0     59    55      2     0         1       10   0
+0     -28,28,0    59     55      2     0         1       10   0
+0     -36,42,0    59     55      2     0         1       10   0
+0     36,42,0     59     55      2     0         1       10   0
+(11th ball) antlers -- this bit is the antler spikes. 
+The first four lines are the forward-jutting one, the third and fourth lines being the tip.
+The fifth and seventh and ninth lines are the area to the back of the upright (left Antler)
+The sixth and eighth and tenth ditto for the right (starting from the upright)
+The eleventh - fourteenth lines are the two spikes near the back end.
+0      55,-30,-40     65     55     2      0         -1      25    0
+0      -55,-30,-40    65     55     2     0         -1      25    0
+0      50,-50,-60     65     55     2     0         0       25    0
+0      -50,-50,-60    65     55     2     0         0       25    0
+0      55,-30,50     65     55     2     0         -1       25    0
+0      -55,-30,50    65     55     2     0         -1       25    0
+0      60,-40,70     65     55     2     0         -1       25    0
+0      -60,-40,70    65     55     2     0         -1       25    0
+0      70,-45,80     65     55     2     0         -1       25    0
+0      -70,-45,80    65     55     2     0         -1       25    0
+0      75,-60,85     65     55     2     0         -1       25    0
+0      -75,-60,85    65     55     2     0         -1       25    0
+0      60,-80,90     65     55     2     0         0      25    0
+0      -60,-80,90    65     55     2     0         0      25    0
+(25th ball) this bit is the top back part of the antler.
+0      85,-60,130     60     55     3     0         6       55    0
+0      -85,-60,130    60     55     3     0         6       55    0
+0      95,-75,140     60     55     3     0         6       55    0
+0      -95,-75,140    60     55     3     0         6       55    0
+0      85,-95,150     60     55     3     0         6       55    0
+0      -85,-95,150    60     55     3     0         6       55    0
+end ; add balls
+
+And now we come to the "Linez" information; in other words, which ball is attached to which, 
+with how much fuzz on the lines and the colour/thickness of line information.
+
+;start end  fuzz  col  lfCol  rtCol sThck eThick fulloutline
+1      3    0     -1   35   35   100   100   0	1
+2      4    0     -1   35   35   100   100   0	1
+;head band
+8      6    0     -1   -1   -1   100   100   1	1
+8      9    0     -1   -1   -1   100   100   1	1
+7      5    0     -1   -1   -1   100   100   1	1
+5      6    0     -1   -1   -1   100   100   1	1
+7     10    0     -1   -1   -1   100   100   1	1
+;antlers
+3      11    0     -1   35   35   100   100   1	0
+4      12    0     -1   35   35   100   100   1	0
+
+(etc etc)
+
+In an item of [Flat Clothing], as I say above, the sections are a little different.  
+Taking my Dance Dress as an example, we have the beginning very similar to the Antlers:
+
+[Flat Clothing] ; Plaid Pants
+; kind: Shirt,Pant,Sock_FrontL,Sock_FrontR,Sock_BackL,Sock_BackR,Tail,Hat,EarringL,EarringR,NoseThing,Glasses
+Pant
+
+Which tells us it's a "pant" object.  Then there's the texture list, and then the ballinfo 
+list -- and in this case, the first column is the ball _within the breed ball set_ which 
+the particular clothing ball is going to cover:
+
+; ball  color  outCol  fuzz  outType  sizeDiff  pgroup  texture
+#2.A ; Dog
+
+This means that until we get to 
+
+#1 ; Cat
+
+All the info is relevant to the dog.  So
+
+;butt hips knees ankles
+49	65	-1	0	-1	35	0	0
+19	65	-1	0	-1	85	0	0
+
+49 is the dog's butt ball etc.  Similarly when we get to the cat bit,
+
+;butt hips knees ankles
+3	65	-1	1	-1	35	0	0  
+25	65 	-1	1	-1	85	0	0         
+
+3 is the cat's butt ball etc.
+
+##
+end ; ballinfo
+
+means we've finished with the ball info.  There is then a paintballs section at the end: 
+
+;ball  diam% direction   color  outCol  fuzz  outType  pgroup  texture  scaleHak
+#2.A ; Dog
+;50     82    -.1,.9,-.7  245    -1      4     -1       1       -1       0
+#1 ; Cat
+; 6     82    -.1,.9,-.7  245    -1      4     -1       1       -1       0
+##
+end ; paintballs
+
+and of course you can add patches here in the same way as you would put patches on a 
+Calico Cat or Dalmatian.  But remember to remove the ";" from the beginning of any 
+line of numbers that you wish to use, or your changes won't work.
+
+When you alter any of the items, make sure that you either add or remove spaces to 
+compensate, so that the file will remain the same size.  then paste it back into your 
+clothing file in the correct place, save it in the clothes directory, open the game 
+and eureka!  Your new item of clothing will be on the shelf :-))
+
+A note on petz 4 Hosts' clothes, and Petz 5
+==========================================
+
+Some clothing doesn't show up in the Clothes Closet; this is the clothing specially 
+designed for the playscene Hosts, and it doesn't show up for two reasons -- first, 
+there is a special byte that is set to 01; e.g. the Admiral's hat has: 0000 153B 0000 0100.  
+Change that 01 to 03 or 02.  Secondly, there is a missing filmstrip which means that
+it will only appear as a blank section of shelf anyway.  Unfortunately, if you try to 
+take that clothing off the shelf where you think it must be, it is likely to throw up an 
+error message about a missing .flh, and close the game, unless you have added a pair of 
+suitable flh/flm files externally (or internally using a Resource Editor).  
+
+If you are hexing the clothing of one of your playscene Hosts, for that host to wear, the 
+editing of the .Clz section is exactly as described above.
+
+If you want the clothing that a Host wears, to place on the shelf and put on other pets, 
+then it would be wisest to copy the .CLZ section out of it (and any required bitmap) and 
+pop it into a copy of some normal item of clothing.  Then give it its own offset number, 
+on-screen tips, and rename it -- only don't rename it to exactly the Host's clothing name, 
+because otherwise the game will probably crash when the Host tries to wear it.
+
+This palaver isn't necessary in Petz 5 because there are a set of non-Host-enabled 
+Host-type clothes already in the closet. 
+
+Enjoy
+
+Carolyn
+
+P.S. at the bottom of the file, between the on-screen tips and the name, is this:
+Sounds root path=Art\NewDownloads\Toyz\Clot_HatAntlers\Sounds
+NONE
+I've not tried fiddling with this, but it might be fun to see if your clothing will 
+make a noise if you change that to a .wav file in a subdirectory of your choice...
+Most likely it won't unless the original clothing item happens to have a sound, but
+there's no harm trying.
+
+

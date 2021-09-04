@@ -1,0 +1,37 @@
+
+First off, are you playing the game on XP?  If so, make sure you have
+either Petza installed, available from Nicholas' site
+http://www.sherlocksoftware.org/page.php?id=6
+or, if that won't work for you, download and install my sound-fixed files
+I made them before Nicholas did his fix, and a few people need them
+http://boardwalkerz.com/carolyn/BabyzXPsoundfix.htm
+
+If you've been playing the game on Windows 98 or 95 or on XP-with-fixes,
+and you're starting to get unexplained crashes, then read on.
+
+The game puts a lot of info into the Registry which can sometimes 
+cause problems and which a simple reset doesn't always fix.  Re-installing
+the game also doesn't always fix it.
+
+The solution for people who have either a babyz who is wearing something 
+missing, or a scene which contains a problem item, is this:
+
+First of all, it's a good idea to remove all downloaded or hexed items from
+the game, and put them somewhere safe, also all babyz.
+
+If you have a Resource\Keys directory, delete all the .lkv files out of it.
+
+Now open Regedit.exe (go to Start and then type Regedit.exe into the 
+Run box and hit Enter) and use the crosses in the left-hand pane to navigate to
+
+\HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Babyz
+
+Choose Edit Delete from Regedit's drop-down menus. Close Regedit and reboot 
+your machine.
+
+That solves most problems of this nature
+
+Cheers!
+
+Carolyn 
+

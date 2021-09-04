@@ -1,0 +1,1144 @@
+Part 1 of Tutorial for editing Petz II, 3, 4 and 5 breedfiles, 
+and what can be done for saved pets.
+==========================================================
+
+Contents: 
+Part 1    You need a hex editor or easy-edit kit (and useful tools)
+          Editing Breedfiles 
+          A note about Hosts (relevant to Petz 4 and Petz 5 only)
+Part 2    On-Screen Tips
+          The sound sections
+             Making the sounds internal
+             Making the sounds external to the breedfile
+          Testing or Installing the new breed -- incl troubleshooting
+          "Hex-painting"
+          What can be done with the pet files:
+             Rescuing Runaways
+             Unsticking Pregnancies
+             Error messages
+             What can be salvaged from a "corrupt" petfile.
+          The Mice!! (and roaches)
+Part 3    Colour list and Balls lists for Dogz and Catz
+          Acknowledgements
+
+You need a hex editor or easy-edit kit (and useful tools)
+========================================
+
+First, try my easy-edit kits.  They are downloadable from my site and,
+if you read the readmes and install them properly, the only thing you'll
+need to use for editing is Notepad!
+
+If you don't use the easy-edit kits, you'll have to use a hex editor at
+least some of the time.  If you don't have one, there are loads of them
+available for download, and they all do the same basic tasks, although
+some of them have complicated "bells and whistles" too for power-users. 
+You can get various freeware ones, such as: 
+Hexedit, from
+http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+Axe, available from some of the simtelnet mirrors but hard to get and
+so, at the time of writing this, you can also download Axe from my site.
+
+If none of these suit you, do an Internet search (using one of the
+online search engines such as Google or Yahoo) for "hexedit" and
+"freeware".  All of them are pretty straightforward to install, I
+think.  Then, if you have the shortcut to your chosen one on your
+desktop, you can drag-and-drop any file you want to investigate onto
+it.  They all show files in a similar way: there are three sections, the
+left-hand one being the "Address" section and containing numbers which
+show which byte you're looking at (in Hex numbers usually), and it
+starts at 00.  The middle section is the meat of the thing, being the
+actual data of the file shown as hexadecimal numbers.  The right-hand
+side shows the file itself also, but in this case as raw ASCII so that
+you see it as a mix of weird symbols or dots and text.  Most of the time
+you will be looking at that right-hand section in order to find or
+fiddle with bits of text.
+
+It is possible of course to edit breedfiles etc (_not_ petfiles!) in a
+modern-day Windows Resource Editor such as the one at
+http://www.users.on.net/johnson/resourcehacker/ which is fine, as you
+get to see the .LNZ file the way it's supposed to be and, as opposed to
+using a hex editor for the job, you don't have to keep the file size
+always the same.  The down side is that Resource Hacker re-compiles the
+file each time you make changes, and eventually it often corrupts.
+
+If you prefer, you can use a program called Vim.  You will probably
+need to download Vim from the maker's site and figure out how to use it
+yourself.  I'm afraid I can't help you with that.  
+ftp://ftp.home.vim.org/pub/vim/index.html
+
+Other useful tools
+------------------
+
+Notepad.exe -- came with Windows.  Used for editing .LNZ files if you do
+it my way.  
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package
+of your choice) to edit Furfiles.
+
+Pet2Bmp.exe available from various places including my site -- an amazingly 
+useful little tool, made by Bryan Franklin (Fraggle) several years ago, that 
+takes the drudgery out of Adoption-Centre bitmaps.  If you are using Petz 5 
+petz, then to extract their pictures you will want to use Firebird's Pet2bmp2, 
+available from her site
+http://mkandc.thepetzwarehouse.com/
+You will then have to re-save them in a graphics programme as 256-colour 
+bitmaps if you want to use them with the hex-editor method of "hexing".  
+No need to change them if you're using Resource Hacker, of course.
+
+Sndrec32.exe -- comes with Windows, I think -- or preferably some better 
+Wav sound editor. This is really just if you're going to do species other 
+than dogs or cats; then you may want to change the sounds. There are quite 
+a few freeware or shareware Wav file editors on the Internet.  Try the 
+Google search engine to find what's available these days and see which 
+one suits you best.
+
+Regedit.exe -- comes with Windows.  Used to help return runaways for 
+Petz 3 and 4
+
+Editing breedfiles
+==================
+
+Before you start editing your breedfile to make your hex-painted litter,
+make sure that you have a copy of the original somewhere safe.  Also
+keeping copies of the new breed as you go along is no bad thing.
+
+Another thing to remember if you're using a hex editor -- and this is
+important -- is that the breedfile must be exactly the same size after
+you've finished.  You can see what size the file is at any time by
+right-clicking on it in Windows Explorer and choosing "properties".
+You won't need to bother with this if you are either making your breed
+with my Easy-edit packages or with Resource Hacker.
+
+The basics of editing are the same whether you start with a .DOG breed
+or a .CAT breed; the only real difference is in the ballz numbers.  I
+include lists for both types in the third part of this tutorial.  I 
+also have them elsewhere on my tutorials pages.
+
+It's a good idea to start with a P.F.Magic original when you edit,
+rather than an already-hexed breed; this is because some people remove
+whole areas, replacing them often with spaces, which you might want to
+retain.  Also some people, such as myself, do some pretty strange
+experimenting and you could end up with results that puzzle you because
+some small already-changed item escapes your notice.  This is not to say
+you shouldn't learn from others' work -- of course you should!  But with
+the technique I use (described below) it's an easy matter to take out
+the core of a hexed breedfile and examine it for ideas and techniques
+which you can then use.
+
+Okay, either open your .LNZ into Notepad or open your breedfile into
+your chosen editor, and let's on with the editing!  I shall use the
+Persian Cat file as example unless otherwise stated: remember, the other
+cat and dog files are very similar, and they all follow the same
+structure whether they are for Petz II, 3, 4 or 5.
+
+The first area which I always like to check when editing a resource 
+file (which includes .dll files or toy files or clo files as well as
+breedz) is the one which starts in a breed with what looks like
+
+..........B.M.P.
+..H.O.M.E.B.O.D.
+Y...L.N.Z...P.R.
+..P.R.K.I.T...S.
+C.P...T.X.T...B.
+E.V.E.N.T._.C.A.
+T._.P.R...P.R.S.
+N.D...W.A.V...C.
+A._.G.R.U.N.T.S.
+0.5...L.A.N.G.R.
+
+This is a list of what's inside the breedfile; in this case, the Adoption 
+Centre Bitmap, then the Lnz file (the main part you'll be editing!), then 
+the .SCP information (not editable, I think; this is really the script which 
+controls or points to the "behaviours".  You can swap these between breedz,
+but editing them reliably is not yet possible) then the WAV list and the 
+actual sound files...  Usually you would leave it alone, but it's something 
+that will need a small alteration or two if we are going to change the 
+fur-bitmap contained within some breedfiles -- such as the Petz 3 or 4
+Maine Coon, Tabby cat, or poodle -- or internal sound files.  I'll come to 
+those later.  This is what I shall refer to in future as the List Of All.
+
+First, I'll show you how to make your breed show up separately.  In Petz II
+you only need to change the name and (if you wish) the picture.  In Petz 3, 
+Petz 4 and Petz 5 you also need to alter the ID number, also referred to by
+people as "the byte" or the "offset number".
+
+ADOPTION CENTRE -- the ID number, name and picture
+=============================================
+
+THE ID NUMBER
+-------------
+
+Petz II hexers, skip over this and on to the bit about naming :-)
+This is very important in Petz 3, 4 and 5 if you want your breed to show up 
+separately in the Adoption Centre: the offset byte/number.  Don't panic!  
+This is actually very simple when you know what to look for.  
+
+In a file which has not been edited in Resource hacker, it comes just after 
+the List Of All mentioned above, and just before the section which starts 
+with BM -- BM being the start of the bitmap(s)
+
+The Bunny and Pig in Petz 4 are the only breeds which look a little 
+different at this point, because there is a larger gap between the list 
+and the BM. The reason for the gap is because there is a small, headerless 
+bitmap tucked in there (the little "star" icon), but it's not important 
+to the hexer and the ID number is still in the line above the first bitmap 
+to start with BM.  In the Bunny, you will see BunnySprite, then Cotton, then 
+BM4, and the number is between Cotton and BM4.  In the Pig, you will see 
+PigSprite, then Wilbur, then BM, and the number is between Wilbur and BM.
+In Petz 5, those breedz don't have that star icon in them, so the breedz' ID
+can be edited as normal -- but you cannot adopt at the Adoption Centre with
+the original pig or bunny breedz in Petz 5, so if you want to edit those,
+download my "breedable" versions.  If you want to simply change the Host
+Bunny and Pig, then you don't need to do all this stuff -- simply
+"hex paint" the breedfiles!
+
+In the Persian, therefore, in a non-ResHacked breed, the list ends with 
+what looks (in the ASCII part of the hex editor) like
+
+R.N.E.W.T.I.8...
+....PersianSprit
+e...............
+....Homebody....
+................
+................
+BM.)
+
+Now, look at the line just above BM.) in the _hex numbers_ section. 
+Highlight that line by clicking the left mouse button at the beginning of 
+it, holding the button down while running along the line, then lifting 
+your finger.  
+
+If the file had been edited with Resource Hacker at some time in the
+past, and you're looking for the ID number in a hex editor, you'll find
+it below the naming area (search for the hex string 50004600) and below
+the words PersianSprite and Homebody.  Look in the hex numbers section
+on the bottom line of this example and you'll see EB03.
+
+00719552 2900 2000 3100 3900 3900 3700 2000 5000 ). .1.9.9.7. .P.
+00719568 4600 2E00 4D00 6100 6700 6900 6300 2C00 F...M.a.g.i.c.,.
+00719584 2000 4900 6E00 6300 2E00 0000 0000 0000  .I.n.c.........
+00719600 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719616 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719632 0800 4800 6F00 6D00 6500 6200 6F00 6400 ..H.o.m.e.b.o.d.
+00719648 7900 0700 5000 6500 7200 7300 6900 6100 y...P.e.r.s.i.a.
+00719664 6E00 0200 5000 7200 0000 0000 0000 0000 n...P.r.........
+00719680 0000 0000 0100 0000 5065 7273 6961 6E53 ........PersianS
+00719696 7072 6974 6500 0000 0000 0000 0000 0000 prite...........
+00719712 0000 0000 0000 0000 486F 6D65 626F 6479 ........Homebody
+00719728 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719744 0000 0000 0000 0000 EB03 0000 0100 0000 ................
+
+As far as I know you cannot directly edit the ID number within ResHacker; 
+in that programme you would need to go to RCData in the left-hand frame, 
+choose Action then Save [RCData] resources, and then open the small resulting 
+.bin file in the hex editor, edit it and then choose Action and Replace.  
+The fragment of data, when seen in the hex editor, looks like this:
+
+00000000 0100 0000 5065 7273 6961 6E53 7072 6974 ....PersianSprit
+00000010 6500 0000 0000 0000 0000 0000 0000 0000 e...............
+00000020 0000 0000 486F 6D65 626F 6479 0000 0000 ....Homebody....
+00000030 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000040 0000 0000 EB03 0000 0100 0000           ............ 
+
+Anyway, the line of data that you want to look at with the ID number in
+will look very like this:
+
+0000 EB03 0000 0100 0000 0000 0000
+
+Either or both of the two bytes EB and 03 can be changed to any other 
+hexadecimal number.  In case you're not familiar with the way Hex numbers 
+count upwards, here's a table of our normal Decimal system alongside the 
+Hexadecimal:
+
+Dec	Hex
+ 0	00
+ 1	01
+ 2	02
+ 3	03
+ 4	04
+ 5	05
+ 6	06
+ 7	07
+ 8	08
+ 9	09
+ 10	0A
+ 11	0B
+ 12	0C
+ 13	0D
+ 14	0E
+ 15	0F
+ 16	10
+ 17	11
+ 18	12
+etc
+
+If you're still not sure, use the calculator that comes with Windows; choose 
+View > Scientific.  You can then put in a number in Decimal (Dec) and see 
+it converted to Hex.
+
+Although you can easily choose a number that won't clash with other breeds 
+on your computer, if you want to make your breed available to others, you're 
+going to come up against one small problem that we all have; making sure that 
+our breeds don't clash with anyone else's.  
+
+At first the solution for anyone who wanted to be pretty sure that theirs would
+work with a lot of the others was to join the PetzGallery Standard.  This meant 
+writing to Birgit of the PetzGallery to ask her for a set of numbers which hadn't 
+been "taken" and which could be allocated to you.  I have a set of those numbers
+for my use which I'm still using; if you happen to have a bunch of "PetzGallery
+Standard" breedz on your machine, mine will work with those as well as with all
+of my own and the P.F.Magic originals.
+
+Since then, the PetzGallery has collapsed into a sad shadow of a site, and Birgit
+is long gone from the scene.  Nowadays there is the P.O.N.D site which tries
+to keep a catalogue of all currently-used numbers; it's incomplete but you
+might find it useful http://zeva.sphosting.com/pond/
+
+Also now, sites such as mine, and Vickie's Petz Zoo, have a list of the numbers
+that they have used.  Mine are pretty simple; apart from one or two "specials",
+I've used the ones I was given by the PetzGallery which are:  the complete
+set where the second number is 09 -- i.e. all of 0009 to FF09 -- and the complete
+set where the second number is 40 -- i.e. all of 0040 to FF40.  These are the 
+ones I've used for my breedz as well as for many other people's breedz.  I 
+know that's not the way P.O.N.D sets out the lists of numbers, they set out 
+their lists by first-number, but 2nd-number is the way Birgit and I did it 
+all that time ago and I ain't going to change the way I do it now.
+
+Good numbers to avoid are those ending in 03 or 04, since in the early Petz 3 
+days those were the numbers most used.
+
+The final alternative is to put a note with your breedfile to the effect that 
+it might clash with other breeds, and that the downloader will have to shuffle 
+breeds around until they find out which ones are clashing.  The clash does no 
+harm -- it simply means that one or other breed won't work.
+
+THE NAME
+--------
+
+Okay, once you've renamed your breed you will be able to run it and the Persian
+file in the game and choose either from the Adoption Centre.  So, you want to 
+rename the breed.  Say you want to hex a "Minifluff" breed.  First off, you'll 
+need to physically name the breedfile, so save what you've done so far and exit 
+from the hex editor.  Name the breed Minifluff.cat and re-open it into the editor.  
+Now search for the Hex string:
+
+50004600
+
+This gets you down to the bottom of the file, where the bit that looks like 
+P.F.M.a.g.i.c starts, and just above the breed name which looks like
+
+..H.o.m.e.b.o.d.
+y...P.e.r.s.i.a.
+n...P.r.........
+
+Don't touch the ...H.o.m.e.b.o.d.y or ...P.r unless you know what you're doing; 
+changing the first can crash the game right away, and changing the second causes 
+a crash just as your pets are about to make a Happy Announcement.  It's possible 
+to change them if you change _every_ reference to Homebody or Pr earlier in the 
+breedfile (including in the above List Of All) but it usually doesn't seem worth 
+the effort and certainly if you're just learning to make breedfiles, get the
+essentials right first.
+
+Replace the letters of P.e.r.s.i.a.n with those of your own breed. 
+Don't go changing the dots in between the letters -- those _have_ to be
+null bytes (hex 00).  Now, Minifluff is two letters longer than Persian,
+so you'll have to add the final two letters to the end of the name, with
+00 between each letter, and we end up with what looks like
+M.i.n.i.f.l.u.f.f. Now, this makes the breedfile four bytes longer than
+it was so, in the area of null bytes directly after P.r. delete four
+bytes.  Also, the letter count is wrong.  "Eh?  Wot letter count?"  I
+hear you cry...  Well, take a look at the three dots between
+H.o.m.e.b.o.d.y and M.i.n.i.f.l.u.f.f, in the hex section of the
+editor.  You should see 00 07 00. This tells the program that Persian is
+7 letters long. You need to tell the program that Minifluff is 9 letters
+long -- so, change that 07 to 09 and the letter count is correct. 
+Remember, when putting in the letter-count, that the number is in
+hexadecimal, so that if your name is 12 letters long, your number is 0C.
+
+If the new breed name were to be shorter than the original (i.e. just
+"Mini"), you could if you wished leave the letter count alone and simply
+fill in the unused letters with null bytes (...M.i.n.i.........P.r), or
+you could change it to ...M.i.n.i...P.r, change the letter-count to 04,
+and correct the file size by putting 6 null bytes in after the P.r.  The
+latter is the more elegant thing to do.
+
+If you're using Resource Hacker, the naming is simpler; go to String
+Table, 63, click on 1033 and type in the name you want instead of the
+breed name.
+
+You should now be able to open your breedfile and the Persian in the 
+same game.
+
+"Still won't show up" Troubleshooting
+-------------------------------------
+
+The first thing is to remember, for each letter you add there must be a
+null byte (Hex 00) after it -- even if that letter is a space such as
+you would have between "Minifluff" and "Puff" in a "Minifluff Puff.cat"
+breed.
+
+Second, that letter count must be right!  (Also, by the way, _don't_
+remove the letter-count of 02 from in front of the P.r. or you will have
+troubles later.)
+
+Third, you did name the breed the exact same name as you're entering
+into this area, didn't you?
+
+Fourth, check that your Offset Byte (see first section above) is
+different from the other breeds you've got in your Resource directory.
+ 
+Fifth, if you hexed this breed in a hex editor is that you need to end
+up with the .cat or .dog file exactly the same length as before, so that
+for every byte you add in the name, you must delete a byte in the area
+of null bytes which comes after the name and two-letter mnemonic (P.r in
+the case of the Persian).  And for every byte you delete in the name,
+you must _add_ one in that area.
+
+Sixth, if you edited it in Resource Hacker, check that the program
+didn't corrupt the file.  Resource Hacker corrupts files very easily. 
+You might find that the file won't open again in Resource Hacker, or you
+might find that something has corrupted in the String Table section. 
+Simply re-type the information that should be in there, compile, and
+save.  With any luck, if that was what was wrong, the breedfile will now
+work.
+
+BITMAPS
+-------
+
+Mostly this is relevant to how the breed appears in the Adoption Centre 
+list; in fact, though, you wouldn't be able to change that until you've 
+finished editing your breed, because you need a picture of an actual pet 
+for it.  This section also, however, deals with the "furfile" bitmaps 
+which are inside some breedfiles in Petz 3 and 4 -- notably the Maine Coon, 
+Bunny and Tabby cats, and the Poodle dog.
+
+The part directly following the List Of All (and in a non-reshacked file,
+the Offset Byte).  The part which starts with BM is what I'm talking about.  
+
+Adoption Centre Bitmap
+----------------------
+
+Most breeds have the Adoption Centre bitmap here, and that's all; you can 
+of course replace that with the bitmap of your choice.  The section to be 
+replaced is exactly 10,688 bytes long and stops just before (in the Persian) 
+the string:
+
+; persian. 
+
+NOTE: In some Petz 5 breedz, there are two adoption-centre pictures, one
+after another and both identical, here.  They are both 10,688 bytes in 
+size.
+
+You need to replace it with a bitmap the same size.  You can get an 
+exact size by highlighting the whole section from "BM" to just before 
+"; persian", then copy-and-pasting it to a new file in the hex editor.  
+Save it as xxx.bmp.  Keep the section of the breedfile highlighted 
+while you make your new bitmap; that makes putting it back in exactly 
+the same place easy.  
+
+You can either alter the bitmap in Paint or other graphics programme, 
+or you can use pet2bmp.exe to get a bitmap from a pet file and use the 
+hex editor to paste that into xxx.bmp.  I do the latter because I get 
+a lot of these to do and it's quick and easy. The pet2bmp file is 
+shorter than xxx.bmp, so I "select" the whole of the new bitmap and 
+choose "copy", then I highlight the same number of bytes in xxx.bmp and 
+choose "paste".  I re-save xxx.bmp, then highlight the whole of it and 
+paste it over the still-highlighted section of breedfile.
+
+NOTE: If your breed is Petz 5, the petfile's bitmap will be bigger in
+number of bytes.  You can use Firebird's Pet2bmp2 to extract it from
+the pet, and either open it into a paint package and save as a 256-colour
+bitmap or, if you prefer to use ResHacker, replace the AC bitmap with it.
+note that if you use ResHacker to replace the .bmp file, you need to
+rename the file such that the extension is _not_ .bmp.  Trust me, you
+need to do that or ResHacker won't let you replace the BMP.
+
+Back to the hex editor method.  If you use a paint package, you'll 
+have to check that the .bmp was re-saved to the correct number of bytes; 
+if it's longer, slice the necessary bytes off its end in the hex editor 
+before copy/pasting it, and if it's shorter, make up the extra with 
+null bytes (hex 00) or random bytes at the end of the .bmp file.
+
+NOTE, if your base breed is a Petz 3 or Petz 4 Tabby, the Adoption Centre
+bitmap comes after all its furfile bitmaps.  In the Tabby, they all start 
+with the ASCII letters BM6, so you have to scroll past them to get to the 
+Adoption Centre bitmap, which starts with what looks like:
+
+BM.) 
+
+[in the hex numbers, that looks like 42 4D C0 29, and anyone using that 
+particular .cat file can search for that string.]
+
+Furfile Bitmaps
+---------------
+
+In Petz 5, all the textures are in the main Resource .dll file.
+
+In Petz II, newer breedz have their textures externally on the
+hard drive.  Don't let the fact that there are apparently internal
+ones in the Tabby and Maine Coon fool you; those are not recognised
+by the game engine.  I've not been able to do use them successfully, 
+and I suspect that P.F.Magic weren't able to at the time either, or 
+surely they would not have ended up with external files.  By the time 
+they got to Petz 3, they were able to ditch the external ones.
+
+In Petz 3 and Petz 4, most breedz (apart from Maine Coon and Tabby cats 
+and poodle dog etc), have their textures in the main Resource .dll file.
+The textures, which are in the subdirectory \art\textures\, is tucked away
+inside the large Resource .DLL files, and although of course these
+could be located and changed on your own machine, you wouldn't be able
+to put them up for download and let others see your breed or pet with its
+beautiful new textures.  So, for the breeds which don't include their
+furfiles within the breedfile, you will have to include a separate .bmp
+with your breed and make the list above point to it (ResHacked breedz
+can of course have the bitmaps added internally).  
+
+So, in some of the Petz 3 and 4 .dog or .cat files there will be extra BM  
+files -- the Tabby Cat, for instance, as mentioned above, has its texture 
+bitmaps embedded in there.  These come right after the short string of 
+bytes: TabbySprite [null bytes] Tiger [null and special bytes] 
+
+If there _is_ a fur bitmap within the file, you can replace it if you wish.  
+Put your cursor at the beginning of the relevant BM and highlight it all 
+the way to the next instance of BM -- i.e. BM6 or BM.) -- copy this to a 
+blank file, save it, edit it in your favourite paint package and then, 
+making sure it's _exactly_ the same number of bytes long, put it back in 
+the same place in the breedfile.
+
+If you want to change the furfile but don't want to fiddle about with 
+inserting a new one into the breedfile, that's okay; do it the same way 
+as for other breedfiles, by re-directing the texture list in the 
+all-important .LNZ section of the breedfile discussed below.
+
+Of course if you use Resource Hacker, you can insert new furfiles into
+the breedfile; remember that it won't do it unless they are named something
+like myfile.bmm; it simply won't accept myfile.bmp as a replacement BMP file.
+
+NOTE: Furfile bitmaps need to be 8 bit, 256 colour or they won't work right.
+
+NOTE:  If you want the breed to work in Petz 5, you _must_ make your furfile
+bitmaps either 32x32 pixels, or a combination of multiples of 32 (such as
+64x32, 64x128 etc) up to and including 128x128.  If you don't, the pet 
+will crash the game when it comes out.
+
+Special cases -- the Petz 4 and 5 Bunny and Pig
+----------------------------------
+
+Once again, these look a little different here, but they are actually 
+the same when you know what you're looking for.  
+
+NOTE: In Petz 5, I would advise you to use the "breedable" versions
+downloadable from my site, since the loriginals are designed not to
+show up at the Adoption Centre.  If you want to simply change the Host
+Bunny and Pig, then you don't need to do all this stuff -- simply
+"hex paint" the breedfiles!
+
+Bunny:
+------
+The Bunny's furfiles in Petz 4 -- there are two of them -- come as usual 
+directly after the offset byte.  Each furfile is 2,104 bytes (hex 0838) 
+long and can be replaced if you wish.  The second one ends where you see 
+
+fs...PFM_[V4.01
+
+After this, there are a whole series of "bdt" or "bhd" files which you 
+don't want to touch; what you want to do now is search for what looks 
+like BM.).  Search for the hex string 424DC229, put the cursor in front 
+of the B, and select 10688 bytes (Hexadecimal 29C0).  That is the 
+Adoption Centre bitmap which can be edited and replaced as mentioned 
+above.  Ignore the unreadable stuff immediately after that, because 
+there we're into a small area of Filmstrips which relate simply to the 
+Adoption Centre icon.
+
+Pig:
+----
+The pig has no furfiles, but it does have the little Filmstrips for the 
+icons, so some care is needed when editing its Adoption Centre bitmap 
+to make sure that you've altered _only_ the bitmap.  As with the other 
+breeds, go down to where the offset byte is changed and put your cursor 
+in front of the letters BM. Select 10688 bytes (Hexadecimal 29C0).  
+That is the Adoption Centre bitmap which can be edited and replaced 
+as mentioned above.
+
+Problems with furfiles "clashing"
+---------------------------------
+
+Question: 
+
+I take a pet out of the Adoption Centre from a breed such as the 
+Tabby, which naturally has internal bitmaps, and which I've put 
+internal new furfiles into.  Shock horror -- it's still got the 
+original furs!  Or, I bring out a normal Tabby and it's wearing
+your new furs!  What's going on, Carolyn? What have you done to my
+game? 
+
+Answer:
+
+Ah yes.  I haven't yet mentioned that if you change the bitmap 
+that's _within_ the breedfile of breeds such as the Tabby Cat, you 
+will probably need to make changes in the List Of All if you run your 
+breed alongside the original Tabby Cat (or whichever the original was). 
+The reason for this is that the program can get muddled otherwise and 
+dress one or other of your pets in the other's furfiles.  So, where 
+the Tabby has in its List Of All:
+
+..........B.M.P.
+..S.T.R.I.P.E.3.
+..S.T.R.I.P.E.1.
+1...S.T.R.I.P.E.
+1.3...S.T.R.I.P.
+E.1.4...S.T.R.I.
+P.E.1.6...S.T.R.
+I.P.E.1.7...T.I.
+G.E.R...L.N.Z...
+
+you would want to change one letter of each bitmap name, to something like:
+
+..S.T.R.I.P.X.3.
+..S.T.R.I.P.X.1.
+1...S.T.R.I.P.X.
+
+Get the idea?  Of course, if someone else has chosen to do the same 
+thing with their breed, a clash of furfiles will still occur, but it's 
+not the end of the world -- it won't crash the game.  And in sound 
+files such a clash produces a rather enchanting effect, such as Great 
+Danes talking Bear; much better linguists than most humans ;->
+
+THE MAIN PART OF THE BREED; THE SIZE, SHAPE, ETC
+------------------------------------------------
+
+This is the core of the breed; the .LNZ file which makes up the kind of
+creature it is. 
+
+NOTE: Please take a look at my .LNZ file breakdown chunks, available at 
+my site, if you want to get an understanding of what each item is and how
+it can be changed.  All I'm going to give you here is a rough guide
+through a breed.
+
+In the case of the Persian the .LNZ section starts with 
+
+; persian
+
+and continues down to
+
+(c) 1997 PF. Magic, Inc.  Lets not talk about me
+
+Now, this is actually an area of ordinary ASCII text (letters and
+numbers).  You'll probably want to do lots of editing here...  There are
+three ways of doing this.  Either laboriously go through it, byte by
+byte, in the hex editor; many people used to do that with Petz 2 and
+Petz 3 breedfiles.  Or, if you're familiar with Vim, you can edit it
+pretty quickly; the drawback is that you have to be familiar with Vim's
+quirks.  A lot of people these days use Resource Hacker; if you do that,
+and get corruptions or crashes, ask around on the various forums for
+help or go back to previous versions and start again from there.
+
+Or, if you like using Notepad, just open the .LNZ from one of my
+easy-edit packages into Notepad, edit and save.  
+
+If you're doing it the way I used to, with internal .LNZ files, then
+copy out the whole area from "; persian" to "Lets not talk about me"
+into a new file in the hex editor, save it as a .txt file, edit it in
+Notepad, and re-save it in the right place in the breedfile in your hex
+editor.  I still do that when I've finalised a breed with one of my
+external-lnz easy-edit files, if I want to make a new breed
+downloadable.
+
+I use the Notepad methods because I'm comfortable with them.  These days
+I use the external easy-edit packages more often than the internal-lnz
+Notepad method, as I'm getting less time to make full new breedz. 
+_Don't_ use Wordpad or any more sophisticated program such as Word to
+edit the .lnz, as that can put in hidden characters that you don't want.
+
+.LNZ files inside the breedfile are actually two .LNZ files -- adult and
+kit or pup -- and you need to be aware of this when editing because
+changes to the adult .lnz don't always show up at the Adoption Centre
+unless you've made the changes also to the pup or kitten .lnz.  There
+are two special cases, the Alley Cat and the Poodle, which have two
+"RAW" .lnz files also.  These are a form of variation which only have an
+effect when the petz breed, so you may want to hex them to be identical
+to the breedz' normal two .lnz files if you want to be sure of certain
+2nd-gen effects.
+
+The following extracts are given assuming that you are using Notepad;
+the sections will look different to you in a Hex editor, because you
+won't see them as columns, just a constant wrap-around stream of letters
+and numbers.  
+
+What can you change?  Well, fiddle around with most things and see what
+happens.  Take a look at my .LNZ file breakdown chunks, available at my
+site, if you want to get an understanding of what each item is and how
+it can be changed.  All I'm showing you here is a rough guide.
+
+[Default Linez File]
+\ptzfiles\cat\catmaster.lnz
+
+This contains data which is common to all cat breedz.  You can insert
+the items which are in the "catmaster.lnz" file into your own breed's
+.LNZ and alter them there -- those changes will take precedence over the
+originals in the catmaster.lnz file, but you still need to point to a
+[Default Linez File].  In dogz of course it's dogmaster.lnz.
+
+[Little one]
+prkit.lnz
+
+This points to the pup or kitten .lnz.  you can actually change that so
+that it points to itself by putting pr.lnz there instead; it's useful
+for a quick look at what the adult will be like, because it will come
+out of the AC fully grown.
+
+[Breed Name]
+Persian
+
+This doesn't actually seem to have much effect.  Yes, I tried experimenting 
+with it.  That's part of the real fun in "hexing" -- trying things out,
+experimenting with every possible editable item and seeing what happens.
+
+Then there's
+
+[Sounds]
+\ptzfiles\cat\pr\prsnd.txt
+
+If you change this, you will end up with a silent breed unless you point
+deliberately to a list of sounds that you have edited.  If you do that,
+you will need to distribute the sounds with the breed of course.
+
+Everything else is open to change, and you can get some pretty
+spectacular results even just changing the [Head Enlargement], [Face
+Extension] etc.  Experiment with relative sizes and lengths, including
+minus numbers.
+
+NOTE: Remember, by the way, that this top area of extensions and defaults 
+relates to the adult of the breed.  For puppies and kittens, you have 
+to change these down at the bottom of the file, where you see:
+; persian kitten
+
+The eyelid colour is up here, separate from the main ballz Info section,
+so it's here that you will have to change it if you wish:
+
+[256 Eyelid Color]
+18, 1
+
+Things like the various [Move] sections and the [Project Ball] section
+can be messed with, though some caution is needed if you want to keep
+the thing looking reasonably sane...  *thinks a moment about some of the
+breedz I've hexed*...  Awww heck, who needs sanity?  *Cackles madly*
+
+[Project Ball]  // stationary ball, projected ball, amt
+
+There are three columns.  The first is the ball to which another is
+going to relate -- it's the ball which will remain "stationary" -- and
+the second is the ball which is going to project from it by a certain
+amount, the third column being that amount.  Because it uses one ball to
+steady another and keep it in the same relative distance, I tend to call
+this "anchoring".  I believe that has confused people in the past.
+
+[Move]
+
+Now, this section is very important to hexers and is often used in
+conjunction with [Project Ball] to get things like tail shapes right.
+
+The first column is the ball number.  The next three columns are the x,
+y, z axes to which you want your ballz to be  moved relative to the
+defaults.  If there is a fifth column, then that is the ball to which
+this move should be relative.  So 14,  4, -3, -5  14 would mean that you
+want ball 14 to be moved sideways by 4, up by 3, and forward by 5
+relative to its normal position.
+
+This fifth column is also useful in helping to keep a ball "anchored";
+it's not as firm as when you use the [Project Ball] distances as well--
+for instance, angled legs in dogz breedz can throw out strangely if you
+don't keep them in place with a [Project Ball] "tie" -- but it does help
+to keep balls from behaving strangely.  This [Move] thing will at least
+keep your ballz as intended relative to the "relative" ball.
+
+If, say, you want your elbows to stay relevant to the shoulders, you 
+do your xyz move for the elbows thus, in a catz breed:
+
+12, <x>, <y>, <z>, 38
+13, <x>, <y>, <z>, 39
+
+in a dogz breed of course that would be:
+
+7, <x>, <y>, <z>, 18
+31, <x>, <y>, <z>, 42
+
+Note, you'd have numbers where I've got <x>, <y>, <z> in the above
+example,
+of course!  
+
+Back to our Persian.  Here's an important section:
+
+[Default Scales];was 113 113
+105             ; normal pet scale
+105             ; normal ball scale
+
+If you change these numbers, you can make the whole creature either
+larger or smaller, and if the pet scale is vastly different from the
+ball scale some startling effects can occur.
+
+For the next sections of interest -- the [Add Ball] and [Linez] ones --
+it's best to have a list of ballz and their numbers handy, so I prepared
+a list earlier which you should find at the end of this tutorial.
+You will find that, as your hexing gets more complicated, that you'll
+have to keep counting your [Add Ball] lines of code yourself to find
+out which ball has which ball number.
+
+[Add Ball]
+
+The Addballz are the key to the problems some people have with
+ear-colours.  This section can look a bit confusing, but actually it's
+all logical really.  Usually you don't have to alter these, but there
+may be times when you want to make sure that, for instance, the colour
+of the extra ear ballz fit that of your new breed's ears in the main
+[Ballz Info section], or you may want them to be a different size or
+different shape.
+
+Most of the columns in the Addballz are pretty obvious:
+
+base x y z color otlnCol spckCol fuzz group outline ballsize bodyarea addGroup texture
+
+but the first four can be a bit muddling until you get used to them.  It
+works if you think of "base" as being the base reference for the ball
+you're working with, and the x,y,z values would then be the distance
+from that in the three dimensions.  So:
+
+; ### From here down are animator's addballz 77.
+;nose
+37,     5,      -5,     -8, etc
+37,     -5,     -5,     -8, etc
+37,     0,      0,      -8, etc
+
+would mean that ball 77, with the normal nose ball 37 as its base, is
+offset from it by x; 5, y; -5, z; -8, that ball 78 is offset from its
+base (also ball 37) by x; -5, y; -5, z; -8, and that ball 79 is offset
+from its base (yet again ball 37) by x; 0, y; 0, z; -8.
+
+Many people get confused by [Add Ball] ballz when they come to joining
+them up with Linez, not realising that it's where the ball is in [Add
+Ball] that gives it its ball number.  So the first of those nose balls
+above is ball number 77, the next one is ball number 78, and so on. 
+
+Note that "texture" refers to the list of textures at the beginning of
+the [Ballz Info] section, and that 0 is the first texture in the list, 1
+the second etc -- with -1 meaning no texture.
+
+NOTE: In Petz II if you add a ball to the head area, make sure that its
+"bodyarea" number is 8.  Otherwise it is likely to move strangely. This
+limitation does not occur in the later games, although for those who
+are serious about breeding unusual hexies you may find it best to pay
+attention to the bodyarea numbers, as well as the group numbers.
+
+[Linez]
+
+Linez also are pretty straightforward really, and you'll normally not
+want to bother with them unless you're making a breed with complex extra
+ballz, or one which is an unusual shape.  They are the lines which
+connect two ballz together, and this section lets you fool around with
+the amount of fuzz, the colours, and the thickness of the edges:
+start ball, end ball, fuzz, colour, lfColour, rtColour, sThck (thickness
+of one side), eThick (thickness of the other side).  As it states above
+the table, "-1 mean use the associated ball color", so if you want the
+linez to be the same colours as you've got for the ballz, -1 should be
+okay.  Incidentally, it actually means the colour of the first ball in 
+the Linez line connecting the two ballz, so if your two balls are of
+different colours, watch out for that and swap the two balls around in 
+the Linez line if you need to.  They will still be joined, but the line
+colour will then be the colour of the ball that you wanted.
+
+[Paint Ballz]
+
+Now, here's a section which is missed by some people; the [Paint Ballz]
+section.  In this, the paw pads for each breed are shown in detail for
+just about every breed; however, this is also where you can find the
+Dalmatian's spots and the Calico cat's patches, and of course these can
+be changed, added to, removed...  The columns are:
+
+base ball diameter(% of baseball) direction color outlinecolor fuzz outline group texture
+
+Once again, pretty straightforward, the first column referring to the
+part of the paw for which the section of pad is being made (or the ball
+to which the spot is to be added).  The "direction" is in the form of 
+a relative x,y,z as with the animator's addballz.  What you need to
+remember with a Paint ballz, though, is that if you have it situated at
+position 0,0,0, the game will not know what to do -- it can't put a blob
+of paint in the centre of the ball and have it whow up on the surface!
+This is when you get a pet with mysterious black blobs suddenly appearing
+where they shouldn't.  So be sensible when designing Paint Ballz.
+
+When you see lines that start with #, don't panic.  Those are
+variations.  If you want a variety of different pets to come out of the
+AC with your breedfile, then you would be best to study variations and
+understand them.  If you don't want any complications, just remove all
+the variations.  I have various explanations about variations up at my
+site.
+
+A major area of confusion for people who don't understand why their
+pets come out all different colours from the ones that they put into
+[Ballz Info] and [Add Ball] is the [Color Info Override] section; they
+don't realise that this is the main variation section in most of the
+original breedz.  The section looks like this in the Persian:
+
+[Color Info Override]
+;individual variation
+#4
+#3
+#2;blue
+3, 115
+2, 115
+6, 115
+
+Okay, this is pretty simple really -- the first column is the ball
+number and the second is the colour.  If there's a third column, that's
+the "group" and if a fourth column, that's the texture.
+
+If you want variations, don't go removing those lines which start with #, 
+but you can change everything in this section and even add more variations.  
+Once again, see my .LNZ breakdown chunks and my howtos on variations if 
+you want to make good use of them.   You can have a lot of different 
+colours available within your breedfile if you wish.  Don't feel bound 
+to stick only with the balls which are actually listed in this section, 
+either -- you can add in any ball for which you want to allow a variation 
+in colour, and you can add in extra variations also.
+
+The next section is
+
+[Thin/Fat]
+4,      -15,    16
+5,      -15,    16
+
+This is a way of defining how fat or thin your pet will be able to get.
+
+Then we get:
+
+[Head Shot];pr
+0                       frame number
+51                              rotation
+0                               roll
+0                               tilt
+-51                             head rotation
+8                               head tilt
+-11                             head cock
+38, 38                  R / L eyelid height
+17, 17                  R / L eyelid tilt
+0, 0                    (X, Y) eye target
+
+This is simply to do with what the picture of your pet looks like when
+you see its picture at the Adoption Centre or the carry-case.
+
+[Ballz Info]
+
+Next comes the part which is familiar to all Petz 2 or Petz 3 hexers;
+the [Ballz Info] section, where the breed's main ballz sizes, colours,
+fuzz etc can be changed to great effect.  First come the bitmaps:
+
+; First argument is name of texture.
+; Second argument is whether texture is single color (1) or multi-color (0)
+; This texture list is used both here and in add ballz
+[Texture List]
+\art\textures\hair10.bmp        1
+\art\textures\hair10.bmp        1
+\art\textures\hair10.bmp        1
+
+In Petz 5, all the textures are in the main Resource .dll file.
+In Petz II, the new breedz have their textures in separate directories,
+but the rest have them in the main Resource .dll files.
+In Petz 3 and Petz 4, most breedz (apart from Maine Coon and Tabby cats 
+and poodle dog), have their textures in the main Resource .dll files.
+
+So, many textures, which are in the subdirectory \art\textures\, are tucked 
+away inside the large Resource .DLL files, and although of course these
+could be located and changed on your own machine, you wouldn't be able
+to put them up for download and let others see your breed or pet with its
+beautiful new textures.  So, for the breeds which don't include their
+furfiles within the breedfile, you will have to include a separate .bmp
+with your breed and make the list above point to it (ResHacked breedz
+can of course have the bitmaps added internally).
+
+NOTE:  If you want the texture to work in Petz 5, you _must_ make your 
+furfile bitmaps either 32x32 pixels, or a combination of multiples of 32 
+(such as 64x32, 64x128 etc) up to and including 128x128.  If you don't, 
+the pet will crash the game when it comes out of the AC.
+
+So you might change line 1 to read:
+
+\resource\catz\jiggy.bmp        0
+ 
+As the information above states, the 0 or 1 indicate whether the texture
+is to be used as single or multi-colour.  This can make a big difference
+to its visibility and the way the ballz colour shows up with a texture;
+change the various balls' base colour for the Tabby cat, for instance,
+and the stripes will be a different colour.  Occasionally you will see
+numbers other than 0 or 1, such as 65; that number should indicate which
+colour in the "background" part of the texture will allow your ball
+colour to show through.  
+
+When you come to the Texture column in the [Ballz Info], remember that
+the first texture in the above list is referred to as 0, the second 1,
+the third 2, etc, for as many textures as you wish to include.
+
+And now the ballz themselves:
+
+;FUZZ --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;OUTLINE --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;col  outCol spklCl fuzz  otlntTyp sizeDif  group    texture 
+[Ballz Info]
+ 15,  244,   244,   2,      -2,       27,       3,     1  eBall_ankleL,
+
+etc
+
+I think these are pretty self-explanatory; the first three columns deal
+with colours (main, outline and speckle).  Speckle is really a throwback
+to the Catz 1 and Dogz 1 days.  Then there's the degree of fuzz , the
+thickness or lack of outline, the relative size of the ball (you can get
+some amazing shapes by using huge positive numbers, and make some balls
+effectively disappear with huge negative numbers), the group (you'll
+probably not want to change that, unless you have certain types of
+2nd-gen pet problems) and which texture it uses (if any; put -1 if you
+don't want any texture).  It's even got a handy eBall_ note at the end
+of each line to show which ball is being referred to...  Mess with these
+numbers to your heart's content...
+
+And now the last few sections, which are _not_ available in Petz II. 
+Petz II hexers mnove on to the  
+These next two are dealt with in my .LNZ breakdown chunks; please read 
+about them there if you're interested. They basically have an effect if 
+you're breeding petz:
+
+[Fur Color Areas]
+[Fur Markings]
+
+Now, here's a useful item if you want to make a breed with an appendage
+that you can't or don't want to make out of one of its ballz.  This is
+from the Chinchilla Persian, but you can add it to any breed so long as
+you compensate by removing the right number of spaces elsewhere.  I did
+this with the Antlers for my Elks. In some breeds you can see:
+
+[Add Clothing]
+#3.C
+; kind          toy_dll         lnz file
+Hat "\Resource\Clothes\Pink Bow.clo"
+"\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#2
+Hat "\Resource\Clothes\Pink Bow.clo"
+"\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#1
+##
+
+Great!  You can hex edit an item of clothing and make the breed come out
+of the Adoption Centre wearing it!  Even better, if your breed is one
+where the item is used only in the male or only in the female, there is
+this:
+
+; sexist - pink bow <=> female
+[Force To Female]
+#3.C
+1
+#2
+1
+#1
+0
+##
+
+[Force To Male]
+#3.C
+0
+#2
+0
+#1
+1
+##
+
+the 1 and the 0 are switches to say whether this particular variation of
+the breed should be male or female, and in the first part of the [Add
+Clothing] section it shows that the #3.C and #2 versions have a bow.  So
+#3.C and #2 ae forced to female, and #1 is forced to male.
+
+In some breeds also there is this:
+
+[Adjust Clothing]
+; kind: Shirt, Pant, Sock_FrontL, Sock_FrontR, <etc>
+; kind offset scale (floating point, 1.0 is no change in size)
+Hat     0,-7,0      0.9
+
+You only need this section -- and to change it -- if some item of
+clothing doesn't look right on the breed. Choose from the list of items
+shown for the "kind" column.  The offset is the usual x,y,z co-ordinates
+relative to where the clothing item sits normally,  so that you can
+shift it to a different position. The scale allows you to make it look
+bigger or smaller.
+
+Back to the Persian, then there's this, which isn't particularly exciting
+to change 
+
+[Lnz Version]
+2
+
+And in the kitten file (Petz II hexers, you can open your eyes again now)
+================================
+
+; persian kitten
+
+[Default Linez File]
+\ptzfiles\cat\pr\pr.lnz
+
+It tells the game where the adult .lnz is to be found.  You can put 
+an appropriate .lnz onto the hard drive and redirect this url to it as 
+shown in my external-lnz packages.  You can of course do the same with the 
+
+[Default Linez File]
+\ptzfiles\dog\dogmaster.lnz
+
+or 
+
+[Default Linez File]
+\ptzfiles\dog\catmaster.lnz
+
+files, but there's not really much point in doing so with those because
+of course everything that you put into your breedfile's .lnz overrides
+the "master" .lnz defaults.
+
+But now we're into the kitten (or puppy) section, which you need to
+change if you want extensions and enlargements etc to be different in
+the youngster of your breed.  Don't forget this:
+
+[Default Scales];adult 113, 113
+88              ; normal pet scale
+94              ; normal ball scale
+
+Which can be the same as or different from the adult's defaults of
+course, and we even get a small [Project Ball] section which you can
+fiddle with in the same way if you want.
+
+If you've carefully changed sizes and fuzz, you'll want to remove the
+[Ball Size Override] and [Fuzz Override] sections...  And voila!  here
+we are at the end of the breed's characteristics!
+
+Remember that if you're using a hex editor to put your edited .LNZ back
+into the breedfile, make sure that this text file is exactly the same
+length as it was when you took it out of the breedfile, then copy and
+paste it back into the same place.  If you're keeping it as an Easy-Edit
+external file, or are using Resource Hacker, that isn't relevant.
+
+A note about Hosts
+==================
+
+The Hosts that are in the special Petz 4 P.F.Magic scenes, and in Petz 5
+apart from the bunny and pig, are simply embedded .Lnz files for the 
+relevant breeds.  Take the Wild West one, for instance; if you search, 
+you'll see that the cat host begins 
+
+; Alley Cat
+
+and the dog host comes immediately afterwards, starting with
+
+; chihuahua
+
+These don't have puppy or kitten sections, they are "born" as adults, 
+and they can of course be edited in the same way as a normal breed so 
+as to appear as a favourite pet of yours or to have different (or no) 
+clothing.
+
+******** end of Part 1

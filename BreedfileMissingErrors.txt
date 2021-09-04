@@ -1,0 +1,125 @@
+
+NOTE:  If you haven't had any experience at all with hexing, in particular with hexing baby or pet files, please read my tutorial BasicBabyOrPetEditing (included in my Advanced tutorial as well as separately downloadable at my "Basic Pet And Baby File Editing" link.  I shall not repeat it here;  I will simply repeat as always -- make sure you have kept safe a copy of the file that you are trying to edit.
+
+This is the "Breedfile missing" error-fixing section of my "howto" on editing Petz and Babyz files; for the rest of my pet/baby file error fixing, see my main "MoreAdvancedEditingPetzAndBabyzFiles" zip.
+
+Breedfile missing.
+------------------
+
+1) Sometimes that's a legitimate error -- the baby needs some breedfile that you don't have in your Resource\dogz or Resource\catz directory.  The solution is of course to find that file and put it in the right place.
+
+2) Sometimes the message is really puzzling -- it's asking, say, for the Petz3\Resource\catz\Lion.cat breedfile and you've _got_ that.  Okay, this one is tricky; most times I've found that the problem is a wrong "offset byte".  Don't panic!  It's just the byte which hexers have to change in order for their breedfiles to show up separately -- actually an ID number.  If you look at the breedfile in a hex editor and search for the string BM you'll see a line of dots above that.  Look in the hexadecimal numbers section of the editor, and you'll see a bunch of numbers that look like this:
+
+0000 0000 EB03 0000 0100 0000 0000 0000
+
+EB03 are the important numbers; they will be different for each breedfile.
+
+Now look at your pet file in the hex editor.  There are two places you can look for the number; often you can find it as described in a) below.  If all you see in that place are null bytes (hex 00) then go on to my description b) below:
+
+a)
+====
+
+Search for the word Resource.  The first instance of the word is part of the directory string for the main breedfile for that pet; \Resource\catz\Lion.cat, for instance.  Okay, search for the next instance of the word, go on past any which refer to clothes files, and eventually you'll come to a part with at least one, probably more, breedfiles similarly listed, each separated by six dots.  Now this is the bit that might muddle you, but it's simple really.  If you look in the Hex numbers section, you'll see that a few bytes before each of the \Resource strings in this section there are numbers which look very like the offset bytes of the relevant breedfiles.  So, with my petfile example, I see
+
+........\Resourc
+e\Catz\Lion.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+And on the hex side of the editor I see
+
+0000 A203 1700 0000 5C52 6573 6F75 7263
+
+etc.  Well, the A203 are the offset numbers for the Lion breedfile that I've got.  Similarly, the first two hex numbers of each six in-between dots in the rest of the list are the offsets for the other listed breedfiles.  If any one of these numbers is not right, you will need to go to the breedfile in question and change the offset number there -- _don't_ try to hex edit the _pet_ file!!  So, if my Lion breed's number were F104, I'd have to change it to A203 in order to prevent the error message for this particular pet.  However, you might find that all is exactly right here -- but wait, we're not done yet!  Because this petfile has a baby hidden in it too, you need to find another \Resource area; continue searching, and further down the file you'll see it.  Maybe this is where a breedfile is listed with a wrong offset number.  If so, fix it as I say above.  The game will probably now allow the baby to be born.
+
+b)
+====
+
+You find there's only one breedfile listed in the Resource area and nothing but null bytes before it.  Okay, you need to look elsewhere in the file.  You need to find the section below YALP:
+
+000066B0 | 0000 0000 0000 0070 2E66 2E6D 6167 6963 | .......p.f.magic
+000066C0 | 7065 747A 4949 4900 0100 0000 0300 0000 | petzIII.........
+000066D0 | 5941 4C50 1E00 0000 1E00 0000 3AC4 9239 | YALP........:..9
+
+scroll down a bit until you see a bunch of FFFF FFFFs.
+
+00006A60 | FFFF FFFF 0000 0000 0164 0000 0001 00FF | .........d......
+00006A70 | FFFF FF00 0000 0001 6400 0000 0100 FFFF | ........d.......
+00006A80 | FFFF 0000 0000 0164 0000 0001 00FF FFFF | .......d........
+00006A90 | FF00 0000 0001 6400 0000 0100 FFFF FFFF | ......d.........
+00006AA0 | 0000 0000 0164 0000 0001 00FF FFFF FF00 | .....d..........
+
+Carry on scrolling; you'll come to a solitary set of 00FF FFFF FF00:
+
+00006E10 | 0000 0000 0019 0000 00FF FFFF FF00 0000 | ................
+00006E20 | 0000 6400 0000 0100 0550 0000 7B34 0000 | ..d......P..{4..
+
+Right, the number you want is 10 bytes after 00FF FFFF FF00.  In this case it is 0550. In a petfile containing a baby there is of course another YALP section as well as Resource; do the same thing down there to get the number for the baby's breedfile. As with a) above, if any one of these numbers is not right, you will need to go to the breedfile in question and change the offset number there -- don't try to hex edit the _pet_ file unless you really know what you're doing; there are something like 25 places where you would need to change it, and balancing the checksum would be tricky for most.
+
+3) Sometimes the error message states that a required file called, impossibly, <<NULL>> is missing.  This error is similar to 2); perform the same trick, and the mother and baby should appear okay.
+
+4) Sometimes the message tells you that you need another impossible file; it seems to munge together the name of your main petz directory and the name of a proper breedfile, so for instance if it's a lion that's being looked for on my machine it will ask for D:\Petz3LION.  Okay, I check to see that the offset ID byte is as required; yup, no problem there.  This one turned out to be even more subtle in the ones that I've rescued so far...  Open the pet file and look through those \Resource listings again.  The mother's list looks fine, much like the list I show above.  The baby's listing, further down the petfile, however, looks a little strange:
+
+........\Resourc
+e\Catz\LION.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+See?  The LION is all in upper-case here.  What I've found works so far in a case like this is, get the breedfile which is part of the munged error message and which is shown slightly differently in the listing, and go down to where it is renamed -- a search for the hex string 50004600 will get you there -- and replace (in this case) the ion with ION.  Eureka!  The mother now will come out complete with baby.  Don't ask me why this works -- I only know that it has done so for me and that I hope it will do so for you.
+
+4a) Another twist on the impossible missing file which is a munged-together mix of the directory and a breedfile:  I was recently sent a pregnant pet which came from a line of Chihuahuas.  In this case, the mother ran perfectly with the game's regular Chihuahua breedfile in place, but when the baby was due to be born, the message on my machine stated that it required Petz3chihuahua.dog.
+
+In this case it doesn't help to change the name to one with a lower-case "c" because the same breedfile is also needed with the uppercase "C".  So we need to alter the petfile itself.  Right, please remember to make a backup copy of the pet and put it somewhere safe!  And remember that this is just an example, it will look different in your pet's file.  Now open the pet file and look through those \Resource listings.  The mother's list looks fine, with just one type of dog with the correct F303 ID number and the correct .dog name:
+
+00023904 0000 0000 0000 0001 0000 00F3 031C 0000 ................
+00023920 005C 5265 736F 7572 6365 5C44 6F67 7A5C .\Resource\Dogz\
+00023936 4368 6968 7561 6875 612E 646F 6770 2E66 Chihuahua.dogp.f
+00023952 2E6D 6167 6963 7065 747A 4949 4900 0100 .magicpetzIII...
+
+The baby's listing, further down the petfile, however, shows this:
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 6368 6968 7561 urce\Dogz\chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0063 J.@.o'.........c
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+
+The ID number is still correct at F303 (look in the Hexadecimal part of the editor, a few bytes before \Reso on that first line in my example to see it) but the dog file has that lowercase c.  You want to change that to an uppercase one.  This means changing hex 63 to 43, and you will need to make up the extra amount (which is 20 hex, or 32 decimal) to keep the checksum the same.  In the case of this example pet, it happened to have a family tree which included the name Chihuahua (with capital C):
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 6368 6968 7561 urce\Dogz\chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0063 J.@.o'.........c
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+00048288 0000 0000 0A00 0000 0301 890E 4E63 E440 ............Nc.@
+00048304 D711 BD3C 0040 056F 2717 0600 0000 5769 ...<.@.o'.....Wi
+00048320 6C6C 6F77 0900 0000 4368 6968 7561 6875 llow....Chihuahu
+00048336 610E 0000 0053 696E 6461 7220 4B65 6E6E a....Sindar Kenn
+00048352 656C 7300 0000 00B7 5EE0 4009 0000 0003 els.....^.@.....
+00048368 0181 988D B0AF 3CD4 11B9 0D8D 8430 4FEA ......<......0O.
+00048384 3004 0000 0053 7461 7209 0000 0043 6869 0....Star....Chi
+00048400 6875 6168 7561 0500 0000 4369 6E64 7900 huahua....Cindy.
+
+so I got around the problem by simply changing one of those to ahve a lower-case c; effectively, I swapped the two.  This sort of thing is easy to do and works because the family tree is just documentation really, for viewing.  But we're not done yet.  See where the word chihuahua is repeated, shortly after "chihuahua.dog"?  That also needs to be changed to have an uppercase "c", and it can also be swapped if there are enough names with C in them in the family tree area.  This is how my example looks after I've edited it:
+
+00048208 0001 0000 00F3 031C 0000 005C 5265 736F ...........\Reso
+00048224 7572 6365 5C44 6F67 7A5C 4368 6968 7561 urce\Dogz\Chihua
+00048240 6875 612E 646F 6753 89FB AFEF 5AD7 11BD hua.dogS....Z...
+00048256 4A00 4005 6F27 1700 0000 0009 0000 0043 J.@.o'.........C
+00048272 6869 6875 6168 7561 0000 0000 0000 0000 hihuahua........
+00048288 0000 0000 0A00 0000 0301 890E 4E63 E440 ............Nc.@
+00048304 D711 BD3C 0040 056F 2717 0600 0000 5769 ...<.@.o'.....Wi
+00048320 6C6C 6F77 0900 0000 6368 6968 7561 6875 llow....chihuahu
+00048336 610E 0000 0053 696E 6461 7220 4B65 6E6E a....Sindar Kenn
+00048352 656C 7300 0000 00B7 5EE0 4009 0000 0003 els.....^.@.....
+00048368 0181 988D B0AF 3CD4 11B9 0D8D 8430 4FEA ......<......0O.
+00048384 3004 0000 0053 7461 7209 0000 0063 6869 0....Star....chi
+00048400 6875 6168 7561 0500 0000 4369 6E64 7900 huahua....Cindy.
+
+The mother can now give birth.
+
+Carolyn Horn

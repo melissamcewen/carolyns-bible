@@ -1,0 +1,246 @@
+
+Editing the filmstrips (not just re-colouring)
+==============================================
+
+Contents: Some hex editor etc advice
+          The type of item which uses a filmstrip, and how to know there is one.
+          Where you can find the filmstrips in various P.F.Magic games.
+          Simple editing: how to change the colours once you've found it.
+          Advanced editing: how to edit the Filmstrips properly (not just recolouring)
+Also with this tutorial: A set of Petz 3/Petz 4 bitmaps which can be used to edit and build a new box of treats.
+                         A set of Petz II filmstrip sections which can be used to edit and build a new box of treats.
+                         A sample bitmap for Babyz and one for Oddballz, so that you can see how the header is used.
+                         A babyz filmstrip header-only file to use as the header template for your filmstrip sections.
+                         A Petz II-4 filmstrip header-only file to use as the header template for your filmstrip sections.
+                         An Oddballz filmstrip header-only file to use as the header template for your filmstrip sections.
+                         An illustration to show the bitmap-header bytes to change for other filmstrip sections.
+                         A picture of a filmstrip section as shown graphically in Axe.
+                         The colour charts (in hexadecimal numbers) for the various P.F.Magic games.
+
+Some hex editor advice
+======================
+
+As always in my tutorials, for this you have to use a hex editor at least some of the time.  If you're getting into this advanced stuff, then I'm sure you already have one.  But when it comes to editing the filmstrips, an editor with a graphic-showing option is a real advantage -- such as the freeware Axe version 2, available from various places including "Carolyn's Creations"
+http://www.thepetzwarehouse.com/~carolyn/carolyn.htm
+and "Oddballz Neo"
+http://www.dmwright.com/oddballz/
+
+If you're going to do much editing of filmstrips, it would be no bad thing also to invest in downloading a better paint program than the simple "Paint" which comes with Windows.  Paint Shop Pro is a popular shareware one, available from www.jasc.com, but there may be some useful freeware ones if you look around.
+
+The type of item which uses a filmstrip, and how to know there is one.
+======================================================================
+
+This tutorial covers both simple colour-changing and more complex editing of filmstrip sections.  These sections are in use in files used by Oddballz, Petz II, Petz 3, Petz 4 and Babyz.  In this tutorial I shall use as an example the filmstrip which is found in a toy file; the flowers are a toy which is available in Petz 3, Petz 4 and Babyz, and the Chicken Treats are in Petz II, 3 and 4, but the method of identification and colour-replacing/ frame editing is exactly the same for other filmstrips in all five games.  I have covered the Oddballz filmstrips more specifically in my Oddballz tutorials.  
+
+Note that Petz 5, by Studio Mythos, does not have the same kind of filmstrips so these methods of mine do not work with that game.  Petz 5 filmstrips appear to be made up of individual frames, every frame having its own palette, and I have not yet found a way of locating the exact beginning and ending of these frames.   The bitmaps would undoubtedly need to have 24-bit headers put on them if I could separate them out.  Because there seems to be palette data in between each frame, it makes the "hex painting" method not feasible.  Although it appears likely that a program similar to Pro Motion 45 was used to create the filmstrips, I have not found it possible to put a useful header on them and load them into Pro Motion either.  So as of the time of writing this, filmstrips in Petz 5 are not editable.
+
+Catz 1 and Dogz 1 toy graphics are in the form of bitmaps inside the resources, so can be edited without having to give them headers.  In Dogz 1 you can find editable bitmaps inside Dogzdll.dll, and in Catz 1 you can find them in Catzdll.dll and Catzrezx.dll.  The easiest way to find them is to use ExeScope (which as far as I know is the only Resource Editor that can handle non-32-bit resources).  Exescope is shareware, not freeware, but if you are a windows user with these early games it can be very useful.  
+http://hp.vector.co.jp/authors/VA003525/Eindex.htm
+It's also a good way of seeing what's inside Oddballz files, although you'd still have to edit the filmstrips as shown in my tutorials.
+
+Oddballz 
+--------
+
+This game makes use of filmstrips for the eggz, whether in their trays or in the hand or as they are opening.  You can of course change the colour and design on these, and others can then see at a glance whether your breed is in their egg-trays.  
+
+It also uses them for the toyz in the toy-tray; you will be able to change your own but not share them with others except as patches for them to insert themselves, as they are in the resource .dll files.
+
+
+Petz II
+-------
+
+This game makes use of filmstrips for the Toyz, whether on the shelf or in the hand or in use.  Apart from a very few items, such as the auto-rolling ball which has an editable text section, this is the only way so far to make changes to your toyz.  It will not change the behaviour of the toy, but you can change the look completely.
+
+The game also uses them for the adoption door and the shelves etc.  These are stored in the resource .dlls and so you won't be able to share your changes with others, but you can alter them to suit yourself :-)  But please, please remember to backup all your files before trying this!
+
+Petz 3 and Petz 4 
+-----------------
+
+These games make use of filmstrips in the following areas of the game, and you can edit and share them with others:
+
+Toyz, whether on the shelf or in the hand or in use.  Apart from a very few items, such as the auto-rolling ball which has an editable text section, this is the only way I know of to make changes to your toyz.   It will not change the behaviour of the toy, but you can change the look completely.
+
+Clothes, on the shelf or in the hand or dropped on the floor.  When on the pet, of course, the filmstrip is no longer used; instead, at that stage, a text-based .clz file is used, which is why people have been able to edit such a stunning range of clothes.  The re-colouring which this tutorial covers is useful, however, in helping people to see your clothing show up as different on the shelf; of course you can change the shape of it on the shelf also, if you're prepared to put in the extra time and effort :-)
+
+Playscenes (in the Areas directory).  These have some filmstrips, such as waves on the beach, the kitchen cabinets etc, or window-blinds and leaves in the backyard.
+
+Babyz
+-----
+
+This game makes use of filmstrips in the following areas of the game, which you can edit and share with others:
+
+Toyz, whether on the shelf or in the hand or in use.  Luckily for Babyz hexers, there are more toyz available which have editable text sections -- the dolls and juice bottles etc, for instance.  But there are other toyz which contain only filmstrips and sounds. 
+
+Clothes, on the shelf or in the hand or dropped on the floor.  When on the baby, of course, the filmstrip is no longer used; instead, at that stage, a text-based .clz file is used, which is why people have been able to edit such a stunning range of clothes.  The re-colouring which this tutorial covers is useful, however, in helping people to see your clothing show up as different on the shelf; of course you can change the shape on the shelf also, if you're prepared to put in the extra time and effort :-)
+
+Toy Chestz.
+
+Playscenes (in the Areas directory).  These have some filmstrips, such as the windows in the attic and the kitchen appliances.
+
+Where you can find the filmstrips in various P.F.Magic games
+=============================================================
+
+This seems tricky at first, but in fact it's easier than you might think -- you can spot the important section by looking for the hex number of the colour which was used as a transparent background.  In all three Petz games and Babyz, this colour is FD; in Oddballz it is E1.  Every filmstrip starts with several of these "transparent" bytes and has loads of them within it; don't change all of these numbers unless you want the toy or piece of clothing or other item to sit in an oblong of your chosen colour.  It looks very odd, picking up an egg or ball that's got a square all around it, I assure you!
+
+Okay, down to specifics.  Taking the flowers as an example, you can discover that they have a filmstrip by looking at the list of contents that's within each file.  A search for the hex string 4600 4C00 4D00 will highlight the letters F.L.M if they exist within the file.  Above that you will see F.L.H, and between the two a list of what particular items are within the filmstrip:
+
+00035056 0000 0000 0000 0000 0300 4600 4C00 4800 ..........F.L.H.
+00035072 0700 4200 4600 4C00 5900 5F00 4F00 3100 ..B.F.L.Y._.O.1.
+00035088 0700 4200 4600 4C00 5900 5F00 5900 3100 ..B.F.L.Y._.Y.1.
+00035104 0700 4200 4F00 5700 4C00 5F00 4600 3100 ..B.O.W.L._.F.1.
+00035120 0C00 4200 4F00 5700 4C00 5F00 4600 3100 ..B.O.W.L._.F.1.
+00035136 5F00 4100 5700 4100 5900 0300 4600 4C00 _.A.W.A.Y...F.L.
+00035152 4D00 0300 5400 5800 5400 0E00 4200 4500 M...T.X.T...B.E.
+00035168 5600 4500 4E00 5400 5F00 4200 4F00 5700 V.E.N.T._.B.O.W.
+00035184 4C00 5F00 4600 3100 0E00 5300 4F00 5500 L._.F.1...S.O.U.
+00035200 4E00 4400 5300 5F00 4200 4F00 5700 4C00 N.D.S._.B.O.W.L.
+00035216 5F00 4600 3100 0000 0000 0000 0000 0000 _.F.1...........
+
+Here you can see that there are butterflies (B.F.L.Y) and the pot (B.O.W.L).  You're going to have to alter these "pointers" slightly if you don't want them picking up information from the unhexed original, but I'll come to that later.
+
+You'll find the start of the actual filmstrip if you search for the hex string FDFD (In Oddballz, that's E1E1):
+
+00052768 FDFD FDFD 2727 FDFD FDFD FDFD FDFD FDFD ....''..........
+00052784 FDFD FDFD FDFD FD25 2222 2527 FDFD FDFD .......%""%'....
+00052800 FDFD FDFD FDFD FDFD FDFD FD25 2277 7725 ...........%"ww%
+00052816 2527 FDFD FDFD FDFD FDFD FDFD FDFD FDFD %'..............
+
+In the Babyz toy this looks slightly different, as the palette is different, but the FDFD FDFD will still be the same and will still be the start of the filmstrip.  The end of the filmstrip is a little trickier to spot, but if you keep in mind that it must surely have the FDFD bytes at the end also, and that it must stop before the next item in the above list, you should be able to do it.  In this particular case it stops directly before a bit of text (indicated in the above list by T.X.T) which is the on-screen tips.  Try to get used to reading these lists and understanding their mnemonics, they really do give important information.  In fact, the toyz I've looked at so far all have the filmstrip ending directly above that tip-text, but I can't guarantee that every single filmstrip will do so.
+
+Simple editing: how to change the colours once you've found it
+==============================================================
+
+First of all, don't forget to work with a _copy_ of your original, and put the original somewhere safe -- you don't want to have to re-install just to get back a favourite toy or item of clothing etc if it all goes wrong! 
+
+Then, to be sure you don't accidentally replace important binary numbers in other sections of the file, you need to work on a copy of the filmstrip.  To do this, in a hex editor highlight the whole filmstrip, select Copy, open a new file in your hex editor and select Paste.  Now save this new file.  You can safely replace all instances of any number within this new file.
+
+Look at the numbers in the hexadecimal section of the file; each of these numbers corresponds to a colour in the game's palette.  So, from among the three chart bitmaps included with this tutorial, open the one for the game that's relevant to you.  If the toy (or whatever item you're changing) has yellow in it and you want to change that, check in the chart which numbers are the yellows.  Now use the hex editor to change all instances of those numbers with ones for the colours you want.  So for instance, if you had yellow that you wanted to change to blue: in a Petz item you would change yellows A0-A8 and possibly FB and CE with blues 8C-93 or maybe 96-9F; in Babyz the yellows could be A0, A1, A6, A7 etc and the blues 72-77; and in Oddballz you'd be changing yellows 32-3B for blues 78-81.
+
+When you've changed all instances of a few colour numbers, copy/paste the whole of this filmstrip file back into the toy (or whatever item) file that you're changing.  Save it and open the game to see how your work is looking.  If it's looking horrible or not changed enough, close the game and go back to the filmstrip file to try more changes.
+
+It's quite a long process, but rewarding in the end to have a toy that looks different or an item of clothing that looks different from others in the closet etc.
+
+Advanced editing: how to edit the Filmstrips properly (not just recolouring)
+============================================================================
+
+I'm really very pleased with this, because at last I've managed to rip the bitmaps out of any P.F.Magic "filmstrip" and get them into a paint program for editing, then return them to the relevant toy (or clothing etc) for a truly customised look.
+
+This is even slower than recolouring, and fiddly to do, but it works a treat and gives you the ability to make every toy different (not just the ones with editable text inside) -- it also lets you make clothes show up as really individual on the shelf, etc.    It's worth while if there's a new look you really want to give a toy.  None of this filmstrip-editing will alter the actual effect of a toy on a pet, of course.
+
+With any luck, someone with programming experience will one day work out a way to automate the cutting of filmstrips, adding of bitmap-headers, removal of headers, and re-stitching.  But until such magical time arrives, we have to do it all by hand, and here's how:
+
+Each toy or item of clothing has its own slightly different-sized set of bitmaps.  The one I have made a complete set of bitmaps for is the Chicken treats, because I wanted to make vegetable treats for non-carnivorous petz, but the same thing can be done with any of the others as long as you understand the principles.
+
+As with recolouring, you want to find the filmstrip by searching for the FDFD colour (which the game uses as transparent background).  Then you want to copy out the whole of the filmstrip section to a new file, from the initial FDFDFD to the final FDFD, and save it.
+
+Now this is where a hex editor that lets you view in graphic mode comes in very handy; the point is, the "filmstrips" are all made up of headerless bitmaps and it's not easy to see where each bitmap starts and finishes in an editor without a graphic view.  So for instance if you have Axe, open your filmstrip into it, press the blue button marked with a "g" and drag the edge of the "Data:" section out until something recognisable starts to appear.  In the case of the treats box, you'll see an upside-down treats box shape (repeated below) when you've dragged it out to "64 bytes per row". 
+
+Select the whole of the area that contains the recognisable treats box shapes (or shirt, or whatever the item is).  Now cut it off and save it to a new file in the hex editor; this is the first filmstrip section.  You'd be best saving it with a name and number that enables you to know which ones go where when you put them back together, e.g. chick1, chick2, etc.
+
+Now drag out the remaining filmstrip's edge (note that sometimes you need to drag it the other way) until you see another recognisable upside-down box (or whatever); this is at 72 bytes wide in the chicken treats.  Chop this off also, and save it to a new file.  Drag the edge of the remaining filmstrip's edge again, in the case of the Petz 3 chicken treats until you're at 76 bytes per row.  Chop this one off also and save to a new file; keep up this drag, see egg, chop-and-save until you get down to the long very last section.  Save that also.  Now you should have several files (10 in the case of the Petz 3 or 4 Chicken treats, 12 in the case of the Petz 2 ones), each of which can be opened into a paint program and edited once you've given it a suitable header.
+
+The header is the important thing.  For your reference, here is what a 256-colour bitmap header in Windows format consists of (with specific reference to P.F.Magic file use):
+
+Offset	Field			Size		Contents
+(in hex)
+0000	Identifier		2 bytes		BM
+0002	File Size		1 dword		Complete file size in bytes.
+000A	Bitmap Data Offset	1 dword		Offset from beginning of file to the beginning of the bitmap data.
+000E	Bitmap Header Size	1 dword		Length of the Bitmap Info (28)
+0012	Width			1 dword		Horizontal width of bitmap in pixels.
+0016	Height			1 dword		Vertical height of bitmap in pixels.
+001A	Planes			1 word		Number of planes in this bitmap (01 for P.F.Magic stuff)
+001C	Bits Per Pixel		1 word		Number which defines possible colours (08 for a 256 colour bitmap)
+001E	Compression		1 dword		00 - i.e. none for a P.F.Magic bitmap
+0022	Bitmap Data Size	1 dword		This number must be rounded to the next 4 byte boundary.
+0026	HResolution		1 dword		Horizontal resolution expressed in pixel per meter.
+002A	VResolution		1 dword		Vertical resolution expressed in pixels per meter.
+0036	Palette			N x 4 byte	The palette specification. For every entry four bytes are used.
+0436	Bitmap Data		NN bytes	This is where your bitmap actually starts.
+
+Of course, you know the number of bytes wide that each section of filmstrip is, also the whole bitmap data size of the section, so you can calculate the vertical height by dividing the one by t'other.  For instance, with the Petz 3 chicken treats, the first filmstrip section is 40 columns/rows "horizontal width" (in hex) and 2040 bytes (hex) total, so the number of lines is 81 in hexadecimal, which is the "vertical height".
+
+You will be entering the values in hexadecimal.  Remember also that numbers two bytes long or more are entered in "reverse" order; for instance, say Chick1.bmp is 2477 (hex) bytes in size.  You would enter the number directly after the BM as 77 24.
+
+I include with this a set of bitmaps for the Petz 3 Chicken treats, with their headers already attached; also a set for the Petz 2 treats.  But it's a simple matter to take the header from one of those, put it onto the top of another stripped filmstrip section from the Petz 2, 3 or 4 files and alter the file size, horizontal width and vertical height of the bitmap, and the bitmap data size, to suit whatever filmstrip section you're using.  I also include a small .jpg which shows you where the four sets of bytes are that you would need to change in case the above is too confusing.  (Note that if you're going to do the same thing in Babyz or Oddballz, you would need to change the palette information, so I include also a bitmap with suitable header for each of these games.)
+
+So, you have your set of bitmaps.  Open them into a paint program, edit them to your heart's content, and then strip off the headers and stitch them together.
+
+It's easy to strip them; just select from the first FDFD to the last FD and copy to a blank new file (ignore any 00 bytes which might have crept into the end).  Take them in their proper order of course! 
+
+NOTE: It's possible that your new filmstrip sections may be slightly smaller than the originals.  Make sure you check this before stitching them together -- just open both into the hex editor and compare sizes.  If the new one is smaller, make it up to the correct size by adding the appropriate quantity of the hex number FD to the end.  If the new filmstrip section happens to be a bit larger than the original, then strip off the appropriate number of bytes.
+
+Now save the new file; it should be exactly the same length as the original filmstrip.  Copy and paste it into the correct place inside your new toy or item of clothing etc, and it should appear perfectly in the game.
+
+As I say elsewhere, you can use the exact same technique to alter the appearance of the doors and the shelves etc in your game, but as they are in the  main .dll files, you can really only distribute them as raw filmstrips for others to copy/paste into copies of their oddzrez.dll if they wish.  The same applies of course to the grubz, mice, cockroaches etc; you can edit them as i explain in other tutorials, but you would need to distribute the .lnz file only for other people to put into their .dll and enjoy.
+
+Making sure the game will find your new filmstrip
+=================================================
+
+Okay, now your toy looks gorgeous but we want to be sure that when it's renamed and renumbered and your original toy (or whatever) is put back into the game it still works as you intended.
+
+You need to change the pointers inside the file, therefore, in order that the game doesn't get confused and (for instance) only produce the original yellow butterflies and not your glorious blues. In those Petz "Blowers" and babyz "Blooms" of mine, I had to change all these references to sprites that are within the .toy file to make sure it picked up the one from my altered file and not the original -- and of course it works both ways, the game gets muddled and picks up whichever it thinks is the correct one.  To illustrate what I'm trying to say, look at this, in the area where you see things like Thickness and Mouselike listed:
+
+000071B0 0700 0044 5844 6F77 6E6C 6F61 6400 0000 ...DXDownload...
+000071C0 5370 7269 7465 5F42 466C 795F 5831 0000 Sprite_BFly_X1..
+000071D0 5370 7269 7465 5F42 6F77 6C5F 4632 0000 Sprite_Bowl_F2..
+000071E0 5573 6564 4600 0000 5573 6564 4500 0000 UsedF...UsedE...
+000071F0 5573 6564 4400 0000 5573 6564 4300 0000 UsedD...UsedC...
+00007200 4772 6F77 4200 0000 4772 6F77 4100 0000 GrowB...GrowA...
+00007210 4772 6162 6265 6446 0000 0000 4772 6162 GrabbedF....Grab
+00007220 6265 6445 0000 0000 4772 6162 6265 6444 bedE....GrabbedD
+00007230 0000 0000 4772 6162 6265 6443 0000 0000 ....GrabbedC....
+00007240 4772 6162 6265 6442 0000 0000 4772 6162 GrabbedB....Grab
+00007250 6265 6441 0000 0000 4177 6179 4600 0000 bedA....AwayF...
+
+The bowl sprite name had to be changed from the normal flower's Sprite_Bowl_F1 to Sprite_Bowl_F2 (or F2 is what I chose, anyway).  I left the X1 alone because that doesn't get affected in this instance. Then, a bit lower down you get more references to Bfly and Bowl sprites, which need to be changed; I changed the Bfly ones here because that affects the colour of the butterfly that appears:
+
+00007700 2E3F 4156 4669 6C6D 7374 7269 7040 4000 .?AVFilmstrip@@.
+00007710 5C41 7274 5C53 7072 6974 6573 5C54 6F79 \Art\Sprites\Toy
+00007720 7A5C 426F 776C 5F46 325C 4246 6C79 5F4F z\Bowl_F2\BFly_O
+00007730 322E 666C 6D00 0000 5C41 7274 5C53 7072 2.flm...\Art\Spr
+00007740 6974 6573 5C54 6F79 7A5C 426F 776C 5F46 ites\Toyz\Bowl_F
+00007750 315C 4246 6C79 5F59 322E 666C 6D00 0000 1\BFly_Y2.flm...
+
+Then of course there's the List, it needs to be changed or the game will crash because it can't find the renamed sprite.  I didn't bother to change the pointers to the sounds, as I used the same ones as were in the Flowers.  It would be possible to change the sounds, of course, by altering the sounds list pointer to a different one and having those sounds external to the file, but that is not part of the filmstrip and so not covered by this tutorial:
+
+00008300 0700 4200 4600 4C00 5900 5F00 4F00 3200 ..B.F.L.Y._.O.2.
+00008310 0700 4200 4600 4C00 5900 5F00 5900 3200 ..B.F.L.Y._.Y.2.
+00008320 0700 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008330 0C00 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008340 5F00 4100 5700 4100 5900 0300 4600 4C00 _.A.W.A.Y...F.L.
+00008350 4D00 0300 5400 5800 5400 0E00 4200 4500 M...T.X.T...B.E.
+00008360 5600 4500 4E00 5400 5F00 4200 4F00 5700 V.E.N.T._.B.O.W.
+00008370 4C00 5F00 4600 3200 0E00 5300 4F00 5500 L._.F.2...S.O.U.
+00008380 4E00 4400 5300 5F00 4200 4F00 5700 4C00 N.D.S._.B.O.W.L.
+00008390 5F00 4600 3100 0000 0000 0000 0000 0000 _.F.1...........
+000083A0 0200 0000 5370 7269 7465 5F42 6F77 6C5F ....Sprite_Bowl_
+000083B0 4632 0000 0000 0000 0000 0000 0000 0000 F2..............
+000083C0 0000 0000 466C 6F77 6572 7300 0000 0000 ....Flowers.....
+000083D0 0000 0000 0000 0000 0000 0000 0000 0000 ................
+000083E0 0000 0000 1F30 0000 0300 0000 5370 7269 .....0......Spri
+
+And finally, this, down in the naming section (once again, the game will likely crash if this hasn't been changed to exactly the same as the stuff above:
+
+00781088 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781104 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781120 0700 4200 6F00 7700 6C00 5F00 4600 3200 ..B.o.w.l._.F.2.
+
+Check out the similar areas in your files, change the names of any sprites or bitmaps that might end up "clashing", and eureka!  Your toy will retain the colours you chose for it and not pick up the colours in the original toy.
+
+Finally of course, for the Petz 3, Petz 4 and babyz games, your new toy or item of clothing will need to have its own ID number (what we all call the Offset Byte).   This comes below the list shown above, about 24 bytes after the word "Flowers" on its own, and here in my Blowers for Petz 4 you'll see that the number I chose was 1F30:
+
+000083E0 0000 0000 1F30 0000 0300 0000 5370 7269 .....0......Spri
+000083F0 7465 5F42 466C 795F 5831 0000 0000 0000 te_BFly_X1......
+00008400 0000 0000 0000 0000 0000 0000 4275 7474 ............Butt
+00008410 6572 666C 7900 0000 0000 0000 0000 0000 erfly...........
+
+I explain more about these ID numbers in other more basic tutorials, so if you don't understand what I'm getting at then take a look at those.
+
+Enjoy!
+
+Carolyn Horn
+
+
+
+

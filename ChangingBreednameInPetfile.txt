@@ -1,0 +1,382 @@
+
+This works for Petz 3, 4 or 5 petfiles.
+
+NOTE:  If you haven't had any experience
+========================================
+
+If you've had no experience at all with hexing, in particular 
+with hexing baby or pet files, please read my tutorial 
+BasicBabyOrPetEditing,  I shall not repeat it here, as 
+advanced hexers should know how to follow this "howto".  I 
+will simply repeat as always -- make sure you have kept safe 
+a copy of the file that you are trying to edit.  Also note 
+that you cannot edit actual .pet files in a Resource editor 
+-- they are not true Resource files.
+
+Okay, on with the show.  Remember, always _always_ keep a 
+backup copy of your pet somewhere safe before you start, 
+and never have other petz in the Adopted directory when you 
+are fiddling around like this.
+
+How to change the breed name in a pet file
+==========================================
+
+Normally I would say to people that if they have a problem
+with a pet that relates to the breedfile name or ID, they
+should alter the breedfile to suit the pet.  However, it may
+be that you feel it's important to change the pet instead,
+so here's how to change things in a pet file.
+
+I start with a pet called Skeezix, which is a ZZW Shorthair.
+For some weird reason, I want to change the breedfile to some
+other name -- YZW Shorthair.  To do this, I need to look for
+every place where I see the name of the breedfile.  In Petz
+adopted and bred from Petz 3, 4 and 5 pets, the top of the file
+looks like this:
+
+
+00000000 B90B 536B 6565 7A69 7800 0000 0000 0000 ..Skeezix.......
+00000016 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000032 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000048 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000064 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000080 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000096 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000112 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000128 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000144 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000160 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000176 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000192 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000208 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000224 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000240 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000256 0000 5A5A 5720 5368 6F72 7468 6169 7200 ..ZZW Shorthair.
+00000272 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000288 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000304 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000320 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000336 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000352 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000368 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000384 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000400 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000416 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000432 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000448 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000464 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000480 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000496 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000512 0000 5C52 6573 6F75 7263 655C 4361 747A ..\Resource\Catz
+00000528 5C5A 5A57 2053 686F 7274 6861 6972 2E63 \ZZW Shorthair.c
+00000544 6174 0000 0000 0000 0000 0000 0000 0000 at..............
+
+So I change the first Z in ZZW Shorthair and in ZZW Shorthair.c to
+a Y.  This means that the checksum will be wrong, it'll be too small
+by 2, and the way to fix it is to increase one of the letters in Skeezix
+by 2, or two of them by 1:
+
+00000000 B90B 536B 6565 7A6A 7A00 0000 0000 0000 ..Skeezjz.......
+00000016 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000032 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000048 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000064 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000080 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000096 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000112 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000128 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000144 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000160 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000176 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000192 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000208 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000224 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000240 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000256 0000 595A 5720 5368 6F72 7468 6169 7200 ..YZW Shorthair.
+00000272 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000288 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000304 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000320 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000336 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000352 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000368 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000384 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000400 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000416 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000432 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000448 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000464 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000480 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000496 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000512 0000 5C52 6573 6F75 7263 655C 4361 747A ..\Resource\Catz
+00000528 5C59 5A57 2053 686F 7274 6861 6972 2E63 \YZW Shorthair.c
+00000544 6174 0000 0000 0000 0000 0000 0000 0000 at..............
+
+Don't worry about the name change, as soon as you've run the game
+with the pet in it the name will be re-written to the original.
+
+You don't need to bother with this bit, because it's only the 
+Family Tree:
+
+00026096 0050 664D 6147 6943 7045 745A 4949 4900 .PfMaGiCpEtZIII.
+00026112 D75B 9C3B CAB6 941D 086E 374C 9159 8E1A .[.;.....n7L.Y..
+00026128 A2CA EE65 0700 0000 536B 6565 7A69 780D ...e....Skeezix.
+00026144 0000 005A 5A57 2053 686F 7274 6861 6972 ...ZZW Shorthair
+00026160 0700 0000 4361 726F 6C79 6E97 4B2C 3E00 ....Carolyn.K,>.
+
+Now, if you're trying to make it that the pet uses a breedfile
+that's completely different, say a ZZW Shorthair instead of a 
+Persian, then you're going to have to make the name longer. This
+is possible, but make sure that you overwrite the bytes (usually 00)
+which follow the breed name in those two places and that you
+correct the checksum in that top area of the file.  If the breed
+name is very different, you may not have enough letters to use 
+for reductions to correct the checksum -- but a neat trick is to open 
+the game, re-name your pet so that it's got loads of extra letters, 
+and then you can fool around with those and re-name it when you've 
+finished.
+
+You will also, if the breedfile is completely different, need to
+change the ID number inside the pet -- see my NOTE below for an
+explanation of how to find it -- and, if you want it not to be
+mute, the [Sounds] pointer (e.g. in a Calico that would be
+\ptzfiles\cat\ca\casnd.txt and for a Russian blue you'd need to
+change it to \ptzfiles\cat\rb\rbsnd.txt).  For both of these changes
+you would need to compensate within the .lnz section in order to
+keep the checksum the same, and the [Paint Ballz] section is a good
+place to do that as usual, with its long decimal-place numbers.
+
+Okay, that was a first-generation pet, and a simple one at that.
+Now for something a little different-looking...
+
+00000000 BF0B 6366 335F 6D69 785F 6100 0000 2E00 ..cf3_mix_a.....
+00000016 0100 0000 0000 0000 A8F5 8100 0000 D801 ................
+00000032 B08C 5A81 7742 F7BF 0800 0000 8B67 F7BF ..Z.wB.......g..
+00000048 10FA FBBF A8F5 8100 D867 F7BF 6C8C 5A81 .........g..l.Z.
+00000064 11BA F7BF 84BC 5B81 54BC 5B81 0000 0000 ......[.T.[.....
+00000080 E826 F5C2 FE05 4401 EF05 D605 0000 0000 .&....D.........
+00000096 2A84 CF1C 8F04 0000 4401 E01C 4426 4426 *.......D...D&D&
+00000112 DF16 3E84 6847 AF17 0206 FE05 DF16 1013 ..>.hG..........
+00000128 0000 0000 6757 5084 AB57 AF17 FB57 AF17 ....gWP..W...W..
+00000144 DF16 1013 0200 0000 8284 2235 C717 6284 .........."5..b.
+00000160 571C 1013 0200 0F00 0200 FE05 0000 0000 W...............
+00000176 0000 0000 0000 0000 0000 FFFF 571C 0000 ............W...
+00000192 0000 571C 0000 1013 AE84 AC84 7B42 1013 ..W.........{B..
+00000208 54E0 5881 0000 0000 0000 0000 4B45 524E T.X.........KERN
+00000224 454C 3332 2E44 4C4C 0013 0200 0400 3008 EL32.DLL......0.
+00000240 483A 5C50 4554 5A20 4949 5C52 4553 4F55 H:\PETZ II\RESOU
+00000256 5243 5369 616D 6573 6500 414C 4943 4F2E RCSiamese.ALICO.
+00000272 4341 5400 A800 8F01 EC84 201A AF17 7600 CAT....... ...v.
+00000288 1013 0000 F284 8E47 0100 0000 0000 0000 .......G........
+00000304 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000320 0000 0000 0000 0000 0000 0000 E8DC 5A81 ..............Z.
+00000336 5601 0000 0A00 0000 0100 0000 0000 FCBF V...............
+00000352 F816 FCBF B515 F8BF 8000 F7BF 5B01 0000 ............[...
+00000368 7AF9 D801 0400 0000 54BC 5B81 84BC 5B81 z.......T.[...[.
+00000384 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000400 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00000416 0000 0000 0000 0000 150D AF17 08BA 5B81 ..............[.
+00000432 68BC 5B81 9CB8 5B81 FFFF 5B81 801A D801 h.[...[...[.....
+00000448 0100 0000 0400 0000 B08C 5A81 0000 0000 ..........Z.....
+00000464 0000 0000 54E0 5881 0000 0000 0300 0000 ....T.X.........
+00000480 17A8 F7BF 1CB8 5B81 0100 0000 04F7 8100 ......[.........
+00000496 54E0 5881 1F31 5000 513E D801 0000 0000 T.X..1P.Q>......
+00000512 0D00 5C52 6573 6F75 7263 655C 4361 747A ..\Resource\Catz
+00000528 5C53 6961 6D65 7365 2E63 6174 00E0 5881 \Siamese.cat..X.
+00000544 7C04 9400 0000 D801 54F8 8100 CCDE 4A00 |.......T.....J.
+00000560 0000 D801 D2DE 4A00 0000 0000 0000 0000 ......J.........
+00000576 56F7 8100 483A 5C50 4554 5A20 4949 5C52 V...H:\PETZ II\R
+00000592 6573 6F75 7263 655C 4361 747A 5C43 616C esource\Catz\Cal
+00000608 6963 6F2E 6361 7400 6972 2E63 6174 006F ico.cat.ir.cat.o
+00000624 7900 732E 746F 7900 00ED 5A81 0070 5681 y.s.toy...Z..pV.
+00000640 E826 F5C2 00ED 5A81 0070 5681 E826 F5C2 .&....Z..pV..&..
+00000656 2880 F7BF 5070 5681 0000 0000 7D92 F7BF (...PpV.....}...
+00000672 0070 5681 0000 0000 54E0 5881 0000 0000 .pV.....T.X.....
+00000688 1CB8 5B81 1CB8 5B81 18B8 5B81 1EAE F7BF ..[...[...[.....
+00000704 0070 5681 0000 0000 1CB8 5B81 BEAE F7BF .pV.......[.....
+00000720 1CB8 5B81 C6DA F7BF 1CB8 5B81 1CB8 5B81 ..[.......[...[.
+00000736 E213 F7BF 4F01 0000 C512 F7BF 0020 0000 ....O........ ..
+00000752 0200 0000 40B4 0378 0200 0000 AD43 0078 ....@..x.....C.x
+00000768 0020 A500 BD98 F7BF 0000 0000 FFFF FFFF . ..............
+00000784 0000 0000 0100 0000 0300 CB0A 79F1 B567 ............y..g
+00000800 C1E3 2DF1 76F0 D311 AF4C D7F2 89AA 421D ..-.v....L....B.
+00000816 702E 662E 6D61 6769 6370 6574 7A49 4949 p.f.magicpetzIII
+
+Okay, don't panic.  Most of this stuff is irrelevant; it's in there
+because this pet (or one of its ancestors) was imported from Petz II.
+The important parts remain the same:
+
+the pet name
+00000000 BF0B 6366 335F 6D69 785F 6100 0000 2E00 ..cf3_mix_a.....
+
+its main breed, which is Siamese (ignore all the other stuff, 
+around the word Siamese, it's just rubbish)
+00000256 5243 5369 616D 6573 6500 414C 4943 4F2E RCSiamese.ALICO.
+
+and the pointer to the main breed
+00000512 0D00 5C52 6573 6F75 7263 655C 4361 747A ..\Resource\Catz
+00000528 5C53 6961 6D65 7365 2E63 6174 00E0 5881 \Siamese.cat..X.
+
+You don't need to pay any attention to stuff like 
+V...H:\PETZ II\R
+esource\Catz\Cal
+ico.cat.ir.cat.o
+because it's just something to do with the way the game imported
+the Petz II pet.  In fact it's quite useful as stuff to use for
+helping fix up the checksum.  Say for instance that I want this
+pet to be basically an Elephant.  Here's what I do; change the
+name here
+
+00000256 5243 456C 6570 6861 6E74 414C 4943 4F2E RCElephantALICO.
+
+and here
+
+00000512 0D00 5C52 6573 6F75 7263 655C 4361 747A ..\Resource\Catz
+00000528 5C45 6C65 7068 616E 742E 6361 7400 E058 \Elephant.cat..X
+
+and them compensate here
+
+00000000 BF0B 6366 335F 6D69 6F5F 0000 0000 2E00 ..cf3_mio_......
+
+and here
+
+00000576 0056 F781 0048 3A5C 5045 545A 2049 495C .V...H:\PETZ II\
+00000592 5265 736F 7572 6365 5C43 6174 7A5C 4361 Resource\Catz\Ca
+00000608 6C63 6F2E 6361 7400 6971 2E63 6174 006F lco.cat.iq.cat.o
+
+Now, I have a problem here in that Elephant is longer than Siamese.
+As you can see, that's not a problem up in the top part of the breed,
+and in fact the pet will run with no other changes made to it.  But
+in order to breed, it is most likely to cause problems unless I fix
+it up down here, which you can find by searching for YALP:
+
+00023984 0000 0000 0002 0000 00EC 031A 0000 005C ...............\
+00024000 5265 736F 7572 6365 5C43 6174 7A5C 5369 Resource\Catz\Si
+00024016 616D 6573 652E 6361 74E9 0319 0000 005C amese.cat......\
+00024032 5265 736F 7572 6365 5C43 6174 7A5C 4361 Resource\Catz\Ca
+00024048 6C69 636F 2E63 6174 702E 662E 6D61 6769 lico.catp.f.magi
+00024064 6370 6574 7A49 4949 0001 0000 0004 0000 cpetzIII........
+00024080 0059 414C 501E 0000 0018 0000 0006 4F73 .YALP.........Os
+
+This section of Resource\Catz pointers is pretty much always there
+when the pet is 2nd-generation or greater (especially in a mixed-
+breed pet), and it tells the game what breedfiles it needs.  This 
+includes the ID numbers for the breedz.
+
+the first line here shows this:
+
+0000 0000 0002 0000 00EC 031A 0000 005C
+
+the 02 indicates that there are two breedfiles, the EC03 shows
+the ID number of the first breed in the list, and the 1A gives the
+letter-count for the whole pointer to \Resource\Catz\Siamese.cat.
+
+Well, I want to change Siamese to Elephant.  I need to change that
+1A to 1B and I need to remove one of the null bytes before the 02
+so that the list ends up in the correct place and YALP also is in
+the correct place: 
+
+00023984 0000 0000 0200 0000 5340 1B00 0000 5C52 ........S@....\R
+00024000 6573 6F75 7263 655C 4361 747A 5C45 6C65 esource\Catz\Ele
+00024016 7068 616E 742E 6361 74E9 0319 0000 005C phant.cat......\
+00024032 5265 736F 7572 6365 5C43 6174 7A5C 4361 Resource\Catz\Ca
+00024048 6C69 636F 2E63 6174 702E 662E 6D61 6769 lico.catp.f.magi
+00024064 6370 6574 7A49 4949 0001 0000 0004 0000 cpetzIII........
+00024080 0059 414C 501E 0000 0018 0000 0086 A074 .YALP..........t
+
+And I need to compensate for all this up in the [Paint Ballz] area.
+I'll not show you the details of that; if you're an advanced petfile
+hexer you already know about that.  And if you have one of those
+rare pets that don't have a [paint Ballz] section, you're going to
+have to do some nifty finger-work in other parts of the .lnz section
+and of course you need to know what you're doing.  This is not for
+hexing beginners.
+
+NOTE: The ID number (or "offset byte" or "the byte"): 
+----------------------------------------------
+
+There are two places you can look for the number; often you can 
+find it as described in a) below.  If all you see in that place 
+are null bytes (hex 00) then go on to my description b) below.
+
+a)
+====
+
+Search for the word Resource.  The first instance of the word 
+is part of the directory string for the main breedfile for that 
+pet; \Resource\catz\Lion.cat, for instance.  Okay, search for 
+YALP and shortly before that  you'll come to a part with at 
+least one, probably more, breedfiles similarly listed, each 
+separated by six dots.  If you look in the Hex numbers 
+section, you'll see that a few bytes before each of the \Resource 
+strings in this section there are numbers which look very like 
+the offset bytes of the relevant breedfiles.  So, with another 
+petfile example, I see
+
+........\Resourc
+e\Catz\Lion.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+And on the hex side of the editor I see
+
+0000 A203 1700 0000 5C52 6573 6F75 7263
+
+etc.  Well, the A203 are the offset numbers for the Lion breedfile 
+that I've got.  Similarly, the first two hex numbers of each six 
+in-between dots in the rest of the list are the offsets for the 
+other listed breedfiles.  All these numbers need to be exactly as
+they are in the breedfiles, or your game may ask for a breedfile even
+though you know it's already in place, either when your pet tries to
+come out or when it tries to breed.
+
+b)
+====
+
+You can only find one instance of \Resource apart from the one near
+the top of the petfile, and nothing but null bytes in front of it, or
+there's no other instance of it at all.  This just means that this
+pet has come from the Adoption Centre.  Okay, you need to look 
+for something else in the file.  You need to find the section below YALP:
+
+000066B0 | 0000 0000 0000 0070 2E66 2E6D 6167 6963 | .......p.f.magic
+000066C0 | 7065 747A 4949 4900 0100 0000 0300 0000 | petzIII.........
+000066D0 | 5941 4C50 1E00 0000 1E00 0000 3AC4 9239 | YALP........:..9
+
+scroll down a bit until you see a bunch of FFFF FFFFs.
+
+00006A60 | FFFF FFFF 0000 0000 0164 0000 0001 00FF | .........d......
+00006A70 | FFFF FF00 0000 0001 6400 0000 0100 FFFF | ........d.......
+00006A80 | FFFF 0000 0000 0164 0000 0001 00FF FFFF | .......d........
+00006A90 | FF00 0000 0001 6400 0000 0100 FFFF FFFF | ......d.........
+00006AA0 | 0000 0000 0164 0000 0001 00FF FFFF FF00 | .....d..........
+
+Carry on scrolling; you'll come to a solitary set of 00FF FFFF FF00:
+
+00006E10 | 0000 0000 0019 0000 00FF FFFF FF00 0000 | ................
+00006E20 | 0000 6400 0000 0100 0550 0000 7B34 0000 | ..d......P..{4..
+
+Right, the number you want is 10 bytes after 00FF FFFF FF00.  In 
+this case it is 0550. 
+
+In this case, the pet will probably come out with no problems even if
+the number is wrong, but you are likely to have game-crashes if the pet
+tries to breed unless you change this to be correct.
+
+In both cases a) and b) there are several more instances of the ID number
+between the point mentioned in case b) and the next instance of 
+p.f.magicpetzIII -- there may be anything from 8 to 25 of them.
+You would be best advised to change all those to the correct ID for 
+the breed, or the game may crash when your pet tries to have babies.
+As before, the place to compensate for the altered checksum is up in
+the .lnz section, preferably in those long [Paint Ballz] numbers.
+
+And that's it.  I'm not sure why you'd want to do this, but there it
+is if you do :-)
+
+Enjoy
+
+Carolyn Horn
+

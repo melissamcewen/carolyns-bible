@@ -1,0 +1,927 @@
+
+November 24th tried to clarify the usefulness of [Move] and gave you something silly to try on catz ;-)
+August 16th added the Babyz-only [Eyelash Info] and [Polygons]
+June 8th a small bit added to clarify [Add Ball Override]
+June 5th 2004, a bit more explanation on the [No Texture Rotate], for the people who got confused :-)
+May 16th 2004, talked a little more about [Eyes]
+May 14th 2004, explained a little more about how to use [Move]
+May 12th 2004, I've twiddled with the [Default Linez File] and 
+         [256 Eyelid Color] info to make some thoughts clearer.
+May 9th, I've tried to clarify the [Project Ball] section a bit -- it has some serious quirks 
+         that can affect 2nd-gens.
+May 2nd, I've fixed up even more typos -- plus I'd made the [Head Shot] unclear, have fixed that now.
+April 29, I've fixed up some typos in this -- sorry if any of them confused you before.
+
+In this chunk of the .LNZ breakdown, I shall cover the following (which,
+remember, you can enter for yourself into a breedfile if you want to
+override the game's defaults), along with the way they are used:
+
+These are useful to hexers
+==========================
+
+Available in Babyz only
+----------------------
+[Eyelash Info]
+[Polygons]
+
+Available in all games
+---------------------
+
+[Sounds]
+[Species]
+[Little one]
+[Default Linez File]
+[Eyes]
+[256 Eyelid Color]
+
+Very important for breedz where the ballz positions are radically
+changed
+--------------------------
+[Project Ball]  
+[Move]
+[Whiskers]  
+[Omissions]
+[Add Ball Override]
+
+things which control the rendering of the pet on-screen
+----------------------------
+[Draw Small Balls]
+[Z Shade Slope] 
+[Default Glue Ball] 
+[Line Render Mode]  
+[Circle Render Mode]
+[Draw Linez Before Ballz]
+
+things which control certain shapes without the effort of using [Move]
+etc
+------------------------------
+[Ear Extension] 
+[Face Extension]
+[Body Extension]
+[Default Scales]
+[Feet Enlargement]  
+[Head Enlargement]  
+[Leg Extension] 
+
+The way the head works
+------------------
+[Head Tilt Limits]  
+[Head Rotation Limits]
+[Head Shot] (same as [Get Info] in Oddballz)
+
+The real crazy-gang
+------------------
+[Key Balls]
+[Num Ballz]
+
+Telling the game to use certain ballz as particular body parts
+========================
+[Extra Head Balls]
+[Extra Balls]
+[Left Brow Balls]
+[Right Brow Balls]
+[Jowlz Balls]
+[Whisker Balls]
+[Tail Balls]
+[Left Ear Balls]
+[Right Ear Balls]
+[Left Arm Balls]
+[Right Arm Balls]
+[Head Balls]
+[Left Foot Balls]
+[Right Foot Balls]
+[Left Hand Balls]
+[Right Hand Balls]
+[Left Leg Balls]
+[Right Leg Balls]
+[Body Balls]
+
+Not so useful to hexers
+======================
+
+[Lnz Version]
+[Additional Frames] 
+[Breed Name]
+[No Texture Rotate]  (<B>not</B> as useful as it sounds)
+
+
+Okay, here we go.  Taking these areas in the order listed above:
+
+These are available in Babyz only.
+==================================
+==================================
+If you try using them in Petz games (or Oddballz) nothing will happen.
+There are very specific, useful programmers' comments for both of these:
+
+[Eyelash Info]
+=============
+
+This really is pretty simple to understand, surely?  The programmers were very kind
+and gave us lots of info here:
+
+4, 5, 6, 5, 4, -1		eyelash lengths -- must end with -1
+15				angle of side lashes (0 <-> 64)
+50				spacing between lashes (0 <-> 100)
+244				color
+37, 39, 41, 43, 45, -1		left eyebrow (lashes drawn AFTER eyebrow is drawn)
+38, 40, 42, 44, 46, -1		right eyebrow (lashes drawn AFTER eyebrow is drawn)
+
+So, the lengths of the eyelashes can be specified for each lash -- and you can put as many
+lashes in as you want, really.  The game knows that you've reached the end of your lashes
+when it comes to the number -1, which is why you must have that in there.
+
+The angle of the side lashes and the spacing between lashes is obvious too, isn't it?
+If your lashes are too close together, they will all merge together; and you want to 
+have the side lashes to be at a pretty angle!
+
+The colour is the same for all the lashes, and of course you tell the game which colour
+to use on the line that says color.
+
+The left and right eyebrow information is there simply to tell the game that the eyelashes
+need to be _in front_ of the eyebrow ballz.  It's possible to put compeltely different ball
+numbers there, and indeed you don't need any more than just one number in each of those two
+lines plus the -1 in order to see what happens if the eyebrows are drawn after the lashes.
+If you have only the -1 on each of those eyebrow lines, the eyelashes disappear entirely.
+If you try to remove those lines of code entirely, the game will crash.  The best thing,
+if you want you eyelashes to work properly, is simply to leave those two eyebrow lines
+of code alone.
+
+What puzzles me is the fact that people think that boy babyz are different from girl
+babyz; they look the same apart from eyelashes, and you can add eyelashes to the .lnz files
+from which you would adopt boy babyz, just as you can remove them from the .lnz files for
+girl babyz.
+
+[Polygons]
+==========
+
+; -1 means use the main fill color in field number five (5).
+; only the first FIVE fields are necessary.  lEdge, rEdge, fuzz and texture are optional
+;ball1	ball2	ball3	ball4	color	lEdge	rEdge	fuzz	texture
+
+The idea here is that you define a polygon shape, the shape being created by the
+four ball numbers in the first 4 columns, which will be filled by a colour indicated
+in the color column.  As the comment states, you don't need to specify the lEdge, rEdge
+(being the left and right edges of the polygon lines) or the fuzz or texture numbers.  
+But of course it is fun to play with those quantities too!  If you put a texture in the 
+texture column, and a suitable colour in the color column, your polygon can be filled with 
+a very pleasing effect.  The lEdge and rEdge (left and right edge colours) are quite subtle 
+items, but can be effective and help give a slightly shimmery effect at the edges.  If you're
+wondering where exactly they are, the lEdge is the left edge of each line of the polygon,
+and the rEdge is the right edge of the line.  You can see how this works if you make the
+texture of your polygon be the "clear.bmp" one and then look at the polygon edges on the baby
+as it moves.
+
+The programmers themselves only used the polygon feature for the mouth, but you can create
+any area of a baby using it; the obvious use that I found for it was to make nice thin wingz on
+my Faerie babyz.  To do this I had to first create the little ballz under [Add Ball] and make 
+a note of which ballz were which number.
+
+NOTE: there is an extra column which you don't see in the .lnz files but which is created in
+a babyzfile's .lnz.  Usually it's set to -1, which means that you would see the polygon fill,
+but none of the outline edges.  Setting it to 0 or -2 makes it that you see the polygon fill
+_and_ all outline edges.  Setting it to 1 makes it that you see the polygon fill and _some_
+of the outline edges.  Setting it to 2 or above, or -3 or below, appears to make it that the 
+whole polygon disappears, although I haven't checked evey single number to check, LOL.
+
+I wanted smooth butterfly-like wings, so I joined them together with Linez to create the outline 
+effect that I wanted.  This was not necessary, but I liked it.  If you want more bat-style wingz, 
+the balls will stand out slightly and give a good effect if you don't use Linez along with the 
+Polygons.
+
+Of course if you use the Linez but not the Polygons, the wings will be see-through unless you
+fill them with loads of [Add Ball] ballz and/or criss-cross them with [Linez] lines.  You can
+also get a see-through effect that is delicately textured if you use one of the semi-
+transparent textures.  The point I'm making is that there are loads of possibilities available 
+to you if you make good use of the [Add Ball], [Linez], and [Polygons] sections.
+
+
+These are pretty straightforward, but important.
+================================================
+================================================
+
+[Sounds]
+========
+
+[Sounds]
+\ptzfiles\cat\ca\casnd.txt
+
+Of course ca\casnd.txt is different for different breedz.  This lets you
+change your breed's sounds to anything you want.  What you need to do is
+to create a sounds .txt file (I won't go into that here, as it's not
+part of the .LNZ, but I do talk about it in other "howto"s) and suitable
+sounds, put them into a directory on your hard drive off your game's
+catz or dogz directory (for example zixsn.txt in a directory called
+zix), and change
+
+\ptzfiles\cat\ca\casnd.txt
+
+to
+
+\resource\catz\zix\zixsn.txt
+
+[Species]
+========
+for catz:
+[Species]
+1
+
+for Dogz:
+[Species]
+2
+
+for Babyz:
+[Species]
+3
+
+There is limited fun to be had with this, but try swapping a catz
+species for a dogz one or vice versa...
+
+[Little one] and [Default Linez File]
+=====================================
+
+[Little one]
+dmpup.lnz
+
+This tells the game which .lnz to use to make the pup or kitten.  You
+can make your pet always adult or always a pup/kitten by making the
+[Little one] dm.lnz (or whichever it would be for the adult .lnz of your
+breed) and making sure that the data in the .lnz is the size and shape
+that you want.  In fact, Babyz cheats and does exactly that with its
+[Little one], and I have suggested in my Babyz-editing "howto"s the
+method for getting around that and having your babyz grow.
+
+[Default Linez File]
+\ptzfiles\dog\dm\dm.lnz
+
+This is obvious too, isn't it?  Please tell me it is...  It tells the
+game where the adult .lnz is to be found.  You can put an appropriate
+.lnz onto the hard drive and redirect this url to it as shown in my
+external-lnz packages.  You can of course do the same with the 
+
+[Default Linez File]
+\ptzfiles\dog\dogmaster.lnz
+
+or 
+
+[Default Linez File]
+\ptzfiles\dog\catmaster.lnz
+
+files, but there's not really much point in doing so with those because
+of course everything that you put into your breedfile's .lnz overrides
+the "master" .lnz defaults.
+
+[256 Eyelid Color]
+=================
+
+[256 Eyelid Color]
+35, 2
+
+Yup, the eyelid colour goes here.  And as with everything, you can list
+# variations under it, linked if you wish in the usual way.  I go
+elsewhere into variations in depth, in one or more "howto"s, so won't go 
+into it here.  The first number is the eyelid colour, and the second number 
+appears to behave very like a "group" number.  You should find this useful in
+solving some 2nd-gen problems, with eyelids always reverting to grey or
+black.
+
+[Eyes]
+======
+
+Eyes and irises are really a special case, just as with dogz nostrils.
+They behave differently in various ways.  Dogz nostrils, of course,
+are well known for having stubborn outlines which revert to black in
+2nd-gens.  In the case of irises, this doesn't happen of course, but
+they do have their own quirks, one of which is the fact that they will 
+re-appear in 2nd-gens if you've only "removed" them by making them ultra-small.
+The eyelid is tied in with the eyes, and will only appear if there is
+a proper eye ball -- i.e. the eye ball has not been listed under
+[Omissions].
+
+Another point to note is that listing the iris ball under [Omissions]
+does not actually remove it unless you also list the eye ball.  If
+you want to keep the current eye ballz but have a different ball behave
+as iris, change the number of right and left iris under the [Eyes]
+Key Text, as described below; you don't need to change the eyes numbers
+as well as the iris numbers, but you do need to list in this section 
+all four of the balls which you are going to use, if you're changing
+any of them.
+
+Many hexers these days, with all the unusually-shaped breedz that are
+coming out, are having problems with 2nd-gen eyes appearing in odd
+places.  They are puzzled, because they have the size at something like
+-999.  Well, the game doesn't like that kind of thing for 2nd-gens. 
+If you want your pet to be eyeless, then list the eye ballz under
+[Omissions].  If you want eyes that work and aren't all over the place
+in petz, then you need to "anchor" them suitably.  There are two ways of
+doing this.  The first is to re-assign the eye ballz to ball-numbers of
+your choice, usually add ballz.  For instance, if you have created
+"blind" eyes from [Add Ball] Ballz 105, 106, 107 and 108 you would
+replace the eye and iris numbers with these in [Eyes]. The second is to
+use [Project Ball] to hold those eyes in place.
+
+[Eyes]
+15 14 RightEye/leftEye
+28 27 RightIris/leftIris 
+
+for catz, or for dogz:
+
+[Eyes]
+32 8  RightEye/leftEye
+38 14 RightIris/leftIris
+
+This simply tells the game which ball numbers are the eyes and which are
+the irises.  You can change these numbers to any that you wish, but
+remember that whatever ball you choose to put in there will become an
+eye or iris ball.  LOL -- you can have lots of fun with this one.
+Remember that if you use add-ball eyes and don't list the originals
+under [Omissions], you'll end up with the cat or dog's original eye
+ballz staring sightlessly at you whilst the new eyes blink normally
+wherever you put them.  Creepy :-)
+
+I could have used add ball ballz here to give my boyz eyes, but in fact I
+chose a different way, instead tying the addball to the eye ball in
+[Project Ball] with the add ball in the first column, the eye ball in
+the second, and 0 distance in the third: 
+
+105 8 0
+106 32 0
+
+and for catz 
+
+105 14 0
+106 15 0
+
+Which brings me to the next group of goodies:
+
+Very important for breedz where the ballz 
+positions are radically changed
+=======================================
+======================================
+
+[Project Ball]	// stationary ball, projected ball, amt
+=============
+=============
+There are three columns.  The first is the ball to which another is
+going to relate -- it's the ball which will remain "stationary" -- and
+the second is the ball which is going to project from it by a certain
+amount, the third column being that amount.  Because it uses one ball to
+steady another and keep it in the same relative distance, I tend to call
+this "anchoring".  I believe that has confused people in the past.
+
+[Project Ball]
+;tail
+43, 44, 120
+44, 45, 120
+45, 46, 120
+46, 47, 120
+47, 48, 120
+
+here's a tail in catz.  The ballz are distanced from each other by quite
+a large amount; Ball 43 is holding ball 44 at a distance of 120, and so
+on.  Now here we would have a much shorter tail:
+
+43, 44, 10
+44, 45, 10
+45, 46, 10
+46, 47, 10
+47, 48, 10
+
+Of course for a manx look you could make the distance 0, but really it's
+best to list the tail ballz under [Omissions].
+
+One thing which will be a big annoyance to breeders is the fact that, for
+2nd-gens, it really matters a lot in what order the game uses the lines of
+data in [Project Ball].   This is what causes jumbled heads in my 2nd-gen
+chickenz; although I have the data in the breedfile entered in the correct
+order to achieve the effect that I want, when the game comes to create 2nd-
+gen pets it puts that data into the petfile in a slightly different order.
+Same exact data, different order, creates a different-shaped pet.  So if
+the 2nd-gen thing matters to you, you'll need to make sure that this section
+is created such that whatever alterations to it the game makes in a 2nd-gen
+will result in the effect you want.
+
+[Move]
+=======
+
+[Move]
+;face
+14,	4, -3, -5
+15,	-4, -3, -5
+27,	4, -3, -5
+28,	-4, -3, -5
+
+Now, this section is very important to hexers and is often used in
+conjunction with [Project Ball] to get things like tail shapes right.
+
+The first column is the ball number.  The next three columns are the x,
+y, z axes to which you want your ballz to be  moved relative to the
+defaults.  If there is a fifth column, then that is the ball to which
+this move should be relative.  So 14,  4, -3, -5  14 would mean that you
+want ball 14 to be moved sideways by 4, up by 3, and forward by 5
+relative to its normal position.
+
+This fifth column is also useful in helping to keep a ball "anchored";
+it's not as firm as when you use the [Project Ball] distances as well--
+for instance, angled legs in dogz breedz can throw out strangely if you
+don't keep them in place with a [Project Ball] "tie" -- but it does help to
+keep balls from behaving strangely.  This [Move] thing will at least keep 
+your ballz as intended relative to the "relative" ball.  
+
+This is actually quite a handy feature to be able to use when 
+getting a ball to move within certain limits.  For example, if you 
+take one ball -- such as an tail or ear ball -- and give it a "move" 
+position relative to a ball on one side, such as a hip or cheek, and 
+then take it again and give it a "move" position relative to another 
+ball, it will move within those constraints.  If you want a laugh, 
+try putting this into the [Move] area of a cat breed:
+
+9,  30,  0, 0, 48
+9,  -30, 0, 0, 48
+11, 60,  0, 0, 9
+11, -90, 0, 0, 5
+
+But of course that's just silly :-)  A more sensible use of this technique
+is to keep the tail or ears moving within reasonable limits relative to
+stabilising ballz, or to keep other ballz in a stable relationship to
+other relevant ones.
+
+If, say, you want your elbows to stay relevant to the shoulders, you 
+do your xyz move for the elbows thus, in a catz breed:
+
+12, <x>, <y>, <z>, 38
+13, <x>, <y>, <z>, 39
+
+in a dogz breed of course that would be:
+
+7, <x>, <y>, <z>, 18
+31, <x>, <y>, <z>, 42
+
+Note, you'd have numbers where I've got <x>, <y>, <z> in the above example,
+of course!  
+
+[Omissions]
+===========
+
+[Omissions] is your _friend_.  Love it; hold it close; make
+easter-bunnies for it.  With [Omissions] you need never worry about the
+disappearing toyz when headless petz pick them up, because the head and
+associated ballz are still a reasonable size, they are simply "omitted"
+from the screen.  Don't use -999, use [Omissions], yeah baby!
+
+[Omissions]
+65	eBall_zorient,	// 65
+66	eBall_ztrans,	// 66
+37
+67	utility addball for andrew
+68      utility addball for andrew
+69      utility addball for andrew
+70      utility addball for andrew
+71      utility addball for andrew
+72      utility addball for andrew
+73      utility addball for andrew
+74      utility addball for andrew
+75      utility addball for andrew
+76      utility addball for andrew
+
+It's interesting that ball 37 is always omitted in the base catz breedz.  
+All the other ones listed here are simply orientation balls.  If you don't
+list them, they will pop up like my mystery-emoticons at times of
+excitement; that's how I made my chickenz and turkeyz lay "eggz".
+
+Now, if you want to omit any other ball, just list it under the ones
+that are already there:
+
+14
+15
+16
+
+and so on.  You can do this with [Add Ball] balls also, and in fact this
+is the best way of making variations with [Add Ballz]; simply make a
+series of "#" variations under [Omissions] and list the unwanted ballz
+for each variation  under the appropriate # number.  I talk about
+variations in other "howto"s if you don't know what I'm talking about.
+
+
+Whiskers in Catz breedz
+=======================
+
+Whiskers.  If you try to make them -999, or list them in [Omissions],
+they simply won't go away. The simple solution is to put
+
+[Whiskers]
+
+with no data beneath it.  They will disappear.  
+
+Normally, however, some or all of the whiskers are defined:
+
+[Whiskers]
+;start, end, color
+30, 57, 248
+30, 58, 248
+30, 59, 248
+31, 60, 248
+31, 61, 248
+31, 62, 248
+
+The first column is the ball at which the whisker-line starts, the
+second is where it ends (the whisker ball),
+and the third column is the colour.  You don't actually need to put the
+colour in.  If you list only _some_ whiskers, the others will
+disappear.  If you want to change the length of the whisker, you do it
+in [Project Ball].
+
+Adding the [Whiskers] section to dogz has no appreciable effect.  You
+really need to do whiskers the way they are done in the chihuahua if you
+want them.
+
+[Add Ball Override]
+==================
+
+If you wanted to override ballz 95 and 96, you could do it thus:
+
+[Add Ball Override]
+95 75 99 20
+96 88 88 20
+
+the first column is the ball number and the next three are the x,y,z
+co-ordinates.  May be useful in variations if you don't want to use the
+[Omissions] and you only care about the positioning of the ball. Note that
+if you add any further columns they aren't picked up by the pet -- at least,
+in my game they aren't.
+
+
+Things which control the rendering of the pet on-screen
+======================================================
+======================================================
+
+Now, these are fun.  I found them ages ago but hadn't realised that most
+people didn't know that they could put these in and have a laugh with
+them, so here they are now.  You can put all or some of these into your
+.lnz, and change the numbers beneath.  This is how I made my wireframe
+calicos; I changed the [Circle Render Mode] and [Line Render Mode] to
+2.  Fool around with these numbers and the [Draw Linez Before Ballz] to
+get some very spectacular results -- I won't detail them out here
+because hey, you guys need to have some fun surprises to enjoy ;-)
+
+[Draw Linez Before Ballz]
+1
+
+[Circle Render Mode]
+0
+
+[Line Render Mode]
+0
+
+[Default Glue Ball]
+6
+
+[Z Shade Slope]
+100
+
+[Draw Small Balls]
+1
+
+These next are handily explained by the programmers themselves.
+I show them here with example numbers to show you how they 
+are used inside the .LNZ.  They are crude methods of making
+shapes easily, but if you use very large or very small
+numbers you may find that 2nd-gens don't come out right.
+======================================================
+======================================================
+
+You will see these in the adult .lnz, and another set in
+the puppy or kitten .lnz, because they are used to make
+the babes look more like bundles of fluff than the adults.
+
+Remember, you will have these Key Texts in both the adult .lnz and the
+puppy/kitten one, and what you see at the Adoption centre is the latter,
+so don't go changing the adult one and getting frustrated because you
+can't see the changes at the Adoption Centre.  Either use brain-sliders
+(see elsewhere on my site if you don't know these handy little Registry
+"fixes") or change the [Little One] to point to the adult .lnz.
+
+[Head Enlargement]
+110               		// percent enlargement
+0				// vector expansion vs. ball size increase balance
+
+Altering these two numbers relative to each other makes the head various
+different shapes. For instance, if you use 10 and 10, you end up with
+something that looks a bit like the head of a praying mantis.  If you
+use 200 and 100, you end up with a large but well-proportioned head.  If
+you use 100 and 10, the head looks swollen and the eyes squidged
+together. 110 and 0 is pretty normal.
+
+[Face Extension]		// pixels
+-8
+
+A very large minus number such as -50 can make the pet's nose stick out
+of the back of the head; a very large plus number can make it jut
+forward a long way.  The downside of this is that not all the ballz
+extend forward or back with the nose, and when the head moves things can
+apparently slice through the linez which join nose to head.
+
+[Body Extension]		// pixels
+0
+
+As with the Face Extension; not the best way to make very large changes
+to the length of a pet.  Much better to use extra Add Ballz of a
+suitable size, and Linez.
+
+[Leg Extension]			// pixels
+-3				// front leg
+-3				// hind leg
+
+This is where you can make your pet hunch down a little at the back, or have
+the front of its body closer to the ground.  The point here is that you
+can extend the back legs relative to the front, or vice versa, or lift
+the whole pet further from the ground, etc.  As with all these
+"extension" and "enlargement" sections, there is a limit to how much you
+can change the numbers and have the pet look right.
+
+[Feet Enlargement]		// percentage
+105				// total foot extension
+0				// Similar to head, vector expansion vs. ball size increase balance
+
+Please tell me that this is obvious to you -- please?  As it says, it's
+similar to the way the [Head Enlargement] works.
+
+[Ear Extension]			// percentage
+90
+
+Yup, this is effectively extending the end ball of the ear away from the
+head by a percentage of the default.
+
+[Default Scales]
+150 	normal pet scale
+145 	normal ball scale
+
+Now, what we have here are two numbers which between them control the
+size of the pet and the way the ballz are balanced in the pet. 
+
+Obviously if these two numbers are small, the pet will be small and if
+large, the pet will be large.  The ratio between these two scales is
+actually quite important; if the pet scale is very small -- say, 4 --
+and the ball scale is large -- say, 100 -- then you will get a cute ball
+coming out of the AC.  If it's the other way around, you will get a
+strange ghostly skeleton of a pet.  0 and 0 gets you total
+invisibility...
+
+But as regards 2nd-gens, you want to be careful with these.  If you have
+sizes less than 75 and 75 in your adult's [Default Scales], the game
+will tend to make the baby's adult stage default to 75 and 75.  For
+kitten and puppy .LNZ files, you can go as low as 45 and 45 or 48 and
+48, and the game will pass it on to 2nd-gens, just as it does with
+Lilliputz.  So you can get a 2nd-gen which has a kitten/puppy stage
+which has the [Default Scales] of  45/45 and which grows up to the
+[Default Scales] of 75/75.  Similarly, if you make your breed have
+[Default Scales] of greater than 170 and 170, it will force 2nd-gens to
+be smaller.
+
+The way the head moves
+======================
+
+These set the limits, just as they say, and they are usually in the
+"master" .lnz files.  You can put them into your breed as with all these
+[ ] key texts, and the game will do as you say :-)
+
+[Head Rotation Limits]
+-50, 50
+
+[Head Tilt Limits]
+-40, 45
+
+These next are only meaningful in the pet's picture.  They do not
+have a noticeable effect on the actual pet.  They can all be altered, 
+and you can get some flexible or inflexible results by changing the amount 
+of head rotation, or tilt allowed.  Some difference can be made in the way 
+the eyelids look, too.  You can actually make your pet's picture look
+totally different from the pet itself -- an intriguing but useless thought.
+(For Oddballz users, this is the same idea as the [Get Info], which is
+an animation loop that plays in the "Get Info" dialog box.)
+
+[Head Shot]
+0			frame number
+19			rotation
+0			roll
+4			tilt
+-21			head rotation
+2			head tilt
+17			head cock
+43, 43			R / L eyelid height
+23, 23			R / L eyelid tilt
+0, 0			(X, Y) eye target
+
+
+The Real Crazy-Gang
+====================
+====================
+
+[Key Balls]
+===========
+
+This is how the Key Ballz are entered; For dogz:
+
+[Key Balls]
+52		head
+50		chest
+54		neck
+53		jaw
+63		tongue1
+64		tongue2
+51		chin
+55		nose
+49		butt
+48		belly
+
+for catz:
+
+[Key Balls]
+24		head
+6		chest
+36		neck
+-1		jaw
+55		tongue1
+56		tongue2
+-1		chin
+37		nose
+3		butt
+2		belly
+
+Now, as you can see, they've listed certain ballz here.  -1 seems to
+mean "default".  There's nothing to stop you from changing this list of
+key ballz, pretending to the game that the chest is the head key ball
+etc.  In fact, if you want a good laugh, take a cat's .lnz and put the
+dogz' key ballz in there.  Sit back and enjoy what comes out of the
+Adoption Centre :-)
+
+[Num Ballz]
+===========
+[Num Ballz]
+67
+
+I experimented with this in an attempt to make game-type mice, but ended
+up with a strange meccano-mix cat with partial robo-cat tendencies. 
+Fun, but not a mouse :-)  This basically tells the game how many basic
+ballz a breed has.  Catz and Dogz are expected to have 67, mice are
+expected to have 16, as are cockroaches.  But they also use different
+.scp, .bhd and .bdt files, which contain the basic information on the
+shape and behaviours the game expects to see in a certain type of breed.
+So if you change the number of ballz, the game tries to fit those into the
+shape dictated by those binary files.  Yes, I've tried swapping those
+.scp, .bhd and .bdt files around, too, with consequently hilarious
+mad-scientist results.
+
+Telling the game to use certain ballz as particular body parts
+================================================================
+================================================================
+
+Right, this lot is extremely useful in Oddballz, and at the Adoption
+Centre in petz it can have excellent results; you can use it to list,
+say, a tail ball under [Head Balls] in order to use that ball in a
+complex nose creation, along with the [Move] and [Project Ball]
+sections.  
+
+Unfortunately, in Petz, once you have adopted a pet and get it out of
+the door in the game, the ball remains in the place that you have given
+it in [Move] -- but as soon as the pet turns its head, the ball doesn't
+turn along with it.  You might enjoy the effects of course, creating
+petz that look right at some angles but then suddenly disassemble
+themselves when they move, so here they are for your amusement.  I'll
+show you the [Head Balls] with a typical listing for a cat; you would
+use the others in exactly the same way, listing the actual ballz that
+should be in those areas of the body and then continuing the list with
+any which wouldn't normally be there (such as the tail, under the head)
+
+[Head Balls]
+4
+5
+7
+8
+9
+10
+11
+14
+15
+24
+27
+28
+29
+30
+31
+37
+40
+57
+58
+59
+60
+61
+62
+
+[Extra Head Balls]
+[Left Brow Balls]
+[Right Brow Balls]
+[Jowlz Balls]
+[Whisker Balls]
+[Tail Balls]
+[Left Ear Balls]
+[Right Ear Balls]
+[Left Arm Balls]
+[Right Arm Balls]
+[Left Foot Balls]
+[Right Foot Balls]
+[Left Hand Balls]
+[Right Hand Balls]
+[Left Leg Balls]
+[Right Leg Balls]
+[Body Balls]
+[Extra Balls]
+
+
+And now the bits that are not so interesting or useful to hexers.
+=================================================
+
+The reason that these aren't so useful to us is that they really don't
+do anything to help or amuse.
+
+[Lnz Version]
+=============
+
+[Lnz Version]
+2
+
+Changing that 2 to any other number seems to make no real difference.
+
+[Additional Frames]
+===================
+\ptzfiles\dog\dm\dm.bhd
+
+There is only one breed which has this, the dalmatian.  I don't think it
+has any real use.
+
+[Breed Name]
+===========
+
+[Breed Name]
+Calico
+
+Changing the breed name seems to make no appreciable difference,
+although it might possibly have some effect on 2nd-gens?
+
+[No Texture Rotate]
+===================
+
+[No Texture Rotate]
+-1
+
+This is not as useful as it sounds.  I've tried various numbers under
+this, and it looks as if 1 will stop the texture of ball 1 from rotating 
+around itself so that, say, an apple picture disappears and you get a
+picture-join instead which rolls around the ball; but I have not found 
+any number which prevents it from rolling around the ball itself.  
+You may have better luck.
+
+This explanation seems to have confused quite a few people.  It's difficult
+to explain, but here goes anyway... What I'm thinking of is what happens 
+when you pick up the pet.  The pet rotates, and the texture on the ball in 
+question stays in the same position relative to your hand instead of what 
+I was hoping for, i.e the same position relative to the ball.  I wanted
+to pick up a donkey and have the stripe along the back stay in the middle
+of the back while I picked it up.
+
+So to give you more detail, if I put the number 0 in place of -1, the game
+will stop the texture from moving around itself within the left ankle ball.
+I pick up a leopard and the spot which was facing out of the screen at the time
+continues to face out of the screen all the time the pet is rotating, until it
+is set down.  The texture has moved around the ball while the ball was turning, 
+but the end result is that it looks the same after as before.
+
+If I keep it as the example above, with -1 which is the default, it tells the game
+to use the default -- which is that the texture rotates loosely around the ball.
+I pick up the pet, and as it revolves, the texture moves around inside the ball
+so that some other splotch is facing out of the screen by the time I set the pet
+back down.
+
+You can of course have any number of ballz listed under this, such as, for a
+cat whose body, shoulder, hip and cheek balls you want to have the treatment:
+
+[No Texture Rotate]
+2
+3
+4
+5
+6
+25
+26
+38
+39
+
+And that's it.  I believe I covered everything; if I didn't catch 'em
+all, my apologies, it's a lot of key texts to remember, and I'll go over
+this lot again soon to see if I've made any glaring mistakes or omitted
+any.  I hope that what I've written will help you all to see how these
+things work, how you can add them to your .LNZ, and the sort of  data
+that you should put under them.
+
+Enjoy!
+
+Carolyn

@@ -1,0 +1,77 @@
+
+Sorry, this chunk is still to be done.  I'll be putting together 
+a proper tips and syntax page here;  I hope to get it
+done soon, Real Soon, Honest.  Meanwhile I've got them grouped
+together with some cryptic comments.  Actually I think that these
+are pretty obvious, but I _will_ do the details anyway.
+
+[Default Factors]
+Personality of the breed -- great stuff
+
+[Outline Type]
+[Outline Color]
+[Fuzz]
+[16 Ball Color]
+[Ball Size Diffs]
+[Speckle Color]
+[Body Area]
+[Ball Texture]
+[256 Ball Color]
+Just a  bunch of overrides
+
+[Skeleton Type]
+[Vocal Type]
+[Swat Type]
+[Sing Type]
+[Extra Sounds]
+[Learning Rate]
+[Num Tricks]
+[Align To Food Offset]
+[Locomote Types]
+[Grub Love]
+[Favorite Toy]
+[Favorite Flavor]
+[Poison Flavor]
+[Clumsiness]
+[JumpToCeiling]
+Lots of goodies in that lot!!  I particularly enjoy Grub Love
+and wish I could have all three grubz' numbers in there.
+
+[MinBallScale]
+[MaxBallScale]
+[MinMasterScale]
+[MaxMasterScale]
+Can get some interesting effects, as well as
+crashes, with this lot
+
+[Feeding Times]
+[Fasting Times]
+[Awake Times]
+[Sleeping Times]
+Control your breed's sleepiness and hungriness :-)
+
+[Farminator Switches]
+Transformations!!
+
+[OddLove Breed Name]
+Awww...
+
+[16 Eyelid Color]
+[16 Iris Color]
+[Pupil Color]
+Not so useful
+
+[Strings]
+tips etc
+
+[Move Up]
+[Move Foward]
+[Move Sideways]
+Just the [Move] command done the way it was before Petz II
+
+[Dont Layer Ballz]
+Interesting effects
+
+[Get Info]
+Appearance in the info screen
+

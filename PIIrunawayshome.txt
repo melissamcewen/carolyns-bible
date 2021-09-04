@@ -1,0 +1,142 @@
+
+Petz II Runaways, more help to get them back.
+=============================================
+
+You can get runaways back every time, forcing  Petz II petz back into
+the game, if you follow this procedure.
+
+Remember to remove all your other pets from the Adopted  pets directory
+while you concentrate on the Runaway.
+
+Open your runaway .pet file in your Hex editor.  Look at the first two
+bytes  in the Hex numbers section of the editor; in the ASCII section
+they will look  like two dots or weird characters just before the name
+of the pet.  It's the  Hex numbers that you want to note, though.  They
+will be numbers such as BD 0B  (or it may be grouped as BD0B in some hex
+editors -- it's still two bytes).  Make a note of these numbers.  They are
+a kind of "ID" number, to identify your pet to the game.
+
+Now run Regedit.exe.  -- go to Start, choose Run, and type in Regedit.  
+You'll get something that looks a little like Windows Explorer. Navigate, 
+clicking on the crosses on the left hand side as you would with W.E., to  
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01
+
+Click on that "directory" of 1.00.01. Now look at the Right-hand side.
+Scroll  down to "Pets in Playpen" and double-click on it.  _Replace_ the
+first two digits  which are probably 00, if all your pets have run
+away!) with the first two-digit  number you noted down -- in my example,
+BD, and replace the next two-digit byte  with 0B.  So the Value data
+will look like this: BD 0B 00 00.  There  will be 4 two-digit numbers
+only -- no more than that; it allows for two pets to be in the game at
+once, you see.  Click "ok" and close  Regedit.exe.
+
+Make sure that your pet's .pet file is in the "Adopted Petz"
+subdirectory of  your Petz game directory, and all required .dog or .cat
+files are in the relevant  directories. Run the Petz game, and your
+chosen pet should come out of the door right  away.  Give it a fair bit
+of cossetting to make it happy again.  It'll still be  classed as
+"Runaway", as you will see if you click on the "pick a pet" button and
+scroll down so that it highlights the pet in question. You can close
+the  program and open it again and the pet will still come out for you
+as long as  its first two bytes are in the registry  and the pet file is
+in the "Adopted  petz" directory.
+
+This is the old method, which let you play with the pet but which kept
+it classed as Runaway.
+
+Now, you want your pet to be permanently non-runaway so that you can
+put it away and bring it back out again as you always used to.  So
+here's what you need to do now.
+
+First, change the byte at address hex 348 to 00 from 01. I have a more
+detailed page with illustrations about this, but the basic info is here.
+You have to have some knowledge of editing .pet files before you try this, 
+also as always you will make sure you have a safe copy of the pet somewhere 
+first, won't you? This is pretty obscure, but if you concentrate you should 
+be able to do the job. Open the pet in a hex editor and scroll down to 
+address 840 (decimal) or, if you prefer hex notation, 348 (hexadecimal). 
+In a Runaway pet, this byte is hex 01. Change that to hex 00. You will 
+then have to compensate for the checksum; just increase a nearby number by 01.
+
+Now you're almost there.  You can either do my old method, now, of
+putting the pet's ID number in the registry, and use the brain-sliders
+to reduce it's "neglect" when it's in your game,
+
+or you need to change a second byte within the pet.  It didn't occur 
+to me to mention this in my earlier howto, so my thanks to Richard Hartman
+for the "heads-up".
+
+The second byte is in the petfile's energy, fullness etc section.  In
+Petz II it is in a different place from the other games' petfiles.  You
+can do it manually or, after the pet is in the game using the above
+method, use the "brain-slider" to reduce slider 16 to zero.  If you want
+to do it manually, here's what you need to know.
+
+What you have with a Petz II pet is that the "neglect" indicator is
+lower down the pet file and it's among more indicators (Petz II pets
+have 17 of them).  So you have numbers which look like this, starting at
+offset 7FB0, in the hexadecimal pane of the editor:
+
+60000000 <-- energy (High for lots of energy)
+2D000000 <-- hunger (low number makes pet hungry)
+3A000000 <-- fatness
+00000000 <-- sickness
+00000000 <-- catnipped (acts weirdly if high)
+00000000 <-- fleas
+08000000 
+5B000000 
+60000000 
+01000000 
+5A000000 
+4C000000 
+04000000 
+00000000 
+00000000 
+64000000 <-- neglect.  If this is high you're in trouble.
+64000000 <-- age.  0 is just born, 64 is full adult.
+
+(The numbers will of course be different in different petz.)
+The numbers in between those that I have given names to I've not delved
+into in depth, but they relate to various things such as walking,
+talkativeness, seriousness and so on.
+
+So what you need to do is to change that neglect from 64 to 00.  Change
+the one before it  -- the 00000000 -- to 64000000 to compensate; it does
+no harm and, if you use the brainsliders after the pet is in the game,
+you can reduce that safely back to 0 (it's slider 15).  It's a neat idea
+to use the brainsliders, it keeps your pet's state of mind clear and you
+won't suffer from nasty shock runaways if you keep slider 16 down to 0.
+
+Now, you maybe wonder what I'm talking about as regards the brain
+sliders.  They are a small entry into the Registry.  I mention it 
+elsewhere, but her it is also for completeness.  You can do it
+manually if you want,   Entering it manually, you would open 
+Regedit.exe, navigate to the key
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01
+
+Choose New, Binary value, from the Edit menu, rename the new value
+Show Slider Brain 
+and double-click on it.  Type in the number 01, then okay, then
+close Regedit. 
+
+Or if you prefer, you can make a little text file containing
+everything between the ********** marks below, save it with a .reg
+extension, and double-click to have it enter the data.
+
+**********
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01]
+"Show Slider Brain"=hex:01
+**********
+
+To turn it off of course, you change that hex:01 to hex:00.  You
+will be able to monitor the pet's happiness; the sliders 1 to 17
+correspond to the list I show above.
+
+Enjoy
+
+Carolyn Horn
+

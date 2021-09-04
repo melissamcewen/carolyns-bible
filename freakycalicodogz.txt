@@ -1,0 +1,47 @@
+
+Here are the Freaky Dogz Calico catz...  Note that although they use a .dog
+file and the Petz 3 ones have the dog icons, you will still need to have some 
+catz game items for the breed to work.  So if you only have the dogz part of 
+Petz, download and install my "catz species in dogz" package.
+
+These are completely nonsensical, but for people who like to freak
+out they are fun.  They are a "curiosity", and for all I know might well
+crash your game.  They work fine in my game, but there are some things
+which you _can't_ do with these pets:
+
+1. Take snapshots with the in-game camera, because the game insists that they
+are behind the door.
+2. Breed?  I have no idea whether these will breed or not, but I suspect not, 
+if the game thinks that they are half there, half not-there.
+3. Put them away.  If you want to make them go away, you need to close the 
+game.
+4. Feed them.  If it worries you, use the brain slider registry fix or 
+Omar's Debugger.
+5. Put clothes on them.  Heck, maybe you can -- but I've not managed it.  
+I think that this is because the game thinks that they are behind the door.
+5. Pick them up in the usual way.  To move them by hand, you need to actually 
+pick up the carry-case.
+
+What you _can_ do with them is bring them out, stroke them, and fall over
+laughing at their dysfunctional antics.
+
+And when you are done, if you feel sorry for the poor things living in a
+never-never land, you can replace them with their original files which 
+you will find in the included JeffriAndJilliForCatz.zip.  They will only
+be able to breed, though, if you give your game's Calico.cat file the ID 
+number 40CD.  Make sure you have a copy of the original safe first, or your
+other calicos won't be able to breed!
+
+A couple of things to note, about the breedfile:
+
+1. It will not clash with other original breedz or any of mine.
+2. You cannot adopt a new pet with it, although you can choose them at the 
+Adoption Centre and watch them fooling around.
+3. If you have this breed in place when you breed calico cats, you just _might_ 
+get the "Dalmatian.cat syndrome" -- it's harmless, but makes the baby look
+like a malformed pretzel when it first comes out in its mother's mouth.
+The effect disappears after the proud mum is put away and brought back out.
+
+Enjoy!
+
+Carolyn Horn (mad petz-scientist with Frankenstein tendencies <g>)

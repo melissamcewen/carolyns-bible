@@ -1,0 +1,98 @@
+
+
+Changing your pet's date of birth
+=================================
+
+Okay, you had a stuck pregnancy and the baby was finally born at 
+some ridiculously impossible date such as 1980 or 2037.  It irritates 
+you every time you look at the pet's profile.  Well, you can actually 
+find and edit that date, but it'll probably drive you potty trying to 
+work it out exactly.
+
+Remember that as always with editing .pet files, you will need to 
+compensate for any increase or decrease by decreasing or increasing  
+something else.  In the case of the family tree data, the easiest way 
+to compensate is to alter letters in the adopter's name, but you may 
+want to find some other place to do it.  Just take care, you can 
+corrupt the file if you choose the wrong place to do your compensatory 
+changes.
+
+First of all, as always -- remember to keep a backup copy of any pet 
+that you are about to edit.  Corruptions can occur all too easily.  
+Now open the petfile in the hex editor and search for PfMaGiCpEtZIII 
+-- exactly that, upper and lower case letters.  This is where the 
+family-tree and adoption data lies; you should see your pet's name and 
+yours in the area after those letters.
+
+Now this is where, as always, it gets a bit tricky to explain...  you 
+want the part which lies after the name of the adopter.  I can best 
+explain by showing an extract from one of my pets.  Remember that the 
+positioning of PfMaGiCpEtZIII and most of the bytes in this area will 
+be different to varying degrees in your own particular pet.  
+
+I'll do the simplest thing first; a 1st-gen pet which you might want 
+to change because your computer clock was set wrongly when you adopted 
+(a common occurrence when fast-forwarding, LOL). This pet was adopted 
+on February 4, 2004:
+
+00009BE0 4010 C430 4000 0000 0050 664D 6147 6943 @..0@....PfMaGiC
+00009BF0 7045 745A 4949 4900 9758 9C3B A2AF B519 pEtZIII..X.;....
+00009C00 20D9 E748 A9AB D21F B120 77CD 0600 0000  ..H..... w.....
+00009C10 4865 6172 7479 0D00 0000 422B 5720 5368 Hearty....B+W Sh
+00009C20 6F72 7468 6169 7207 0000 0043 6172 6F6C orthair....Carol
+00009C30 796E 231B 2140 0000 0000 0100 0000 0100 yn#.!@..........
+
+There's the pet name, then the breed name, then mine.  See the four 
+bytes directly after my name there?  Those are what give the pet its 
+date.    The last two -- 2140 -- are the main two; change the 40 by 
+one to make it 41 and the date shifts by several months, to August 16 2004.  
+If you change it to 42 instead, you'll get several more months -- 
+February 27, 2005.  Change the 21 to 22 instead of changing that 40, 
+and you get February 5, 2004.  Change it to 23, and you get February 6, 2004.  
+Get the idea?  If you change the 21 to 23 and the 40 to 42, you get 
+February 28 2005; yes, I know it seems as if it should be February 29 
+or March 1 (since it's not a Leap Year), but it isn't.  This is where 
+your fine-tuning numbers come in, which are the first two (231B in this 
+example), and you need to change them quite a lot to make only a small 
+difference in the date.
+
+Before you ask, I don't have a list of dates -- I've not been interested 
+enough to try and figure out a whole load of dates, so you'll have to do 
+a lot of trial and error yourself.  
+
+Now then, let's tackle the problem of a 2nd-gen or later born on the wrong date.  
+You need to go to the same place in the file, still looking for the 
+PfMaGiCpEtZIII then the baby pet's name, breed and name of owner at time 
+of birth.
+
+00008AA0 0000 0000 0000 0100 0000 0000 0000 0050 ...............P
+00008AB0 664D 6147 6943 7045 745A 4949 4900 4B3D fMaGiCpEtZIII.K=
+00008AC0 443C 4233 D23E 90FD D711 89B0 0000 1CD7 D<B3.>..........
+00008AD0 E0A5 0500 0000 4461 6368 7306 0000 0050 ......Dachs....P
+00008AE0 6F6F 646C 6504 0000 0046 6172 6100 0000 oodle....Fara...
+00008AF0 002A 2B6D 4102 0000 0000 01E7 DECE 7C8C .*+mA.........|.
+00008B00 FDD7 1189 B000 001C D7E0 A505 0000 004F ...............O
+00008B10 7363 6172 0900 0000 4461 6368 7368 756E scar....Dachshun
+
+This time, the date has shifted away from the owner's name by 4 bytes.  
+The first four bytes in this case, after Fara's name, are 0000 0000 but 
+they may have some other number in there in your petfile.  The numbers 
+which make up the date are the next four, in this example 2A 2B6D 41 
+which happens to be October 13, 2004.  Wups.  It should be some date 
+in September 2003 to make any sense.  Well, I change the 41 to 3F -- 
+that should get me into 2003 at about the right area, and I compensate 
+for the decrease by increasing one of those two "fine-tune" bytes by 2:
+
+00008AF0 002C 2B6D 3F02 0000 0000 01E7 DECE 7C8C .,+m?.........|.
+
+Okay, I run the game.  Bingo!  September 21, 2003!
+
+So there you have it.  The latest member of the family has its date 
+after the first 4 bytes after your name, and all the other family 
+members have their dates directly after the owner's name as with 1st-gens.
+
+Enjoy!
+
+Carolyn
+
+

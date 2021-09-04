@@ -1,0 +1,875 @@
+Tutorial for hex painting.
+=========================
+
+Contents: "Hex-painting"
+          You need a hex editor or easy-edit kit (and useful tools)
+          Editing Breedfiles (the actual "painting")
+          Balls lists for Dogz and Catz breedfiles
+
+"HEX-PAINTING"
+==============
+
+People keep asking me for a hex painting tutorial.  I can't think why;
+the only difference between hex-painting and hex editing is that you
+don't rename the breed or make it show up separately in the Adoption
+Centre.  You still need a hex editor -- or, better, my easy-edit
+packages -- and you still need to edit the .LNZ part of the breedfile
+exactly as you do for hex editing.  But here it is anyway...
+
+Hex-painting is done in order to adopt pets, and "litters" of pets,
+which have unusual characteristics but which will run using the standard
+P.F.Magic breedfiles.  Any pets adopted from a "hex-painted" breedfile
+are supposed to be able to pass their colour characteristics on into the
+general gene-pool, although changes in shape etc aren't likely to carry
+on through generations unless you provide the edited overwriting
+breedfile or .LNZ along with the pet.
+
+You will need to keep backup copies of any breedfile that you're going
+to edit, of course, and once you've finished making litters from the
+edited version you can delete it by copying the original one back over
+it.  If you mess up and have forgotten to back up the breed, you may be
+able to find replacements at sites such as APKC or Daniel Wright's
+archive.
+
+You will only be changing things in the .LNZ section of the breedfile,
+because any changed bitmaps and sounds inside the breedfile won't be
+there in anyone else's breeds.  Also of course you don't want to change
+the breed name or it won't run with a standard breed.
+
+When you come to the textures, if you're going to change the furfile
+bitmap it _has_ to be external to the breedfile, and you'll have to
+change the texture list to point to where it is (e.g.
+\resource\catz\wibble.bmp).  Remember that if you're sending people pets
+from a hex-painted litter which uses such furfiles, you'll have to send
+them a copy of the furfile also and tell them what subdirectory to put
+it in (if relevant).
+
+You need a hex editor or easy-edit kit (and useful tools)
+========================================
+
+First, try my easy-edit kits.  They are downloadable from my site and,
+if you read the readmes and install them properly, the only thing you'll
+need to use for editing is Notepad!
+
+If you don't use the easy-edit kits, you'll have to use a hex editor at
+least some of the time.  If you don't have one, there are loads of them
+available for download, and they all do the same basic tasks, although
+some of them have complicated "bells and whistles" too for power-users. 
+You can get various freeware ones, such as: 
+Hexedit, from
+http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+Axe, available from some of the simtelnet mirrors but hard to get and
+so, at the time of writing this, you can also download Axe from my site.
+
+If none of these suit you, do an Internet search (using one of the
+online search engines such as Google or Yahoo) for "hexedit" and
+"freeware".  All of them are pretty straightforward to install, I
+think.  Then, if you have the shortcut to your chosen one on your
+desktop, you can drag-and-drop any file you want to investigate onto
+it.  They all show files in a similar way: there are three sections, the
+left-hand one being the "Address" section and containing numbers which
+show which byte you're looking at (in Hex numbers usually), and it
+starts at 00.  The middle section is the meat of the thing, being the
+actual data of the file shown as hexadecimal numbers.  The right-hand
+side shows the file itself also, but in this case as raw ASCII so that
+you see it as a mix of weird symbols or dots and text.  Most of the time
+you will be looking at that right-hand section in order to find or
+fiddle with bits of text.
+
+It is possible of course to edit breedfiles etc (_not_ petfiles!) in a
+modern-day Windows Resource Editor such as the one at
+http://www.users.on.net/johnson/resourcehacker/ which is fine, as you
+get to see the .LNZ file the way it's supposed to be and, as opposed to
+using a hex editor for the job, you don't have to keep the file size
+always the same.  The down side is that Resource Hacker re-compiles the
+file each time you make changes, and eventually it often corrupts.
+
+If you prefer, you can use a program called Vim.  You will probably
+need to download Vim from the maker's site and figure out how to use it
+yourself.  I'm afraid I can't help you with that.  
+ftp://ftp.home.vim.org/pub/vim/index.html
+
+Other useful tools
+------------------
+
+Notepad.exe -- came with Windows.  Used for editing .LNZ files if you do
+it my way.  
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package
+of your choice) to edit Furfiles.
+
+Editing breedfiles (the actual "painting")
+==========================================
+
+Before you start editing your breedfile to make your hex-painted litter,
+make sure that you have a copy of the original somewhere safe.  Also
+keeping copies of the new breed as you go along is no bad thing.
+
+Another thing to remember if you're using a hex editor -- and this is
+important -- is that the breedfile must be exactly the same size after
+you've finished.  You can see what size the file is at any time by
+right-clicking on it in Windows Explorer and choosing "properties".
+
+The basics of editing are the same whether you start with a .DOG breed
+or a .CAT breed; the only real difference is in the ballz numbers.  I
+include lists for both types later in this document.
+
+It's a good idea to start with a P.F.Magic original when you edit,
+rather than an already-hexed breed; this is because some people remove
+whole areas, replacing them often with spaces, which you might want to
+retain.  Also some people, such as myself, do some pretty strange
+experimenting and you could end up with results that puzzle you because
+some small already-changed item escapes your notice.  This is not to say
+you shouldn't learn from others' work -- of course you should!  But with
+the technique I use (described below) it's an easy matter to take out
+the core of a hexed breedfile and examine it for ideas and techniques
+which you can then use.
+
+Okay, either open your .LNZ into Notepad or open your breedfile into
+your chosen editor, and let's on with the editing!  I shall use the
+Persian Cat file as example unless otherwise stated: remember, the other
+cat and dog files are very similar, and they all follow the same
+structure.
+
+THE MAIN PART OF THE BREED; THE SIZE, SHAPE, ETC
+------------------------------------------------
+
+This is the core of the breed; the .LNZ file which makes up the kind of
+creature it is. In the case of the Persian it starts with 
+
+; persian
+
+and continues down to
+
+(c) 1997 PF. Magic, Inc.  Lets not talk about me
+
+Now, this is actually an area of ordinary ASCII text (letters and
+numbers).  You'll probably want to do lots of editing here...  There are
+three ways of doing this.  Either laboriously go through it, byte by
+byte, in the hex editor; many people used to do that with Petz 2 and
+Petz 3 breedfiles.  Or, if you're familiar with Vim, you can edit it
+pretty quickly; the drawback is that you have to be familiar with Vim's
+quirks.  A lot of people these days use Resource Hacker; if you do that,
+and get corruptions or crashes, ask around on the various forums for
+help or go back to previous versions and start again from there.
+
+Or, if you like using Notepad, just open the .LNZ from one of my
+easy-edit packages into Notepad, edit and save.  
+
+If you're doing it the way I used to, with internal .LNZ files, then
+copy out the whole area from "; persian" to "Lets not talk about me"
+into a new file in the hex editor, save it as a .txt file, edit it in
+Notepad, and re-save it in the right place in the breedfile in your hex
+editor.  I still do that when I've finalised a breed with one of my
+external-lnz easy-edit files, if I want to make a new breed
+downloadable.  But since you're just hex-painting, there's no need to do
+that unless you want to distribute the breedfile for breeders.
+
+I use the Notepad methods because I'm comfortable with them.  These days
+I use the external easy-edit packages more often than the internal-lnz
+Notepad method, as I'm getting less time to make full new breedz. 
+_Don't_ use Wordpad or any more sophisticated program such as Word to
+edit the .lnz, as that can put in hidden characters that you don't want.
+
+.LNZ files inside the breedfile are actually two .LNZ files -- adult and
+kit or pup -- and you need to be aware of this when editing because
+changes to the adult .lnz don't always show up at the Adoption Centre
+unless you've made the changes also to the pup or kitten .lnz.  There
+are two special cases, the Alley Cat and the Poodle, which have two
+"RAW" .lnz files also.  These are a form of variation which only have an
+effect when the petz breed, so you may want to hex them to be identical
+to the breedz' normal two .lnz files.
+
+The following extracts are given assuming that you are using Notepad;
+the sections will look different to you in a Hex editor, because you
+won't see them as columns, just a constant wrap-around stream of letters
+and numbers.  
+
+What can you change?  Well, fiddle around with most things and see what
+happens.  Take a look at my .LNZ file breakdown chunks, available at my
+site, if you want to get an understanding of what each item is and how
+it can be changed.  All I'm showing you here is a rough guide.
+
+[Default Linez File]
+\ptzfiles\cat\catmaster.lnz
+
+This contains data which is common to all cat breedz.  You can insert
+the items which are in the "catmaster.lnz" file into your own breed's
+.LNZ and alter them there -- those changes will take precedence over the
+originals in the catmaster.lnz file, but you still nee to point to a
+[Default Linez File].  In dogz of course it's dogmaster.lnz.
+
+[Little one]
+prkit.lnz
+
+This points to the pup or kitten .lnz.  you can actually change that so
+that it points to itself by putting pr.lnz there instead; it's useful
+for a quick look at what the adult will be like, because it will come
+out of the AC fully grown.
+
+[Breed Name]
+Persian
+
+This doesn't actually seem to have much effect.  Then there's
+
+[Sounds]
+\ptzfiles\cat\pr\prsnd.txt
+
+If you change this, you will end up with a silent breed unless you point
+deliberately to a list of sounds that you have edited.  If you do that,
+you will need to distribute the sounds with the pet, which you wouldn't
+want to do for hex-painted petz.
+
+Everything else is open to change, and you can get some pretty
+spectacular results even just changing the [Head Enlargement], [Face
+Extension] etc.  Experiment with relative sizes and lengths, including
+minus numbers.
+
+The eyelid colour is up here, separate from the main ballz Info section,
+so it's here that you will have to change it if you wish:
+
+[256 Eyelid Color]
+18, 1
+
+Things like the various [Move] sections and the [Project Ball] section
+can be messed with, though some caution is needed if you want to keep
+the thing looking reasonably sane...  *thinks a moment about some of the
+breedz I've hexed*...  Awww heck, who needs sanity?  *Cackles madly*
+
+[Project Ball]  // stationary ball, projected ball, amt
+
+There are three columns.  The first is the ball to which another is
+going to relate -- it's the ball which will remain "stationary" -- and
+the second is the ball which is going to project from it by a certain
+amount, the third column being that amount.  Because it uses one ball to
+steady another and keep it in the same relative distance, I tend to call
+this "anchoring".  I believe that has confused people in the past.
+
+[Move]
+
+Now, this section is very important to hexers and is often used in
+conjunction with [Project Ball] to get things like tail shapes right.
+
+The first column is the ball number.  The next three columns are the x,
+y, z axes to which you want your ballz to be  moved relative to the
+defaults.  If there is a fifth column, then that is the ball to which
+this move should be relative.  So 14,  4, -3, -5  14 would mean that you
+want ball 14 to be moved sideways by 4, up by 3, and forward by 5
+relative to its normal position.
+
+This fifth column is also useful in helping to keep a ball "anchored";
+it's not as firm as when you use the [Project Ball] distances as well--
+for instance, angled legs in dogz breedz can throw out strangely if you
+don't keep them in place with a [Project Ball] "tie" -- but it does help
+to keep balls from behaving strangely.  This [Move] thing will at least
+keep your ballz as intended relative to the "relative" ball.
+
+If, say, you want your elbows to stay relevant to the shoulders, you 
+do your xyz move for the elbows thus, in a catz breed:
+
+12, <x>, <y>, <z>, 38
+13, <x>, <y>, <z>, 39
+
+in a dogz breed of course that would be:
+
+7, <x>, <y>, <z>, 18
+31, <x>, <y>, <z>, 42
+
+Note, you'd have numbers where I've got <x>, <y>, <z> in the above
+example,
+of course!  
+
+Back to our Persian.  Here's an important section:
+
+[Default Scales];was 113 113
+105             ; normal pet scale
+105             ; normal ball scale
+
+If you change these numbers, you can make the whole creature either
+larger or smaller, and if the pet scale is vastly different from the
+ball scale some startling effects can occur.
+
+For the next sections of interest -- the [Add Ball] and [Linez] ones --
+it's best to have a list of ballz and their numbers handy, so I prepared
+a list earlier which you should find at the end of this tutorial.
+You will find that, as your hexing gets more complicated, that you'll
+have to keep counting your [Add Ball] lines of code yourself to find
+out which ball has which ball number.
+
+[Add Ball]
+
+The Addballz are the key to the problems some people have with
+ear-colours.  This section can look a bit confusing, but actually it's
+all logical really.  Usually you don't have to alter these, but there
+may be times when you want to make sure that, for instance, the colour
+of the extra ear ballz fit that of your new breed's ears in the main
+[Ballz Info section], or you may want them to be a different size or
+different shape.
+
+Most of the columns in the Addballz are pretty obvious:
+
+base x y z color otlnCol spckCol fuzz group outline ballsize bodyarea
+addGroup texture
+
+but the first four can be a bit muddling until you get used to them.  It
+works if you think of "base" as being the base reference for the ball
+you're working with, and the x,y,z values would then be the distance
+from that in the three dimensions.  So:
+
+; ### From here down are animator's addballz 77.
+;nose
+37,     5,      -5,     -8, etc
+37,     -5,     -5,     -8, etc
+37,     0,      0,      -8, etc
+
+would mean that ball 77, with the normal nose ball 37 as its base, is
+offset from it by x; 5, y; -5, z; -8, that ball 78 is offset from its
+base (also ball 37) by x; -5, y; -5, z; -8, and that ball 79 is offset
+from its base (yet again ball 37) by x; 0, y; 0, z; -8.
+
+Many people get confused by [Add Ball] ballz when they come to joining
+them up with Linez, not realising that it's where the ball is in [Add
+Ball] that gives it its ball number.  So the first of those nose balls
+above is ball number 77, the next one is ball number 78, and so on. 
+
+Note that "texture" refers to the list of textures at the beginning of
+the [Ballz Info] section, and that 0 is the first texture in the list, 1
+the second etc -- with -1 meaning no texture.
+
+[Linez]
+
+Linez also are pretty straightforward really, and you'll normally not
+want to bother with them unless you're making a pet with complex extra
+ballz, or one which is an unusual shape.  They are the lines which
+connect two ballz together, and this section lets you fool around with
+the amount of fuzz, the colours, and the thickness of the edges:
+start ball, end ball, fuzz, colour, lfColour, rtColour, sThck (thickness
+of one side), eThick (thickness of the other side).  As it states above
+the table, "-1 mean use the associated ball color", so if you want the
+linez to be the same colours as you've got for the ballz, -1 should be
+okay.  Incidentally, it actually means the colour of the first ball in 
+the Linez line connecting the two ballz, so if your two balls are of
+different colours, watch out for that.
+
+[Paint Ballz]
+
+Now, here's a section which is missed by some people; the [Paint Ballz]
+section.  In this, the paw pads for each breed are shown in detail for
+just about every breed; however, this is also where you can find the
+Dalmatian's spots and the Calico cat's patches, and of course these can
+be changed.  The columns are:
+
+base ball diameter(% of baseball) direction color outlinecolor fuzz outline group texture
+
+Once again, pretty straightforward, the first column referring to the
+part of the paw for which the section of pad is being made (or the ball
+to which the spot is to be added).  The "direction" is in the form of 
+a relative x,y,z as with the animator's addballz.  What you need to
+remember with a Paint ballz, though, is that if you have it situated at
+position 0,0,0, the game will not know what to do -- it can't put a blob
+of paint in the centre of the ball and have it whow up on the surface!
+This is when you get a pet with mysterious black blobs suddenly appearing
+where they shouldn't.  So be sensible when designing Paint Ballz.
+
+When you see lines that start with #, don't panic.  Those are
+variations.  If you want a variety of different pets to come out of the
+AC with your breedfile, then you would be best to study variations and
+understand them.  If you don't want any complications, just remove all
+the variations.
+
+So now we come, in most breedz, to the section which looks like this in
+the Persian:
+
+[Color Info Override]
+;individual variation
+#4
+#3
+#2;blue
+3, 115
+2, 115
+6, 115
+
+Okay, this is pretty simple really -- the first column is the ball
+number and the second is the colour.  
+
+If you want variations, as I say above, don't go removing those lines
+which start with #, but you can change everything in this section and
+even add more variations.  Once again, see my .LNZ breakdown chunks and
+my howtos on variations if you want to make good use of them.   You can
+have a lot of different colours available within your breedfile if you
+wish.  Don't feel bound to stick only with the balls which are actually
+listed in this section, either -- you can add in any ball for which you
+want to allow a variation in colour, and you can add in extra variations
+also.
+
+The next section is
+
+[Thin/Fat]
+4,      -15,    16
+5,      -15,    16
+
+This is a way of defining how fat or thin your pet will be able to get.
+
+Then we get:
+
+[Head Shot];pr
+0                       frame number
+51                              rotation
+0                               roll
+0                               tilt
+-51                             head rotation
+8                               head tilt
+-11                             head cock
+38, 38                  R / L eyelid height
+17, 17                  R / L eyelid tilt
+0, 0                    (X, Y) eye target
+
+This is simply to do with what the picture of your pet looks like when
+you see its picture at the Adoption Centre or the carry-case.
+
+[Ballz Info]
+
+Next comes the part which is familiar to all Petz 2 or Petz 3 hexers;
+the [Ballz Info] section, where the breed's main ballz sizes, colours,
+fuzz etc can be changed to great effect.  First come the bitmaps:
+
+; First argument is name of texture.
+; Second argument is whether texture is single color (1) or multi-color (0)
+; This texture list is used both here and in add ballz
+[Texture List]
+\art\textures\hair10.bmp        1
+\art\textures\hair10.bmp        1
+\art\textures\hair10.bmp        1
+
+In Petz 5, all the textures are in the main Resource .dll file.
+In Petz 3 and Petz 4, most breedz (apart from Maine Coon and Tabby cats 
+and poodle dog), have their textures in the main Resource .dll file.
+The textures, which are in the subdirectory \art\textures\, is tucked away
+inside the large Resource .DLL files, and although of course these
+could be located and changed on your own machine, you wouldn't be able
+to put them up for download and let others see your breed or pet with its
+beautiful new textures.  So, for the breeds which don't include their
+furfiles within the breedfile, you will have to include a separate .bmp
+with your breed and make the list above point to it (ResHacked breedz
+can of course have the bitmaps added internally).  But for hex-painted 
+pets of course it is essential to have the bitmap externally unless you 
+distribute the breedfile along with the pet.
+
+NOTE:  If you want the pet to work in Petz 5, you _must_ make your furfile
+bitmaps either 32x32 pixels, or a combination of multiples of 32 (such as
+64x32, 64x128 etc) up to and including 128x128.  If you don't, the pet 
+will crash the game.
+
+So you might change line 1 to read:
+
+\resource\catz\jiggy.bmp        0
+ 
+As the information above states, the 0 or 1 indicate whether the texture
+is to be used as single or multi-colour.  This can make a big difference
+to its visibility and the way the ballz colour shows up with a texture;
+change the various balls' base colour for the Tabby cat, for instance,
+and the stripes will be a different colour.  Occasionally you will see
+numbers other than 0 or 1, such as 65; that number should indicate which
+colour in the "background" part of the texture will allow your ball
+colour to show through.  
+
+When you come to the Texture column in the [Ballz Info], remember that
+the first texture in the above list is referred to as 0, the second 1,
+the third 2, etc, for as many textures as you wish to include.
+
+And now the ballz themselves:
+
+;FUZZ --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;OUTLINE --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;col  outCol spklCl fuzz  otlntTyp sizeDif  group    texture 
+[Ballz Info]
+ 15,  244,   244,   2,      -2,       27,       3,     1  eBall_ankleL,
+
+etc
+
+I think these are pretty self-explanatory; the first three columns deal
+with colours (main, outline and speckle).  Speckle is really a throwback
+to the Catz 1 and Dogz 1 days.  Then there's the degree of fuzz , the
+thickness or lack of outline, the relative size of the ball (you can get
+some amazing shapes by using huge positive numbers, and make some balls
+effectively disappear with huge negative numbers), the group (you'll
+probably not want to change that, unless you have certain types of
+2nd-gen pet problems) and which texture it uses (if any; put -1 if you
+don't want any texture).  It's even got a handy eBall_ note at the end
+of each line to show which ball is being referred to...  Mess with these
+numbers to your heart's content...
+
+And now the last few sections.  These next two are dealt with in my .LNZ
+breakdown chunks; please read about them there if you're interested. 
+They basically have an effect if you're breeding petz:
+
+[Fur Color Areas]
+[Fur Markings]
+
+Now, here's a useful item if you want to make a breed with an appendage
+that you can't or don't want to make out of one of its ballz.  This is
+from the Chinchilla Persian, but you can add it to any breed so long as
+you compensate by removing the right number of spaces elsewhere.  I did
+this with the Antlers for my Elks. In some breeds you can see:
+
+[Add Clothing]
+#3.C
+; kind          toy_dll         lnz file
+Hat "\Resource\Clothes\Pink Bow.clo"
+"\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#2
+Hat "\Resource\Clothes\Pink Bow.clo"
+"\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#1
+##
+
+Great!  You can hex edit an item of clothing and make the breed come out
+of the Adoption Centre wearing it!  Even better, if your breed is one
+where the item is used only in the male or only in the female, there is
+this:
+
+; sexist - pink bow <=> female
+[Force To Female]
+#3.C
+1
+#2
+1
+#1
+0
+##
+
+[Force To Male]
+#3.C
+0
+#2
+0
+#1
+1
+##
+
+the 1 and the 0 are switches to say whether this particular variation of
+the breed should be male or female, and in the first part of the [Add
+Clothing] section it shows that the #3.C and #2 versions have a bow.  So
+#3.C and #2 ae forced to female, and #1 is forced to male.
+
+In some breeds also there is this:
+
+[Adjust Clothing]
+; kind: Shirt, Pant, Sock_FrontL, Sock_FrontR, <etc>
+; kind offset scale (floating point, 1.0 is no change in size)
+Hat     0,-7,0      0.9
+
+You only need this section -- and to change it -- if some item of
+clothing doesn't look right on the breed. Choose from the list of items
+shown for the "kind" column.  The offset is the usual x,y,z co-ordinates
+relative to where the clothing item sits normally,  so that you can
+shift it to a different position. The scale allows you to make it look
+bigger or smaller.
+
+Back to the Persian, then there's this, which isn't particularly exciting
+to change 
+
+[Lnz Version]
+2
+
+And now we're into the kitten (or puppy) section, which you need to
+change if you want extensions and enlargements etc to be different in
+the youngster of your breed.  
+
+; persian kitten
+
+[Default Linez File]
+\ptzfiles\cat\pr\pr.lnz
+
+It tells the game where the adult .lnz is to be found.  You can put 
+an appropriate .lnz onto the hard drive and redirect this url to it as 
+shown in my external-lnz packages.  You can of course do the same with the 
+
+[Default Linez File]
+\ptzfiles\dog\dogmaster.lnz
+
+or 
+
+[Default Linez File]
+\ptzfiles\dog\catmaster.lnz
+
+files, but there's not really much point in doing so with those because
+of course everything that you put into your breedfile's .lnz overrides
+the "master" .lnz defaults.
+
+Don't forget this:
+
+[Default Scales];adult 113, 113
+88              ; normal pet scale
+94              ; normal ball scale
+
+Which can be the same as or different from the adult's defaults of
+course, and we even get a small [Project Ball] section which you can
+fiddle with in the same way if you want.
+
+If you've carefully changed sizes and fuzz, you'll want to remove the
+[Ball Size Override] and [Fuzz Override] sections...  And voila!  here
+we are at the end of the breed's characteristics!
+
+Remember that if you're using a hex editor to put your edited .LNZ back
+into the breedfile, make sure that this text file is exactly the same
+length as it was when you took it out of the breedfile, then copy and
+paste it back into the same place.  If you're keeping it as an Easy-Edit
+external file, or are using Resource Hacker, that isn't relevant.
+
+You can now run your breed and see how it looks, and adopt hex-painted
+petz from it.
+
+Enjoy!
+
+Carolyn Horn
+
+Balls lists for Dogz and Catz breedfiles
+========================================
+
+For Catz:
+++++++++
+
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+The main list goes from 0-66:
+
+0       ankleL,
+1       ankleR,
+2       belly,
+3       butt,
+4       cheekL,
+5       cheekR,
+6       chest,
+7       chin,
+8       earL1,
+9       earL2,
+10      earR1,
+11      earR2,
+12      elbowL,
+13      elbowR,
+14      eyeL,
+15      eyeR,
+16      fingerL1,
+17      fingerL2,
+18      fingerL3,
+19      fingerR1,
+20      fingerR2,
+21      fingerR3,
+22      handL,
+23      handR,
+24      head,
+25      hipL,
+26      hipR,
+27      irisL,
+28      irisR,
+29      jaw,
+30      jowlL
+31      jowlR,
+32      kneeL,
+33      kneeR,
+34      knuckleL,
+35      knuckleR,
+36      neck,
+37      nose,
+38      shoulderL,
+39      shoulderR,
+40      snout
+41      soleL (i.e. the foot),
+42      soleR (i.e. the foot),
+43      tail1 (nearest to the butt),
+44      tail2,
+45      tail3,
+46      tail4,
+47      tail5,
+48      tail6 (tip),
+49      toeL1,
+50      toeL2,
+51      toeL3,
+52      toeR1,
+53      toeR2,
+54      toeR3,
+55      tongue1,
+56      tongue2,
+57      whiskerL1
+58      whiskerL2,
+59      whiskerL3,
+60      whiskerR1
+61      whiskerR2,
+62      whiskerR3,
+63      wristL,
+64      wristR,
+65      zorient,
+66      ztrans
+
+The Animator's Add Balls are a little different in each breed, because
+of the different needs that different breedz have.  For instance, the
+Tabby cat has stripes which need to be specified...  You can work them
+out by studying the relevant breed's .LNZ, so I include only the more
+standard ones here:
+
+67 mount align ball
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball
+75 utility ball
+76 utility ball
+(there's probably no need to touch 67-76 usually -- they are invisible
+placement balls really)
+
+The following are different in some breeds; just check out the one
+you're working with:
+
+77 } nose
+78 }
+79 }
+
+80 } head -- Ears region
+81 }
+82 }
+85 }
+86 }
+87 } left side top of head in front of ear (near jowl and cheek)
+88 }
+89 } right side top of head in front of ear (near jowl and cheek)
+90 } ears
+91 }
+
+92} Fangs (See Alleycat) or Ruff (see maine Coon)
+93}
+
+For Dogz:
+++++++++
+
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+
+The main list goes from 0-66:
+
+0       ;L ankle
+1       ;L eyebrow1
+2       ;L eyebrow2
+3       ;L eyebrow3
+4       ;L ear1
+5       ;L ear2
+6       ;L ear3
+7       ;L elbow
+8       ;L eye
+9       ;L finger1
+10      ;L finger2
+11      ;L finger3
+12      ;L foot
+13      ;L hand
+14      ;L iris
+15      ;L jowl
+16      ;L knee
+17      ;L nostril
+18      ;L shoulder
+19      ;L hip
+20      ;L toe1
+21      ;L toe2
+22      ;L toe3
+23      ;L wrist
+24      ;R ankle
+25      ;R eyebrow1
+26      ;R eyebrow2
+27      ;R eyebrow3
+28      ;R ear1
+29      ;R ear2
+30      ;R ear3
+31      ;R elbow
+32      ;R eye
+33      ;R finger1
+34      ;R finger2
+35      ;R finger3
+36      ;R foot
+37      ;R hand
+38      ;R iris
+39      ;R jowl
+40      ;R knee
+41      ;R nostril
+42      ;R shoulder
+43      ;R hip
+44      ;R toe1
+45      ;R toe2
+46      ;R toe3
+47      ;R wrist
+48      ;belly
+49      ;butt
+50      ;chest
+51      ;chin
+52      ;head
+53      ;jaw
+54      ;neck
+55      ;nose (bottom)
+56      ;snout
+57      ;tail1
+58      ;tail2
+59      ;tail3
+60      ;tail4
+61      ;tail5
+62      ;tail6
+63      ;tongue1
+64      ;tongue2
+65      ;Z-trans
+66      ;Z-orient
+
+The Animator's Add Balls are a little different in each breed, because
+of the different needs that different breedz have.  For instance, the
+Poodle has tufts which need to be specified...  You can work them out by
+studying the relevant breed's .LNZ, so I include only the more standard
+ones here:
+
+67 mount align ball 
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball 
+75 utility ball 
+76 utility ball 
+(there's probably no need to touch 67-76 usually -- they are invisible
+placement balls really)
+
+The following are different in some breeds; just check out the one
+you're working with:
+
+77   } ears outside; top spot on left 
+78   }       and second from top right 
+79   }       and second from top left?
+80   } ears outside, top spot on right 
+81   }      and third from top on R
+82   }      third from top spot on L 
+
+83   } tail
+84   }  
+85   }
+86   }
+87   }
+
+88   }  tongue (or chin)
+
+89   } test cover up part of jowls
+90   } test cover up part of jowls
+91   } cheek/jowls; go from cheek or mouth 
+92   }              corners to snout or nose
+
+93   } Inside mouth at front above chin; L
+94   } Inside mouth at front above chin; R
+
+As an example of differences and extra balls, take the Poodle:
+poodle head puff 89-91
+poodle puffs 92-95
+poodle puffs without outlines for unshaved poodles 96-99
+
+********* end of tutorial
+
+

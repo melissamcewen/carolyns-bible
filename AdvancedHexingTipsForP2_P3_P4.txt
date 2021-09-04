@@ -1,0 +1,639 @@
+Some advanced Breed-making tips for petz 2, 3 and 4; clearing up the "mysteries" (works for Petz 5 also)
+================================================================================
+
+Originally written early in the year 2000; "game-crash" section updated April 2003.
+
+Contents: Introduction
+          Furfile tips; unusual effects (such as Brindle)
+                        "Double-texing"
+          The spots!  The spots!  Spotty things everywhere...
+          Adding ballz and changing shapes.
+          What about the nose?  Here's how to change the colour.
+          Small point, when converting from Petz3 or 4 to Petz 2...
+          Advanced trouble-shooting; the puzzling game-crash.  Three possible solutions.
+Appendix 1 Hidden furfiles
+Appendix 2 Ball conversion from Cat to Dog
+Appendix 3 Ball conversion from dog to cat
+
+
+Introduction
+============
+
+I assume when writing this set of tips that you already have the necessary tools -- hex editor and Notepad -- and are familiar with the methods I use for editing breedz and the terms that I use.  If everything I say sounds like gobbeldy-gook to you, then you either hex breedz a different way from me (i.e. you hex directly into a hex editor) or you are new to hexing.  Either way, if you want to understand what I'm about to tell you, please take a look at one of my basic breed-hexing tutorials; they should make my methods clearer to you.
+
+It really is incredibly easy to do almost anything you wish to with the appearance of a breed, your imagination and understanding of the basic principles are the only limits.
+
+Just remember, always remove extra spaces from the .lnz section to compensate for any extra numbers etc that you add into it.  It is of course the .lnz section -- i.e. the text part of the breedfile -- which is the section that is relevant to all the tips in this tutorial.  If your .lnz is not exactly the same length, in bytes, after you've finished as before you started, then when you pop it back into the breedfile the breed _will not work_.  A further thing to note is that the .lnz is actually in two parts; the adult part and the puppy or kitten part.  You need to keep each of these parts basically the same length, although the game does allow a little latitude here.  If you've edited the adult section and it doesn't look as intended, remember that what you see when a pet comes out of the Adoption Centre bascially uses the "overrides" from the puppy/kitten part with is below the [Ballz Info] section.  It will have your adult changes when it grows up.  A useful tip here is to change the [Little one] by removing the letters "kit" or "pup" until you've finished editing the main part of the breed.  Change it back when you have finished that and want to "fine-tune" the puppy or kitten stage.
+
+Okay, enough of this chat; on with the tips :-)
+
+Furfile tips
+============
+
+Unusual effects (such as Brindle)
+---------------------------------
+
+I'm always amazed at the difficulty that people seem to have when it comes to producing new effects without adding new furfiles.  It's all so simple; the key is in the textures list which comes just before the [Ballz Info].
+
+It's just to do with the particular P.F.Magic furfile which is used, and the number which tells the game whether it's to be single colour or multi-colour.  So, if you want to have the standard orangey "brindle" effect, you need to find the [Texture List] and put in the list:
+
+\art\textures\hair6.bmp   0 
+
+and then make sure that whatever ball you wish to have the brindle effect has the correct number under the Texture column.  Remember that P.F.Magic numbers count from 0 upwards, so that the first item in a list is always item number 0.  Don't confuse the "texture number" (i.e. position in list) with the number (known as an "argument") which comes after the name of the bitmap.  So, if you want the left ankle to be brindled in the Sheepdog, do the texture list like this for example:
+
+[Texture List]
+\art\textures\hair10.bmp  1 <-- this is texture number 0; the colour "argument" is 1
+\art\textures\redrib.bmp  1 <-- this is texture number 1; the colour "argument" is 1
+\art\textures\hair6.bmp   0 <-- this us texture number 2; the colour "argument" is 0
+
+So that you have hair6.bmp in the list with its colour argument set to 0.  Then change the number in the texture column of the left ankle in the Ballz Info, since you want to use the third texture (number 2):
+
+;col  outCol  spklCl  fuzz  otlntTyp  sizeDif  group  texture  ball#
+[Ballz Info]
+  25,    244,    -1,     5,    -1,     8,      4,     2     0  ;L ankle
+
+And you would change the number in the texture column to 2 for every ball you wanted to be brindled.  The ball colour will not show through; the basic brindle colour will be orangey since that is the basic colour of the hidden bitmap "hair6.bmp" and since you set the colour argument to "0".  Remember that this texture list is relevant to all Add Ballz and Paint Ballz too, by the way.
+
+Question: Is there anyway to change the color of the texture?
+-----------
+
+Answer: Yes, but not if you use the "0" option in the texture list. And if you set it to 1, it will take up your colours but will then have the "brindle" streaks soften so much that they seem to disappear.  The trick is to play with the numbers in the texture list.  After a lot of experimentation with different numbers in the colour argument, I found that "60" was a good number to use if you want your background to show through and still keep the brindle effect:
+
+\art\textures\hair6.bmp        60
+
+it allows the ball colour through in a particular way.  Why not experiment with other "hidden" furfile bitmaps, or with the ones that P.F.Magic supplied in the Wallpaper directory?  I append a list of bitmaps that are hidden inside the petz 3 and Petz 4 resource files; Petz 2 doesn't have anything useful in the way of hidden bitmaps, but of course there are a lot of bitmaps in its Wallpaper directory.  This technique works for any bitmaps, of course.  Also, experiment with numbers other than 0, 1, or 60 -- you may come up with something you really like.  Try 80, or 100; they can produce good effects with the right texture.
+
+A final point here -- some colours are heavily opaque and will not allow a texture of any kind to show through.  These colours are the ones with higher numbers in the colour charts.  You're okay with textures up to the end of the 140 range, but the pastels (150 upwards) are opaque as are the numbers below 10.  Just try it all out and see.
+
+NOTE: As far as I know at present, you can only change the background colour in the hidden texture files, not the little marks.  So the "brindle" will always have darkbrown/black ticks, the tabby will always have dark brown stripes, etc, unless you use a different furfile.
+
+
+"Double-texing"
+---------------
+
+Double texing is a term which appeared fairly recently, and it only really means using two or more custom furfiles instead of the defaults, or sometimes changing the texture in a breed's ballz to use two or more different standard ones from the ones already used.  So that, for instance, you could have the Mutt's belly using the Shag Carpet.bmp from the Wallpaper directory, and its head and feet using your own specially-made bitmap.  Really, just any unusual combination of two textures.
+
+So, what you want to do is find the Texture list in the breedfile.  Say it's a Mutt; what the list looks like (if you edit my way) is this:
+
+[Texture List]
+\art\textures\plush.bmp        1
+\art\textures\hair10.bmp        1
+\art\textures\jowl2.bmp        1
+
+Those are all textures which are inside the resource .dll.  The "1" means that the basic ball colour will show through the texture.  What you want to do, say, is to replace them with textures which are in the \resource\wallpaper directory, and you want to not have the ball colour show through (which means "1" must be "0" or some other number); so, change that list to (for instance):
+
+\resource\wallpaper\autumn.bmp  0
+\resource\wallpaper\hay.bmp     0
+\resource\wallpaper\granite.bmp 0
+
+or, if you want to get some interesting effects with colours showing
+through the bitmaps:
+
+\resource\wallpaper\autumn.bmp  1
+\resource\wallpaper\hay.bmp     1
+\resource\wallpaper\granite.bmp 1
+
+or (if you're experimenting with effects -- see the "Brindle" section of this tutorial):
+
+\resource\wallpaper\autumn.bmp  1
+\resource\wallpaper\hay.bmp     60
+\resource\wallpaper\granite.bmp 1
+
+Okay, your textures are in place.  Now you want to make sure that the correct ball gets the correct texture; you do that in Ballz Info, Paint Ballz, and Add Ballz by changing the number in each ball's texture column.  You would put 0 to get the first texture in the list
+(Autumn.bmp), 1 for the second (hay.bmp) and 2 for the third (Granite.bmp) because P.F.Magic always count the first in any list as number 0.  (That, by the way, is why the left ankle ball is allways ball number 0; it's because it's first in the list of ballz in the Ballz Info section.)
+
+So in this example for instance, in the Ballz Info section, maybe you want to make sure the shoulders have the "granite" texture:
+
+;col outCol spklCl fuzz otlntTyp sizeDif group texture ball#    
+
+105,   244,  -1,     1,    -1,     -7,     6,    1      18  ;L shoulder
+
+change the "1" under "texture" to "2". Otherwise it will have the "hay" texture.
+
+The spots!  The spots!  Spotty things everywhere...
+===================================================
+
+Oh my, the number of people who want to put spots and patches on breedz that never had them originally amazes me.  But here's how it's done.  You have to add stuff in [Paint Ballz].  Look at the Dalmatian or the Calico cat, and you'll see, in the section with the paw pads:
+
+[Paint Ballz]
+;base ball  diameter(% of baseball)  direction  color outlinecolor fuzz outline group texture
+;paws
+
+Okay, this is where the paw pads are in every breed. The columns are clearly labelled, so you should be able to work out easily which ball is to be painted (base ball), and with how big a spot (diameter(% of baseball)), and where in the ball it should go (direction), etc.
+
+A quick word on "direction" here. This can be a bit muddling, but it's given in the form of three numbers, which are x, y and z co-ordinates relative to the ball to be painted (this is the same idea in the Add Ballz and Move areas, incidentally).  So, relative to the base ball: 
+
+the first of the "direction" numbers is decreased for further left and increased for further right 
+the second is decreased for further up  and increased for further down 
+the third is decreased for further forward and increased for further back.
+
+Then, with the Dalmatian, you come to this:
+
+;individual variation
+;
+#2.B
+#1;right hand
+
+The Calico looks similar, with this:
+
+;individual variation
+;
+;
+#3
+#2
+
+Those are the variations in spots or patches, and the first balls that you see listed (in the dog) are the ones for the front paws or (in the cat) the hips.  If you wanted to have the spots the same each time, you would not bother with the "#" signs -- each # simply means "this is a different variation" and the double ## means "this is the end of the variations for this ball or set of ballz".  If you don't want any variation, don't put in any of the # signs; i.e. don't have #2.B or #1;right hand or ##.
+
+You can alter which ball has the spots, obviously, and you can change the size and position of the spots or patches, as well as colour, texture etc.  If you want to put dalmatian spots on a cat, then you need to change the ball numbers to become the relevant ball numbers for a cat. I append a couple of lists to assist with cat/dog crossovers.
+
+At this point you will realise that your file is a lot bigger than it should be.  You can either remove the extra bytes by removing stuff from the [Color Info Override] section if you don't want colour variations for the base ballz; or by removing extra spaces from the [Ballz Info] section -- that's an excellent area for removing un-needed spaces.  Just make sure you don't delete any of the numbers, words or commas.
+
+Adding ballz and changing shapes.
+=================================
+
+Take a look at the Alley Cat's fangs, or indeed any vastly altered breedz like my elephant or pig-hog, and you can see how extra ballz can be added or shapes changed.
+
+Changing shapes
+---------------
+
+The simplest shape change, apart from just changing ball sizes and fuzz or the [Default Scales], is when you want to produce a breed with a bobbed tail.  The elegant way to do this is the way in which it's done in the Sheepdog; look under [Project Ball]:
+
+;tail
+#4.K       <--variation 4
+57, 58, 10 <--tail ball 58 is attached to ball 57 by a factor of 10
+58, 59, 10
+59, 60, 10
+60, 61, 10
+61, 62, 10
+#3
+57, 58, 10
+58, 59, 10
+59, 60, 10
+60, 61, 10
+61, 62, 10
+#2
+57, 58, 10
+58, 59, 10
+59, 60, 10
+60, 61, 10
+61, 62, 10
+#1         <--variation 1
+57, 58, 80 <--tail ball 58 is attached to ball 57 by a factor of 80
+58, 59, 80
+59, 60, 80
+60, 61, 80
+61, 62, 80
+##         <--end of variations
+
+You can see that the final variation, variation #1, is the only one which has a long distance between ballz.  The others have only 10, which means that there are three bobbed variations to one tailed one, so at the Adoption Centre the tailed version is rather rarer than the rest.
+
+It gets a little more complicated when you want to change more than that.  I'll take a relatively simple example, answering this question:
+
+Question: How to make a Great Dane's ears down instead of up?
+--------
+
+Answer: This is more complex than you might think, but just take a deep breath, remember you can't do any real harm, and come on in (the water's fine <g>).
+
+You need to change all the ear commands under [Move], [Project Ball], [Add Ballz], and probably also [Linez].  The first one shows the direction each ball will move when, say, the head moves. The second -- Project Ball -- shows which ball is attached by how much distance to which other ball, and the Linez show basically which ballz are attached to which and how thick the joining lines should be.  With some breedz (such as elephant) you may also want to add extra ear balls in the [Add Ball] section.
+
+Have a look at the code for a dog with floppy ears, especially one that's hexed from a Great Dane like my Chesapeake Bay Retriever, compare it with that for a Great Dane, and you'll see what I mean.
+
+The Great Dane Project ball:
+
+;EARS
+52, 6, 79 <--distance from head to key earball
+52, 30, 79
+38, 6, 120 <--distance from iris to key earball
+14, 30, 120 
+
+My Chesapeake:
+;ears
+52, 6, 95 <--distance from head to key earball
+52, 30, 95
+
+Great Dane Move (ear ballz)
+;4,	0, -20, 10,	52	; omitted <--this line is inoperative; ignore it
+;5,	0, -20, 10,	52	; omitted
+6,	0, -20, 10,	52	          <--direction key earball (ball 6) moves in relative to head (ball 52)
+;28,	0, -20, 10,	52	; omitted
+;29,	0, -20, 10,	52	; omitted
+30,	0, -20, 10,	52	          <--direction key earball (ball 30) moves in relative to head (ball 52)
+
+My Chesapeake:
+[Move]			
+;ears
+5,	1, 12, -6  <--direction this earball moves in (the head ball is assumed to be the base ball)
+29,	-1, 12, -6
+4,	-6, 18, -6
+28,	6, 18, -6
+
+NOTE:
+-----
+the first of the "direction" numbers is decreased for further left and increased for further right 
+the second is decreased for further up  and increased for further down 
+the third is decreased for further forward and increased for further back.
+
+Now, in the Add Ballz area:
+
+The Great dane has:
+
+; ### From here down are animator's addballz 77.
+6, 	6, -10, -3, etc <--where this ball is attached to the base ball 6
+30, 	-6, -10, -3, etc <--where this ball is attched to the base ball 30
+6, 	3, -18, -3, etc
+30, 	-3, -18, -3, etc
+6, 	13, -27, -12, etc
+30, 	-13, -27, -12, etc
+
+These are the extra ballz which make up a dane's ears.  I didn't want them to look like this.  Instead, I changed the Add Ballz in my Chesapeake to be more like those in other dogz.  So:
+
+4, 	-15, -9, 15, etc <--the base ball here is ball 4, and the position relative to it of the added ball is different.
+28, 	15, -9, 15, etc
+4, 	4, 17, -3, etc
+28, 	-4, 17, -3, etc
+5, 	18, 0, 0, etc
+29, 	-18, 0, 0, etc
+
+Then, the last bit is the [Linez].  This is only required really if you either want to add _extra_ ballz or remove ballz or produce more connections between ballz, or change the ball-numbers of the ballz you're handling.  In the case of the Chesapeake, my Add Ballz ear balls  were shifted to further down the Add ballz list, so they have different ball numbers: 82-87 instead of the Great Dane's 77-82.  I can't now recall why I did that; I expect it was that I was observing other breedz which had them like that and it made studying the Linez easier.  But anyway, the linez needed to be changed.  So, in the Great Dane we have:
+
+;srt	end	fuzz	col	lfCol	rtCol	sThck	eThick
+
+;ears
+81, 	79, 	1,	-1,	244, 	244,	95,	100		;ear
+77, 	6, 	1,	-1,	244, 	244,	100,	100		
+79, 	6, 	1,	-1,	244, 	244,	100,	100		;ear
+82, 	80, 	1,	-1,	244, 	244,	95,	100		;ear
+78, 	30, 	1,	-1,	244, 	244,	100,	100		
+80,	30, 	1,	-1,	244, 	244,	100,	100		;ear
+
+You can see that this just adds the extra ballz to each other and to one base earball (ball 6 for one side and ball 30 for the other).
+
+but in the Chesapeake
+
+;ears
+6,	 5, 	0,	-1,	-1, 	-1,	100,	100
+5,	 4, 	0,	-1,	-1, 	-1,	100,	100	
+30,	 29, 	0,	-1,	-1, 	-1,	100,	100	
+29,	 28, 	0,	-1,	-1, 	-1,	100,	100	
+82,	 4, 	0,	-1,	-1, 	-1,	100,	100	
+82,	 5, 	0,	-1,	-1, 	-1,	100,	100		
+4,	 84, 	0,	-1,	-1, 	-1, 	100,	100	
+28,	 83, 	0,	-1,	-1, 	-1,	100,	100	
+83,	 29, 	0,	-1,	-1, 	-1,	100,	100	
+82,	 84, 	0,	-1,	-1, 	-1, 	100,	100	
+83,	 85, 	0,	-1,	-1, 	-1,	100,	100	
+28,	 85, 	0,	-1,	-1, 	-1,	100,	100	
+82,	 86, 	0,	-1,	-1, 	-1,	100,	100	
+83,	 87, 	0,	-1,	-1, 	-1,	100,	100	
+82,	 6, 	0,	-1,	-1, 	-1, 	100,	100	
+83,	 30, 	0,	-1,	-1, 	-1,	100,	100	
+84,	 5, 	0,	-1,	-1, 	-1,	100,	100	
+85,	 29, 	0,	-1,	-1, 	-1,	100,	100	
+6,	 86, 	0,	-1,	-1, 	-1, 	100,	100	
+30,	 87, 	0,	-1,	-1, 	-1,	100,	100	
+5,	 86, 	0,	-1,	-1, 	-1,	100,	100	
+29,	 87, 	0,	-1,	-1, 	-1,	100,	100	
+4,	 86, 	0,	-1,	-1, 	-1, 	100,	100	
+28,	 87, 	0,	-1,	-1, 	-1,	100,	100	
+52,	 6, 	0,	-1,	-1, 	-1,	100,	100	
+52,	 30, 	0,	-1,	-1, 	-1,	100,	100
+
+As you can see, the Chesapeake's ear ballz are tied to each other and to the head ball (52)  in a much more elaborate way, which makes sense when you think how the ears go when the dog bounces along.
+
+Your ears are now altered to point downwards; enjoy!
+
+Adding ballz
+------------
+
+This is very similar to the shape altering; you need to watch to see whether you need to make changes in all the same areas.  Let's look at the Alley Cat's fangs.  In this case, there is no alteration in the Move or Project Ball area, because they are fairly simple added ballz.  But here they are, down in Add Ballz:
+
+;fangs 92
+30, 	2, 25, 0, etc <--attached to left jowl in relative x,y,z position 2, 25, 0
+31, 	-2, 25, 0, etc <--attached to right jowl in relative x,y,z position -2, 25, 0
+
+So the fangs are ballz 92 and 93, attached to the jowl ballz (30 and 31).  But they would be simple white dots floating around under the jowls if we didn't make sure there were linez going from them to the jowls:
+
+;srt	end	fuzz	col	lfCol	rtCol	sThck	eThick
+[Linez]
+
+;fangs
+92, 	30,      -1, 	-1, 	244, 	244,	100,	100  
+93, 	31,      -1, 	-1, 	244, 	244,	100,	100  
+
+And there you are.  Fangs, which you can add in this manner to any other breed you wish.
+
+What about the nose?  Here's how to change the colour.
+======================================================
+
+This is rather a small item to give its own section, but it is a little more obscure than just changing the extra ear colours etc.
+
+It all happens down in the [Ballz Info] section.
+
+First off, you need to change the colour and outline colour for the ;L nostril, ;R nostril, and ;nose (bottom) ballz.
+
+Next, and this is the obscure bit, you need to change the Outline type (otlntTyp) for the two nostrils.  I use -5 as the number for that, and it works a treat.
+
+You will probably find that the nose and nostril sizes are all wrong once you've changed that outline type number, but those are easily adjusted in the "sizeDif" column.
+
+Small point, when converting from Petz3 or 4 to petz 2...
+=========================================================
+
+This is another very small section, but it's an important tip; sometimes when converting the more unusual breedz to petz 2, you will find that there is something very strange about the mouth area or ears, or some other item which is dealt with in the [Add Ballz] area.
+
+This is because you have probably written "0" into the bodyarea column.
+
+Take the bulldog, for instance:
+
+;base x y z  color otlnCol spckCol fuzz group outline ballsize bodyarea addGroup texture
+
+In Petz 3/4:
+
+;jowls 77
+56, 20, 25, 6,  25,  0,    0,      0,    2,    -1,    30,      0,        0,       2 
+56, -20, 25, 6, 25,  0,    0,      0,    2,    -1,    30,      0,        0,       2
+
+etc
+
+In Petz 2:
+
+;jowls 77
+56, 20, 25, 6,  25,  0,     0,     0,     2,    -1,   30,      8,        0,       2 
+56, -20, 25, 6, 25,  0,     0,     0,     2,    -1,   30,      8,        0,       2
+
+See it?  The numbers in the "bodyarea" column in Petz 3/4 are "0", but they are "8" in Petz 2.  At first glance when you get a pet from the Adoption Centre they don't make much difference, but if you alter the "8" in that column to "0" for each of the Addballz, you will find that the cheeks and tongue do weird things at certain angles.  So whatever alterations are made when converting the breed from Petz 3 or Petz 4, make sure that the "8" stays in that column.
+
+Advanced trouble-shooting; more puzzling game-crashes.
+======================================================
+
+I think I've covered most causes of game-crashing in my other tutorials, but there are a few which will confuse and distress those of you who are absolutely positive that there is nothing wrong with the breedfile.
+
+First, the .lnz sections: 
+-------------------------
+it happens very occasionally, mostly when we remove too much stuff from the bottom of the .lnz (below the [Ballz Info] section) to compensate for added stuff at the top (or vice versa).  The game can't handle it because what we edit is really two .lnz files and _both_ need to be the correct length.
+
+To fix this one, check down at the bottom of the .lnz that you've been working on, below the [Ballz Info].  After the "kitten" or "puppy" is mentioned, there will be headers like [Fuzz Override] and [Ball Size Override], or even sometimes [Project Ball].  Even if you've replaced these with spaces, they will still be taking up room.  You need to remove all the stuff that you may have added down in that area and paste it instead up above the [Ballz Info] section.
+
+Second, the [Paint Ballz] textures
+---------------------------------
+
+In the case of [Paint Ballz], the number in the texture column for a paint ball refers to the base ball from which the texture is taken. So if you want a special texture that is on, say, ball 16 only, you would put 16 in the texture column. But beware!!  As soon as such a breed tries to produce babies, the game will crash unless you have made sure (in this example) that there are in fact 17 textures in the [Texture List]. 
+
+So to recap, when making a pet at the Adoption Centre, the game takes the paint-ball texture from the indicated [Ballz Info] ball's texture.  But when making babies it takes the texture number literally, the same as it does in [Ballz Info] and [Add Ball].
+
+
+Third, Windows XP.  Aaaaaargh.  
+-------------------------------
+
+Since I wrote this tip-sheet originally, Windows XP has appeared on the scene as well as Petz 5.  The above all still apply, but you can get crashes on XP even with an apparently perfect breedfile.
+
+The best I've been able to do in tracing problems of that nature is to remove the [Fur Markings] and sometimes [Fur Color Areas] which you will see in many breedz below the [Ballz info]. For some reason this fixes whatever is going wrong in these odd cases in Windows XP. Don't ask me why, I just do the hexing.  You may possibly experience some colour problems in 2nd-gen pets bred from a breedfile in which these sections are removed; I don't know, I don't have XP so am not doing any deep delving into files with it.
+
+Enjoy!
+
+Carolyn Horn
+
+
+
+Appendix 1 Hidden furfiles for Petz 3 and 4
+==========================
+
+Note that Petz 5 puts _all_ the furfiles into the Resource .dlls, including the furs that used to be inside some .cat and .dog files in the earlier games.  I'll not list them all here.
+
+
+Catz 3
+CALI2
+CATZCORNER
+HAIR4
+MOTTLED2
+MOTTLED5
+
+Dogz 3
+DOGZCORNER
+HAIR3
+HAIR11
+HAIR20
+JOWL1
+JOWL2
+
+Petz 3
+ICON_DESKTOP
+ICON_EXIT
+ICON_PETZ_PUBLISHER
+ICON_PLAYPEN
+ICON_WWW_PETZ_COM
+CALI5
+FLOWER
+HAIR6
+HAIR10
+PETZCORNER
+PICTURE
+PLAID5
+PLUSH
+POLKA
+PURP
+REDRIB
+SWTR7
+WIZARD
+
+Petz 4
+ICON_CUSTOM_SCENES
+ICON_DESKTOP
+ICON_EXIT
+ICON_HOME_SCENES
+ICON_PETZ_PUBLISHER
+ICON_PLAYPEN
+ICON_TRAVEL_SCENES
+ICON_WWW_PETZ_COM
+BUNNYBROWN
+BUNNYBROWN2	
+BUNNYGREY
+BUNNYTAN
+CALI5
+COTTONWHITE
+FLOWER
+HAIR6
+HAIR10
+PETZCORNER
+PICTURE
+PLAID5
+PLUSH
+POLKA
+PURP
+REDRIB
+SWTR7
+TERRYPINK
+WIZARD
+
+Catz 4
+CALI2
+CATZCORNER
+HAIR4
+MOTTLED2
+MOTTLED5
+
+Dogz 4
+DOGZCORNER
+HAIR3
+HAIR11
+HAIR20
+JOWL1
+JOWL2
+
+Appendix 2 Main Ball conversion from Cat to Dog
+===============================================
+Note that some Cat Ballz don't exist in the Dog, such as the Knuckles and Cheeks, and I have equated (in this list) the whiskers of the cat to the eyebrows of the dog.  Also the nostrils and third ear balls in the dog are not there in the cat's main ballz.  Dogz ears are arranged very differently from catz ones.
+
+Cat			Dog
+
+0	ankleL,		0	ankleL
+1	ankleR,		24	ankleR
+2	belly,		48	belly
+3	butt,		49	butt
+6	chest,		50	chest
+7	chin,		51	chin
+4	cheekL,
+8	earL1,		4	earL1
+9	earL2,		5	earL2
+5	cheekR,
+10	earR1,		28	earR1
+11	earR2,		29	earR2
+12	elbowL,		7	elbowL
+13	elbowR,		31	elbowR
+14	eyeL,		8	eyeL
+15	eyeR,		32	eyeR
+16	fingerL1,	9	fingerL1
+17	fingerL2,	10	fingerL2
+18	fingerL3,	11	fingerL3
+19	fingerR1,	33	fingerR1
+20	fingerR2,	34	fingerR2
+21	fingerR3,	35	fingerR3
+22	handL,		13	handL
+23	handR,		37	handR
+24	head,		52	head
+25	hipL,		19	hipL
+26	hipR,		43	hipR
+27	irisL,		14	irisL
+28	irisR,		38	irisR
+29	jaw,		53	jaw
+30	jowlL,		15	jowlL
+31	jowlR,		39	jowlR
+32	kneeL,		16	kneeL
+33	kneeR,		40	kneeR
+36	neck,		54	neck
+37	nose,		55	nose (bottom)
+38	shoulderL,	18	shoulderL
+39	shoulderR,	42	shoulderR
+40	snout,		56	snout
+41	soleL,		12	footL
+42	soleR,		36	footR
+43	tail1,		57	tail1
+44	tail2,		58	tail2
+45	tail3,		59	tail3
+46	tail4,		60	tail4
+47	tail5,		61	tail5
+48	tail6,		62	tail6
+49	toeL1,		20	toeL1
+50	toeL2,		21	toeL2
+51	toeL3,		22	toeL3
+52	toeR1,		44	toeR1
+53	toeR2,		45	toeR2
+54	toeR3,		46	toeR3
+55	tongue1,	63	tongue1
+56	tongue2,	64	tongue2
+57	whiskerL1,	1	eyebrowL1
+58	whiskerL2,	2	eyebrowL2
+59	whiskerL3,	3	eyebrowL3
+60	whiskerR1,	25	eyebrowR1
+61	whiskerR2,	26	eyebrowR2
+62	whiskerR3,	27	eyebrowR3
+63	wristL,		23	wristL
+64	wristR,		47	wristR
+65	zorient,	66	Z-orient
+66	ztrans,		65	Z-trans
+34	knuckleL,
+35	knuckleR,
+           		6	earL3
+	        	30	earR3
+                	17	nostrilL
+                	41	nostrilR
+
+
+Appendix 3 Main Ball conversion from dog to cat
+===============================================
+Note that some Cat Ballz don't exist in the Dog, such as the Knuckles and Cheeks, and I have equated (in this list) the whiskers of the cat to the eyebrows of the dog.  Also the nostrils and third ear balls in the dog are not there in the cat's main ballz.  Dogz ears are arranged very differently from catz ones.
+
+Dog			Cat
+
+0	ankleL		0	ankleL,
+1	eyebrowL1	57	whiskerL1,
+2	eyebrowL2	58	whiskerL2,
+3	eyebrowL3	59	whiskerL3,
+4	earL1		8	earL1,
+5	earL2		9	earL2,
+6	earL3
+7	elbowL		12	elbowL,
+8	eyeL		14	eyeL,
+9	fingerL1	16	fingerL1,
+10	fingerL2	17	fingerL2,
+11	fingerL3	18	fingerL3,
+12	footL		41	soleL,
+13	handL		22	handL,
+14	irisL		27	irisL,
+15	jowlL		30	jowlL,
+16	kneeL		32	kneeL,
+17	nostrilL
+18	shoulderL	38	shoulderL,
+19	hipL		25	hipL,
+20	toeL1		49	toeL1,
+21	toeL2		50	toeL2,
+22	toeL3		51	toeL3,
+23	wristL		63	wristL,
+24	ankleR		1	ankleR,
+25	eyebrowR1	60	whiskerR1,
+26	eyebrowR2	61	whiskerR2,
+27	eyebrowR3	62	whiskerR3,
+28	earR1		10	earR1,
+29	earR2		11	earR2,
+30	earR3
+31	elbowR		13	elbowR,
+32	eyeR		15	eyeR,
+33	fingerR1	19	fingerR1,
+34	fingerR2	20	fingerR2,
+35	fingerR3	21	fingerR3,
+36	footR		42	soleR,
+37	handR		23	handR,
+38	irisR		28	irisR,
+39	jowlR		31	jowlR,
+40	kneeR		33	kneeR,
+41	nostrilR
+42	shoulderR	39	shoulderR,
+43	hipR		26	hipR,
+44	toeR1		52	toeR1,
+45	toeR2		53	toeR2,
+46	toeR3		54	toeR3,
+47	wristR		64	wristR,
+48	belly		2	belly,
+49	butt		3	butt,
+50	chest		6	chest,
+51	chin		7	chin,
+52	head		24	head,
+53	jaw		29	jaw,
+54	neck		36	neck,
+55	nose (bottom)	37	nose,
+56	snout		40	snout,
+57	tail1		43	tail1,
+58	tail2		44	tail2,
+59	tail3		45	tail3,
+60	tail4		46	tail4,
+61	tail5		47	tail5,
+62	tail6		48	tail6,
+63	tongue1		55	tongue1,
+64	tongue2		56	tongue2,
+65	Z-trans		66	ztrans,
+66	Z-orient	65	zorient,
+	         	4	cheekL,
+           		5	cheekR,
+                	34	knuckleL,
+                	35	knuckleR,
+
+========== end of file ==================

@@ -1,0 +1,117 @@
+
+Just a note as to my editing methods so that with any luck all that I go on about in
+most of my tutorials or "howto"s will make sense.  
+
+The method I use nowadays is to simply edit the external LNZ files which come with my
+easy-edit packages.  I just open the LNZ into Notepad, edit to my heart's content,
+and then make it downloadable for you as an overwriting file.  Non-hexers who want
+to see them in their games just have to install my external-lnz packages from my
+"For LNZ-files 'n' easy-edits" original catz and dogz pages.
+
+What you'll see in my breed, clothes etc tutorials are extracts copied from Notepad.
+
+For those who are interested in historical methods:
+================================================
+Before I made the external-lnz packages, I still used Notepad to edit the LNZ files, 
+but I put them internally into the breed afterwards.
+
+What I did was: open the breedfile into Hex Workshop (or some other true hex
+editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string 
+[Little one] and place your cursor in front of it.  Scroll down and select from 
+there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. 
+Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file 
+from the drop-down file menu in the hex editor.  Place the cursor in it and choose 
+Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad. 
+This is the .lnz section of the breedfile (or .clz section of a clothes file),
+which _is_ actually itself a small text file.  When you've finished editing it, 
+you open it in the hex editor again, check that it's the same size as it was before, 
+and then copy/paste it over the same place whence it came!
+
+I edit some things directly in the hex editor of course -- non-ASCII stuff such as 
+the byte, bitmap and name, but the shape and colour of breedfiles (the stuff that 
+resides in the .lnz section, the stuff that "hex painters" or litter-makers  edit) I 
+always do as stated above.  It's quick, it's simple, and it shows you the 
+text-and-numbers .lnz files exactly as they were before the game-makers compiled them 
+into the resource files.  I have no idea why so many people are desperately keen to 
+edit the .lnz direct into the editor; seems crazy to me, because it means they have 
+to be told each individual thing separately for each individual breed.  For 
+instance, I put wingz on a dog file and from that I'd expect people to be able to 
+take the wingz data and put it on another breed, altering it slightly to suit.  
+There's no way I could picture most people managing to do that directly in a hex 
+editor.
+
+Pet files need to be edited in a hex editor, preferably one with a checksum feature 
+such as Hex Workshop.  I have tricks for speeding up any large amounts of editing 
+there, which I try to explain in the relevant tutorials.
+
+Filmstrip sections (in Toyz etc) need to be chopped up and given bitmap headers in a 
+hex editor, preferably Axe which lets you see the graphics.  And of course I need to 
+use a paint program for editing the bitmaps.
+
+NOTE as of early 2005 -- it seems likely that a new tool will be made available soon
+for editing Petz 5 SPR files, also I hope one will be made for the older FLH/FLM
+formats.  I for one shall be eager to use this instead of the laborious hand-chopping
+methods of before!!
+
+It is possible of course to edit breedfiles etc (_not_ petfiles!) in a modern-day 
+Windows Resource Editor such as the one at 
+http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the 
+.lnz file the way it's supposed to be and you don't have to keep the file size 
+always the same.  If you are editing Oddballz or Catz 1 or Dogz 1, then the only 
+Resource editor I know of that can handle their Resource files is the shareware 
+eXeScope which you can get from http://hp.vector.co.jp/authors/VA003525/Eindex.htm
+
+Please don't ask me how to use the tools; whether you use a hex editor or a resource 
+editor, I shall assume that you have practised a bit and know how to use it.
+
+A note about Resource Editors:
+-----------------------------
+I'm cautious about recommending Resource Editors to people who are new to the whole 
+scene, because I think such people could make a real mess of their files when they 
+don't know what they are doing, and I'm not prepared to supply "aftercare" for them. 
+Anyone who isn't able to check things in a hex editor is going to suffer something 
+of a handicap when it comes to troubleshooting when something goes wrong, plus there 
+are some things that you really _have_ to do with a hex editor.  But the day 
+Resource Editors started to appear and do the job properly (a couple of years ago 
+they weren't so good) was a real interesting day for me.  A Resource Editor is a 
+fine addition to the hexer's toolkit -- but you need to use it carefully and be 
+aware of what you are doing and why.
+
+What an editor such as Resource Hacker does is, it recompiles the breedfile when 
+you've finished editing any given section, thus allowing you to change the sizes of 
+the parts you're editing.  This is what all Resource editors do; ResHacker is a 
+particularly good one though because, even apart from being freeware, I think it's 
+pretty much the only one that lets you edit directly into the file.  Others let you 
+assign new .lnz files etc, but you have to edit them externally (in notepad etc).  
+So as I say, Reshacker recompiles the files, which means that it moves things to 
+suit itself and recalculates things in the header.  Because it rewrites the header 
+with the new information, the game can find everything fine, as can any resource 
+editor, so you don't need to worry about that.  As long as the resource editor can 
+show you all the parts of the file without corruption, the file is basically okay.  
+The reasons that I don't tend to use ResHacker much are:
+
+1) as you will notice, a ResHacked file opened in a hex editor looks different from 
+the original, because everything has been moved about a bit (this is what it does 
+when it recompiles and saves).  This means that, if you have a lot of breedfiles (as 
+I do) and you need to conserve bandwidth at your site (as I do), then the "patch" 
+system won't make nice neat small patches from ResHacked files.  There are a few 
+sites which use the patch system for distributing their files, for instance I passed 
+the patcher on to places like Leaping Frog Cattery and the Petz Boardwalk when they 
+were having troubles, and none of these places can use a Resource Editor without 
+increasing the sizes of their downloads dramatically.  You understand, the patches 
+just consist of the differences between the hexie and the original, and of course in 
+a recompiled breedfile those differences will be very large as everything will be in 
+a different place.
+
+2) I got used to the hex editor/notepad method over the years and I can do my hexing 
+about as fast as anyone can use the modern ResHacker, so I'm happy sticking with my 
+oldfashioned ways :-)  
+
+3) Resource editors haven't really been usable and reliable until the past year or 
+so, and although I think they are just fine now, it does seem that sometimes people 
+have problems with files corrupting.  If that happens, it can be more difficult to 
+fix up than a hexed file.
+
+Hope that helps clear things up a bit
+
+Carolyn Horn

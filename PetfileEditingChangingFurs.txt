@@ -1,0 +1,73 @@
+
+Question: How can I change the fur on my adopted tabby pet?
+
+Answer: There are two ways, both of which require the use of a hex editor which, preferably, has the ability to calculate checksums (such as Hex Workshop).  If you haven't a clue what I mean by "checksum" then, for basic petfile editing, please refer to my previous tutorial on the subject.  You need to keep the checksum the same on a petfile as well as the file size.  Before you start, please please always keep a backup copy of the pet -- it is _very_ easy to corrupt it.
+
+The first method is to go through every ball in the [Ballz Info] section of your petfile and change the colour (if you want the same stripes but with a different colour behind them).  Each ballz' colour number is the first number after the hex byte 0A (usually the colour is 65 in tabbies).  You should really do this for both of the [Ballz Info] sections; every petfile has two, the lower one for the kitten stage and the upper one for the adult stage.  Then, as usual, adjust so that the checksum is the same as before by changing numbers in the [Paint Ballz] sections.  Those sections usually have loads of long decimal numbers, usually to about 6 decimal places, and you wouldn't be able to detect a change in paint ball size if you alter the last 4-5 decimal-place numbers of each.  Remember also the [Add Ball] section (for instance, the ears in either a cat or dog and the extra balls for a Great Dane's jowls or tail or tabby's nose or legs etc).  The colour number for each ball in the [Add Ball] section is the fifth number after the hex byte 0A; here, the first number after 0A is basically the ball to which the added ball is being attached.
+
+An aside for those who have a pet which is missing a texture on a ball, you need to check out the number in the texture column of the relevant ball in [Ballz Info] or [Add Ball].  In Ballz Info, it is the 8th, or final, number after the 0A -- or in other words the number which comes directly before the next 0A which indicates the start of the next ball's info.  I can't think of any clearer way to describe it, but if you were to see the data laid out flat you'd see it like this (different numbers for different pets of course; this is just an example):
+
+[Ballz Info]
+65 244 0 1 -2 3 3 1
+65 244 0 1 0 3 3 1
+65 244 0 3 1 0 1 1
+65 244 0 3 1 5 3 1
+65 244 0 1 -2 -10 0 3
+65 244 0 1 0 -10 0 2
+65 244 0 3 -1 10 1 3
+65 244 0 1 1 -6 0 0
+etc.
+
+Now, if the ball in question has -1 in that 8th column, it will have no texture.  You need to remove the -.  Once again, you can use the [Paint Ballz] section to replace the - signs that you've removed; laid out "flat", the [Paint Ballz] look something like this:
+
+[Paint Ballz]
+16 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+17 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+18 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+19 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+
+just pop your "-" in front of one of the x,y,z numbers like this:
+
+[Paint Ballz]
+16 50 -0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+17 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+18 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+19 50 0 0.957826 0.287348 49 -1 0 -1 -1 -1 1
+
+The game doesn't seem to mind a "minus zero" number :-)  In [Add Ball], the texture number for the relevant ball is the 14th after the 0A which starts that ball's data.  There will be another number after that (usually -1) before the 0A which starts the next ball's data.
+
+A final word on lack of texture in a ball -- if the ball colour is above 150 (it might be the 248 grey, for instance) or is in the range 0-9, it will be opaque and won't take texture even if the ball's texture number is set right.  So you may need to change the colour too to get your textures showing up.
+
+The second, and rather more fun, method of changing textures is to change the bitmaps.  You can do this by finding the [Texture List] (again, for the adult section as well as the kitten one), where you can change these:
+
+\ptzfiles\cat\ta\stripe3.bmp 1
+\ptzfiles\cat\ta\stripe14.bmp 60
+\ptzfiles\cat\ta\stripe16.bmp 60
+\ptzfiles\cat\ta\stripe17.bmp 60
+\ptzfiles\cat\ta\stripe11.bmp 60
+\ptzfiles\cat\ta\stripe13.bmp 60
+
+to these:
+
+\resource\catz\newstrip3.bmp 1
+\resource\catz\newstrip14.bmp 60
+\resource\catz\newstrip16.bmp 60
+\resource\catz\newstrip17.bmp 60
+\resource\catz\newstrip11.bmp 60
+\resource\catz\newstrip13.bmp 60
+
+And adjust the numbers in the [Paint Ballz] section.   In my particular pet, which is included in this zipfile as an example, the checksum of the original was E17B.  The altered file (with both sets of texture lists changed as above) was E337.  I used the calculator which comes with Windows, set to "View Scientific", to discover that E337 - E17B was 01BC, or 444 in decimal numbers.  So I needed to reduce the checksum by 444.  Dividing 444 by 8, I found that I could do this by reducing 8 to 0 55 times, and to 4 once.  It didn't take long to do that, there are plenty of 8s that could be reduced like that in the Paint Ball area.
+
+If you want to, you can change the first texture (as I did in my example) to have 60 instead of 1; this will involve removing a number from the end of one of the paint ball numbers so that the file size stays the same.  I found it simple to find a 6 that wasn't needed near the end of a paint ball number and delete it.
+
+Included in this zipfile are two copies of the Petz3/Petz4 pet that I altered in this manner.  The first is exactly as adopted; the second is as it was directly after the alterations detailed above.  I include it like that so that you can check to see that che checksums for bot are the same, before you see how it looks in your game.  The included furfiles need, of course, to be in the game's \resource\catz\ directory.
+
+I have played with the pet since packaging it up for you, and it works fine in the game.  The whole process of changing the textures in this way, packing it up, and writing this "howto" took me about 20 minutes.
+
+
+
+Enjoy
+
+Carolyn
+
+

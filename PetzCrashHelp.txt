@@ -1,0 +1,59 @@
+
+Question: 
+
+My Petz game won't work.  Help!!
+
+Answer:
+
+You don't give me any real clues to work with, but here goes. does the game 
+freeze on the opening screen? Does it throw up an error message? Does nothing 
+at all happen when you double-click on either the shortcut or the exe itself?
+
+If you have Windows XP and recently installed SP2, try removing smapi.dll and 
+setupapi.dll and, perhaps, dsetup32.dll and DSETUP.dll from the game. If that's 
+not the answer, then it could be a corrupt item or messed-up Registry problem.  
+Remove all downloaded or hexed items from your game and reset the Registry or 
+clean it out.  See below for how to deal with that.  If your game is Petz 4 and
+you have XP, grab the latest update from the official ftp site
+ftp://ftp.ubisoft.com/games/petz4/patches/ or grab Petza from Nicholas' site
+http://www.sherlocksoftware.org/page.php?id=6
+If your problem is with Petz 3 in XP, get Petza -- it fixes the sound bug.
+
+If the problem is a "corrupt pet" error message, the game would still start but 
+would not show that pet. Removing the pet from the Adopted folder would cure that.
+
+If the problem is a freeze or an error message other than "corrupt pet", then hold 
+down the Ctrl and Shift keys on your keyboard as you start up the game, and say yes 
+when it asks if you mean it.
+
+If that doesn't solve it, then remove all downloaded or hexed items from the game 
+and put them somewhere safe elsewhere on your hard drive, then try the Ctrl Shift 
+trick again.
+
+If that doesn't solve it, then try a more thorough Registry clean-out for 
+whichever version of the game you're running; it removes all extra data that 
+a simple ctrl-shift reset or reinstallation doesn't. To clean out the Registry, 
+delete any .lkv files that are in your game's Resource\keys directory.  Don't
+panic if you don't have any .lkv files or even if you don't have a keys directory.
+The point is that you don't want any .lkv files in there at this time.  Now go to 
+Start, type Regedit.exe followed by Enter in the Run box, navigate by clicking on 
+the crosses in the left pane till you get to 
+
+My Computer\HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01
+or
+My Computer\HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 3\3.00.01
+or
+My Computer\HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 4\4.00.00
+or
+My Computer\HKEY_LOCAL_MACHINE\SOFTWARE\StudioMythos\Petz 5\4.00.00
+
+depending on which of the games it is that you have (you _really_ didn't give
+me any clues, did you??)  then choose Edit Delete from the main menu. Reboot, and 
+open the game again.
+
+If it's still not fixed, then maybe someone who has the same Operating System 
+as you do can help. I have Windows 95, I have no idea what OS you have.
+
+Good luck
+
+Carolyn Horn

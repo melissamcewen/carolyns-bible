@@ -1,0 +1,88 @@
+
+How to bring Runaways home
+========================
+
+This is particularly useful for people who cannot get their accedental runaway-pet 
+back into Petz 5; the signboard thing doesn't always work, the registry hack method 
+only works for Petz II, 3 and 4, and so you can't use the brain sliders to get your 
+pet back.  But you can change the necessary byte in a hex editor and get your pet 
+back that way.  This actually works for petz 3, 4 and 5.  I cover Petz II in a
+separate howto, but include the info at the end of this one for completeness.
+
+IMPORTANT:
+Make sure you have a safe copy of your pet before you start this process.
+Also it's best to make sure that there are no other pets in the Adopted directory 
+while you are working on bringing the runaway home.
+
+Now open the pet in the hex editor and go to file offset address 00000CE3 (if you've got 
+your hex editor set to show the file offset in decimal numbers, then that address is  
+00003299).  This byte contains the "energy" of the pet, and can never be greater than 
+hex 64 as it represents a "percentage" number and hexadecimal 64 is decimal 100.  
+The next few bytes contain the current state of the pet's fullness, fatness etc.
+
+So here's an example of a pet's data at this point.  Please note that this is only an 
+example; the numbers in this area of your petfile are almost bound to be different 
+because your pet will be in a different state of energy, fullness etc.  What I'm 
+showing you here is how to see what bytes to look for; they start at 00000CE3 and 
+each single number has 3 00 bytes before the next.  Some of the actual bytes you're 
+looking for will be 00, so you need to concentrate:
+
+00000CE0 | 0000 0022 0000 0000 0000 0022 0000 0000 | ..."......."....
+00000CF0 | 0000 0000 0000 0000 0000 000A 0000 0064 | ...............2
+00000D00 | 0000 0032 0000 0057 0293 D401 0023 0000 | ...d...W.....#..
+
+and here's a breakdown of what it all means (as I say, remember that the actual 
+numbers will be different in your pet):
+
+hexadec.   dec.	what it is
+--------- ----- ----------
+2200 0000  34	energy
+0000 0000  0	fullness
+2200 0000  34	fatness
+0000 0000  0	sickness
+0000 0000  0	catnipped
+0000 0000  0	fleas
+0A00 0000  10	horniness
+6400 0000  100	neglect
+3200 0000  50	age
+
+Right, this pet is a runaway -- its "neglect" is very high indeed, actually 100%.  
+I think a pet can run away when that byte is 50 or more, but I've not tested what 
+number it is when the pet first runs away.  So, what you need to do is to change 
+the "64" which is in that slot to "00" and change, say, the "00" in the "fullness" 
+slot to "64".  This keeps the checksum the same and is nice for the pet :-)
+Once you've done that, you can open the game and your pet will no longer be runaway.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+For Petz II I have an html version of the following, on my "infobits" page, 
+complete with screengrabs.  But I include the info here too for completeness.
+
+
+Petz II Runaway petz full fix 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+The old method, of bringing out the Runaway pet by putting its ID in the
+Registry, was not very satisfying, because the pet was still classed as Runaway
+no matter how happy you made it. And the method of bringing the pet into a
+later game only works for people who have a later game. This solves the problem
+entirely. 
+
+You have to have some knowledge of editing .pet files before you try this, also as
+always you will make sure you have a safe copy of the pet somewhere first,
+won't you? This is pretty obscure, but if you concentrate you should be able to
+do the job. 
+
+The byte you need to change is at address 840 (decimal) 
+or, if you prefer hex notation, 348 (hexadecimal). 
+
+In a Runaway pet, this byte is hex 01. Change that to hex 00. 
+You will then have to compensate for the checksum; just increase a nearby
+number by 01. 
+
+Save. Place your runaway in the Adopted Petz directory. Next time you open the
+game, you can bring out the pet. 
+
+Happy homecomers! 
+
+Carolyn Horn 

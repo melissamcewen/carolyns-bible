@@ -1,0 +1,51 @@
+
+This is just a brief answer on how to do it; if you want to have more detail,
+plus how to add on-shelf graphics and and how to fix it properly in Petz 5,
+read my in-depth tutorial under "Un-hiding and giving shelf graphics to 
+difficult toyz"
+
+Toyz which are "hidden" you can make so that you can get them from the 
+toy closet. Careful, though -- there is no animation for them being on 
+the shelf, so you have to grab at what looks like blank shelf to make 
+some of them appear in the hand.  But it's quite funny to have the tortoise 
+trundling around in the toyroom...
+
+Take the Petz 4 beetle for example, and find its ID number 
+(what we all call the "offset byte").  You can do that by searching for
+Beetle and finding the place which looks like this:
+
+00016992 | 0000 0000 4265 6574 6C65 0000 0000 0000 | ....Beetle......
+00017008 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00017024 | 0000 0000 9927 0000 0100 0000 0000 0000 | .....'..........
+
+change the 0100 which you see 3 bytes after the ID number (which in this 
+case is 9927) to 0300, as for the toys that we are supposed to see.
+For instance, you can see it clearly in the dog brush:
+
+00017408 | 0000 0000 426C 7565 2044 6F67 2042 7275 | ....Blue Dog Bru
+00017424 | 7368 0000 0000 0000 0000 0000 0000 0000 | sh..............
+00017440 | 0000 0000 2627 0000 0300 0000 0000 0000 | ....&'..........
+
+So that line in the beetle would look like this in your hex editor 
+if you want it to be in the toy closet:
+
+00017024 | 0000 0000 9927 0000 0300 0000 0000 0000 | .....'..........
+
+or the Petz 3 hermit Crab:
+
+00019040 | 0000 0000 4865 726D 6974 2043 7261 6200 | ....Hermit Crab.
+00019056 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00019072 | 0000 0000 2B27 0000 0100 0000 0000 0000 | ....+'..........
+
+change the 01 to 03:
+
+00019040 | 0000 0000 4865 726D 6974 2043 7261 6200 | ....Hermit Crab.
+00019056 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00019072 | 0000 0000 2B27 0000 0300 0000 0000 0000 | ....+'..........
+
+and it will appear as a blank space in the toy closet.
+
+Enjoy
+
+Carolyn Horn
+

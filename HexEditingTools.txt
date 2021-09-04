@@ -1,0 +1,83 @@
+
+Apparently a lot of people simply cannot understand, or are unwilling 
+to read, what I say in my tutorials -- especially about the tools that 
+a hexer needs.
+
+So here I'm answering these common questions.  Please note that I am 
+always happy to help anyone who genuinely wants to learn to hex-edit my way 
+and has problems with the way I put things, but I am a little impatient with 
+the many people who write these particular questions.  And sheesh, I _hate_ 
+the "r u" and "4 me" type of shorthand, but that's how people write to me, 
+so here verbatim are the things that I am often asked: 
+
+a) "what is hex?"
+b) "how do u hex?"
+c) "do u need a program to hex?"
+d) "if so do u have to get it from a pc shop?"
+e) "can u tell me what site 2 find <a specific breed or toyz etc> i dont have time 2 look"
+f) "will u hex a cat/dog/baby/pet 4 me and i want it 4 me only"
+g) "heres a breed i want u 2 convert it 4 me"
+h) "i want u 2 make this for me i dont have time 2 read all that stuff youve written"
+
+And here are my answers, in real English because I have no idea how to write 
+in "tex" or whatever the modern shorthand is:
+
+Q) "what is hex?"
+A) "Hex", in the Petz Community, is the term used to refer to hex editing or 
+hex painting, both of which are the altering of a file through the use of a 
+hex editor.  Recently, people have started to use the modern Resource Editors  
+to edit some files, but they still refer to it as "hexing" because usable 
+Resource Editors are very new.
+
+Q) "how do u hex?"
+A) Please, please red my tutorials and "howto"s, available at this site; I 
+put a lot of time and effort into trying to explain to people how I hex edit 
+breedz etc, and it would be courteous for you to at least try to read what I 
+have written.  Remember too, that if you cannot understand what I've said in 
+my tutorials, you probably wouldn't be able to understand any attempt I make 
+to re-write them for you.  Your best bet, in that case, is to find one of 
+the many other people who hex-edit, and have them explain it to you.
+
+Q) "do u need a program to hex?"
+A) I explain about the tools you need in my tutorials.  A quick resume, and some new
+tools for you to try:
+1) -- You need a hex editor for some things.  Do a search for "hex editor" and Freeware 
+using the Google search engine on the internet -- www.google.com.
+2) -- Some people nowadays use Resource Editors such as ResHacker for "hexing" new 
+breedz or babyz.  See my totorials page for a link.
+3) -- To hex edit my way, you need Notepad.  That should be on your computer already.
+Also for really easy "hexing", download and install my various easy-edit kits.
+4) -- Another easy way to "hex" Petz breedz would be to download LNZ Pro and 
+Pet Workshop, available on my "Nicholas' Tools" pages. 
+5) -- For some very occasional items, you need Wordpad.  On your computer already.
+6) -- For filmstrips etc you need a paint package.  Paint will do, already on your computer.
+7) -- For filmstrips, you may want to download Axe 2.  It's available at my site 
+(tutorials page) and at Daniel Wright's Odd-petz site.  But I expect you'd pefer Tinker...
+8) -- For toy-making and filmstrip-editing, grab Tinker.  From my "Nicholas' Tools" pages.
+
+Q) "if so do u have to get it from a pc shop?"
+A) No.  You can download anything that you need.
+
+Q) "can u tell me what site 2 find <a specific breed or toyz etc> i dont have time 2 look"
+A) No.  I don't have time to look either, and I do not run a search service.
+Try asking around on the many forums.  I have links to some on my Links page.
+
+Q) "will u hex a cat/dog/baby/pet 4 me and i want it 4 me only"
+A) No. I do not have any spare time to take on new hexing work, and I do not 
+do exclusives any more.  Try asking around on the many forums, there are a 
+lot of talented hexers on the Internet.  I have links to some of the forums on my 
+Links page.
+
+Q) "heres a breed i want u 2 convert it 4 me"
+A) What a shame you wasted bandwidth sending me the breed.  I have no time to 
+convert other people's breedz, and I do not run a conversion service.  Try asking
+around on the many forums, there are a lot of talented hexers on the Internet.
+I have links to some of the forums on my Links page.
+
+Q) "i want u 2 make this for me i dont have time 2 read all that stuff youve written"
+A) Good gracious me, _NO_!  If you have no time to read what I have written,
+that's a shame -- but I have no time to make the thing you want, either!
+
+Good luck
+
+Carolyn 

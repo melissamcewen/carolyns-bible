@@ -1,0 +1,94 @@
+
+Making sure the game will find your new filmstrip
+=================================================
+
+Okay, now your toy or item of clothing looks gorgeous but when you
+put it in the game it either looks the same as the original on the
+shelf or it reverts to the look of the original when you take it off
+the shelf.  All that hard work, and nothing to show for it! Or the
+original looks like yours and that's frustrating too.
+
+Oookay, we want to be sure that when it's renamed and renumbered and 
+your original toy (or whatever) is put back into the game it still 
+works as you intended.
+
+You need to change the pointers inside the file, therefore, in order 
+that the game doesn't get confused and (for instance) only produce 
+the original yellow butterflies and not your glorious blues. In those 
+Petz "Blowers" and babyz "Blooms" of mine, I had to change all these 
+references to sprites that are within the .toy file to make sure it 
+picked up the one from my altered file and not the original -- and of 
+course it works both ways, the game gets muddled and picks up whichever 
+it thinks is the correct one.  To illustrate what I'm trying to say, 
+look at this, in the area where you see things like Thickness and 
+Mouselike listed:
+
+000071B0 0700 0044 5844 6F77 6E6C 6F61 6400 0000 ...DXDownload...
+000071C0 5370 7269 7465 5F42 466C 795F 5831 0000 Sprite_BFly_X1..
+000071D0 5370 7269 7465 5F42 6F77 6C5F 4632 0000 Sprite_Bowl_F2..
+000071E0 5573 6564 4600 0000 5573 6564 4500 0000 UsedF...UsedE...
+000071F0 5573 6564 4400 0000 5573 6564 4300 0000 UsedD...UsedC...
+00007200 4772 6F77 4200 0000 4772 6F77 4100 0000 GrowB...GrowA...
+00007210 4772 6162 6265 6446 0000 0000 4772 6162 GrabbedF....Grab
+00007220 6265 6445 0000 0000 4772 6162 6265 6444 bedE....GrabbedD
+00007230 0000 0000 4772 6162 6265 6443 0000 0000 ....GrabbedC....
+00007240 4772 6162 6265 6442 0000 0000 4772 6162 GrabbedB....Grab
+00007250 6265 6441 0000 0000 4177 6179 4600 0000 bedA....AwayF...
+
+The bowl sprite name had to be changed from the normal flower's 
+Sprite_Bowl_F1 to Sprite_Bowl_F2 (or F2 is what I chose, anyway).  
+I left the X1 alone because that doesn't necessarily get affected 
+in this instance, but for completeness it's probably better to 
+change it also. Then, a bit lower down you get more references to 
+Bfly and Bowl sprites, which need to be changed; I changed the Bfly 
+ones here because that affects the colour of the butterfly that appears:
+
+00007700 2E3F 4156 4669 6C6D 7374 7269 7040 4000 .?AVFilmstrip@@.
+00007710 5C41 7274 5C53 7072 6974 6573 5C54 6F79 \Art\Sprites\Toy
+00007720 7A5C 426F 776C 5F46 325C 4246 6C79 5F4F z\Bowl_F2\BFly_O
+00007730 322E 666C 6D00 0000 5C41 7274 5C53 7072 2.flm...\Art\Spr
+00007740 6974 6573 5C54 6F79 7A5C 426F 776C 5F46 ites\Toyz\Bowl_F
+00007750 315C 4246 6C79 5F59 322E 666C 6D00 0000 1\BFly_Y2.flm...
+
+Then of course there's the List Of All that's in the file, it needs 
+to be changed or the game will crash because it can't find the renamed 
+sprite.  I didn't bother to change the pointers to the sounds, as I 
+used the same ones as were in the Flowers.  It would be possible to 
+change the sounds, of course, by altering the sounds list pointer to 
+a different one and having those sounds external to the file, but 
+that is not part of the filmstrip and so not covered by this howto:
+
+00008300 0700 4200 4600 4C00 5900 5F00 4F00 3200 ..B.F.L.Y._.O.2.
+00008310 0700 4200 4600 4C00 5900 5F00 5900 3200 ..B.F.L.Y._.Y.2.
+00008320 0700 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008330 0C00 4200 4F00 5700 4C00 5F00 4600 3200 ..B.O.W.L._.F.2.
+00008340 5F00 4100 5700 4100 5900 0300 4600 4C00 _.A.W.A.Y...F.L.
+00008350 4D00 0300 5400 5800 5400 0E00 4200 4500 M...T.X.T...B.E.
+00008360 5600 4500 4E00 5400 5F00 4200 4F00 5700 V.E.N.T._.B.O.W.
+00008370 4C00 5F00 4600 3200 0E00 5300 4F00 5500 L._.F.2...S.O.U.
+00008380 4E00 4400 5300 5F00 4200 4F00 5700 4C00 N.D.S._.B.O.W.L.
+00008390 5F00 4600 3100 0000 0000 0000 0000 0000 _.F.1...........
+000083A0 0200 0000 5370 7269 7465 5F42 6F77 6C5F ....Sprite_Bowl_
+000083B0 4632 0000 0000 0000 0000 0000 0000 0000 F2..............
+000083C0 0000 0000 466C 6F77 6572 7300 0000 0000 ....Flowers.....
+000083D0 0000 0000 0000 0000 0000 0000 0000 0000 ................
+000083E0 0000 0000 1F30 0000 0300 0000 5370 7269 .....0......Spri
+
+And finally, this, down in the naming section (once again, the 
+game will likely crash if this hasn't been changed to exactly the 
+same as the stuff above:
+
+00781088 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781104 0700 4200 6C00 6F00 7700 6500 7200 7300 ..B.l.o.w.e.r.s.
+00781120 0700 4200 6F00 7700 6C00 5F00 4600 3200 ..B.o.w.l._.F.2.
+
+Check out the similar areas in your files, change the names of any 
+sprites or bitmaps that might end up "clashing", and eureka!  Your 
+toy will retain the colours you chose for it and not pick up the 
+colours in the original toy.
+
+Happy hexing
+
+Carolyn Horn
+
+

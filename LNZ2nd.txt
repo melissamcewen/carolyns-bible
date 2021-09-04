@@ -1,0 +1,801 @@
+01 Nov, 2005, attempt to clear up some confusion as regards the [Paint Ballz] info
+18 Oct, 2005, even more detail in the [Texture List] info
+13 Oct, 2005, expanding on the [Texture List] explanation.
+18Sept, 2005, more explanation of [Add Ball] and the bodyarea
+03June, 2005, a bit more explanation for Babyz in [Add Ball]
+01June, 2005, a mention of the limit of [Linez] allowed.  Also Babyz [Paint Ball] "outlineindex" added
+07 Feb, 2005, expanding on the [Texture List] explanation.
+28 Nov, Explaining that [Add Ball] variations are best handled in [Omissions]
+11 Nov, clarifying the "pug tongue" effect in [Add Ball].  Also noting that
+        Butterfly Chaser has made a list of useful Bodyarea numbers.
+09 June, a bit more explanation on [Thin/Fat], where some people don't "get it"
+         Also listed this chunk's key Texts at the top here
+24 May, it's possible to make a breed entirely of add ball ballz only, but...
+19 May, more explanation of outlines in [Add Ball] and [Ballz Info]
+18 May, a little more on the extra columns in [Linez]
+13 May, an explanation of the "laser-line" effect you get in some hexies
+when you put a hat on a pet.  Look under [Linez]. Also, even more on [Add Ball]; 
+the game crashes beyond a certain quantity, so Add Ball hexers take heed!
+12 May 2004, expamded slightly on the extra column in [Add Ball]
+
+ALL BREEDZ HAVE THESE: 
+===================== 
+=====================
+[Thin/Fat]
+[Texture List]
+[Add Ball]
+[Default Linez Thickness]
+[Linez]
+[Paint Ballz]
+[Ballz Info]
+
+----------------
+
+As with the first of these information sheets, what I'm doing here is
+listing the actual Key Text, or command, in its [ ] brackets as the header for my
+information on that subject, then beneath that I'm listing the programmers' 
+comments which come with it, including those which we hexers see as handy column 
+headers.  Then I'll show examples where appropriate and details of what all the 
+columns are for.
+
+[Thin/Fat] 
+============ 
+This is where you control the limits of how fat or thin your breed's
+pets can become. 
+There are three columns, one of which is the ball number, and the other
+two are the limits of thinness and fatness.  Just fool around with these
+until you get them the way you want them.
+
+As an example, take a CAlico cat.  Normal for this would be:
+
+[Thin/Fat]
+4,	-15,	15
+5,	-15,	15
+7,	0,	6
+2,	-10,	25
+6,	-10,	10
+3,	-10,	10
+43,	-5,	15
+44,	-5,	10
+45,	-5,	10
+46,	-5,	10
+47,	-5,	5
+48,	-5,	5
+36,	-10,	10
+12,	-10,	15
+13,	-10,	15
+38,	-10,	20
+39,	-10,	20
+25,	-10,	10
+26,	-10,	10
+32,	-10,	10
+33,	-10,	10
+0,	0,	10
+1,	0,	10
+
+Well, if you want your adopted cats to look really peculiar if they are
+very thin or very fat, change those to:
+
+[Thin/Fat]
+4,	-75,	75
+5,	-75,	75
+7,	-70,	76
+2,	-70,	85
+6,	-70,	70
+3,	-70,	70
+43,	-65,	75
+44,	-65,	70
+45,	-65,	70
+46,	-65,	70
+47,	-65,	65
+48,	-65,	65
+36,	-70,	70
+12,	-70,	75
+13,	-70,	75
+38,	-70,	80
+39,	-70,	80
+25,	-70,	70
+26,	-70,	70
+32,	-70,	70
+33,	-70,	70
+0,	-50,	70
+1,	-50,	70
+
+When 100% fat, your pet will be a cute set of blobs, and when thin it will
+be a thin sausage with a skinny head and disconnected feet.  Obviously you
+would not want to be as extreme as that, LOL.  Also you can add in other
+ball numbers; whatever ballz you want to have become fat or thin when the cat
+is overfed or starving, just add them in with your own idea of how big and
+little they should become.
+
+The same applies to dogz and babyz of course.  If you want your pets or babyz
+never to become too fat or too thin, this is the plaec to make that happen.
+
+[Texture List] 
+============== 
+; First argument is name of texture.
+; Second argument is whether texture is single color (1) or multi-color (0)
+; This texture list is used both here and in add ballz
+[Texture List]
+\art\textures\hair6.bmp         1
+\resource\catz\scott1.bmp       0
+
+The "first argument" is the name of the furfile, but it's also the address,
+or where the game has to look to find it. The address
+\art\textures\
+means look within the main game .dll files -- although if we wish, we can
+make an \art\textures\ directory on our hard drive and put the textures in
+there, and the game will find those in preference to the ones in the dll.
+The address
+\resource\catz\
+means look in the \resource\catz directory for the furfile.
+The address
+\ptzfiles\dog\dh\
+means look in the Dachshund breedfile for the furfile.  (For more detail on
+this kind of internal texture, see further down in this chunk, under Adding
+Textures Internally).  Usually you won't get much success if you try pointing
+to the furfile that's within one breedfile from the [Texture list] of another.
+Also note that Petz 5 has a special little quirk which causes the game to 
+pick up on any original game furfile in preference to any other of the same
+name that you direct it to anywhere else.  So avoid default game-name furfiles if
+possible in your own custom-made ones.
+
+The "second argument" is a kind of flag.  0 in that column flags up that 
+the texture is multi-colour -- in other words, basically all the colours 
+of that texture will be applied to the ball and your ball colour isn't 
+going to show through unless it's in the "opaque" range (0-9 or 150 upwards).  
+"Opaque" colours don't let any texture show at all.  So if your argument is 
+0 and the colour in the "transparent" range, the texture is basically unaffected 
+by the colour.
+
+If your argument is 1, the texture is entirely changed to the colour of
+the ball, with the texture being in faint shades of that colour.
+
+If your argument is the number of any other opaque colour such as 2-9 or
+150 upwards, it apparently behaves in the same way as 0, making the
+Texture itself "opaque" to "transparent" colours.  
+
+Any argument number from the "transparent" colour range 10-149 allows
+the ball colour through in any part of the texture which has that
+colour.  So if you want your Tabby to have stripes of pink on an
+orange-brown background, give its body and leg textures the argument 95
+and the corresponding ballz the colour 70, and if you want it to have
+brown stripes on a pink background, give the textures the argument 65.
+
+SUMMARY: In order to see a texture on a ball, your ball's colour has to be 
+in the "non-opaque" range. That means, choose any colour from 10 to 149
+inclusive.  Any other number will not show a texture. If you put any
+"transparent" number in the "argument", such as 65, that number should 
+indicate which colour in the "background" of the texture will allow your 
+ball colour to show through.  
+
+And a special note for the Wizard texture bitmap; for some magical
+reason, clever colour-changes which work on some people's machines do
+not work on other people's machines.  The Wizard texture itself is
+identical, byte for byte, between all the games Petz 3, 4 and 5, and
+I've checked with different versions of the games.  The problem does
+seem to be machine-specific, not game-specific or Operating-system
+specific.
+
+If you are using a texture which is not one of the game's originals, you
+need it to be 256-colour, it must be in a directory on your hard drive
+which matches the address in the texture list, and for Petz 5 it must be
+32x32 pixels or multiples thereof (not exceeding 128x128 pixels
+and not necessarily square -- 64x32 will be okay, for instance).
+
+If you want the left ankle to be brindled in the Sheepdog, do the
+texture list like this for example:
+
+[Texture List]
+\art\textures\hair10.bmp  1 <-- this is texture number 0; the colour "argument" is 1
+\art\textures\redrib.bmp  1 <-- this is texture number 1; the colour "argument" is 1
+\art\textures\hair6.bmp   0 <-- this us texture number 2; the colour "argument" is 0
+
+So that you have hair6.bmp in the list with its colour argument set to
+0.  Then change the number  in the texture column of the left ankle in
+the Ballz Info, since you want to use the third  texture (number 2):
+
+;col  outCol  spklCl  fuzz  otlntTyp  sizeDif  group  texture  ball#
+[Ballz Info]
+  25,    244,    -1,     5,    -1,     8,      4,     2     0  ;L ankle
+
+And you would change the number in the texture column to 2 for every
+ball you wanted to be brindled.
+
+I found that "60" was a good number to use for the "colour argument" if
+you want your background ball  colour to show through and still keep the
+brindle effect:
+
+\art\textures\hair6.bmp        60
+
+it allows the ball colour through where the bitmap background is colour
+60. 
+
+Adding Textures Internally
+-----------------------------
+
+You want to add your own bitmap, but not have to include it as an extra file
+along with your breed?  This is fine, if you're making a full breedfile, but if you're
+simply releasing litters remember that people won't see the textures on their petz
+if you made the litters from a breedfile with custom internal textures.
+
+All you need to do is to open your breed in trusty LNZPro, choose "Add Resource" 
+from the Edit drop-down menu, Browse to the bmp you wish to use, click Create, and
+ta-da -- your bitmap is now in the file.  Save, of course.
+
+You want to add it to the Texture List in the LNZ now.  The "address" will be in
+this form:
+
+\ptzfiles\<dog or cat>\<2-letter mnemonic>\<your bitmap name>.bmp
+
+So, for a furfile called "mybitmap", in a Dachshund (the 2-letter mnemonic is dh
+in the original dachshund breedfile)
+
+\ptzfiles\dog\dh\mybitmap.bmp
+
+or in a B+W Shorthair cat (2-letter mnemonic is of course bw in the original breed)
+
+\ptzfiles\cat\bw\mybitmap.bmp
+
+
+Extra info about [Texture List]
+-----------------------------
+
+When you look into a .pet file, you'll notice that there are two more
+numbers after each texture in the list.  These two numbers can of course
+be controlled by adding them into your breedfile, which will force certain
+effects into the petfile.  To understand what I mean, here are examples of
+what the game usually puts into a pet file.  Say I have, in the breefile,
+the following:
+
+\art\textures\hair6.bmp 1
+\resource\catz\quad\nose.bmp 0
+\art\textures\mottled2.bmp 60
+
+The .pet file will come out with this, which includes two extra columns of
+numbers, or "arguments", each of which usually contains the number 256:
+
+1st Argument(texture address) 2nd   3nd  4th
+---------------------------------------------			
+\art\textures\hair6.bmp 	1 	256 	256
+\resource\catz\quad\nose.bmp 	0 	256 	256
+\art\textures\mottled2.bmp 	60 	256 	256
+
+The 3rd argument is a kind of "fine tuning" of the transparency of the texture.
+If your 2nd argument is 0, which means that you should only be seeing the
+texture and not the underlying colour, it can have the effect of making the markings 
+in the texture more or less prominent.  If the 2nd argument is 1, the 3rd argument
+fine-tunes the style of the texture transparency -- i.e. how much it is mixed
+with the ball colour.  
+
+The 4th argument gives you a chance of making a part of the ball look different
+without having to use [Paint Ballz].  However, this should be used with care
+because a small number such as 32 in this column can cause problems with Linez
+instability.  Try it, and you'll see what I mean.  16 in this column, if it doesn't
+make your game crash, gives the pet a very disconnected look.  It may be that the
+programmers intended this feature to be useful but it does have its down-side.
+But if you want to try it, you may find it useful to use the [No Texture Rotate]
+feature to stabilise it in any ballz that you wish to be affected.  I discuss
+[No Texture Rotate] elsewhere, but basically you use it like this:
+
+[No Texture Rotate]
+2
+3
+
+will mean that the no-rotation feature has been applied to ballz number 2 and 3.
+
+I've not done in-depth exploration of these two extra arguments in the
+[Texture List], but Lynelle, who bred the brilliant Q-zots and made the breed 
+from them, has done a lot of experimenting and has shared her results.
+
+She has this to say:
+-------------------
+
+I found some really interesting effects when messing with the 
+3rd and 4th parameters of the textures section.  If you do this:
+
+texturepath/texturefile  1   128  32
+
+you get balls that are top-half texture, and bottom half speckled stuff.  
+Adjusting the 4th param moves the perimeter of the speckles up and down the 
+ball, so that at about 256 the ball is all texture no speckles. Not sure what 
+the use of that is supposed to be!
+ 
+The third param controls how much the base color shows through the texture color.  
+It only works when the second param is 1, so far as I can tell.  And only certain 
+values are valid: so far I have found 64, 128, 256, and 512 work.  It also doesn't
+work unless the base color of the ball it is trying to mask is in the range 10-130.  
+So it doesn't work on the blues range (too bad).  But it is pretty kewl.  
+The DZNAR5.bmp texture in the Q-Zot breedfile is defined with this effect, 
+so you can get some unusual colors when that texture is applied.   
+If you get a pink q-zot, or a green one, it is just a rare combination of
+transparent texture with base ball color.  I didn't actually include pink or 
+green or yellow or whatever in my Color Overrides.
+
+Thanks, Lynelle!
+
+I would add that there is an effect with the third param, or argument, even
+when the 2nd argument is 0.  It affects the prominence of some features within
+a texture, if the texture is one with gradations.
+
+[Add Ball]
+=============
+;base   x       y       z     color otlnCol spckCol  fuzz   group  outline ballsize bodyarea addGroup texture 
+
+The [Add Ball] is brilliant, you can make just about any shape you want,
+using this section.  You can build a whole breed on just one base ball,
+omitting all the others (as with the fishie), or you can make your
+babies very different from your adults, just by fiddling with this
+section.
+
+Note that there is a "hidden" extra column, which you always see in
+dogz' extra tongue ball:
+
+63,     0,      0,      0,      1,      0,      0,      -1,     -1,     -1,     -1,     0,       0,      1,    63 
+
+If this is not put in there, the middle ball of the tongue appears to be
+missing.  This was the error that StudioMythos made with the Pug's
+tongue.  (To clarify this further; the reason why there was an apparent gap
+is that the ball size is too small to be seen, at size "0", unless its size 
+is shown relative to a ball number listed in that extra colmn.  If the ball
+size had been something like 20, then it would have appeared just fine.  This
+isn't the only reason that it's good to put tongue ball 63 in that extra column, 
+as I show below, but it's a major reason why there was a gap in the Pug's tongue).
+
+So, for Add Ball ballz that you wish to behave in a special way relative
+to a particular ball, put the relevant base ball number in that column. 
+My spiders' legs, for instance, would not work right if I didn't have
+connections like this for the lower legs:
+
+38,     0,      10,     60,     39,     79,     0,      -1,     3,      0,      26,     1,      0,      -1,
+12,     0,      0,      60,     39,     79,     0,      -1,     3,      -1,     -10,    1,      0,      -1,     12
+63,     0,      -5,     60,     39,     79,     0,      -1,     3,      -1,     -10,    1,      0,      -1,     63
+63,     0,      0,      60,     39,     79,     0,      -1,     3,      0,      -10,    1,      0,      -1,     22
+
+Note that this extra number also makes a difference to the size of the ball.
+It helps greatly, if you want your ball to be exactly the same size as the base
+ball (useful sometimes, really).  Just put the "relative" ball in that column 
+and then 0 in the ballsize column.  As with the paint Ball section, it's a
+kind of scale hack, but also as I say above, a behaviour hack.  Very handy.
+
+;base   x       y       z       color otlnCol spckCol  fuzz   group  outline ballsize bodyarea addGroup texture
+2,      3,      -12,    -258    55      0       0       0       -1      -1      50      0       1       -1
+
+Most of the columns are really self-explanatory, but some need a bit of
+extra understanding.  The easy ones are:
+
+base -- the base ball that you want your added ball to be positioned
+relative to. 
+
+x y and z -- the 3-dimensional co-ordinates of where you want your ball
+to be positioned relative to the base ball. If you picture the pet
+looking out of the screen at you and your base ball is the head ball: 
+The x co-ordinate moves your ball to the pet's left (a smaller or more
+negative number) or right (larger or more postive number) of the head.  
+If you're not sure which left and which right I mean, just experiment a
+little. 
+The y co-ordinate moves it up (a smaller or more negative number) or
+down (larger or more postive number) 
+The z coordinate moves it further out of the screen towards you (a
+smaller or more negative number) or back away from you (larger or more
+postive number) 
+
+Color  -- the colour of the ball.  Note that colours 0-9 inclusive and
+150  upwards are "opaque" and will not allow textures to show. 
+
+otlnCol -- the ball's outline colour.  Any colour other than black will usually
+not pass on to 2nd-gens (apart from the iris outline colours if you've
+designated any [Add Ball] ballz to be irises with the [Eyes] command)
+
+spckCol -- Speckle colour; this is not noticeable in Petz II-5, but is
+very important in catz 1 and dogz 1. In those original games, Speckles
+were the only way of getting some kind of texture onto a pet. 
+
+Fuzz -- well, fuzz.  -1 is no fuzz, 3 is quite a lot of fuzz. 
+
+outline -- thickness of outline. As with [Ballz Info] ball outlines, you 
+can specify a more minus number than -1; for instance, -2 will produce a 
+"relief-map" effect, making the ball appear to stand proud, without giving 
+it the harsh solid-outline effect that you would get with the positive 
+thickness of 2.
+
+ballsize -- ball, err, ah, how can I put it?  Size.  Yes, that should do
+it -- LOL! 
+
+texture -- the texture which goes on the ball, and you use the [Texture
+List] here just as with [Ballz Info] ballz.  -1 means no texture, 0
+means the first texture in the Texture List 1 means the second texture
+in the list, etc.
+
+The three columns which confuse people most are: group, bodyarea, and
+addGroup:
+
+group -- As with the [Ballz Info] section, this controls certain
+properties of the ball, including how the pet takes paint from the paint
+brush and how ball properties continue on into 2nd-gens.  You would use
+this in conjunction with [Fur Color Areas] to force pets to pass on
+certain traits.
+
+bodyarea -- This is important when it comes to 2nd-gens and linez
+joining properly.  To make sure that  a 2nd-gen will pick up your linez
+properly, you need to make sure that all the balls that are to be joined
+have the same bodyarea, and if they are to be joined to a base ball,
+they need to have the same bodyarea as that ball.  I don't have a list
+of bodyareas, but a good rule of thumb is that, if the ball is to be a
+head ball or near the head, use bodyarea 8 and for others, 1 is a pretty
+good catch-all.  Don't use 0 because that tells the game to use defaults
+that it chooses. NOTE: I gather that Butterfly Chaser has put together
+a useful list of Bodyarea numbers which should be very helpful to people
+who end up with 2nd-gen double-tail problems when cross-breeding.  Hers
+is for dogz, as that is what she hexes.  I have made my own version of
+a bodyarea list for Dogz, also one for Catz and one for Babyz, which you 
+will find on my main LNZ-details page.
+
+Bodyarea also has a bearing on how a ball behaves.  So if you have a ball
+which zooms about the place every time the head moves, and you had its
+base ball as the chest, you most likely have the bodyarea number set to 8.
+
+NOTE For Babyz, all you really need to know is that bodyarea 8 makes the
+added ball behave correctly for a head-ball and bodyarea 1 makes it
+behave correctly for the wriggly body.  There is not the precision available
+in Babyz, really, as there is in Petz; using other numbers produces no 
+significant difference from that for the body.  -1, on the other hand,
+can produce some strange effects in the babyz' shape.
+
+addGroup -- This is the column which, in oddballz, would enable certain
+emoticons to pop up at certain moments.   In Petz these emoticon
+notations don't seem to work, but if you put 1 here the ball will appear
+at moments of excitement (as with my mystery-emoticon petz) and if you
+put 0 it is visible all the time.  In Babyz, the number in this column is
+used to tell the game when to produce, for instance, tears.  It would have
+been used also to tell the game when to make teeth grow, but those were
+of course disabled.
+
+NOTE 1 -- you need to know what number of ball your [Add Ball] ball is
+if you want to join it to other ballz with [Linez].  It's pretty simple
+really; just count down the lines of your added ballz, starting with
+ball number 77 which we are so conveniently told is the start of the
+animator's (that's us, folks!) addballz.  Ignore all  lines which start
+with a semi-colon -- ; -- because the game ignores them too.  Just count
+each line of data as a new add ball, and keep a note.  When I make
+complex breedz, I put little commented notes (starting with a semi-colon
+so that I can read them but the game can't) to say where I am in the
+added ballz numbers, and  these notes can be very handy.
+
+NOTE 2 -- If you have mis-counted your [Add Ball] ballz, and you try
+joining with [Linez] the last ball to a ball which doesn't exist -- say
+your last ball is ball number 155 and you try joining that to ball 156
+which has never been created -- then the line will behave in a very
+strange way, moving unpredictably and with one end in a puzzlingly
+odd position.  So make sure that you count your ballz properly.
+
+NOTE 3 -- Variations.  People have a lot of trouble with variations, and
+part of what goes wrong happens in 2nd-gens.  The problem is caused by
+the fact that some hexers put their added-ball variation # numbers in
+[Add Ball], which is really the only section that doesn't handle them
+predictably.  Think about it; the [Add Ball] section sets the game to
+counting extra balls, and that count can so easily go wrong if you use
+variations here.  There are two solutions; either include the _whole_
+[Add Ball] section in each variation (as you would with variations in
+the [Ballz Info] section) -- a clumsy solution that would make the .lnz
+file _huge_ in some complexly varied breedz.  Or you can handle it neatly
+and reliably in [Omissions].  Put every single ball that you might wish
+to have into [Add Ball], keep a note of the ball numbers which you do
+not wish to have in any given variation, and then list those unwanted ballz 
+in a variation set, or series of variation sets, under [Omissions].
+
+NOTE 4 -- you can make your kitten/puppy grow extra limbs or change
+shape and colour by clever manipulation of the [Add Ball] section.  I
+have shown rough examples of how this works in my Duckoddz and
+Butterflie breedz, and then I helped Vickie to make it work on those
+charming ravens of hers, and of course my frogoddz are making full use
+of the technique. This is how I do the trick:
+
+For the fluffy-duckling effect
+==============================
+In the adult .LNZ, in [Add Ballz], I put the extra fluff ballz and I
+make them very small. I make a note of which ball-number each extra
+added ball is by the usual method of counting down the lines of added
+ball data.
+
+In the "kitten" or "puppy" .LNZ, I pop those ball-numbers into the [Ball
+Size Override] section, putting each ball number on a new line with a
+space between it and the size that I want the ball to be.
+
+The babies will come out with the big fluffy balls, and they will
+gradually disappear as the baby grows up as if the pet is moulting its
+baby-down.
+
+For the wings and legs-growing effect
+=====================================
+
+As before, in the adult .LNZ, in [Add Ballz], I put in all the extra
+ballz that I want. I make the baby's fluff balls very small and I make
+the wings (or other extensions) how I want them to look in the adult.
+
+Now I take the adult [Add Ballz] section and paste that into the kitten
+or puppy area, complete and untouched.  Now here comes the bit that you
+need to get right, or it'll be very frustrating.  The number of ballz in
+this [Add Ballz] section needs to be the exact same number as in the
+adult [Add Ballz].  Try adding in an extra one or removing one, and your
+whole puppy/kitten add ball data will simply be disregarded by the game.
+
+Right, there are only some things that can be changed between the two;
+but the important things are these:  The ball size and the ball
+position.  It is much better to use this method for ball position than,
+say, [Move], because you can sometimes get unpredictable  results
+(crashes etc) if you list added ballz in [Move].
+
+You will now find that the baby comes out as you wish, and will grow
+delicately into  a fully-fledged adult.
+
+Limits to added ballz allowed in a breed or baby
+========================================
+
+Now that Add Ballz are being used so extensively in the more complex new
+breedz, it seems that we are at last coming up against a limit to what
+the game can take.  Butterfly Chaser, trying to make detailed leaves on her tree,
+is the first to have come up against a limit which she found to be 510.  I've 
+done some testing, and in the chihuahua base breed that I tried, I found the 
+limit of added ballz allowed to be 445, including the 10 hidden "utility addballz".  
+So along with the [Ballz Info] section, my game will accept a total of 512 balls 
+(this does not include Paint Ball ballz, which are a different type).  
+It may be that it varies slightly between breedz, but it's more likely that we 
+went cross-eyed counting the lines and we may either or both have got the exact 
+number wrong :-)  But the point is, there is a limit and we need to be careful after 
+we reach 500 total ballz.
+
+Any add-ball clothing item, such as a hat or glasses, adds to this count and 
+therefore _will_ crash the game when you try to clothe your pet.  Paint ball 
+clothing (shirts, pants etc) will _not_ cause crashes, as they don't count 
+as extra ballz in the same way.
+
+So the main point here is that if you want a breed that won't crash, make
+sure that you have less than 500 balls altogether between Add Ball ballz,
+[Ballz Info] ballz, and any addball clothing items that you want your pet to 
+come out of the AC wearing.  If you want to make sure that the breed won't
+crash even when wearing complicated clothing, then bring that quantity of
+balls down to something like 450.
+
+The same applies for Babyz; if you've got too many ballz, the game will crash
+when you try to adopt the baby, and if you've got a baby that's close to the
+limit the game will crash when you try to put a hat or other add ball clothing
+item onto it.  In the case of Babyz, the limit appears to be around 400 ballz
+altogether, possibly less.  It may depend on the specific lnz that you're using,
+I haven't had time to test that either, but I doubt that there would be any
+significant difference.
+
+There are limits also to the [Linez] allowed -- after 324 of them in Petz, linez
+simply don't appear.  Clothing items on such petz don't crash the game, they 
+just become disconnected ballz.  You get a similar effect in babyz which have
+too many linez -- no crash, just missing lines.
+
+Breedz made only of Add Ball Ballz...
+====================
+
+It's possible to make a breed entirely of add ball ballz only, using
+[Omissions] to omit all the original ballz 0-76 but, if you do that, you will 
+not be able to pet the pet.  You'll be able to pick it up and feed it etc, but 
+not stroke it.  I did toy with the idea of using that feature in my PFMice
+breed, since we are not able to stroke the original mice, but in the end I
+decided it was nicer to be able to do so, so I enabled some base ballz :-)
+
+
+LINEZ
+=========
+
+Petz, Oddballz and Babyz are made up of ballz and the linez which join them together.  
+You can make almost any shape by careful positioning of ballz and linez.
+
+[Default Linez Thickness] 
+90 
+if the ethick and sthick numbers aren't specified, then this is what the
+game will default to.
+
+; -1 mean use the associated ball color
+; Only the first three fields need to be specefied
+;srt    end     fuzz    col     lfCol   rtCol   sThck   eThick
+[Linez]
+
+As the comment states, you only actually need to fill the numbers in the
+first three columns to make  a line work, but in fact you can make good
+use of the other columns to get the effect you're after.
+
+srt -- the starting ball to which you wish to join another. 
+
+end -- the end ball to which you wish to join the starting ball
+NOTE that if you are joining ballz from [Add Ball] with different "Bodyarea" 
+numbers, the linez will not work for 2nd-gens.
+
+fuzz -- the fuzziness of the line.  This does not always pass on to 2nd-gens
+
+col -- colour of the line.  If you put -1 here, the line will be the
+colour of the starting ball.  The  line colour will pass on to 2nd-gens.
+
+lfCol -- colour of the left outline of the line.  Doesn't always pass on to 2nd-gens
+
+rtCol -- colour of the right outline of the line.  Doesn't always pass on to 2nd-gens
+
+sThck -- thickness of the starting-ball end of the line The thickness is
+a percentage of the starting ball. 
+
+eThick -- thickness of the end-ball end of the line.  The thickness is a
+percentage of the end ball.
+If you fiddle with the sThck and eThick numbers, you can get some useful
+effects, such as a unicorn-horn with a ball on the end of it.  Also
+useful if you want to make a breed which looks like a skeleton, because
+you can have the ballz larger than the width of the linez.
+
+It is possible to have two extra columns here, for which we have no
+handy headers.  They appear to affect how the line looks, making it
+look more definite.  The first extra column has to do with the outline,
+and the second one has to do with how the line is drawn, whether after
+the ball or before, and it usually comes out as 0 or 1.  If it's 0, the
+ends of the line look as if they are tucked inside the ball.  If it's 1,
+the ends of the line show up as if on the edge of the ball -- it's
+difficult to explain what I mean here, but basically you can see the
+squared outline of the end of the line if you choose 1.  This passes
+on to 2nd-gens, by the way.
+
+In Babyz, however, there seems to be more to it.  It is possible to put a ball 
+number in there under certain circumstances, and then it apparently has a 
+relative-ball effect also.  This does not appear to work in Petz, where any 
+number greater than 1 apparently defaults back to 1 and -1 defaults back to 0.
+
+NOTE -- the "laser-line" effect which you get when putting hats on some
+breedz is caused by having a line joining two balls, one of which does
+not exist.  So if your last Add Ball is ball number 130, and you try to
+make a line which joins, say, ball 130 to 131, you'll get this happening.
+The simple solution is to remove the line from [Linez] of course.
+
+Limits to added ballz allowed in a breed
+========================================
+
+There are limits to the [Linez] allowed -- after 324 of them, linez
+simply don't appear.  Clothing items on such petz don't crash the game, they 
+just become disconnected ballz.  
+
+See also the [Add Ball] section; too many [Add Ball] ballz can actually crash 
+the game.
+
+This applies to Babyz as well as to Petz; if you have too many linez in
+your creation, parts of clothing will disappear and if you have too many
+Ballz (in the case of Babyz the ball limit seems to be around 400) the game will
+crash.
+
+[Paint Ballz] 
+============= 
+;base ball diameter(% of baseball) direction color outlinecolor fuzz outline group texture
+
+base ball -- the ball to which you wish to apply the paint spot or patch 
+
+diameter(% of baseball) -- the diameter of the spot or patch, as a
+percentage of the base ball 
+
+direction -- the x,y,z co-ordinates of the spot or patch relative to the
+centre of the base ball. 
+NOTE: The game doesn't like it if you try to make the ball 0,0,0 because
+that's the centre of the ball -- and paint is supposed to go on the
+_outside_ of the ball!!  So you need at least one of these numbers to be
+greater or smaller than 0 or you'll get the "#IND nasties" that I write
+about in my "Why is my pet covered in black blobs (etc)" howto. 
+
+color -- colour of the paint patch or spot.  Note that colours 0-9
+inclusive and 150 upwards are "opaque" and will not allow textures to
+show. 
+
+outlinecolor -- outline colour of the patch or spot.  In Babyz this is called 
+outlineindex
+
+fuzz -- fuzziness of the patch or spot 
+
+outline -- outline thickness 
+
+group -- the group which this spot or patch belongs to.  If it's -1 it
+is "group-less" and there can  be no mutations of this spot when
+breeding. 
+
+texture -- the texture which you wish your paint patch to have.  -1 will
+give the patch no texture. 
+NOTE: In Petz, the [Paint Ballz] texture does not always work in the same way as 
+for [Add Ball] ballz, [Ballz Info] ballz, or [Color Override] ballz. You will often 
+find that the number in the texture column refers to a base ball which has the
+required texture.  If you have trouble making your chosen texture show up
+in a Paint Ball, when you know you've got the type of texture correct as well
+as the address etc, just use the number of a base ball which has the texture
+that you want instead of the actual texture number. Remember, though, that if 
+you have a texture number in here that is, say, 13, you _must_ have 14 textures 
+in the Texture List or the game will most likely crash when a pair tries to breed. 
+Sometimes the game isn't very clever...
+
+Sometimes there is an extra column after Texture, as with this, for the
+Great Dane:
+
+;snout spot 
+56,             70              -.8, -.8, -1   45       15      4       -1      0       1       0 
+56,             70              .8, -.8, -1    45       15      4       -1      0       1       0
+
+As I understand it, this is a "scale hack".  It seems that even the
+programmers had to frig some things to make them work right :-)
+From my experiments so far, whatever number you put there is changed to
+either 0 or 1, and there is a subtle difference in apparent positional
+appearance of the Paint Ball depending on which of those numbers is in
+that position.
+
+NOTE that Add Ballz have a limit of the number of ballz allowed before
+the game crashes.  I have not yet come across a limit in Paint Ballz;
+even when I went up to 900, the pet was adoptable and could wear
+shirts, pants etc.
+
+[Ballz Info] 
+============ 
+;FUZZ --> -1 = no outline, 0 = half outline, > 0 = outline thickness 
+;OUTLINE --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+
+in catz
+
+;col outCol spklCl fuzz otlntTyp sizeDif group texture 
+
+in dogz
+
+;col outCol spklCl fuzz otlntTyp sizeDif group texture ball#   
+
+I always thought that these columns were self-explanatory, but it
+appears that many people cannot figure out what the mnemonics mean.
+
+col  -- ball colour  Note that colours 0-9 inclusive and 150 upwards are
+"opaque" and will not allow textures to show. 
+
+outCol -- outline colour of ball.  Any colour other than black will usually
+not pass on to 2nd-gens, apart from the iris outline colours.
+
+spklC -- speckle colour, which has no appreciable effect in Petz II-5
+but is vital in Catz 1 and Dogz 1. 
+
+fuzz -- fuzziness.  -1 is no fuzz, 0 is a little fuzzy, 3 is a lot
+fuzzy. 
+
+otlntTyp -- outline thickness (or type).  -1 means no outline, 0 means a
+dotted outline,  greater than 0 means the thickness.  As with [Add Ball]
+outlines, you can specify a more minus number than -1; for instance, -2
+will produce a "relief-map" effect, making the ball appear to stand proud,
+without giving it the harsh solid-outline effect that you would get with
+the positive thickness of 2.
+
+sizeDif -- difference in size of ball from the default which the game
+would normally give to  that ball in that breed.  What this means is
+that if all the numbers in the sizeDif column were 0, they would still
+be the basic shape of balls for dogz or catz -- big round head, smaller
+ballz for tail, tiny ballz for ear tips and fingers etc.  If you want a
+small head and one huge toe, you need to make the sizeDif for the head
+something like -25 and for the toe something like 20. 
+group -- this helps you to group together various ballz so that they
+share certain properties, notably the way they take paint from the paint
+brush and the way they pass colours and textures on to 2nd-gens. You
+would want to use this in conjunction with [Fur Color Areas] to force
+pets to pass on certain traits. Setting the group number to -1 will
+effectively make it "group-less" which will prevent changes from
+occurring in 2nd-gens and gets around problems with the game forcing
+"albinos" all the time.  Unfortunately this also  means that not even
+the mutations which breeders do want can occur. 
+
+texture -- the texture which goes on the ball, and you use the [Texture
+List] here just as with [Add Ball] ballz.  -1 means no texture, 0 means
+the first texture in the Texture List, 1 means the second texture in the
+list, etc. 
+
+ball# -- this is only there in Dogz breedz and is simply the ball
+number.
+
+In Catz, you then get a column of programming words such as
+eBall_ankleL, and these are not needed but are handy for us.  In dogz
+you can see clearly that they are programmers' comments because they are
+commented-out with a semi-colon, as with ;L ankle
+
+That's the big ones; I'll come to the various smaller Key Texts such
+as [Move] and [Project Ball], and other items that you can add into the 
+.LNZ, in part 3.
+
+Cheers
+
+Carolyn

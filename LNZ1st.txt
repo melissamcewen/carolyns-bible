@@ -1,0 +1,475 @@
+
+July 26th 2004, expanded slightly on the [Fur Color Areas] section, and added the unused [Marking Factor] and [Spot Factor] texts.
+June 9th 2004, expanded on the gender and overrides sections.  Also listed this chunk's key Texts at the top here
+May 9th 2004, an attempt to make the [Fur Color Areas] info a bit clearer.
+May 2nd 2004, some tips in the variations sections.
+
+SOME BREEDZ HAVE THESE: 
+======================= 
+=======================
+[Fur Pattern Balls]
+[Fur Color Areas]
+[Fur Markings]
+[Marking Factor] (apparently unused)
+[Spot Factor] (apparently unused)
+[Adjust Clothing]
+[Flat Clothing]
+[Add Clothing]
+[Force To Female] and [Force To Male]
+[Color Info Override]
+[Outline Color Override]
+[Fuzz Override]
+[Ball Size Override]
+
+Remember, I'm only talking about the P.F.Magic (and Studio Mythos)
+original breedz in this study.
+
+What I'm doing here is listing the actual command in its [ ] brackets as
+the header for my information on that subject, then beneath that I'm
+listing the programmers' comments which come with it, including those
+which we hexers see as handy column headers.  Then I'll show examples
+where appropriate and details of what all the columns are for.
+
+First, I'll show the items which are apparently very puzzling to most
+people but which are important to breeders.  In the past we never paid
+much attention to them, because people who cared most about breeding
+were "selective breed" makers, and it was considered not-proper to use
+hexed breedz as the basis for these.  Nowadays, with the huge popularity
+of "realistic" dogz and catz, and shows for them, the 2nd-generation
+issues with hexies are becoming more important.  
+
+When you want your breedz to breed correctly in 2nd-gens and upwards,
+these first three sections can help if you alter them or add them to
+your breed.  However, I must note that for players with Windows XP, if
+these sections are used, you may experience game-crashes. The only
+solution I know of when that happens is to erase these sections (and
+remove a fair bit of 2nd-gen control from your breed) or use a better,
+older operating system ;-)
+
+[Fur Pattern Balls]
+==================== 
+; addballs which are part of fur only 
+addballs:	92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103	; tail
+
+These are used to control the Add Ball balls which are designed just to
+make fur patterns. So they are used for the Tabby cat's tail and leg
+stripes, and the Maine Coon's ruff, etc.  If you look carefully, you'll
+see that these cosmetic ballz don't tend to have linez joining them to
+any ballz other than similarly non-structural ballz.
+
+If you have problems with pets which have this kind of "cosmetic"
+addball breeding true,  try making sure that you add [Fur Pattern Balls]
+and list them correctly under it.   Note that the Great Dane has no such
+section, probably because the extra tail ballz are  structurally a part
+of the tail, not a cosmetic addition.  Note also that this section is intended
+to keep the colour of each "pattern ball" which is listed "true", which
+means that the tabby stripes will remain black when the rest of the cat
+mutates in colour.  Conversely, the extra tail ballz of the Great Dane,
+which are _not_ listed, mutate with the rest of the tail.  Get the idea?
+
+Start each line with addballs: and then list the relevant add ballz,
+with commas between, and list each set of different body area ballz on a
+different line. See the tabby for example; the stripe ballz for the tail
+are all listed on one line,  then on the next line the arm stripe ballz
+are listed, and so on.  
+
+So, basically:  if the ballz that you are having trouble joining up in
+2nd-gens are "cosmetic", i.e. they are supposed to join up with each
+other and not necessarily with any base (or "structural") ballz, then
+there is no need to worry about the "group" number, just add this
+section to your breedfile and list all the ballz which should go
+together on one line.  If the ballz you are having this trouble with are
+not cosmetic but are part of the breed's structure, then you need to
+make use of the balls' "bodyarea" numbers, as mentioned in my 2nd-gen
+fixes under [Add Ball].
+
+[Fur Color Areas] 
+================== 
+; (1-4, 5 - jowls) 
+;FurColorTrait ballWithBaseColor colorAreas
+
+As with all these sections, you can add it to your breedfile if it
+doesn't already exist in there.  Put the header [Fur Color Areas]  on
+one line and then, beneath it, list the "trait" number, then the ball
+with the base colour, and then all the colour areas which should  be in
+this group. Some breedz have 0-7 colour areas listed in this section,
+and some, such as the  Russian Blue or Calico cats, only 0-3. The Calico
+is interesting, because it only has one colorArea per  FurColorTrait and
+ballWithBaseColor, whereas the Russian Blue has colorArea 0, 1, 2, 3 all
+in line with  one FurColorTrait and ballWithBaseColor.
+
+An interesting item in this section is shown in the Scottie breedfile, and
+only in that one as far as I can see:
+
+; rampbase: only works currently with black balls
+2		34	rampbase: 1		2
+
+It's one of those things which, like the Dalmatian's [Additional Frames], 
+doesn't seem to be of real use.  The idea of "rampbase" as a term used in 
+colour areas typically has to do with palettes; you would normally 
+have a colour changing from one shade to another via a series of gradations, 
+and the rampbase would be the start of this.  In the Scottie breed under 
+[Fur Color Areas], you will see the programmers' comment that the rampbase 
+only works with black balls.  Then they put the FurColorTrait 2 and the
+ballWithBaseColor 34, which is indeed black, and then there is the 
+rampbase: 1 2.  I have fiddled with this in the past but not seen any
+significant differences in either adoptions or new-borns.  You may find 
+it more useful, who knows :-)
+
+You can make your 2nd-gens' ballz either usually pick up on the colours
+from your breedfile, or usually  pick up on the mother's colour, if you
+manipulate this section.  What you need to change varies depending on 
+which basic P.F.Magic breed you used as a base, but I have found that
+altering the "group" number for a ball  (in [Ballz Info] or [Add Ball])
+to 1 and then changing the FurColorTrait number in [Fur Color Areas] to 
+2 (in Scotties) or 3 (in chihuahuas) will force the game to take the
+colours from the breedfile, while   4 (in Scotties) makes the game tend
+to pick the colours from the mother.  Of course, changing the Group
+number has an effect on how a pet's ballz take paint from the
+paint-brush, and you may find that other numbers will work just fine. 
+This is really just to show you what sort of thing with which you'll
+want to experiment.
+
+If you simply cannot get the colours to pass on in some balls, then use
+whatever works best for the others and then put -1 as the group number
+for the stubborn balls (works both for [Add Ball] balls and [Ballz Info]
+balls).  All the balls with -1 as their "group" will become un-paintable
+with the paint brush, so if that matters to you you'll have to either carry
+on trying to find the perfect group/fur colour area combination or accept
+some albino/bad colouring effects in your 2nd-gens.
+
+[Fur Markings] 
+============== 
+; e_GroupType_Normal == 0, e_GroupType_BodyArea == 1, e_GroupType_Primary == 2, e_GroupType_Paw == 3 
+; groupType, balls/paintballs which logically constitue a single marking (if e_GroupType_BodyArea replace entire area, used esp. with dog ears)
+
+This section is once again likely to be of use to breeders who want
+their petz to pick up on the correct markings, in this case particularly
+the paint patches, within the breedfile.  Take a look at the structure 
+of the [Fur Markings] section, and you should get some idea of how to
+build your own.  You get some help  from the programmers'  comments
+here:
+
+e_GroupType_Normal == 0,  
+e_GroupType_BodyArea == 1,  
+e_GroupType_Primary == 2,  
+e_GroupType_Paw == 3
+
+This is pretty clear, I think, when you look at the two column headers:
+
+groupType
+
+and 
+
+balls/paintballs which logically constitue a single marking 
+
+The first column is the e_GroupType, and the basic type will be 0 or 1
+or 2 or 3.  3 is there in all breeds that have this section, because all
+of them have paw pads.  The breedz which don't have this listed are
+breedz which don't have any other ballz to list in this section, because
+the dogmaster.lnz or catmaster.lnz already have these listed.  A typical
+example is the  Dalmatian, which has this as the first [Fur Markings]
+line
+
+3	9:0 10:0 11:0 13:0 33:0 34:0 35:0 37:0 44:0 45:0 46:0 36:0 20:0 21:0 22:0 12:0
+
+and all of these are of course paw paint ballz.  In fact, this may seem
+like a bit of overkill because, if a breed doesn't have the paw pads
+listed, it shouldn't really make a difference since they are in the 
+Catmaster.lnz and Dogmaster.lnz.  However, whatever you see in a
+breedfile actually overrides whatever is in the catmaster or dogmaster
+.lnz files, and if [Fur Markings] are listed without the line of paw
+markings, the game will not use the paw marking data from the
+"master.lnz" [Fur Markings] and your paw pads may mutate illogically.
+
+Paint Ballz are listed here in <num1>:<num2> form,  but don't let that
+panic you; it simply means that  the particular base ball <num1> has one
+or more paint ballz attached to it.  If you have only one for a 
+baseball, the number is (for instance) 16:0.  If you have more than one
+paint patch for one base ball,  they go (for instance) 24:0 24:1 24:2
+etc, counting up on the right-hand side of the : mark.
+
+I have noticed that it is possible to have ballz in a given "paint
+ballz" line that don't actually have  any mention in the [Paint Ballz]
+section, as with the Egyptian Mau and its sole/wrist balls 41, 42, 63,
+64.   I don't know if this is a StudioMythos error, or whether this has
+any real effect on 2nd-gens with this  particular breed.  It may be that
+it was an error that they didn't see, or didn't bother to fix, because 
+the Egyptian Mau furfile is made to be opaque.
+
+Breedz such as the Dalmatian, which in fact have a lot of [Paint Ballz],
+don't have all of these listed in the [Fur Markings] area.  It would
+seem that this may be partly because the default dalmatian spots  for
+the game are in fact black, so there is no 2nd-gen problem.  This will
+most likely be why people  have trouble with breeding Dalmatians which
+do not have black spots.
+
+When numbers don't have the <num1>:<num2> form, they are just ball
+numbers from [Ballz Info] or [Add Ball], as opposed to [Paint Ballz].
+This is illustrated rather well by this line from the Dalmatian's [Fur
+Markings]
+
+1	28, 29, 30, 83, 85, 87
+
+which means that for this breed, the right ear ballz (including the
+right-ear add ballz) have had to be listed together as groupType
+Bodyarea.
+
+So, if you want to add your own [Fur Markings] area to a breed, or you
+want to make sure that you get your breed to be consistent in 2nd-gens
+with certain markings, list on a line the group type, and  then the
+balls _or_ the paintballs which are to be grouped together for that
+type.
+
+[Marking Factor]
+================
+
+I have never seen a pet which makes use of this.  The idea is obviously
+that it helps control the markings on petz, but I have not found a syntax 
+yet which makes any appreciable difference.
+
+[Spot Factor]
+=============
+
+I have never seen a pet which makes use of this.  The idea is obviously
+that it helps control the markings on petz, but I have not found a syntax 
+yet which makes any appreciable difference.
+
+CLOTHING AND THE ADOPTION CENTRE 
+================================ 
+================================
+
+These next three sections are also not always in a breed, and are not
+really vital unless you have problems with some clothing item or wish to
+have a pet come out of the AC wearing a particular item, as with my
+Swedish Elk and Snowbo.
+
+[Adjust Clothing] 
+================= 
+; kind: Shirt,Pant,Sock_FrontL,Sock_FrontR,Sock_BackL,Sock_BackR,Tail,Hat,EarringL,EarringR,NoseThing,Glasses 
+; kind  offset     scale (floating point, 1.0 is no change in size) 
+Hat     0,0,0      0.8     
+
+You only need this section -- and to change it -- if some item of
+clothing doesn't look right on the breed. Choose from the list of items
+shown for the "kind" column.  The offset is the usual x,y,z co-ordinates
+relative to where the clothing item sits normally,  so that you can
+shift it to a different position. The scale allows you to make it look
+bigger or smaller.
+
+[Flat Clothing] 
+=============== (bulldog) 
+; kind: Shirt,Pant,Sock_FrontL,Sock_FrontR,Sock_BackL,Sock_BackR,Tail,Hat,Hat2,EarringL,EarringR,NoseThing,NoseThing2,Glasses
+; kind         toy_dll                                lnz file
+#8.0;sweater, red
+Shirt          "\Resource\Clothes\Red Sweater.clo"    "\art\Sprites\Toyz\Clot_SweaterRed\Clot_SweaterRed.clz"
+#7
+Shirt          "\Resource\Clothes\Red Sweater.clo"    "\art\Sprites\Toyz\Clot_SweaterRed\Clot_SweaterRed.clz"
+(etc)
+
+
+This section is only needed if you want some pets to come out of the
+Adoption Centre wearing a specified clothing item such as shirts, socks,
+pants; things which cover the pet's ballz closely,  rather than standing
+outside them.
+
+[Add Clothing] 
+==============(chinchilla persian) 
+#3.C
+; kind         toy_dll                          lnz file
+Hat            "\Resource\Clothes\Pink Bow.clo" "\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#2
+Hat            "\Resource\Clothes\Pink Bow.clo" "\art\Sprites\Toyz\Clot_HatBowPink\Clot_HatBowPink.clz"
+#1
+##
+
+This section is only needed if you want some pets to come out of the
+Adoption Centre wearing a specified clothing item such as hats, bows,
+etc, which stand outside the pet's own ballz.
+
+To add clothes to a pet which comes out of the Adoption Centre, decide
+which of the two types of clothing the choesn item is (Flat or Add). 
+Then put into the file  [Flat Clothing] or [Add Clothing].  Then, you
+can find out what the .lnz (.clz) for  the given item of clothing is
+either by looking inside the .clo file or (a little easier perhaps) by
+putting  the item on some pet, closing the game, and looking in the .pet
+file for the  string art\Sprites\Toyz\
+
+Take the case of Glasses, you would have the "kind" is Glasses (you find
+that defined  inside the Glasses file), the "toy_dll" is the .clo file
+Glasses.clo in your clothes  directory, and the "lnz file" is
+Clot_Glasses.clz:
+
+[Add Clothing]
+; kind       		toy_dll      	lnz file
+#2.A
+Glasses "\Resource\Clothes\Glasses.clo" "art\Sprites\Toyz\Clot_Glasses\Clot_Glasses.clz"
+#1
+##
+
+
+GENDER FORCING 
+=============== 
+===============
+
+[Force To Female] and [Force To Male] 
+===================================== 
+This "Force" section lets you choose which variation comes out of the
+Adoption centre as female, and which as male. In this example,
+variations 3.C and 2 will always come out female, and variation 1 will
+always come out as male.
+
+[Force To Female]
+#3.C
+1
+#2
+1
+#1
+0
+##
+
+[Force To Male]
+#3.C
+0
+#2
+0
+#1
+1
+##
+
+In this example, the pet will always be male
+
+[Force To Male]
+1
+
+In this example, the pet will usually come out female but occasionally male
+
+[Force To Female]
+#4
+1
+#3
+1
+#2
+1
+#1
+0
+##
+
+OVERRIDES, i.e. VARIATIONS in BALL COLOUR, FUZZ, GROUP, and TEXTURE 
+==================================================================== 
+====================================================================
+
+These are sections which provide you with simple variations; you don't
+have to have them but if you want to have different sets of variations
+for colour, outline colour, group, texture and fuzz this is the
+P.F.Magic way of doing it :-)  You can list [Add Ball] ballz here as
+well as [Ballz Info] ballz, but _not_ [Paint Ball] ballz.
+
+A lot of people don't seem to realise that the "override" is simply any
+variations that you want.  If there isn't one of these sections in your
+chosen breed, as always you can insert it and enter your own data.
+
+[Color Info Override] 
+===================== 
+This is where you put variations for ball colours.
+NOTE: if you don't have a variation number with no data at all between
+it and the next variation number, then the [Ballz Info] colours  won't
+ever be able to show through for the listed ballz. 
+If two columns, it's ball number and colour. 
+If three columns, it's ball number, colour, and group. 
+If four columns, it's ball number, colour, group and texture.  Use the
+[Texture List] for the number you want, just as with [Add Ball] and
+[Ballz Info] sections.
+
+[Outline Color Override] 
+===================== 
+This is where you put variations for outline colours, and the most
+common to see here is the iris outline.  For some reason, the iris
+outline is one of the most common problems that catch newcomers to petz
+hexing.
+NOTE: if you don't have a variation number with no data at all between
+it and the next variation number, then the [Ballz Info] outline colours 
+won't ever be able to show through for the listed ball outlines.
+The first column contains the ball number, and the second column
+contains the colour number.
+
+[Fuzz Override] 
+============== 
+The first column is the ball number, and the second column the amount of
+fuzz you want this variation to have. 
+NOTE: if you don't have a variation number with no data at all between
+it and the next variation number, then the [Ballz Info] fuzz amounts 
+won't ever be able to show through for the listed ballz.
+The first column contains the ball number, and the second column
+contains the amount of fuzz.
+
+[Ball Size Override]
+====================
+The first column is the ball number, and the second column is the size.
+When you see this in the puppy or kitten .lnz, it's there to give your
+pup or kitten a different look from the adult.
+When you see this in the adult .lnz, it's there to make variations. 
+NOTE: If it's in the adult section and you don't have a variation number
+with no data at all between it and the next variation number, then the
+[Ballz Info] ball sizes  won't ever be able to show through for the
+listed ballz.
+
+These different override sections can all be given "linking" variations,
+by which I mean a structure like this:
+
+#3.A
+#2
+<data>
+#1
+<data>
+##
+
+and then they will all work together instead of producing random
+colours, groups, textures, fuzz, and sizes.
+
+For anyone who wants to know how to make a petz breed to stay the same 
+size and look like a puppy as an adult (but not look like the adult version 
+of the breed), you need to take note of these overrides.  First off,
+you need to make the various Defaults the same in pup and adult .LNZ files,
+but then you have two choices.  You can either make the adult [Ballz Info]
+the size you wish and then delete the override sections in the puppy .lnz, or
+you can put all the defaults and size/fuzz overrides that are in the puppy 
+.LNZ into the adult .LNZ  also.   Simplest way to do the latter is to overwrite 
+the various default sections and then, above the [Ballz Info] section, put in a 
+[Ball Size Override] section and enter the data below it exactly as you see 
+it in the puppy section, without any variation # numbers.  Also, if the puppy 
+has [Fuzz Override], put that into the adult .LNZ in exactly the same way, with 
+no variations.
+
+Note that if there is already a [Ball Size Override] and / or a [Fuzz Override] 
+in the adult .lnz, you will want instead to replace the data that's under them 
+with your puppy's data and make sure that there are no variation # numbers.
+Your dog will look like a pup all its life.  This works with catz/kittens too 
+of course.
+
+The thing to remember with these overrides is that they can be used in the 
+adult section to give you variations -- or even to make the game ignore the
+relevant data in [Ballz Info] or [Add Ball] -- and in the puppy/kitten section
+to give a different effect for the babe or also to give it variations.
+
+
+That's the end of the "sometimes" section.  Go back to the main "mad
+scientist hexer" page to get to the next section of this .LNZ breakdown
+:-)
+
+Carolyn Horn
+
+P.S. Tantalising items in Petz II 
+================================
+
+Petz II, coming as it did soon after Oddballz, has some interesting
+little items in the Catmaster.lnz, including such tantalising Oddballz
+items as [Locomote Types] and [MinBallScale], [MaxBallScale] etc.
+Unfortunately, changing the [Locomote Types] to the values that would
+cause flying or hopping in Oddballz do not appear to have any effect at
+all in Petz II, and trying to insert [MinBallScale], [MaxBallScale] etc
+into the Petz 3, 4 or 5 games does not solve the [Default Scales]
+2nd-gen problems in very small or very large hexed breedz.  Also in Petz
+II there are remnants of the Oddballz [Default Factors], in the Calico
+and in the game's mice.  I have not found putting these into other
+breedz to have any obvious effect, sorry.

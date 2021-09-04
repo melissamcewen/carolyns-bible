@@ -1,0 +1,1292 @@
+part 2 of Tutorial for "editing Petz breedfiles, and what can be done for saved pets".
+======================================================================================
+
+Contents:
+Part 2    On-Screen Tips
+          The sound sections
+             Making the sounds internal
+             Making the sounds external to the breedfile
+          Testing or Installing the new breed -- including troubleshooting tips
+          "Hex-painting"
+          What can be done with the pet files:
+             Rescuing Runaways
+             Unsticking Pregnancies
+             Error messages
+             What can be salvaged from a "corrupt" petfile.
+          The Mice!! (and roaches)
+
+ON-SCREEN TIPS
+==============
+
+If you want to change the tips which appear when a pet of your breed 
+comes out of the Adoption Centre, then the place to look is just before 
+the WAV list.  So, in the Persian, you will see above 
+"Sounds root path=ptzfiles\cat" 
+the text 
+"PF. Magic, Inc. Lets not talk about me.." 
+followed by the editable text.  Remember to keep it the same length; 
+fill out with spaces if what you want is a shorter piece.  Don't touch 
+the short section which starts .X.0.0.0.0.-1.
+
+NOTE: You cannot customise the on-screen tips in Petz 5 breedz.  The most
+that you can do is to replace the 3-character number which you will find
+in this area with spaces, so that the game doesn't produce the default
+tips.  This is because those tips are in the game's resource .dll, and the
+3-character number directs the game to one of those.
+
+THE SOUND SECTIONS
+==================
+
+First, remember as with all sections of the breedfile that everything 
+has to be the same size (same number of actual bytes) after you've 
+finished as before you started, unless you're using Resource Hacker
+to delete or replace sounds.  You can of course use that for the job,
+but remember that Resource Hacker can end up corrupting your file if
+you change too much too many times, so make sure you always have a
+recent backup of the file, clearly labelled so that you can find it 
+again -- I say "clearly labelled" because you can easily get muddled;
+Resource Hacker never changes the date when it saves a file.
+
+If you're making a breed which shouldn't have cat or dog sounds, you'll 
+want to change the sounds almost completely.  If you want it to be mute,
+then all you need to do is to redirect the Sounds .txt file to somewhere
+nonexistent.  This doesn't crash the game, it simply mutes the breed.
+
+If you want your own sounds, then read on...  There are three areas you 
+want to deal with; two are lists and one is the huge part which contains 
+the RIFFs.  You'll need the Hex editor, Notepad (if you do it my way), 
+and a Wav file editor (I use Cooledit, but I'm sure others are just as good).
+
+I shall take the Great Dane as example here; the same principle applies 
+to all breeds, whether based on cats or dogs.
+
+First, as I mentioned in Part 1 of this tutorial, near the top of the 
+breedfile there is the List Of All which looks like this in the ASCII 
+section of your hex editor:
+
+..........B.M.P.
+..B.O.O.T.Z...L.
+N.Z...G.D...G.D.
+P.U.P...S.C.P...
+T.X.T...B.E.V.E.
+N.T._.D.O.G._.G.
+D...G.D.S.N.D...
+W.A.V...G.D._.B.
+A.R.K.A.N.G.R.Y.
+0.1...G.D._.B.A.
+R.K.A.N.G.R.Y.0.
+2
+
+Etc.
+
+This is a list of what's in the breedfile.  As with the bitmaps, if
+you are creating Internal sounds, you will find that the Great Dane and
+your breed will "share" sounds, with the result that (for instance) your
+Bear will bark like a dog and your game's Dane will growl like a bear.
+Actually rather quaint, but if you have it like that at least you should
+intend it to be that way and know how to change it if you want to :-)
+
+It is of course possible to redirect the sounds to a directory on the 
+hard disc, from within the .Lnz section, and if you do, you can keep the 
+sound list with its G.D._.B.A.R.K.A.N.G.R.Y.0.1 plus the unused standard 
+internal sounds.  But if you do that, and you are intending to let others 
+download your file, it will make the whole thing much bigger than it need 
+be.  Better, in that case, to over-write all the RIFF section with null bytes 
+(Hex 00) -- and alter the section containing G.D._.B.A.R.K.A.N.G.R.Y.0.1 
+as detailed above so that your other Great Dane pets don't become silent!
+If you're using Resource Hacker to remove the sounds from the inside of
+the breed, none of this will be necessary because the breed will naturally
+reduce in size and the references to the sounds will automatically be
+removed.
+
+Making the Sounds Internal
+--------------------------
+
+So, back to the Great Dane List Of All; you can see that there is quite a 
+long list of WAV sounds (78 of them to be precise) starting from
+
+G.D._.B.A.R.K.A.N.G.R.Y.0.1
+G.D._.B.A.R.K.A.N.G.R.Y.0.2
+
+In the case of altered internal sounds, you will have to change a letter 
+in every single one of these (as with the bitmaps above) if you don't 
+want the sounds to clash, so it will look something like:
+
+G.D._.B.A.R.K.A.N.G.R.S.0.1
+G.D._.B.A.R.K.A.N.G.R.S.0.2
+
+You will have to keep a note of what letters you've changed in the above 
+list because you'll need to change the same letters in _another_ list 
+which I'll discuss later.
+
+Apart from the need to change the sound names here, this first list is 
+an important one, because it shows the sounds in order of appearance 
+in the file, so you will know that the first RIFF will be an angry bark 
+and so on.  Very useful if you want to put the sounds inside the breedfile 
+and therefore need to know where to put the sounds of an infuriated or 
+happy guinea-pig.
+
+The next area of importance for the sound-changer is much further down 
+the breedfile, past the bitmaps and main .LNZ editing area, where you 
+will see a list of WAVs.  This is a text area of the file and starts:
+
+Sounds root path=ptzfiles\dog
+
+and finishes
+
+sharedsnd\puppy\NONE.WAV....RIFF
+
+That word RIFF is the beginning of the first actual WAV file.  You can 
+highlight the whole of this text from Sounds to the last NONE.WAV, copy 
+it into a new file, and save it as a .txt file.  This can be opened in 
+Notepad and edited to suit.  The sounds which you can alter are all listed 
+as being in the directory gd\sounds\; here you will want to change the 
+individual letters to correspond with the ones which you changed in the 
+first list -- so where you see
+
+gd\sounds\gd_barkangry01.WAV
+gd\sounds\gd_barkangry02.WAV
+
+you would change that (in this example) to 
+
+gd\sounds\gd_barkangrs01.WAV
+gd\sounds\gd_barkangrs02.WAV
+
+Now, the stuff which is listed under various "sharedsnd\" directories 
+is in the main resource .DLLs.  If you want to edit them in your own .dll, 
+remember that they are _shared_ sounds, so you'll have your other dogz or 
+catz using them too! 
+
+Meanwhile, you have (in the Great Dane) 78 adult sounds to play with, 
+which is a lot of work already, without having to do the rest (more than 200)!
+
+What you have to do with any of the other sounds that you don't want is 
+to turn them off.  Do that simply by replacing, say,
+
+sharedsnd\puppy\pb_howlyiplow01.WAV
+with
+sharedsnd\puppy\NONE.WAV
+
+BUT remember -- if you're doing all this internally, fill out that line 
+with spaces to make the line the same length as before!!  The finished text 
+file _must_ end up the same length as the one you started with unless you 
+have chosen to make the sounds external.
+
+When you've finished, copy-and-paste the finished WAV list back into the 
+breedfile exactly where it came from.  
+
+And now -- the RIFFs <screams gently>  What you have here is a set of 78 
+WAV files, each one slightly different in size, and most of which you 
+will want to change (as for instance with a horse).  The only way I've 
+found so far of getting it right is to copy out the whole 599,522 byte 
+section from the beginning of the first RIFF to just before the letter 
+count (HEX 17) before (.c.). .1.9.9.7. .P.F...M.a.g.i.c.,. .I.n.c.  
+_Don't_ remove that letter count, by the way; it works in the same 
+way as the letter count before the breed name (discussed in Part 1).
+
+Now that you have this chunk of Wavs, you want to split it into individual 
+ones.  That means cutting and pasting 78 sections, from the beginning of 
+each RIFF to the beginning of the next, into individual new files and 
+saving them.  Make sure you number them so that you know which sound goes 
+back where, and so that you can figure out which neigh, whinny or whatever 
+should go in which (using the first list above).
+
+Then get out your sound editor and the horse sounds (or bear, etc) that you 
+want to put into the breed.  You will find that they are too big...  Well, 
+for each of the 78 sounds, take the original taken from the Great Dane breed, 
+paste into it a suitable section of the horse sounds, and save it; it should 
+be in the correct format for petz then (4 bit or 8 bit, 22,050 Hz, Mono) and 
+either the exact size in bytes or smaller.  If it's bigger you're going to 
+have to try again, slicing a bit off in your sound editor.  If it's smaller, 
+you will be able to add the necessary number of null bytes (HEX 00) to the 
+end of it in the hex editor.
+
+Okay, now that you've got your 78 new sounds, each in the correct format 
+and each the correct size, you can re-assemble them in the correct order.  
+The finished file should be the exact number of bytes in length as the 
+original chunk you copied.  Copy and paste it back into the breedfile in 
+the right place.
+
+You should now be able to run the breed and hear whatever thumps or 
+whimpers you chose to leave for the puppy; you'll have to bring a pet
+to adulthood in order to hear your new sounds.  You can either adopt
+one and check it out quickly enough by putting the computer clock forward, 
+tickling the pet (so it doesn't run away) and opening the game; do 
+this a few times and you'll soon hear those sounds. Or you can download
+and install the brain-sliders (from my site) or Omar's debugger (from
+Daniel Wright's site) and use the sliders to "age" the pet at the 
+Adoption Centre.  If you don't approve either of fast-forwarding the clock, 
+or using brain-sliders, you're going to have to wait a few days...
+
+Well, that was a lot of work, wasn't it?  I can't believe that I went 
+through the whole patient process for my early Species -- the Great Bear,
+Horse Equus, Swedish Elk, and Dawn's Guinea Pig.  Sheesh.  Anyway,
+if you're a masochist at heart that's how to do it.
+
+Making the Sounds External to the Breedfile
+-------------------------------------------
+
+Ah, the bliss -- this is so much simpler!  First off, with a Petz 3, 4 
+or 5 breed, if you don't want your breedfile to be unneccessarily large 
+for sending through the Internet, select the whole of the RIFFs section 
+in your Hex editor and replace everything there with null bytes (hex 00), 
+and alter the section containing G.D._.B.A.R.K.A.N.G.R.Y.0.1 as detailed 
+above so that your other Great Dane pets don't become silent.  When zipped, 
+the breedfile will now be very small, and the size of the final zip will 
+depend only on the number and size of WAVs you use.  With a Petz II breed, 
+you can do the same thing with some of them, but others have all the sounds 
+in their "X" file, so you can simply replace the "X" file with another 
+small one and rename it.
+
+Now get your new species sounds, sort them into types -- sad, frightened, 
+happy etc, and name them accordingly.  Better make sure they are 
+4 bit or 8 bit, 22,050 Hz, Mono.  Now, put these in a suitable subdirectory 
+off your Petz game's Dogz directory; call it "h\sound", for instance, so 
+the WAV files all go into the directory \resource\dogz\h\sound.
+
+Now, in your breedfile (assuming your breed was hexed from 
+a Great Dane), find:
+
+[Sounds]
+\ptzfiles\dog\gd\gdsnd.txt
+
+Change that to
+
+[Sounds]
+\resource\dogz\h\hesnd.txt
+
+You now want to make that "hesnd.txt" file.  Okay, as for Internal 
+sounds, do a search for 
+
+Sounds root path=
+
+and copy from there to the end of the last WAV to a new file in the 
+hex editor, only this time save it as "hesnd.txt", in the directory 
+\resource\dogz\h.  You might as well replace that section within the 
+breedfile with null bytes (hex 00), as you don't want it to be used.
+
+Change the first line in the new textfile to
+
+Sounds root path=resource\dogz\h\sound
+
+Now, you want to go through the whole list, making sure that your 
+sounds are pointed to correctly; this means removing all the gd\sounds\.  
+For instance, gd\sounds\gd_yell01.WAV needs to be changed to yodel.wav 
+(without the "gd\sounds\") if you're going to get your breed to yodel 
+at that point. Leave the TOY wavs alone, also the ones which say "none.wav".  
+Where there is a sound that doesn't fit with your breed, either make a 
+sound for it, put it in the sound subdirectory, and enter its name over 
+that wrong sound in the list, or replace its name with none.wav.  If you 
+want it to moan every time "moan" is listed in the textfile, but you only 
+have one suitable sound for the moan, just replace all the variations 
+of moan in the text file with copies of that single wav file name.  
+If you want it to have some of the sounds which are in the shared Dll, 
+simply leave those in the textfile.  The game will pick them up.  
+You _do_ need to have the same number of lines in the textfile when 
+you finished as when you started, if you want the game to pick up the 
+correct files at the correct times.
+
+It's a bit time-consuming, but worth the effort to get proper sounds 
+for your species.  It's a lot less hassle and a lot more flexible 
+than inserting the files into the breedfile, and it has the added 
+bonus that you can have your breed making sounds when it's a puppy 
+or kitten as well as when it's adult.
+
+Troubleshooting
+---------------
+
+If the game crashes when the pet tries to make a new noise, check that 
+you've got all those sounds in the correct format (4 bit or 8 bit, 
+22,050 Hz, Mono).  It _is_ possible to use compressed sounds of a particular 
+kind, but on some computers they can either crash the game or not be heard.
+
+If the pet makes no sounds at all, or refuses to make his adult noises, 
+or makes the wrong noises at the wrong times, check that you have everything 
+exact; the two lists have to agree about the sound names, and for internal 
+sounds, the sizes (in bytes) of each individual sound have to be exact.
+
+TESTING OR INSTALLING THE NEW BREED -- including troubleshooting tips
+=====================================================================
+
+Testing and installing are both about as easy as they can be; so long 
+as your breedfile has been named and its offset number changed suitably 
+(see part 1), you simply have to put the breedfile in the resource\catz 
+or resource\dogz directory.
+
+Of course, if you're using external furfiles or sounds, you will need 
+to put the bitmaps or Wav files/text list in the directories which you 
+have specified.
+
+For testing the puppy/kitten stages, it's often enough simply to play 
+with them at the Adoption Centre.  That will show up any changes you've 
+made to the colours, shapes, or sizes.  Some features are only visible 
+at adulthood, so if you want to see how the pet changes you will have 
+to either adopt and fast-forward or use the brain-sliders as mentioned above.
+
+Troubleshooting Tips
+++++++++++++++++++++
+
+It won't run or it won't show up
+--------------------------------
+
+It's best to test your breedfile at every stage.  You will then have some 
+idea of which area the problem is stemming from.  
+
+The most common problem here is in the naming; either some character other 
+than hex 00 is put between each letter of the name, or the letter-count 
+number is wrong, or you've named it slightly differently inside the breedfile 
+from the name you gave it in reality.  Check also that you haven't got a breed 
+running alongside it which uses the same offset.  Another common problem is 
+that something was done to make a section  the wrong size.  Finally, if the 
+breedfile itself is the wrong size the game ignores it.
+
+Ears
+----
+Many people have problems with certain areas of some breeds.  A popular 
+problem is the ear colours not being right; this is fixed in the [Add Ball] 
+section, wher it says (in the Persian) 
+
+; ### From here down are animator's addballz 77.
+;nose
+
+...
+
+;ears 80
+
+What you have here is a further set of 12 balls (from 80-91) which can be 
+tweaked in various ways and the colours altered.
+
+Patches, Spots, Stripes, Paw pads
+---------------------------------
+
+Another problem, very common, is the inability to change things like 
+Dalmatian spots, paw pads, Calico patches, Tabby stripes etc.  Well, 
+you need to look in [Paint Ballz] or [Add Ball] sections.
+
+For the Tabby cat, the stripes are under the [Add Ball] section; scroll down 
+past "From here down are animator's addballz 77". You'll see 
+;nose, then 
+;ears 80, then the various stripes: 
+;tailstripes92, 
+;arms--right, left104, 
+;lower legs--right, left114, 
+etc. 
+
+For the Paw pads, look in the [Paint Ballz] section.  I go into that in more 
+depth in section 1 of course.
+
+For the Calico cat, the spots are under the [Paint Ballz] section; scroll past 
+the ;paws until you see 
+;individual variation
+
+and then
+
+#1;left hip 
+etc. You can change the shape as well as the colours and sizes there. 
+
+For the Dalmatian, the spots are under the [Paint Ballz] section also, starting 
+with ;individual variation
+;
+#2.B
+#1;right hand
+
+Eyes
+----
+Often people have trouble with the eye-colour.  Remember, the Iris _outline_ 
+is what you want to change to give your dog or cat a beautiful eye-colour 
+(unless you are trying to change the actual eyeball colour).  So, for a light 
+green iris, you want to make the iris outline colour something like 130 and 
+be sure to have the iris outline the thickness you want. And keep a check on 
+any "outline color override" section.
+
+The Crashing Pregnancy Announcement
+-----------------------------------
+
+A major problem which crops up occasionally, also, is that a breedfile runs 
+with no problems until the pets are about to announce a pregnancy.  The game 
+crashes with the information that it can't find a .lnz file.  So far I've 
+known this to be caused by one of two things; first (and most common), the 
+two-letter bit at the end of the breedname (inside the file) has been changed 
+or is in the wrong place (i.e. a byte out one way or the other) or has had 
+its letter-count (02) changed to 00 or 20.  The second is if the textures 
+are switched off by simply removing the [Texture List] rather than individually 
+turning off textures in the relevant columns of balls information.  The game
+will crash if it's looking for a texture which doesn't exist in the list.
+
+Other problems
+--------------
+
+If fur files don't show, make sure they are 8 bit, 256 colour and that you 
+have the list of textures pointing to the right place -- and that the furfiles 
+are in the correct directory.  If they are, and you have another version of the 
+breedfile in the resources directories, make sure that you've renamed the 
+bitmap in the list mentioned above _and_ that it's named correctly in the 
+textures list.  If all that is correct, try changing the "1" or "0" after each 
+bitmap in the textures list; remember that the "0" is for a furfile with more 
+than one colour.  Also, if the fur looks wrong or shifts around when 
+you don't want it to, try making the bitmap a different size.  Remember that for
+Petz 5, the size has to be in multples of 32 pixels in either direction.
+
+If colours or sizes don't come out as you expect, check that you've got 
+the puppy stage changed as well as the adult where that's relevant, also 
+that the Colour Info Overrides are either disabled or correct, also the 
+fuzz info overrides or ball size overrides or defaults.  Also you might 
+find that a furfile or texture is making a colour different from what you 
+intended.  You can always change or switch off textures in the relevant 
+balls, using "-1".
+
+Note that the full adult stage is not reached until the pet is several 
+days into adulthood, so don't go adjusting things on the assumption that, 
+for instance, the adult head looks too big relative to the body until you're 
+sure the pet has reached full maturity.  I did that with my Bearz at first, 
+by acciudent, which led to the strange "alien bear" heads...
+
+
+"HEX-PAINTING"
+==============
+
+This is a practice that is presumably done in order to have pets with 
+unusual characteristics but which will run using the standard P.F.Magic 
+breedfiles.  Any pets adopted from a "hex-painted" breedfile before it 
+has been deleted are supposed to be able to pass their characteristics 
+on into the general gene-pool.  I think that actually only applies to
+colours, but I'm not a great one for breeding, the selective breeders
+know more about that kind of thing.
+
+You will need to keep backup copies of any breedfile that you're going 
+to edit, of course, and once you've finished making litters from the 
+edited version you can delete it by copying the original one back over it.
+
+You will only be changing things in the .LNZ section of the breedfile, 
+because any changed bitmaps and sounds won't be there in anyone else's 
+breeds; also of course you don't want to change the breed name or it won't 
+run with a standard breed.  Painting is done in exactly the same way as 
+I show for true editing in Part 1 (look under the heading "THE MAIN PART 
+OF THE BREED; THE SIZE, SHAPE, ETC")
+
+The only difference is that, when you come to the textures, if you're 
+going to change the furfile bitmap to a custom-made one, it _has_ to be 
+external to the breedfile, even if it's a Maine Coon you started with,
+or even if you're using Resource Hacker and can put extra ones in, 
+and you'll have to change the texture list to point to where it is 
+(e.g. \resource\catz\wibble.bmp).  Remember that if you're sending 
+people pets from a hex-painted litter which uses such furfiles, you'll 
+have to send them a copy of the furfile also and tell them what 
+subdirectory to put it in (if relevant).  I am not, of course, talking 
+about things like the famous "brindle" fur types, which make use of a 
+P.F.Magic furfile thusly:
+
+\art\textures\hair6.bmp        0
+
+And which of course everyone who downloads the pet will have.
+
+
+WHAT CAN BE DONE WITH THE PET FILES
+===================================
+
+The trouble with pet files for Petz 2 - Petz 5 for a long time was that 
+we could no longer fiddle around inside these files.  There is some kind 
+of CRC check, which means that even if you change one byte inside it, the 
+game reports it as "corrupted".  Since I came up with the solutions listed
+below, I've figured out how to edit pet files, and you can download a host
+of tutorials on how to change things inside them from my site.  But I'm
+keeping this information here anyway, partly for old time's sake and partly
+because it's actually still useful.  You don't always want to be editing
+your pet file :-)
+
+Pet files are actually "save-game" files, so don't even think of opening them
+in Resource Hacker -- they are not resource files, and Reshacker will very
+snootily say so.  Of course, Oddballz and petz 1 pets were directly editable
+in Notepad.  Ah, those were the days... 
+
+Well, anyway -- it is actually possible to do more than you may think without
+actually hexing your Petz II, 3, 4 or 5 petfiles.  
+
+But first of all make sure that you have a safe backup copy of any pet that
+you are trying to fix.  That way if you make a real mess of it, someone else
+may be able to help :-)
+
+Read on:
+
+RESCUING RUNAWAYS
++++++++++++++++++
+
+A common problem.  The idea, I presume, was to make people aware of the fact 
+that they have to care for their pets.  Unfortunately an accidental runaway 
+can happen all too easily, especially in a household where more than one person 
+uses the same computer, or where people have been "fast-forwarding" in order 
+to fix that common "bug" -- the stuck pregnancy.  I've heard that some people 
+have ways of getting Runaways back by doing things like running the game, 
+dragging the runaway into the Adopted directory, and renaming it; these methods 
+have never worked for me on any of the problem pets which have been sent to me.
+
+But, you can get runaways back every time in Petz 3 and Petz 4 (and force 
+Petz II petz back into the game) if you follow this procedure.  It does not
+work for Petz 5 petz, but read my more recent "howto" for getting them home,
+as well as for getting Petz II runaways properly home.
+
+First of all, it's a good idea to remove all your other pets from the Adopted 
+pets directory while you concentrate on the Runaway.
+
+Open your runaway .pet file in your Hex editor.  Look at the first two bytes 
+in the Hex numbers section of the editor; in the ASCII section they will look 
+like two dots or weird characters just before the name of the pet.  It's the 
+Hex numbers that you want to note, though.  They will be numbers such as BD 0B 
+(or it may be grouped as BD0B in some hex editors -- it's still two bytes). 
+Make a note of these numbers.
+
+Now run Regedit.exe -- go to Start, choose Run, and type in Regedit.  You'll 
+get something that looks a little like Windows Explorer. Navigate, clicking 
+on the crosses on the left hand side as you would with W.E., to 
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 4\4.00.00
+
+Click on that "directory" of 4.00.00. Now look at the Right-hand side. Scroll 
+down to "Pets in Playpen" and double-click on it.  _Replace_ the first two digits 
+which are probably 00, if all your pets have run away!) with the first two-digit 
+number you noted down -- in my example, BD, and replace the next two-digit byte 
+with 0B.  So the Value data will look like this: BD 0B 00 00 00 00 00 00.  There 
+will be 8 two-digit numbers only -- no more than that; it allows for two mothers 
+with their babies to be in the game at once, you see.  Click "ok" and close 
+Regedit.exe.
+
+Note that for Petz 3 the key would be
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz 3\3.00.01
+
+and for Petz II
+
+HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Petz II\1.00.01
+
+If you're having trouble knowing how to replace a number rather than just 
+typing in at the beginning (which doesn't work; the game simply deletes them):
+
+When you double-clicked on "Pets in playpen", you got a small dialogue box which 
+looks like a tiny hex editor, with the cursor at the top lefthand side.  Use it 
+as you would a hex editor; either left-click on the left side of the number you're 
+replacing and drag the mouse across it before releasing the button, or press the 
+SHIFT key and the right-pointing cursor key together.  Once the number is 
+highlighted, you can type in the new number.
+
+Make sure that your pet's .pet file is in the "Adopted Petz" subdirectory of 
+your Petz game directory, and all required .dog or .cat files are in the relevant 
+directories. Run the Petz game, and your chosen pet should come out of the door right 
+away.  Give it a fair bit of cossetting to make it happy again.  It'll still be 
+classed as "Runaway", as you will see if you click on the "pick a pet" button  
+and scroll down so that it highlights the pet in question. You can close the 
+program and open it again and the pet will still  come out for you as long as 
+its first two bytes are in the registry  and the pet file is in the "Adopted 
+petz" directory, and eventually (given enough care) it should stop being classed 
+as Runaway.
+
+Stubborn runaways, Petz 3 and 4
+-------------------------------
+
+After you've tried this "first-byte numbers in the registry" trick, and you've 
+been playing with the pet in the game, sometimes it will not be regarded by the 
+game as non-runaway, no matter how much care you give it.
+
+In such a case, close the game, put back your computer's clock by several years, 
+open the game and give the pet plenty of care, then close the game and put the 
+clock back to the correct date.  The pet should return properly soon after.
+
+(Just in case you've forgotten, the clock is changed by double-clicking on the 
+date in the systray in the bottom right-hand corner of the screen, then changing 
+the calendar date on the resulting dialogue screen, and press "Apply".)
+
+Errors
+-------
+
+If you find that putting the bytes in the Registry and the pet in the Adopted 
+Petz folder, and then opening the game, causes it to produce an error message, 
+then you may have some of the same problems as can emerge when a baby is about 
+to be born from a stuck pregnancy.  Read the information below on error messages, 
+and with any luck your problem can be solved.
+
+
+UNSTICKING PREGNANCIES (Works for Petz 3,  Petz 4 and Petz 5)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+This causes owners a lot of distress; their favourite pet is pregnant and due 
+to some bug in the game, she never comes to term.
+
+Once again, it's a good idea to remove all your other pets from the Adopted pets 
+directory to a temporary one while you concentrate on the poor stuck mum-to-be.  
+It's also quite a good idea to make a copy of this pregnant dog or cat in that 
+temporary directory in case of accidents.
+
+Okay, now put the date of your computer forward by a year or so, and and start 
+up the game. If she's still stuck, put her back through the door (you don't need 
+to close the game, putting her away does a quick "save") and change the date 
+forward by another year or two.  Bring her back out.  If she's still stuck, repeat 
+this until she does give birth.  
+
+If you get as far as 2037 (putting her back through the door each time you are 
+going to alter the clock), and she still doesn't produce, you have a real problem 
+pregnancy on your hands.  Putting the clock any further forward might produce the 
+baby, but it will cause your game to crash if you try to select it.  So now, put 
+her away and alter the clock back to 1980.  She might produce the baby then...  
+If not, try alternating 2037 with 1980 a few times.  If none of this works, 
+overwrite her with a copy of the copy that you took before starting, and try again.  
+So far, if there has been no corruption in the mother or baby's data, this treatment 
+has always worked for me.
+
+When she _does_ give birth, remember to change the clock back to the proper date, 
+and then after you've closed the game you can bring all your other pets back from 
+their temporary home.
+
+If the baby is about to be born and you get an error message, then you've got a 
+different problem on your hands.  See the list of errors and possible solutions 
+below.
+
+The only pregnant mum which I've not seen bring her pup into the game is one in 
+which the game had somehow caused a corruption.  The mother came to term all
+right -- but the game crashed each time because of the baby.  With this, if the 
+owner had no backup of the much-loved mother, or the pup had been important to 
+the owner, the only thing that could have been done would have been to get the 
+data from the pet file and make a new breedfile out of it (or hex-paint one).  
+See my solution to that below...
+
+ERROR MESSAGES
+++++++++++++++
+
+The errors that I've come up against to far are:
+
+Breedfile missing.
+------------------
+
+1) Sometimes that's a legitimate error -- the baby needs some breedfile that you 
+don't have in your Resource\dogz or Resource\catz directory.  The solution is of 
+course to find that file and put it in the right place.
+
+2) Sometimes the message is really puzzling -- it's asking, say, for the 
+Petz3\Resource\catz\Lion.cat breedfile and you've _got_ that.  Okay, this 
+one is tricky; most times I've found that the problem is a wrong "offset byte".  
+Don't panic!  It's just the byte which hexers have to change in order for their 
+breedfiles to show up separately.  If you look at the breedfile in a hex editor 
+and search for the string BM you'll see a line of dots above that.  Look in the 
+hexadecimal numbers section of the editor, and you'll see a bunch of numbers 
+that look like this:
+
+0000 0000 EB03 0000 0100 0000 0000 0000
+
+EB03 are the important numbers; they will be different for each breedfile.
+
+Now look at your pet file in the hex editor.  Search for the word Resource.  
+The first instance of the word is part of the directory string for the main 
+breedfile for that pet; \Resource\catz\Lion.cat, for instance.  Okay, search 
+for the next instance of the word, go on past any which refer to clothes files, 
+and eventually you'll come to a part with at least one, probably more, breedfiles 
+similarly listed, each separated by six dots.  Now this is the bit that might 
+muddle you, but it's simple really.  If you look in the Hex numbers section, 
+you'll see that a few bytes before each of the \Resource strings in this section 
+there are numbers which look very like the offset bytes of the relevant 
+breedfiles.  So, with my petfile example, I see
+
+........\Resourc
+e\Catz\Lion.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+And on the hex side of the editor I see
+
+0000 A203 1700 0000 5C52 6573 6F75 7263
+
+etc.  Well, the A203 are the offset numbers for the Lion breedfile that I've 
+got.  Similarly, the first two hex numbers of each six in-between dots in the 
+rest of the list are the offsets for the other listed breedfiles.  If any one 
+of these numbers is not right, you will need to go to the breedfile in question 
+and change the offset number there -- _don't_ try to hex edit the _pet_ file!!  
+So, if my Lion breed's number were F104, I'd have to change it to A203 in order 
+to prevent the error message for this particular pet.  However, you might find 
+that all is exactly right here -- but wait, we're not done yet!  Because this 
+petfile has a baby hidden in it too, you need to find another \Resource area; 
+continue searching, and further down the file you'll see it.  Maybe this is 
+where a breedfile is listed with a wrong offset number.  If so, fix it as I 
+say above.  The game will probably now allow the baby to be born.
+
+3) Sometimes the error message states that a required file called, impossibly, 
+<<NULL>> is missing.  This error is similar to 2); perform the same trick, 
+and the mother and baby should appear okay.
+
+4) Sometimes the message tells you that you need another impossible file; it 
+seems to munge together the name of your main petz directory and the name of 
+a proper breedfile, so for instance if it's a lion that's being looked for 
+on my machine it will ask for D:\Petz3LION.  Okay, I check to see that the 
+offset byte is as required; yup, no problem there.  This one turned out to 
+be even more subtle in the ones that I've rescued so far...  Open the pet 
+file and look through those \Resource listings again.  The mother's list 
+looks fine, much like the list I show above.  The baby's listing, further 
+down the petfile, however, looks a little strange:
+
+........\Resourc
+e\Catz\LION.cat.
+.....\Resource\C
+atz\Maine Coon.c
+at......\Resourc
+e\Catz\Tabby.cat
+
+See?  The LION is all in upper-case here.  What I've found works so far in 
+a case like this is, get the breedfile which is part of the munged error 
+message and which is shown slightly differently in the listing, and go down 
+to where it is renamed -- a search for the hex string 50004600 will get you 
+there -- and replace (in this case) the ion with ION.  Eureka!  The mother 
+now will come out complete with baby.  Don't ask me why this works -- I only 
+know that it has done so for me and that I hope it will do so for you.
+
+Corrupt pet
+-----------
+
+This message comes up as the game opens, and after that it ignores the pet. 
+I'm afraid you are stuffed if you've got one of these, unless the only thing
+wrong is that the bitmap has been sliced off the end.  See my "howto"
+about that.  If it's anything else that's gone wrong, the only thing to do 
+with a much-loved pet is to take its data and make a new, cloned pet from 
+that.  If you do this right, the pet will be identical to your original in 
+every way, it will simply be missing its history.  The method I use for 
+cloning pets is mentioned in detail in my tutorial on converting pet files 
+to breeds, and cloning pets.  For some time, this tutorial was removed from
+public view by Abby because there were cries of outrage from Selective breeders
+-- they were afraid that their hard work would be stolen and breedz made from
+their selective breedz.  They needn't have worried.  In all the time that the
+process has been known and, in fact, simplified since then, there have been
+no sustained thefts of that nature because the Petz Community at large keeps 
+an eye open for things like that.
+
+These days there is another issue also -- with Petz 5 pets being downloaded 
+by people who only have Petz 3 or 4, and the petfiles being reported as "corrupt"
+by their games, it can be very sad for them unless they can clone the pets for use
+in their own games.  And some people eagerly import their own petz into the new
+game and, that they don't like Petz 5 after all, and cannot play with their petz
+any more in their older games.
+
+So take a look lower down in this file at "what can be salvaged" for my 
+old way of doing it; look at my much newer "Ultra easy Pet to breed "howto" 
+Updated Aug 2004" for the easy way :-)
+
+A further note -- it's possible, as long as the pet wasn't too badly damaged,
+to retrieve its date of birth and its "genetics/personality" section as well as
+the core .lnz data which is its "body".  I have a howto on changing your
+re-adopted pet's date of birth, which you'll find under pet editing on my
+petz tutorials page, but as of mid-November 2004 I've not figured out 
+explaining how to do the _personality_ bit.  If I do make a howto on that
+eventually, you'll find it also under pet editing.  One slightly ethical
+point about that, of course, is that when you put your corrupted pet's
+"genetics/personality" over the newly adopted one's, you are effectively
+deleting or swamping your new-adopted pet's essence.  One way around that
+ethical problem would be to make a copy of the new-adopted pet, and only
+overwrite the personality on the copy.  Ah, we do get ourselves into some
+deep ethical issues in these games, don't we... LOL...
+
+
+Petz has performed an Illegal Error
+-----------------------------------
+
+This is unusual and mostly is unsolvable so that you need to take your poor 
+pet and clone it in the same way as for Corrupt pets.  
+
+Sometimes, however, it is caused by a particular hexed breedfile's sounds or 
+error in naming.  If it's the sounds -- for instance, my Petz 3 horsez 
+version with compressed internal sounds -- then you can get a version of the 
+breedfile which doesn't have compressed sounds, or you can get a sound program 
+such as Winamp which should enable your sound card to use such sounds.  There 
+are very few breedfiles with internal compressed sounds; I think only my 
+Petz 3 Horse Equus, and Dawn's Petz 3 Guinea Pigs, were ever available with
+them, and I believe these both are now only available with the non-compressed 
+alternative sounds.
+
+Another solvable "illegal error" is the one that occurs when a couple 
+which is "in love" is about to announce a pregnancy.  The heart comes up 
+and you get something about a missing .lnz and then a crash.  The answer 
+to this is usually in the naming area.  Search the breedfile for the hex 
+string 50004600 and you get to the right place.  Make sure that the hex-number 
+letter-count in front of the name is exactly the same as the number of letters 
+in the name.  Check also that there isn't an extra null-byte (hex 00) between 
+the end of the name and the two-letter bit at the end of it or a missing one 
+-- for instance the Tabby should look like this:
+
+..T.i.g.e.r...T.
+a.b.b.y...T.a...
+
+and not
+
+..T.i.g.e.r...T.
+a.b.b.y..T.a....
+
+or
+
+..T.i.g.e.r...T.
+a.b.b.y....T.a..
+
+note that the central dot between the "r" of Tiger and the "T" of Tabby 
+should show as 05 in the hex section of the editor, because there are 5 
+letters in Tabby, and the central dot between the "y" of Tabby and the 
+"T" of Ta should be 02.
+
+If you have to add or remove a null byte in the bit between a.b.b.y and 
+T.a, then make sure that you compensate for that by removing or adding 
+a null byte (hex 00) after the T.a.
+
+The other possibility, if all is well in this area, is that there has 
+been an error in the allocation of textures by the maker of the breedfile.  
+For instance, if only three textures are listed and one of the alternative 
+paint ballz or add ballz uses texture number "4", then a crash will 
+probably happen sometime...
+
+WHAT CAN BE SALVAGED FROM A "CORRUPT" PETFILE
+++++++++++++++++++++++++++++++++++++++++++++++
+
+NOTE:  This is a very old, laborious way of doing it; the reason I've
+left it here is largely because it will help those who are interested
+to see just how the .LNZ in a breedfile translates into the .LNZ part
+of a petfile.  It's to help experimenters figure things out, in
+conjunction with the more detailed information on .LNZ files that are
+in my "Vital LNZ info" chunks.
+
+Those who are only desperate to clone a pet should look at my much 
+newer "Ultra easy Pet to breed "howto" Updated Aug 2004" for the very,
+very easy way, complete with screengrabs to help you :-)
+
+So, perhaps you got a rare corruption in a special petfile such as I 
+describe above; or maybe you downloaded the most interesting or 
+beautiful-looking pet from an online adoption centre, only to discover 
+that the uploader had very unkindly put it there because it was corrupt.  
+Or you really really like the results of some cross-breed mix you created, 
+and want to make a brand-new breed from it.
+
+Okay, no problem!  Look at the pet file in your trusty hex editor.  Scroll 
+down until you see p.f.magicpetzIII.[Texture List].  Even for Petz 4 pets, 
+it still seems to be p.f.magicpetzIII... Put your cursor in front of "p.f." 
+and scroll down with the left mouse button held down until you get to the 
+last of the numbers. They will be followed usually by a bunch of null bytes 
+(hex 00), and the last item is usually [Fur Color Areas], so it's pretty 
+easy to spot the end.  Lift the mouse button; your pet's data should all 
+be highlighted now.
+
+Go to the Edit menu, choose "copy".  Now go to the file menu and choose 
+"New", then the Edit menu and "Paste".  Your pet data should appear in 
+the new file.  Save this new file as Pet.txt.  Close the hex editor.  
+Some hex editors might have slightly different menu items, but I'm sure 
+you can work out how to copy and paste into a new file and save it.
+
+Open the .txt file in Notepad; you should see it all as a stream of 
+letters and numbers, with black squares where we want to see a carriage 
+return/line feed (i.e. a new line).  The first of the black squares comes 
+directly after p.f.magicpetzIII [Texture List], look carefully and you 
+will see it.  If for some reason your computer sees it as something other 
+than a black square, that doesn't matter; it will be something strange.  
+Each of these black squares is only half of the required carriage return/line 
+feed; in the hex editor you would have seen that it is hex number 0A.  
+What we need it to be, in order to see it correctly in Notepad, is two 
+bytes -- 0D0A.
+
+Unfortunately, although in some hex editors there's no problem with simply 
+replacing all instances of 0A with 0D0A, some -- like Hex Workshop -- have 
+a tendency to crash after a certain point.
+
+There are a few ways of dealing with making the file viewable complete with 
+columns.  The first, and possibly simplest, is to use Wordpad to open the 
+file to look at it instead of Notepad; Wordpad is not advisable in general
+for _editing_ files (although I do advise it for some complex .pet file
+editing in later "howto"s), but for just looking at this file, which is only 
+going to be used as a reference as you edit a _breedfile_, it's fine.  Similarly, 
+I believe that Vim will show the columns as they are supposed to be also.
+
+Or, if you have Word for Windows, you can open the file in that and then 
+"save as" text with linebreaks.  Notepad will then see it properly.
+
+Okay, if you've got it so that it shows up properly -- something like this
+
+p.f.magicpetzIII [Texture List]
+\art\textures\jowl1.bmp 1 256 256
+\art\textures\hair10.bmp 1 256 256
+\art\textures\hair10.bmp 1 256 256
+[Num Ballz]
+67
+[Lnz Version]
+2
+[Species]
+2
+[Draw Linez Before Ballz]
+1
+[Circle Render Mode]
+0
+[Line Render Mode]
+
+as opposed to a great long stream of letters, numbers and odd characters,
+then you're cookin'.
+
+There will be various columns of numbers further down the file.  As you can 
+see, it has a lot of similarities to the .LNZ section of a breedfile.  And 
+in fact, it almost entirely consists of information that you can insert 
+back into a breedfile of your choice to make an exact copy of your beloved 
+pet.  Choose the breedfile carefully -- if it's a mixed-breed pet which 
+uses, for instance, the Great Dane sounds, you'll want to use that as the 
+basis for the breed.  How do you know which sounds it uses?  Well, it's 
+in this line:
+
+[Sounds]
+\ptzfiles\dog\gd\gdsnd.txt
+
+So, get your Great Dane breedfile and copy the text .LNZ file from it 
+into a .txt file as described in Part 1 under "THE MAIN PART OF THE BREED; 
+THE SIZE, SHAPE, ETC".
+
+What you want to do now is put all the data from your pet textfile into the 
+.LNZ textfile.  It may sound daunting, but in fact is not too bad when you 
+get down to it.  Just open both files side by side on the screen, as you 
+would when converting Petz 2 to petz 3 or Petz 4 breeds (or vice versa) 
+and start at the top.
+
+If the textures are different, or a furfile is needed, make sure that is 
+entered instead of what's in the texture list in the breedfile.
+
+Overwrite the numbers in the various extension, enlargement and default 
+areas, also the [256 Eyelid Color].  Things like head tilt limits are 
+unlikely to be different, but you can check if you like.
+
+[Add Ball] comes next, and at first it's a jumble of lines of numbers.  
+_Don't panic_!  In fact, if you look closely at each line of numbers it's 
+almost identical usually to the equivalent line in the breedfile; it's 
+just that in the breedfile it's broken up with those programmers comments 
+such as "; mount align ball 67".  See how, if it's a dog, the first line 
+starts with 48, the next 33, the next 48 -- or if it's a cat, they start 
+with 2, 19, 2?  Those are the base ball numbers in the exact same way as 
+they are in the breedfile.  Nothing much is likely to be different until 
+you get past the first ten lines, the last three of which start with 2 in 
+a cat file and 48 in a dog file.  After that you are into the equivalent 
+of the section which starts "; ### From here down are animator's addballz 77." 
+and it starts to be different, sometimes a little bit, sometimes a lot.
+
+Replace the data in this section of the [Add Ball] with the data from the pet 
+file. You may find that you have to actually add some lines to the ones already 
+there, or you may find that you have to remove a line or two, depending on how 
+many the petfile has here.  Oh, and there will probably be an extra column of 
+numbers -- ignore that if you like, you won't need it but it does no harm to
+keep it.
+
+Down here you're into the extra balls which relate to things like ears,
+nose, tail; you can figure out which is which by looking at the ball
+numbers in that first column.  They are not usually in the exact same
+order as in the pet file, but don't at first let that bother you; just
+put them all in there. 
+
+Later on, you'll need to make sure that the [Linez] are correct too;
+sometimes there's no problem, sometimes the pet can look strange, with
+parts of the body connected where they shouldn't be at all, LOL...
+The reason is because these are _added_ ballz, and each gets allocated
+its own ball number depending on where in the list it is.  The first
+column is the ball to which the added ball in question is to be
+attached, and the order of these balls is very important because they
+are numbered from ball 67 onwards, so you could end up with an extra
+ear-ball attached to the tail or some such if they're out of order and
+the Linez or Move or Project Ballz sections refer to them.
+
+With sections such as [Thin/Fat], [Move], [Project Ball],  you may have
+to make some changes; they also are in a slightly different
+ball-number-order in the pet file, but in these cases the physical order
+of the lines doesn't matter.  Just remember that the number in the first
+column is the number of the ball, and you can't go wrong.
+
+Forget [Key Balls], they are usually untouched by hexers, and the game
+itself doesn't tend to alter them.
+
+It used to be that also [Linez] and [Omissions] were untouched by most
+hexers.  Really, in the early days, with Petz II and with Petz 3 before I
+started fiddling with things to make Horsez etc, we hexers were pretty
+unadventurous.  Nowadays hexers think nothing of trundling around and
+altering most areas of a .LNZ file, but don't forget that just about
+everything except [Ballz Info] was a mystery to many people for years.
+However, the game tends to shuffle the nose and ear [Add Ball] ballz
+around some when making a pet, so the [Linez] need to be copied across
+also.  Ignore the last two columns in the [Linez] or leave them in if
+you wish; they don't exist in the breedfiles normally but do no harm.
+
+These days with the adventurous new breedz we need to check out [Omissions] 
+also.
+
+Now we're down to the [Ballz Info], and you will want to enter all
+changed data in here.  The ballz here are in the correct order as you
+see them in the breedfile, and the first column is (as with the
+breedfile) the colour of the ball.  So, where you might see
+
+[Ballz Info]
+98 -1 0 0 -1 -1 1 2
+
+in the pet file, and
+
+[Ballz Info]
+55, 244, -1, 1, -1, -2, 6, 1 0 ;L ankle
+
+in the original breedfile, you would want to replace 55 with 98, 244
+with -1, etc.  Don't worry that there is no corresponding number for the
+last number column in the breedfile (0 in this line); this contains only
+the number of the ball (not used here in the pet file).  Remember to
+compensate as usual for extra bytes inserted or any that are removed;
+and don't go deleting any of the commas.
+
+Now, in breedfiles where you have 
+
+[Color Info Override]
+;individual variation
+
+sections, you'll want to either remove these or make sure that they fit
+the new breed you're making.  The pet file data doesn't include that of
+course, since it's just the one pet.
+
+Now you're into the [Paint Ballz] section, with some rather horrific
+looking numbers such as 
+
+9 60 0 0.957826 0.287348 244 -1 0 -1 -1 -1 1
+
+Once again, don't panic.  You will find equivalents in the breedfile
+[Paint Ballz]:
+
+9, 62 0, 1, .3 39 -1 0 -1 -1 -1
+
+where the numbers 0, 1, .3 are the "direction" column.  0 0.957826
+0.287348 are three very similar numbers to these.  You can replace them
+fully if you like or you can truncate them to something like 0, 0.96, 0.29
+
+Once again, there is an extra column at the end...  ignore it or keep it;
+it doesn't matter which.
+
+Remember, this section is the paw pads and any odd patches or spots the
+breed may have, so you might have to add in a few lines from the pet
+file which aren't in the breedfile.  That's okay -- just keep them in
+the exact same form as the other ones in the breedfile (i.e. where there
+should be a comma, make sure there is one) and make sure you compensate
+for the extra if you're going to insert the .LNZ into the breed with a
+hex editor.
+
+[Fur Color Areas] will probably not be any different, but you might want
+to check.
+
+Then the petfile starts all over again with the [Texture List].  This is 
+the puppy/kitten stage; all you need out of it for your breedfile/hex 
+painted file is the bits which relate to the bottom, puppy, part of the 
+breedfile's .LNZ.  So check out the [Default Scales] and extensions etc 
+here, plus any [Adjust Clothing] etc.
+
+Make sure the [Ball Size Override] etc are either disabled or are going
+to have the puppy (or kitten) size ballz, and Eureka!  You have transferred 
+your poor corrupted pet into a breedfile of its own, and you can bring him 
+or her back into your game now!
+
+THE MICE!! (And Roaches)
+========================
+
+NOTE: This information is still correct, but as of November 2004 you don't
+need to edit the Petz 4 Rez.dll or Petz 3 Rez.dll file any more to make
+your own mice.  You can download my Petz3Easy-editCaseEtc.zip or
+Petz4Easy-editCaseEtc.zip, read the instructions and install the files
+instead, and then all you need to do is to edit the .lnz files that are
+already extracted, also the sounds etc.  I do not have a petz 5 easy-edit
+kit of the same nature, because the resource .dll is far too big.  But you
+can make your own external-lnz mice files in a similar way to the one I 
+suggest for spr files in my "Scientist's Petz 5 Sprite-swapping insanity".
+
+Anyway, here's the info on editing mice (and cockroaches) basically as it 
+was when I first wrote this tutorial:
+
+It is possible to change your default mice and cockroach shapes, colours
+and even sounds.  The bad news is that you need to hex edit the "Petz 4
+Rez.dll" file which is in your Resource directory, so you won't be able
+to put your special mice up for download in the same way as you can put
+up your breedz etc.  The good news is that you can put up the .LNZ
+itself, for anyone else who understands how to download and insert it
+into their own copy, and the sounds.
+
+One point which I've just realised is that not everyone will understand
+what the heck I'm talking about, because they won't be able to see their
+.dll files.  I didn't think of it because I forgot about the Windows
+defaults, the first thing I do with a new Win95 installation is make
+sure _everything_ is viewable.
+
+For anyone who can't find Petz 4 Rez.dll or Petz 3 Rez.dll in their 
+Resource directory:
+open Windows Explorer or My Computer.  Choose Options from the View menu
+along the top bar.  Click on the View tab.  Click on "Show all files" so
+that there's a black dot in the little circle beside it. Then, what I
+also do is make sure that "Hide MS-DOS extensions..." is _not_ ticked --
+because I like to see the full thing.  Click "Apply" and "OK".
+
+Now you can get at those pesky great files.
+
+But please _please_ backup your "Petz 4 Rez.dll" or "Petz 3 Rez.dll"
+file in a very safe place before you even begin to touch this; if you 
+don't, and you accidentally corrupt it, your game will either not run 
+or will crash, and you will have no option but to reinstall the game.
+
+A note for Petz II users; the mouse .lnz files in your case are in
+the Catz II Rez.Dll, and so you need to have the catz part of the game
+(or my "Catz in Dogz" files) before you can make mice.  You do not
+have cockroaches, of course.
+
+The .LNZ text for these starts at offset number 044838 for Petz 4, or
+offset number 040C38 for Petz 3 English-language version.  When you've
+scrolled down to that part of the file, highlight from the beginning of
+
+[Num Ballz]..16 
+
+down to 
+
+PFM_[V2.001] (c) 1997 PF. Magic, Inc. Lets not talk about me
+
+(In Petz II, Search for \ptzfiles\mouse\mousesnd.txt  and highlight from 
+the beginning of that to the usual "Lets not talk about me".)
+
+Copy this to a new file and save it as a .txt file.  Open it in Notepad
+and you will see that it has three sections, two of which contain
+[Linez], [Addballz], and all three of which contain [Ballz Info]; the
+first section is the cockroach and the last two are the two mice.
+
+Edit these in the same way as you would the breedfiles in the main Petz
+4 tutorial, it's all pretty straightforward if you've followed that
+okay.  You can change shape, colour and sizes; indulge your
+imagination.  But remember to keep the edited textfile _exactly_ the
+same length as the original if you're using a hex editor to re-insert
+the files into the breedfile.
+
+Paste it back in to the same area of the .DLL, run the game and eureka! 
+Hexed mice!
+
+Okay, so now you want to change the sounds.  In the mouse LNZ textfile,
+change \ptzfiles\mouse\mousesnd.txt to something like
+\resource\mouses\mousesn.txt and make a "mouses" subdirectory off the
+resource directory.
+
+Now you need to get the textfile "mousesn.txt".  You could do a search
+in the .Dll for 
+
+Sounds root path=ptzfiles\mouse
+
+and extract the list to a textfile.  But to save you the effort, here's
+the list; just copy everything between the +++++++ lines to a text file.
+For Petz 3, 4 and 5:
+
++++++++
+Sounds root path= ptzfiles\mouse\sounds
+MSeat1.WAV
+MSeat2.WAV
+MSeat3.WAV
+none.wav
+none.wav
+none.wav
+MSfear1.WAV
+MSfear2.WAV
+MSfear3.WAV
+none.wav
+none.wav
+none.wav
+MSidle1.WAV
+none.wav
+MSidle3.WAV
+MSidle4.WAV
+MSidle5.WAV
+none.wav
+MSidle7.WAV
+none.wav
+none.wav
+MSstrug1.WAV
+MSstrug2.WAV
+MSstrug3.WAV
+MSstrug4.WAV 
++++++++
+
+For Petz II:
+
++++++++
+Sounds root path=ptzfiles\mouse\sounds
+MSeat1.WAV
+MSeat2.WAV
+MSeat3.WAV
+MSeat4.WAV
+MSeat5.WAV
+MSeat6.WAV
+MSfear1.WAV
+MSfear2.WAV
+MSfear3.WAV
+MSfear4.WAV
+MSfear5.WAV
+MSfear6.WAV
+MSidle1.WAV
+MSidle2.WAV
+MSidle3.WAV
+MSidle4.WAV
+MSidle5.WAV
+MSidle6.WAV
+MSidle7.WAV
+MSidle8.WAV
+MSidle9.WAV
+MSstrug1.WAV
+MSstrug2.WAV
+MSstrug3.WAV
+MSstrug4.WAV
++++++++
+
+Save this file as mousesn.txt and put it into your resource\mouses\
+directory.  Now, open it and change the directory and one letter of each
+WAV line, so that it looks something like:
+
+Sounds root path=resource\mouses\sound
+MSeam1.WAV
+MSeam2.WAV
+MSeam3.WAV
+etc
+
+Now you need to make the soundfiles and put them in a "sound"
+subdirectory off the mouse directory.  Make sure that they are not too
+big -- really you don't want them bigger than 15k, but I suppose you
+could make bigger, I haven't tried -- and that they are 22,050 Hz, 4
+bit or 8 bit, Mono.  Name them exactly as the .WAV files are named in 
+the .txt list.
+
+Run the game -- your mice should now speak with the voices you chose!
+
+The cockroaches in Petz 3, 4 and 5 can also be edited in exactly the same 
+way, using the cockroach part (first section) of the mouse .LNZ and the 
+cockroach sound list:
+
++++++++
+Sounds root path= ptzfiles\mouse\sounds
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+++++++++
+
+The observant will notice that only one WAV file is needed for the roach
+:-)
+
+Follow the same directions as for the mouse, and you too can end up with
+giant Madagascar Hissing Roaches...
+
+
+************* end of part 2 of tutorial
+
+
+
