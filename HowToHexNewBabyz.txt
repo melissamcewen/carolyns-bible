@@ -1,0 +1,1039 @@
+Tutorial for editing Babyz and for getting new babyz codes.
+============================================================
+
+Contents: 
+The Guide:  For those who don't want to hex or edit new babyz:
+               The babyz "codes" or serial numbers; how to manipulate them
+            For those who want to edit new babyz:
+               Tools (Why not try my Easy-edit kit?  Only Notepad.exe required!)
+               Choosing which baby file to start with; codes and the .LNZ files
+               You have to fiddle with the big babyzRez.dll -- don't panic!
+               THE LNZ FILE
+               For those who are Naturists...
+
+NOTE: I explain some things that are in the .LNZ file quite roughly.  If you
+want to have a more detailed explanation of the .LNZ sections, please take a
+look at my "Vital LNZ info!!!" section at my site; I am in a continuous state
+of improving the information there in those "chunks", and you should get a lot 
+of useful tips. As of July 2004 I have something up there about most of the 
+sections, there are just one or two babyz-specific and oddballz-specific sections 
+that I still have to write out properly.
+
+NOTE 2: The file which contains the babyz .LNZ files is a .DLL file.  Windows, 
+by default, has files of this type "hidden" -- presumably as some kind of safety 
+feature, but in your case you need to see them.  So if you cannot see them on 
+your machine, open My Computer or Windows Explorer, choose View and Options, and 
+then under View make sure that "Show all files" is ticked.  While you're about 
+it, un-tick "Hide MS-DOS file extensions", because that's a nuisance too.
+
+The babyz "codes" or serial numbers; how to manipulate them
+===========================================================
+
+Figuring out the codes for different babyz that you don't have is pretty simple, 
+but it takes time to go through all the different ones to find a baby you like.
+
+Most codes of downloadable babyz start with a set of four numbers (although you 
+may see one where this initial section is only three numbers; possibly even less, 
+though I haven't seen any), then a dash, then three more sections of characters. 
+Those first numbers are what you change to get all the varieties that are possible 
+with that particular skin colour/shape/gender of baby (although the skin colour 
+does _sometimes_ change when just this section is altered). You can change the 
+numbers by adding or subtracting any multiple of 41. It has to be 41, for all 
+of the original numbers I've looked at so far, but I haven't come to the end of 
+how many you can add or subtract. Take this code for example: 
+
+5740-ndda-aaaE-gbd
+
+you can go right down to:
+
+0-ndda-aaaE-gbd or -41-ndda-aaaE-gbd
+
+and below, or up to:
+
+11480-ndda-aaaE-gbd
+
+and beyond, and each time you get a baby with specific hair or freckles etc -- 
+stuff like that. I think it starts repeating itself by defaulting to one particular 
+baby after you get too high or too low, but I'm not sure about that, and with this 
+particular code, at "0" it got confused as to which baby it was supposed to produce; 
+I got a picture of a baby to adopt which was different from the actual baby. But it 
+did work.  Other original codes will not be reducible to 0, of course, they will 
+always be a few numbers to either side.
+
+The basic stuff of gender and (usually) skin colour is determined by the letters used 
+in the second section, such as (in my example above) the letters ndda, together with 
+the third section, in this case aaaE. Depending on the particular code you started with, 
+you may have to have different combinations of letters before this will work, so you'll 
+have to fiddle and experiment here, but what you're looking to do is to alter the first 
+letter in ndda and the last letter in aaaE so that they will work together. Not all 
+letter combinations will work but, for instance, 5740-mdda-aaaD-gbd does.
+
+The last letter in aaaE is also used, if that last group is not "gbd" but is either 
+"mbd" (for fat) or "bbd" (thin), to make a fat or thin baby. For a thin one, count 
+backwards from E by ten letters (including E), and for a fat one count forwards by 
+ten. So a fat baby is
+
+5658-mdda-aaaN-mbd
+
+and a thin one E minus ten letters (in this case we have to count backwards from 
+E-A then z-v -- remember it's case-sensitive)
+
+5617-ndda-aaav-bbd
+
+Finally, Twins are created by making "gbd" into "gbe" and changing the last character 
+of the second section (in this case ndda) into a b (nddb):
+
+5699-nddb-aaaE-gbe
+
+There are an enormous number of different babyz you can discover in this way; all the 
+different combinations of hairstyle, skin-colour, gender, rosy cheeks or not, etc; but 
+they are all controlled by the game-engine such that certain combinations appear not 
+to be allowed.  For instance, if you want a black baby with ginger hair you're probably 
+out of luck unless you take your courage in your hands and move on into the rest of 
+this tutorial.
+
+Tools.
+======
+
+Why not download and install my easy-edit kit?  You have to read the instructions carefully,
+but once installed you only need Notepad.exe (comes with Windows) to make any new baby.
+
+For some things, such as finding out a baby's code, you need a hex editor.  If you don't have one, 
+there are loads of them available for download, and they all do the same basic tasks, although 
+some of them have complicated "bells and whistles" too for power-users.  You can get various 
+freeware ones, such as: 
+AXE VERSION 2.0 or 2.1 downloadable from my site or from Daniel Wright's Odd-Petz site.
+Hexedit, from http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+
+All of them are pretty straightforward to install.  If you have the shortcut to your chosen 
+one on your desktop, you can drag-and-drop any file you want to investigate onto it.  
+They all show files in a similar way: there are three sections, the left-hand one being 
+the "Address" section and containing numbers which show which byte you're looking at 
+(in Hex numbers usually), and it starts at 00.  The middle section is the meat of the 
+thing, being the actual data of the file shown as hexadecimal numbers.  The right-hand 
+side shows the file itself also, but in this case as raw ASCII so that you see it as a 
+mix of weird symbols or dots and text.  Most of the time you will be looking at that 
+right-hand section in order to find or fiddle with bits of text.
+
+You can also use a modern-day Resource Editor such as ResHacker, which a lot of people
+now use, but be warned -- a lot of people find that Reshacker is frustrating, causing
+crashes etc, after a file has been edited a few times.
+
+Other useful tools
+------------------
+
+Notepad.exe -- came with Windows.  Used for altering the LNZ files (which are actually
+text files).  
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package of your choice) 
+to edit "hair" files.
+
+Choosing which baby file to start with; babyz codes and the .LNZ files
+======================================================================
+
+First off, you cannot easily edit a .baby file; it is like a .pet file, it will be 
+reported as "corrupt" if you try to edit it without making sure that the checksum 
+is correct.  I'll not be covering how to do that in this tutorial; here instead you 
+will find how to make brand-new babyz using the data from inside the BabyzRez.dll.
+
+Remember, the game writes to a baby file every time you play with it in the 
+"Adopted" folder, so it could get corrupted in a way that is impossible for a hexer 
+to fix, so _please_ everyone -- keep a safe backup of any treasured baby!
+
+There seem to be so many babyz to choose from, don't there?  Well, they have all 
+basically been created by accessing just a few small .lnz files (within the BabyzRez.dll; 
+I'll talk about that later) with an apparently limitless number of codes.  What you want 
+to do is to start with a baby that has the kind of personality that you like and, preferably, 
+some feature that you want to keep -- such as hair or body colour etc.  Then you want to 
+note down its code and the .LNZ file that it uses.
+
+Finding the code
+----------------
+
+These are stored inside each baby, so it's a simple matter to open your .baby file in 
+the hex editor and find it.  Up at the top, you'll see the baby's name and perhaps some 
+numbers and letters -- ignore those.  Scroll down past the word "baby" and a load of dots,  
+until you come to a series of letters, numbers and dashes that look a bit like the serial 
+number that you first had to enter into the game.  Usually it is in the form of three 
+sections of four characters and one of three, each section separated by a dash, like 
+this: 1553-bbaa-aaak-gbd.  Sometimes that first section has only three numbers; there 
+_may_ be some with only one or two. Whatever, it will be preceded by some stuff that 
+looks like junk, but ignore that; just make a note of the exact code.
+
+
+Finding which .LNZ you need
+---------------------------
+
+Now scroll down further, or do a search for the string: 
+
+.lnz
+
+Note, it is all lower-case letters.  This will get you into the middle of a section of 
+letters and numbers. What you want to note down is the full name of the .lnz; for instance, 
+it might be ab.lnz or bgx.lnz.
+
+For your interest, I've found only a small list of editable .lnz files.  They are:
+ab.lnz
+abx.lnz
+ag.lnz
+agx.lnz
+babyMASTER.lnz <--this one is special and different; I'll discuss it later
+bb.lnz
+bbx.lnz
+bg.lnz
+bgx.lnz
+brb.lnz
+brbx.lnz
+brg.lnz
+brgx.lnz
+wb.lnz
+wbx.lnz
+wg.lnz
+wgx.lnz
+
+The reason there are so few is that they all contain variations which the game picks up
+on when deciphering the baby's code, and so a large number of slightly different babyz 
+is possible.
+
+Finally, there are also some which have a rather special purpose, to do with the sounds
+and defaults:
+
+cu.lnz
+cusnd <--this is a sounds list
+cr.lnz
+crsnd
+sh.lnz
+shsnd
+
+You have to fiddle with the big babyzRez.dll -- don't panic!
+===========================================================
+
+Hexing babyz isn't as hard as it might seem at first, it's very similar to hex-painting 
+litters in Petz 3 and 4, the only thing is that, unless you use my easy-edit package, 
+you have to edit the huge BabyzRez.dll file which is in your Babyz\Resource directory, 
+because all the babyz .lnz files are in there (as well as other interesting things, 
+such as the teddy, doll and bunny .lnz files etc).
+
+Okay, this file is a 15-megabyte monster, and it is the heart of your game.  No need 
+to let that worry you, though!  Just take a few simple precautions.  If you've installed
+my easy-edit package, you will already have moved your BabyzRez.dll to somewhere safe.
+Another good idea is to make a copy also of the PtzFiles directory from the package, because 
+after you've done a lot of hexing of the .LNZ files you're likely to get into a muddle and 
+want to start with a fresh set :-)
+
+At this point, I see a few of you shuffling in your seats and crying: "_Wot_ BabyzRez.dll??  
+I can't see any such thing!"  Okay, what we have here is a nasty case of the Windows Defaults, 
+and you need to change that so that you can see _everything_ on your hard drive.  Windows 
+normally makes all .dll files "hidden", so you will have to make sure that this is not so 
+by using the View > Options menu in Windows Explorer or My Computer.  Click on View, choose 
+Options,  make sure the "View" tab is to the front, and click on the white dot beside "show 
+all files".  Now you can have lots of fun with the rest of us :-)
+
+So, before you start editing your new baby, make sure that you have a copy of that 
+BabyzRez.dll somewhere safe.  Also keeping a copy of the .lnz as you go along is no 
+bad idea, either; there may be a particular effect that you really want to get back to, 
+and you forgot how to do it!
+
+Another thing to remember if you're using a hex editor (as opposed to my easy-edit package 
+or ResHacker) -- and this is important -- is that the file must be exactly the same size 
+after you've finished, or that big .dll will crash your game and you'll have to 
+replace it with the saved copy.  You can see what size a file is (for both the .lnz 
+that you're working on, and the BabyzRez.dll) at any time by right-clicking on it in 
+Windows Explorer or My Computer and choosing "properties".
+
+The basics of editing are the same whichever .lnz file you choose to start with; I'm 
+going to use "ab.lnz" as my example from now on.
+
+Okay, for those who want to use a hex editor instead of my easy-edits, you can't put it off 
+any longer -- open BabyzRez.dll into your hex editor and find the .lnz file you noted down.  
+Actually, this isn't as horrendous a task as you might think; just do a case-sensitive search 
+for ;ab.lnz (or whatever name you noted down), and you will be taken straight to the beginning 
+of that file.  Now, if you're going to hex my way, you are going to copy-and-paste this text 
+.lnz file into a new file and save it as "ablnz.txt".  Do this by putting your cursor in front 
+of  ;ab.lnz. Scroll down using the side-bar until you get to the beginning of the next 
+.lnz file; each file ends with ztrans and, in this case, you're looking to stop before 
+;abx.lnz.  (Look at the above list to see which comes after the one you're using.)  
+Press shift and click at the end of ztrans, and your whole chosen .lnz should now be 
+highlighted.  Choose copy, open a new file in the hex editor, choose paste, and save 
+the file.  When you're done editing, and have made sure the .lnz file is the same size
+as it was when you started, you can paste it back over the exact same part of the BabyzRez.dll.
+
+For people who want to edit it direct in ResHacker, I think you're as crazy as the ones
+who want to do it in the hex editor, but hey -- whatever rocks your boat...  ;-) Open the 
+BabyzRez.dll into ResHacker, navigate in the left-hand pane to the correct .lnz and then 1033, 
+and start editing in the right-hand pane.  Remember to hit Compile and then Save, and with luck
+ResHacker won't crash.
+
+For the rest of you who do it my way and have installed the easy-edit package, find your
+way to the PtzFiles directory, then Baby, then open your chosen .lnz file in Notepad.
+
+THE LNZ FILE
+=============
+
+NOTE: I explain some things that are in the .LNZ file quite roughly.  If you
+want to have a more detailed explanation of the .LNZ sections, please take a
+look at my "Vital LNZ info!!!" section at my site; I am in a continuous state
+of improving the information there in those "chunks", and you should get a lot 
+of useful tips. As of July 2004 I have something up there about most of the 
+sections, there are just one or two babyz-specific and oddballz-specific sections 
+that I still have to write out properly.
+
+So, you can open ablnz.txt into Notepad; it's only about 19k in size.  And you can see 
+why this is the way I edit; you get to see everything laid out in columns, and it's easy 
+to understand what is which.
+
+You start off with
+
+[Default Linez File]
+\ptzfiles\baby\babymaster.lnz
+
+Don't go changing that, unless you really know what you're doing or don't mind game 
+crashes -- but you _can_ edit the babymaster file itself (I'll come to that later) or
+you can insert all the babymaster stuff into your chosen .lnz and edit it in there.  
+Whatever you put into your .lnz will override what's in the babymaster.
+
+[Little one]
+Ab.lnz
+
+No point in changing this except for some special things such as growing babyz.  
+Changing colours won't work, I tried that, and indeed the .baby file picked up on 
+what I put in the second .lnz, but the game never used it.  As I say, though, it's 
+useful for some limited stuff in the [Add Ball] section etc.  See my LNZ breakdown 
+chunks for more details on what can be done, also of course my "growing babyz" howto 
+if you're interested in that.
+
+[256 Eyelid Color]
+#2.W;41
+41
+#1.X;43
+41
+##
+
+Okay, we're into interesting stuff now.  The first thing to understand is that, as 
+with Petz breedfiles, when you see "#" signs, these mark alternatives which can occur.  
+So, there are two different eyelid alternatives in this particular file, although they 
+both actually seem to be identical.  The other thing to understand is that everything 
+after a ";" in a line is a comment.  So what it's saying is that for alternative 2.W, 
+the colour used to be 41, and it still is.  But for alternative 1.X it used to be 43, 
+but they've changed their minds and it's 41 also.
+
+The eyelid colour is number 41, which you can see from my colour chart is a dark fawn.  
+You can change that to any other number on the chart, but remember as always if you're
+using the hex-editor method that if you make the number longer -- 208 for instance, 
+which is one character longer -- you must remove an space from somewhere else in this 
+.lnz file to compensate.  This file _must_ be exactly the same length when you put it 
+back into the .dll as it was before you started; I know I go on about it, but this point 
+is _so_ important.  Of course it's not necessary if you use either my easy-edit package 
+or ResHacker.
+
+Okay, now for something that is very familiar as the bane of many petz editors' 
+existence:
+
+[Add Ball]
+
+So many people forget this section when they're hexing!  In petz, it results in things 
+like ears having wrong-colour patches; in babyz it results in odd-coloured patches 
+beside the nose.  Also you've got to edit this section if you want (or don't want) 
+pony-tails etc.
+
+; first ball is 120
+
+Which is handy for later reference; you want to know which numbers these balls 
+have been allocated if you want to do things like add paint patches to a particular 
+one if you want.  Now we get the column headers, which are pretty straightforward.
+
+;base -- the base ball to which this ball is going to be attached.
+
+x, y, z -- the position of this ball; relative to the base ball, I think.
+
+color, otlnCol, spckCol -- the ball colour, outline colour, and speckle colour of this ball
+
+fuzz -- the "fuzziness" which this ball will have (use -1 for none)
+
+group -- not something that you will usually bother with
+
+outline -- thickness of outline (use -1 for none)
+
+ballsize -- the size of the ball :-)
+
+bodyarea, addGroup -- you won't usually want to bother with these
+
+texture -- which texture the ball will pick up (use -1 for none).  This refers to a 
+list of textures which appears later on.
+
+As you work your way down this section, there are lots of helpful comments, so I think 
+it's pretty easy to figure out which lines you want to edit.  Make sure, if you're changing 
+the skin colour, that you change the colour of the two ballz under this:
+
+;extra transparent nose balls for freckles- 130
+
+because those are patches that show up beside the nose.
+
+The hair Addballz look a little complicated, but they are just a series of alternatives 
+as you will see by the "#" signs:
+
+;HAIR 138
+#6.F ;Hair- Alfalfa 3
+etc
+#5.E;hair- bald2
+#4.D;Hair- bald
+#3.C;Hair- Alfalfa
+etc
+#2.B;Hair- short hair
+#1.A;Hair- dotted
+
+Just comment-out (with ";") or replace everything you don't want with spaces or, if
+using the easy-edit package or ResHacker simply delete it, and edit the 
+particular hair ballz to suit yourself.  If you are removing all the variations, 
+comment or remove also the lines with  the "#" signs in, _including_ the one that 
+is just ##.
+
+I always remove all variations and then I can be absolutely sure that the game
+will pick up on everything in the .lnz file that I want.
+
+A point about the x,y,z while I'm here; you can shift where on the head (which is 
+ball 63) each hairball will be by changing these. In the "x" column, you are choosing 
+how far to either side it will be; I _think_ (but I keep forgetting to keep a note) 
+that a minus number is to the left, and a positive number to the right.  The "y" 
+column is how far up or down it is; in this case the more negative a number is, 
+the higher it is.  The "z" column is the forward (minus) or back (plus).
+
+You can put in your own ballz if you want of course, replacing unused ones; that's 
+how I did the stud earrings on some of my babyz.  You can also add extra ballz at the
+end of the Add Ball section, making some very creative designs.  If you're going to
+link various ballz together though, do make sure that you know which ball is which
+so that you can do the linking in [Linez].  Every Add Ball ball has its own number,
+which you can discover simply by counting down the lines of code.  For instance,
+the first hair ball is ball number 138, then the next one is ball number 139, and
+so on.
+
+#2.Y;- Bellybutton- outy
+
+This has been commented out.  And indeed, if you put it in, it does stick out beyond 
+the clothes.  On the other hand, a "paint ball" belly-button works fine.  And in fact, 
+we come next to the
+
+[Paint Ballz]
+
+Which is where you can define the chickenpox spots, freckles, bellybutton, and 
+the patches of hair that are painted onto the head itself.  This time the 
+columns are:
+
+;base -- the ball to which the patch of "paint" will be applied
+
+diameter(% of baseball) -- how big the patch is to be
+
+direction -- where (x, y, z) on the ball it is to be
+
+color, outlineindex the colour of the patch and its outline
+
+fuzz -- fuzziness...
+
+outline -- thickness of outline
+
+group -- I wouldn't bother changing this
+
+texture -- the texture which the patch will pick up.
+
+Once again, notice that there are variations; you don't really want them, 
+so comment them out or replace with spaces.
+
+Then there's the small [Move] section; I'd leave this alone if I were you, some 
+really strange things might happen to the eyes if you try changing this... On
+the other hand, if you want to make babyz that are a very unusual shape, you may
+find that you want to add other balls to this section and include the
+[Project Ball] section from the babymaster, so that you can manipulate some ballz
+into positions that give the desired effect.  That's how I made my kittenz babyz
+with their ears and faces.  This is pretty advanced stuff though, so if you
+want to know more about these sections look at my .LNZ breakdown chunks.
+
+The next part, the [Linez], is also not really of much use to  most hexers.  
+Most babyz hexers seem to be interested in crafting hair designs out of lots
+of little ballz, and they produce delightful effects.  It's only a few who feel
+the need to also use linez.  There are some things -- like the colour and 
+thickness of the lines that join ballz together -- that can be useful to fiddle 
+with.  If you are making wingz etc of course, you need to get to grips with
+the [Linez] section, but you do need then to understand exactly which ballz
+you are joining together.
+
+I discovered in Petz that I could change which ball was attached to which in 
+Linez, but that I needed to fiddle with [Move] and [project Ballz] also to get 
+a really useful effect.  Both the [Move] and [Project Ballz] (which is in the 
+babyMASTER file) seem to be very minimal in babyz, but of course as stated
+above you can add to them.  Anyway, [Linez] has some stuff that you might find useful:
+
+;srt, end -- start ball and end ball which the line is to join
+
+fuzz, col -- fuzziness and folour of the line
+
+lfCol, rtCol -- colour of either side of the line
+
+sThck, eThick -- thickness of either end of the line
+
+outline, drawAFTERBall -- um, well, guess...
+
+This bit makes me giggle every time I see it:
+
+;xtras -- unneeded, now done with polygons
+;nope -- we need them
+
+Seems P.F.Magic's programmers had some design changes :-)
+
+Now, here's something tucked away that you don't want to lose sight of if 
+you're fed up with the standard colour of the babyz' mouths:
+
+[Polygons]
+; mouth
+
+What you've got here is the part inside the polygons of the mouth (defined by the 
+ballz which make up the edges), filled with the colour in the "colour" column.  
+I guess you can fill the mouth with fuzz and texture also, if you really want to...  
+And it looks as if the programmers tried tinkering with the ear ploygons also, but 
+decided not to carry on with them.  I have done some very successful work with
+polygons, adding in several to make diaphanous wingz for my faerie babyz.  The headers
+for the polygons section are:
+
+ball1 -- ball 1  )
+ball2 -- ball 2  ) These 4 ballz are the 4 corners of the polygon.
+ball3 -- ball 3  )
+ball4 -- ball 4  )
+color -- colour that fills the polygon
+lEdge -- left edge
+rEdge -- right edge
+fuzz -- fuzz amount
+texture -- texture to be used in the filled polygon.
+
+Note the programmers' comments:
+
+; -1 means use the main fill color in field number five (5)
+
+and
+
+; only the first FIVE fields are necessary.  lEdge, rEdge, fuzz and texture are optional
+
+I think those speak for themselves :-)
+
+Now, here's the texture list, which is very important for the hair and 
+eyebrows -- I think are just about the only ballz in which textures are 
+used in the P.F.Magic babyz:
+
+[Texture List]
+\art\autobuild\hair3.bmp        1
+\art\autobuild\clear.bmp        0
+\art\autobuild\cottonwhite.bmp  0
+;Hair color/textures 3
+#5
+\art\autobuild\B_DarkBrown3_trans.bmp	0
+#4
+\art\autobuild\B_DarkBrown3_trans.bmp	0
+#3
+\art\autobuild\B_DarkBrown3_trans.bmp	0
+#2
+\art\autobuild\B_DarkBrown1_trans.bmp	0
+#1
+\art\autobuild\B_DarkBrown3_trans.bmp	0
+##
+;
+;Hair color/textures 4
+#1
+\art\autobuild\B_TransNew4.bmp	0
+##
+; 4
+##
+\art\autobuild\B_DarkBrown3_trans.bmp	0
+
+Okay, remember that textures in P.F.Magic games are listed in the order 
+0, 1, 2, 3 etc.  The number which comes after it is a "flag" to say whether colour
+will show through or not.  So in this case:
+
+\art\autobuild\hair3.bmp        1 --  texture number 0, 
+set to "1" which effectively means that the ball colour will have an effect.
+\art\autobuild\clear.bmp        0 -- texture number 1, 
+set to "0", which effectively means that its own colour will predominate
+\art\autobuild\cottonwhite.bmp  0 -- texture number 2
+set to "0", which effectively means that its own colour will predominate
+
+Then we are into a series of five alternatives for texture number 3.  
+comment out or replace all the ones you don't want with spaces, or 
+remove all the "#" signs and you'll end up with texture numbers 
+3, 4, 5, 6, 7...  The flexibility is delightful!  The same applies 
+to the alternatves listed under 
+
+;Hair color/textures 4
+
+Now, the balls for hair (both the paint ball and add ball hair), and eyebrows, 
+often tend to use texture number 3.  this confuses new hexers and they don't
+seem able to understand that they can put any texture number in the texture column
+for any ball, they don't have to stick with texture number 3 (the 4th texture in the
+list) if they don't want to.
+
+Next we have [Color Info Override], and you want to remove all that lot 
+unless you want to be surprised with different-coloured babyz.  Likewise 
+with [Outline Color Override], which is variations in the colour of the irises.
+
+And now, here we are at the main stuff of your baby; the [Ballz Info].  I 
+think it's all pretty self-explanatory, and it also very handily provides 
+you with a list of the ball-number for each ball (e.g. the left ankle is 
+ball 0, the right ankle is ball 1 etc).  You can edit all the colour, 
+fuzz, outline and ball size, and texture columns to your heart's desire.  
+I wouldn't bother with the group column, although there's no problem if 
+you do, nor would I touch the final two columns under "//0" and "ankleL".
+These last two are just programmers' comments.
+
+Okay, you've edited all that.  If you're easy-editing in Notepad, just
+hit "save" (_not_ "save as") and start up the game, enter your code, and adopt
+your baby.  
+
+If you're using ResHacker, hit compile, then save, scream if it complains 
+about an illegal error and breathe a sigh of relief if it doesn't, start up the 
+game, enter the baby code and adopt.
+
+If you're using the notepad-and-hex-editor method, make sure that the file is 
+the exact same size in bytes as it was when you started.  Now you can open it 
+again in your hex editor and copy/paste it back into the exact same place 
+you got it from in the BabyzRez.dll.  If you were sensible, you hadn't 
+closed that, so you won't have to find and highlight the section again.  
+Now save it, make sure there are no babyz in the "adopted" folder, and 
+open the game.  Enter the code which you made a note of earlier, and 
+eureka! Your baby should appear.
+
+THE babyMASTER.lnz FILE
+-----------------------
+
+Remember that everything which is in this file can be entered into your
+own chosen baby .lnz file and changed there -- the game will choose your
+alterations rather than the defaults in the babymaster.  But you can of 
+course edit this file instead if you'd rather.  I cover all the areas
+in my LNZ breakdown chunks, so if there is an item you're particularly
+curious about take a look at them.  Meanwhile there are some particularly
+interesting bits:
+
+[Default Scales]
+[Move]
+[Omissions]
+[Thin/Fat]
+[Project Ball]
+
+This is a nifty little .lnz file which is always referred to when a baby 
+is being made, as well as the specific baby's .lnz file.  Here you'll find 
+a load of stuff you don't really want to touch unless you want to make
+wireframe babyz etc, but here you'll find the part that makes a "fairy" or 
+"giant" or even -- ack -- a baby with a "disconnected" look.
+
+[Default Scales]
+100			normal pet scale
+100			normal ball scale
+
+Okay, changing both to a smaller number makes a smaller baby; both to a 
+larger number, a larger baby.  Changing the "pet scale" to a smaller number 
+than the "ball scale" makes a more _compact_ baby -- by which I mean, the ears 
+etc are more close-set and the effect is chubbier.  Making the "pet scale" to 
+a bigger number than the "ball scale" makes an increasingly _loose_ baby -- by 
+which I mean, everything looks more and more separated, until you've got 
+something that is really rather terrible.
+
+If you're keen to experiment you can also fiddle with the [Thin/Fat], 
+[Project Ballz], and [Move]   
+
+[Thin/Fat] is useful if you want to choose whether your baby never gets
+fat or gets very fat indeed; this key text hard-codes such things into
+your baby file, and you don't have to then use the brain-sliders or
+a hex editor to correct any excessive tendency to fatness in your babyz.
+
+The Project ball columns are: first column, initial ball; second column, 
+ball it's projected to; third column, distance between the two.  
+
+In the [Move] the first number is the ball, and the 2nd, 3rd, 4th columns 
+are an x, y, z (as in geometry <g>) location.  
+
+[Omissions] is extremely useful if you're making something as odd as my spiders;
+I also find it handy for my Real Babyz series.  It's the best way to make sure
+that a ball which you don't want to see is removed from sight.
+
+And now, sounds:
+
+SOUNDS
+------
+
+I'm not going to bother suggesting altering the sounds in Babyz, as I'm not
+even sure it can be made to work and you're unlikely to want to distribute 
+your babyz with a few megabytes of .wav files anyway, but if you are keen to 
+do so for your own game, theoretically the principle would be the same as for 
+Petz breeds; have a look at my tutorials for those to get an idea on how to do it.  
+
+The pointer to the sounds list is in the babyMASTER.lnz file, and if you alter 
+that, say, from \ptzfiles\baby\cu\cusnd.txt to \resource\cu\cusnx.txt and adopt 
+a baby then, in theory, the baby should expect to use a sound list, containing 
+the same number of sounds as in the "cusnd" file (see my list of .lnz files above), 
+in that directory on your hard drive.
+
+Personally I have never yet managed to make Babyz use sounds that are not within
+the sound .dll files, but I confess to not having tried very hard and you might
+have better success.
+
+BITMAPS
+-------
+
+You can fool around with various textures, of course.  There are a lot in the 
+game itself; here for your interest is a list of the bitmaps in the BabyzRez.dll, 
+in their order of appearance. 
+
+ICON_DESKTOP
+ICON_EXIT
+ICON_PETZ_PUBLISHER
+ICON_PLAYPEN
+ICON_WWW_PETZ_COM
+AMEOBA
+B_AFRO1
+B_AFRO2
+B_AFRO3
+B_AFRO11
+B_BLOND1
+B_BROWNLONG1
+B_DARKBROWN1
+B_DARKBROWN2
+B_DARKBROWN3
+B_DARKBROWN21
+B_DARKBROWN1_TRANS
+B_DARKBROWN2_TRANS
+B_DARKBROWN3_TRANS
+B_LTBROWN1
+B_ORANGE1
+B_ORANGE2
+B_TRANS1
+B_TRANS2
+B_TRANS3
+B_TRANS11
+B_TRANS21
+B_TRANSNEW1
+B_TRANSNEW2
+B_TRANSNEW3
+B_TRANSNEW4
+BEE2
+BIGWAVE
+BLACK
+BLACKNOISE
+BLACKSTRIPE
+BLUERIB
+BLUESOCKS
+BUBBLESB
+BUBBLESP
+BUNNYBROWN
+BUNNYBROWN2
+BUNNYGREY
+BUNNYTAN
+CALI2
+CALI5
+CAMOD
+CAMOJ
+CATZCORNER
+CHAINMAIL1
+CHAINMAIL2
+CHECKER
+CHECKER2
+CHECKS
+CIRCLES
+CLEAR
+CLOTHRED
+CLOTHYELLOW
+COTTONBLUE
+COTTONBLUE2
+COTTONBLUE3
+COTTONBLUE4
+COTTONGREEN
+COTTONGREEN2
+COTTONGREEN3
+COTTONGREY
+COTTONORANGE
+COTTONORANGE2
+COTTONPINK
+COTTONPURP
+COTTONPURP02
+COTTONRED
+COTTONWHITE
+COTTONYELLOW
+COTTONYELLOW2
+COW
+DENIM
+DENIMWASHED
+DIAPER0
+DIAPER1
+DIAPER2
+DOGZCORNER
+FLOWER
+GIRAFFE
+GOLF
+GOLF2
+GOLF3
+GOLFHAT
+GROOVY
+GROOVY2
+HAIR3
+HAIR4
+HAIR6
+HAIR10
+HAIR11
+HAIR20
+HAWAIIAN
+HAWAIIAN2
+HEARTS
+HEARTS2
+HEARTS3
+HELMET
+HELMET2
+HERRING
+HERRING2
+JOWL1
+JOWL2
+LEOPARD
+LONGJOHN
+LOOPY
+MOTTLED2
+MOTTLED5
+PAINTED
+PETZCORNER
+PICTURE
+PICTURE2
+PICTURE3
+PINKIE
+PJBALLOON
+PJBALLOON2
+PJBASE
+PJBOAT
+PJDUCK
+PLAID
+PLAID5
+PLAIDBLUE
+PLAIDRED
+PLUSH
+POLKA
+POLKABG
+POLKABLUE
+POLKACLOWN
+POLKARED
+QUILTBLUE
+REDRIB
+REDSTRIPE
+RIDDLER
+SCRIBBLE
+SKI2
+SOAPBUBBLUE
+SOAPBUBWHITE
+SPOONWOOD
+STARS
+STARS2
+SWTR3
+SWTR7
+TANRIB
+TEDDY1
+TERRYBLUE
+TERRYBROWN
+TERRYPINK
+TIEDYE
+TIEDYE2
+TIEDYE4
+TIGER2
+TRIANGLESBLUE
+TRIANGLESPINK
+TRIANGLESYEL
+WIGGLE
+WIZARD
+YELLOWDIAMOND
+YELLOWNOISE
+YELLOWRIB
+ZEBRA
+ZEBRA2
+
+If you want to see what each one looks like, take a look at them in Reshacker --
+it's an ideal tool for looking inside resource files.
+
+You can try setting the texture to 0 or 1, or try other numbers -- such 
+as 60, for instance -- to get different effects with colours.  And you can 
+produce your own textures, which would need to be distributed with your baby of course.
+
+For those who are Naturists...
+==============================
+
+It appears that for some reason prudery has crept into this game, and the "powers 
+that be" have decided that we must on no account have our babyz crawling around 
+as nature intended, whether in the changing-room or elsewhere.  Our babyz are never, 
+it seems, to feel the sun's warmth on their middle sections, and you might feel 
+concerned that they could get nappy-rash where they are so constantly wrapped up.  
+And removing all the nappies from the clothes directory won't help; that simply 
+causes the game to put a pretend nappy on the baby.  
+
+Well, over the past years I've found several ways around this.  I think that
+my "Real Babyz" group work the best, especially since I fixed them to look right
+in pants, nappies and onesies etc.  But I appreciate that not everyone would want
+to make their babyz have realistic parts, and those who do can figure it out from
+the data inside my babyz.  I'm going to give you instead a couple of different
+methods which have worked for me.
+
+What you have to do, first, is to edit ballz:
+
+//66 hipL, //67 hipR, //70 jock    
+
+to be rather smaller than the original, and to remove the [Linez] which join
+ballz 66 and 67 to 70 and each other (your baby doesn't need them):
+
+;diaper
+66, 	67, 	-1,	-1,	-1,	-1,	70,	70,	1,	0
+66, 	70, 	-1,	-1,	-1,	-1,	100,	100,	1,	0
+67, 	70, 	-1,	-1,	-1,	-1,	100,	100,	1,	0
+
+Then you need to make a special "skin" for your babyz, because even when you change
+the colour of the jock and hips, the game sternly replaces it with that awful grey.
+So, for making your babyz' skin there are a couple of methods:
+
+The second method, 
+------------------
+and one which I always use now, is to make lavish use of Paint Ballz.  
+You can get a copy/paste of that in my complete baby .lnz files on my 
+"Babyz Easy-edit and fixes" page.  In the "Ultra easy New-babyz Flowers, Long hair Etc"
+it's under this, in [Paint Ballz]:
+
+; nudity -- this gives full nudity for your baby if you do not have the White Diaper.clo in the clothes directory.
+; it's the skin cover that I use with my "real nude" babyz, although the rest of this babyz' data
+; does _not_ include the "real nude" shaping.
+
+The advantage of this is that your baby is really truly in a naturist state provided
+that you remember to keep the white diaper.clo file out of the clothes directory.
+The disadvantages are that you do have to remember to remove the white diaper, and
+that when the baby wants its nappy changed you haven't got anything tangible to remove.
+I get around that by popping a diaper on and then immediately removing it again.
+Seems to work without problems.
+
+The first method, 
+------------------
+I used was to make it out of a nappy (diaper).  This has the advantage that when 
+your babyz' diaper needs changing you will be able to take it off even when the 
+baby is in "Naturist" state.  The disadvantage is that you may have to edit any 
+tails that you wish to put on your baby, or they'll disappear :-)
+
+This involves editing a clothes file, but it's not difficult.  Pop a copy of the 
+White Diaper.clo file into the hex editor and search for [Flat Clothing].  copy 
+and paste from the beginning of that to the end of the word "paintballs" into a text 
+file, as you did for the .lnz file if you were using the hex-editor method.  
+In the case of clothing, they call them "clz" files, but that doesn't matter; 
+it's the same thing.  Now edit that in Notepad.  Or you can use ResHacker for this,
+since .clo files are actually resource files.
+
+See this bit:
+
+; ball  color  outCol  fuzz  outType  sizeDiff  pgroup  texture
+;diaper
+66      15     53     0     -1       1         0       -1
+67      15     53     0     -1       1         0       -1
+70      15     53     0     -1       1         0       -1
+
+Okay, you want to change the skin to your babyz' colour and, for a girl I used to 
+change the sizediff to -15, -15, and -90 (of course you can choose numbers to suit 
+yourself).  For a boy, I changed those to -15, -15, and -50.
+
+Making the new skin _not_ the default "white nappy"
+---------------------------------------------------
+
+In other words, making it show up separately, if you don't want it to be the default 
+"White nappy".  It depends on how many different-coloured babyz you have, I guess.  
+If you want to rename it and have it separate, then you need to look at the line above 
+[Flat Clothing], in the hexadecimal section.  You will see:
+
+0000 0000 AD3B 0000 0300 8000 0000 0000
+
+You want to change either AD or 3B or both, so that the combination of these two numbers 
+is not exactly the same as for any other clothing in your directory.  This is an ID
+number to help the game recognise the file, you see.
+
+There is also the possibility that some perfectly valid hex numbers won't be accepted 
+by the game; it seems to have upper and lower limits for what it "sees" as clothes 
+numbers.  Just try it and see.  If you remove most of the other clothes from the 
+clothes directory while you're getting the hang of this, you'll be able quickly 
+to see what works and what doesn't; you can worry about finding a number that doesn't 
+clash with other clothes later.
+
+hen you need to name your nappy.  Do a search for the hex string:
+
+50004600
+
+This will get you to the correct place, where you see P.F...M.a.g.i.c; the name section of 
+the file is just below this, and the name is repeated twice.
+
+..........W.h.i.
+t.e. .D.i.a.p.e.
+r...W.h.i.t.e. .
+D.i.a.p.e.r...C.
+l.o.t._.D.i.a.p.
+e.r.W.h.i.t.e...
+
+Now, you'll have to put the letters of your name into this bit:
+
+..........W.h.i.
+t.e. .D.i.a.p.e.
+r...W.h.i.t.e. .
+D.i.a.p.e.r
+
+And make sure that the dots between the letters are all null bytes (hex 00) apart from the 
+letter-count, which is the first of two dots (0C in this case) before the first name 
+
+..W.h.i.
+
+and the middle dot (0C again of course in this case) between the two names
+
+t.e. .D.i.a.p.e.
+r...W.h.i.t.e
+
+This letter-count is the number of letters in the name, including any spaces; in this case 
+it is 12 which = 0C in hex numbers.
+
+Ignore the next bit
+
+...C.
+l.o.t._.D.i.a.p.
+e.r.W.h.i.t.e...
+
+And if your name is longer or shorter than the original, you need to compensate for that 
+in the null-byte area after this section (remove or add bytes) as well, of course, as 
+changing the letter-count numbers shown above.
+
+Rename the file, of course, to exactly the same name as you entered into the file.
+
+There's one more thing you want to do, if you've got a lot of "skins" and you want to be 
+able to tell them apart without the trial-and-error of putting them on the baby; they will 
+all look like White Diapers on the shelf, you see.
+
+Scroll up a little way, past the name, the P.F...M.a.g.i.c, and the words "Sounds root 
+path".  You will see the words White Diaper.  Change those to some mnemonic which suits 
+your new diaper; don't make it any longer than those two words, and if it's shorter, 
+fill in with spaces.
+
+NOTE -- TAILS!!!
+-----------------
+
+If you've made these "skins", then you have to do something about any tails that you 
+have in your game.  One method is to disassociate them from the "jock", and associate 
+them instead with ball 4, the "belly" ball.
+
+So, this time you look for [Add Clothing], because the tails _add_ balls to the baby, 
+rather than painting themselves onto it.  Select everything from there to the word 
+linez, and copy it to a text file in the usual way.
+
+Now, where you see, for instance, in the Devil Tail:
+
+-70   0, -20, 64   26   53   1   0   -1   0   -1
+
+Change the -70 to -4.  Okay, you still have some tweaking to do, because the position 
+isn't right.  In order to make it sit in the right place, you need to change the 
+"offset" (once again, it's an x, y, z format) to, in this particular case: 0,  30, 34.  
+It varies with different tails; to give you an idea of what needs to be done (and give 
+you a quick "fix"), I include the .clz files for all the tails I've seen so far.
+
+Well, I hope you have lots of fun making your own babyz.
+
+Enjoy!
+
+Carolyn
+
+End of Tutorial
+***************

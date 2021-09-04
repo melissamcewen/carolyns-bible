@@ -1,0 +1,35 @@
+
+Question: Awww, I wanted to use it with Dogz 4.  Will there be a version for that soon?
+
+Answer: Yes, there will be -- also catz will be enabled soon. I've sent Nicholas 
+some stuff he needed, plus I hadn't realised that he didn't have the catz part 
+of the game so I gently pointed him to my "catz in dogz" files, and he's already 
+making changes.
+
+Meanwhile, you can fool the program *wicked grin*. Make a small text file and call 
+it p5.reg, and put into it the stuff between ******* below:
+
+*******
+REGEDIT4
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\StudioMythos\Petz 5\4.00.00]
+"Petz Root Path"="N:\\PETZ4"
+"Petz Full Program Name"="N:\\PETZ4\\PETZ 4.EXE"
+*******
+
+Now change the bits with N:\\PETZ4 to whatever place your game is installed -- maybe 
+
+C:\\Program Files\\P.F. Magic\\Petz 4
+
+-- and save, then double-click on that .reg file.
+
+Almost there. Now go to your Petz 4 Resources directory, and rename Petz 4 Rez.dll 
+to Petz 5 Rez.dll and Dogz 4 Rez.dll to Dogz 5 Rez.dll. Start PetWorkshop.exe. 
+Ta-da!!! it works :-)
+
+Err, remember to change the names of those two dll files back again before running 
+the game! And of course the same principle applies to Petz 3.
+
+Enjoy!
+
+Carolyn
