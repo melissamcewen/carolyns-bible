@@ -1,0 +1,643 @@
+
+Contents: Introduction
+          Petz 5 special case
+          For Petz 3, 4 and 5
+          For Babyz
+Addendum: How to make new toyz work separately (updated July 2004)
+
+Introduction
+============
+
+This is intended to explain how to un-hide toyz and give them on-shelf graphics
+where needed.  It also explains how to re-arrange the items that they need in 
+order to edit some toyz that were previously thought to be un-hexable (such as 
+the Milk).
+
+Petz 3, 4, 5 and Babyz all have "hidden" toyz, which are toyz that either
+appear in specific playscenes only and can never be taken elsewhere (such
+as the Petz mosquito or hermit crab and Babyz bunny or big teddy) or which
+appear occasionally in scenes and need to be gathered into the carry-case.
+There is even the occasional toy, such as the Surprise.toy in Babyz, which
+never appears at all and seems to have no purpose, and there are toyz which
+are partly contained within the game's .dll files.
+
+Note that when I talk about .lnz, .bdt, .bhd, .scp, .spr, .flh and .flm
+sections or files, I'm expecting you to know the basics of hexing and how to 
+find sections within the .dll or .toy files.  You can either find them by 
+using the old hexing methods or by using a resource editor such as ResHacker
+to extract them.  I'm also assuming that you know how to use the tools,
+whether you're using a hex editor or a resource editor.  Finally, I'm
+assuming that you know how to edit .lnz sections (they work the same way
+as breedfile .lnz and clothes .clz sections) and how to edit Filmstrips
+in Petz 3, 4 and Babyz (see my tutorials on that if you don't yet know how).
+
+And remember -- always, always keep a backup copy of your original in case
+anything goes wrong.
+
+Petz 5 Special case
+===================
+
+In the case of Petz 5, of course, all toyz need to be gathered into the
+carry-case because there is no Toy Closet.  I have a registry and key fix
+in my P5 toy zips for people with that game.  In addition to changing the necessary
+bytes that I'll be showing you later in this "howto", you will have to alter your
+Registry and key to allow for the extra toyz.  If you "un-hide" all the toyz
+which have on-shelf graphics, you will have 135 toyz in the case and you will
+need to enter hexadecimal 87 into the Registry.  If you were to "un-hide" all 
+the ones also which do _not_ have the graphics, you would have 157 toyz, and 
+would need to enter hex 9D into the Registry; but I do not advise this, as
+several of these will crash the game.  I've not checked them all to see which
+cause crashes and which don't, but I can tell you that the "unhidden" Treasure 
+Chest and Pirate Flag crash the game while the Blue Butterfly and Beetle do not.
+This is true whether you add on-shelf graphics or not.
+ 
+I include a zip containing a fixed-up .lkv file for you to place in your game's 
+Keys directory; if you choose to un-hide all the toyz, it will allow them into 
+your carry-case.  Don't forget that you need to enter 9D into the Registry, into
+the "Case ListSize" in HKEY_LOCAL_MACHINE\SOFTWARE\StudioMythos\Petz 5\4.00.00
+If you're going to add extra, new toyz, you will need to make that 9D into a larger
+number (as with my Mint Bottle, I needed to enter 9E) and you'll need to add an extra
+bit onto the .lkv file (as I did with my Mint Bottle, downloadable separately at
+my site).
+
+If you want to un-hide all the hidden Petz 5 toyz and test them, you can give them
+"on-shelf" graphics by taking a .spr section from some other item -- a clothes
+item, for instance, which you wouldn't expect to see on the toy shelf -- and
+either inserting it into the .toy file using a Resource Editor or placing it
+in a subdirectory on your hard drive.  If you choose the latter method, you
+must first make the subdirectory, off your game's main directory, which will
+be called art then you must make another one, off that one, which will
+be called sprites then another one, off that one, called toyz -- and finally
+another one, off that one, called by the sprite-name of your toy.  For
+instance, look at the blue butterfly which I have for download at my site.
+In the zipfile you will find the butterfly toy and a .spr file called 
+fbug_b2_away.SPR.  This file needs to be in this subdirectory, off your
+game's root directory:
+
+\art\sprites\toyz\fbug_b2
+
+and my version of the beetle comes with a file, called fbug_b1_away.SPR,
+which needs to be in this subdirectory:
+
+\art\sprites\toyz\fbug_b1
+
+If you'd rather use a resource editor such as ResHacker to add the spr
+to the toy file, go ahead -- but I do not give lessons in using resource
+editors, sorry.  This is because I'd have to make separate "tutorials"
+for each resource editor, and I just don't have the time.
+
+Petz 5 SPR sections are, at the time I write this, not editable in any
+useful way (sept 2003).  You can swap around on-shelf graphics in the
+manner that I show above, so that you can make your clothes or toyz
+show up a little differently.  And you can still edit any toyz that use
+.lnz files:
+ 
+the Auto-rolling ball, the driftwood, the fish-bone, the bone, the stick, 
+the milk, and the tug-toy.
+
+Of these the Auto-rolling ball, the driftwood, and the fish-bone have their 
+.lnz sections actually in the toy files and you can edit them in the same way
+as Petz 3 and 4 people are able to edit them.
+
+The bone, the stick, the milk, and the tug-toy have the .lnz only in the 
+huge PetzRez.dll, and you can make new toyz from them by either putting the 
+.lnz, .bdt, .bhd and .scp sections into a special directory on your hard drive 
+or by using a resource editor and inserting them into your toy.  
+
+These four sections need to go into a different directory from the .spr sections.
+In this case you need to make a PtzFiles directory and then, off that, make one
+with the name of your particular toy's base.  For instance, my "Mint Bottle"
+has Mint.lnz, Mint.scp, Mint.bhd, Mint0.bdt in the directory
+
+\PtzFiles\Mint
+
+For Petz 3, 4 and 5:
+====================
+
+NOTE:  For several toyz, there is no animation for them being on the shelf, 
+so you have to grab at what looks like blank shelf to make some of them 
+appear in the hand.  Even if you add on-shelf graphics, when you do get them 
+out into the scene, these particular ones cannot always be cleared up back into 
+the closet or the carrycase. In order to get rid of the most stubborn ones once 
+you've got them in a scene, just close the game, remove the relevant .toy files 
+from your toyz directory, and then open the game again.  This is a good way to get 
+rid of various problem toyz, by the way, such as spare paint brushes or surprise-box 
+tops.  This may seem a bit messy, but it's quite funny to have the tortoise trundling 
+around in the toyroom. If you want these particular toyz to appear in other scenes,
+then you need to edit the playscene itself so that it starts up automatically
+with them in place.  I shall cover that sort of thing in my playscenes-hexing 
+tutorial.
+
+Put simply, you can make toyz, which are normally "hidden", become available 
+from the toy closet or, in the case of Petz 5, from the carry-case, by changing 
+one byte which is three bytes after the ID number.  You change this byte from
+hex 01 to hex 03.  02 will also work -- in fact, just about anything that
+isn't 01 or 00.  But 03 is a good sturdy number that definitely works :-)
+
+Take the Petz 4 and 5 beetle for example, and find its ID number 
+(what we all call the "offset byte").  You can do that by searching for
+Beetle and finding the place which looks like this:
+
+00016992 | 0000 0000 4265 6574 6C65 0000 0000 0000 | ....Beetle......
+00017008 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00017024 | 0000 0000 9927 0000 0100 0000 0000 0000 | .....'..........
+
+change the 0100 which you see 3 bytes after the ID number (which in this 
+case is 9927) to 0300, as for the toys that we are supposed to see.
+For instance, you can see it clearly in the dog brush:
+
+00017408 | 0000 0000 426C 7565 2044 6F67 2042 7275 | ....Blue Dog Bru
+00017424 | 7368 0000 0000 0000 0000 0000 0000 0000 | sh..............
+00017440 | 0000 0000 2627 0000 0300 0000 0000 0000 | ....&'..........
+
+So that line in the beetle would look like this in your hex editor 
+if you want it to be in the toy closet:
+
+00017024 | 0000 0000 9927 0000 0300 0000 0000 0000 | .....'..........
+
+or take the Petz 3, 4 or 5 Hermit Crab:
+
+00019040 | 0000 0000 4865 726D 6974 2043 7261 6200 | ....Hermit Crab.
+00019056 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00019072 | 0000 0000 2B27 0000 0100 0000 0000 0000 | ....+'..........
+
+change the 01 to 03:
+
+00019040 | 0000 0000 4865 726D 6974 2043 7261 6200 | ....Hermit Crab.
+00019056 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00019072 | 0000 0000 2B27 0000 0300 0000 0000 0000 | ....+'..........
+
+The above two examples will appear as a blank space in the toy closet.  
+There are some toyz which are "hidden" in that they don't appear in the toy 
+closet, but that will show up properly in the closet, complete with proper 
+picture, when you hex their number as shown above.  These are the items -- 
+shells, hairball etc -- which you can collect and place in your carrying case.  
+Those items will of course go back into the closet properly when you hit 
+"Cleanup Area".  Note that "Clean up toy Closet" clears up more of these
+items than simply "cleanup area".
+
+If you want to un-hide all the hidden Petz 3 and 4 toyz and test them, you can 
+give them "on-shelf" graphics by copying a .flh and .flm section from some other 
+item which does have an "AWAY" .flh/.flm set -- and either inserting it into the 
+.toy file using a Resource Editor or placing it in a subdirectory on your hard 
+drive.  If you choose the latter method, you must first make the subdirectory, 
+off your game's main directory, which will be called art then you must make another 
+one, off that one, which will be called sprites then another one, off that one, 
+called toyz -- and finally another one, off that one, called by the sprite-name of 
+your toy.  For instance, look at the blue butterfly which I have for download at my site.
+In the zipfile you will find the butterfly toy, a .flh and flm files called 
+fbug_b2_away.flh and fbug_b2_away.flm.  These files need to be in this subdirectory, 
+off your game's root directory:
+
+\art\sprites\toyz\fbug_b2
+
+and my version of the beetle comes with a pair of files, called fbug_b1_away.flh
+and fbug_b1_away.flm, which needs to be in this subdirectory:
+
+\art\sprites\toyz\fbug_b1
+
+If you'd rather use a resource editor such as ResHacker to add the flh and flm
+to the toy file, go ahead -- but I do not give lessons in using resource
+editors, sorry.  This is because I'd have to make separate "tutorials"
+for each resource editor, and I just don't have the time.
+
+You can of course edit the .flm files; check out my tutorials on Filmstrip
+editing if you want to know how.
+
+For Babyz:
+==========
+
+Things are a little different in this game, but the principle is the
+same.  We have several set playscenes and a variety of objects which
+are always in a given scene but never in a cupboard -- such as the big 
+teddy in the playroom or the high chair in the kitchen.  Then there are
+toyz which are always to be seen in a specific cupboard or closet in
+a specific room.  Finally there are some toyz which were presumably
+never meant to be seen, such as the "surprise" box which, in Petz 4,
+contains the bubble machine but in Babyz does not even appear in the
+game and is empty when you "enable" it.  Because so many positions
+need to be taken into account, the numbers which we need to change
+are a little more complicated, but don't panic -- it's still pretty
+simple once you get your mind around it.  The thing to remember is that
+because of all the possible positions, Babyz makes use of an 8-byte
+set of hex numbers.  (actually, the Petz games probably do too, but
+since they don't tend to make use of position it doesn't affect hexers)
+Most of the numbers in the 8-byte identifiers of the Babyz toyz etc are 
+still 00, and the main object ID is still the first two, but there are 
+some important differences.
+
+Here are some examples, which I hope will show you how to find the ID
+number as well as illustrate the way it works:
+
+Attic Cupboard: 
+Example: Watering can, 
+
+00034224 0000 0000 5761 7465 7269 6E67 2043 616E ....Watering Can
+00034240 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00034256 0000 0000 5C27 0000 0300 0400 0000 0000 ....\'..........
+
+The words Watering Can are near the ID number, and searching for them is
+a neat way of getting to the place that you're after.
+
+The number is 5C27 0000 0300 0400
+5C27 is the individual ID, 0300 0400 indicates its base location. 
+In this case, the base location is the attic shelves.
+You don't have to worry about the fact that the watering can is also in the garden, 
+as this is caused by code within the playscene.
+
+Playroom cupboard: 
+example, Rattle, 
+
+00038128 0000 0000 5261 7474 6C65 0000 0000 0000 ....Rattle......
+00038144 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00038160 0000 0000 4D27 0000 8310 0000 0000 0000 ....M'..........
+
+number is 4D27 0000 8310 0000
+4D27 is its individual ID number, and 8310 0000 indicates its base location.
+In this case, the base location is the playroom cupboard.
+
+Dressingroom diaper-cupboard: 
+Example: Intercom, 
+
+00037728 0000 0000 496E 7465 7263 6F6D 0000 0000 ....Intercom....
+00037744 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00037760 0000 0000 3527 0000 0340 0000 0000 0000 ....5'...@......
+
+number is 3527 0000 0340 0000
+3527 is its individual ID number, and 0340 0000 indicates its base location.
+In this case, the base location is the dressing-room diaper-cupboard.
+
+Nursery: 
+Example: Toy book, 
+
+00034896 0000 0000 546F 7920 426F 6F6B 0000 0000 ....Toy Book....
+00034912 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00034928 0000 0000 4127 0000 A300 0100 0000 0000 ....A'..........
+
+has number 4127 0000 A300 0100
+4127 is the Toy Book's individual ID, and A300 0100 indicates its base location.
+
+Now here's an interesting pair that you might want to fool around with...
+Sittingroom:
+Example: Record,
+
+00041952 0000 0000 5265 636F 7264 0000 0000 0000 ....Record......
+00041968 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00041984 0000 0000 4F27 0000 A300 0200 0000 0000 ....O'..........
+
+has ID number 4F27, and A300 0200 indicates its base location.
+
+Example: Record Player,
+
+00046304 0000 0000 5265 636F 7264 2050 6C61 7965 ....Record Playe
+00046320 7200 0000 0000 0000 0000 0000 0000 0000 r...............
+00046336 0000 0000 4E27 0000 8300 0000 0000 0000 ....N'..........
+
+has ID number 4E27, and 8300 0000 indicates its base location.
+
+Now then, the two items above can be made to work in other playscenes.
+For instance, change the Record Player so that it still has the 83, but
+change the 00 after it to 10 so that it shows up on the Playroom shelf.
+It now becomes 8310 0000 and will appear as usual in the sittingroom,
+but you can also get it out in the playroom.  Now take the Record.toy
+and give it that 10 number too -- i.e. change its number to 4F27 0000 A310
+
+Next time you open the game, you can get the player and the record off the
+shelf and have your baby dance in the playroom.  You can leave the record
+playing in there and then go to the sitting-room, and put on another record
+there too; go back to the playroom and the first one is still playing.
+A caution here, sometimes when you try to pick the record off the shelf
+the hand appears with nothing in it.  Actually the key here seems to be hidden 
+in your game's Registry, where you need to have the first "slot" filled in
+the name of a record that's in your Songz directory.  For some reason the
+first slot is often empty.  You can fix this by playing a record in the
+sittingroom, then running Regedit.exe and navigating via the little crosses
+on the left to HKEY_LOCAL_MACHINE\SOFTWARE\PF.Magic\Babyz\1.00.00
+then on the right-hand side scrolling down until you see RECORD 101's Song File
+(it may be RECORD <any other number>'s Song File, but I'm sure you get the idea).
+This one will probably have nothing but 00 numbers next to it if you're having
+problems grabbing the record off the playroom shelf.
+
+If you've played any records in the game, some of the slots will have more than
+just 00 00 00 numbers in them.  Double-click on one of those and a little hex
+editor will pop up.  Select everything in there and choose copy and close the
+little editor.  Now double-click on that first one and select everything in
+there and choose Paste and OK.  Close Regedit.  After this, you should be able
+always to get the record off the shelf -- if not, repeat the process with any
+other empty Record slots in the Babyz registry.
+
+Here are some items that are set to show up in a kitchen cupboard:
+
+00034160 0000 0000 4D69 6C6B 2042 6F74 746C 6500 ....Milk Bottle.
+00034176 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00034192 0000 0000 3B27 0000 8380 0000 0000 0000 ....;'..........
+
+00038592 0000 0000 4261 6E61 6E61 2046 6F6F 6420 ....Banana Food 
+00038608 4A61 7200 0000 0000 0000 0000 0000 0000 Jar.............
+00038624 0000 0000 3627 0000 8380 0000 0000 0000 ....6'..........
+
+00038784 0000 0000 436F 6F6B 6965 204A 6172 0000 ....Cookie Jar..
+00038800 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00038816 0000 0000 2027 0000 8380 0000 5370 7269 .... '......Spri
+
+The location number is of course 8380 0000.  Also in the kitchen cupboard
+is a medicine bottle, but you can see from the location number (0304 0000):
+
+00037632 0000 0000 4D65 6469 6369 6E65 2042 6F74 ....Medicine Bot
+00037648 746C 6500 0000 0000 0000 0000 0000 0000 tle.............
+00037664 0000 0000 3A27 0000 0340 0000 0000 0000 ....:'...@......
+
+that its base position is the diaper-cupboard, so you can be pretty sure that
+the game has used some other way of making it appear also in the kitchen.
+
+Hidden items, or itemns that you can't get off the shelf anywhere:
+---------------------------------------
+playroom, big teddy, has number 2827 0000 8100 0000
+Its individual ID number is 2827, and 8100 0000 means it's not on the shelf, 
+so it is effectively "hidden" to the cupboards. 
+
+00034112 0000 0000 4269 6720 5465 6464 7920 4265 ....Big Teddy Be
+00034128 6172 0000 0000 0000 0000 0000 0000 0000 ar..............
+00034144 0000 0000 2827 0000 8100 0000 0000 0000 ....('..........
+
+Kitchen, High chair, has number 3427 0000 0100 0000
+3427 is its individual ID number, and 0100 0000 means it is effectively 
+"hidden" to the cupboards, or has no place there.  If you change its
+"position" number to 8380 0000 you might expect to find it in the food 
+cupboard under the sink, but unfortunately it does not have an "on the
+shelf" action, so it will be invisible and will crash the game if you
+try to get it out, unless you provide it with an on-the-shelf animation.
+
+00042944 0000 0000 4869 6768 2043 6861 6972 0000 ....High Chair..
+00042960 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00042976 0000 0000 3427 0000 0100 0000 0000 0000 ....4'..........
+
+I have given my version of the High Chair an on-shelf animation, so by
+all means use that if you want to make others of your own.  The method
+for adding these animations, or .flh/.flm sections is the same as in the
+Petz 3 and 4 games; you can either add them to a subdirectory of your hard
+drive:
+
+\art\sprites\toyz\<sprite name> (for instance, in the case of my Catty
+the <sprite name> would be Catty_X2, and if I'd wanted to have the 
+filmstrips external, \art\sprites\toyz\Catty_X2
+is where I'd have put them)
+
+here are some which show up in the playscenes only, not on a shelf:
+
+00038048 0000 0000 4B69 7463 6865 6E20 4D61 676E ....Kitchen Magn
+00038064 6574 0000 0000 0000 0000 0000 0000 0000 et..............
+00038080 0000 0000 3927 0000 0300 0000 0000 0000 ....9'..........
+
+00033392 0000 0000 5461 6C6C 2047 7265 656E 2050 ....Tall Green P
+00033408 6C61 6E74 0000 0000 0000 0000 0000 0000 lant............
+00033424 0000 0000 4827 0000 0100 0000 0000 0000 ....H'..........
+
+and one that doesn't show up at all:
+
+00043872 0000 0000 5375 7270 7269 7365 0000 0000 ....Surprise....
+00043888 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00043904 0000 0000 4A27 0000 0300 0000 5370 7269 ....J'......Spri
+
+and the bunny, of course, which just turns up at random in the backyard:
+
+00033600 0000 0000 4275 6E6E 7900 0000 0000 0000 ....Bunny.......
+00033616 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00033632 0000 0000 1B27 0000 8100 0000 0000 0000 .....'..........
+
+Now, you can change the ID numbers of these so that they would show up on
+the shelf in the Playroom or the Attic, just as with others, but the originals 
+don't have the on-shelf filmstrip.  As mentioned above, you can give them suitable 
+filmstrips either by using a resource editor as I have with some of them, or you 
+can give them filmstrips by placing suitable .flh and .flm files in a subdirectory 
+on your hard drive.  The advantage of the latter method is that you can swap
+them around with other suitable flh/flm pairs any time you want without messing
+around with the toy file.  The disadvantage is that people passing your toyz
+around amongst themselves will inevitably forget to include these separate files.
+
+Incidentally it just so happens that you can make things show up on the Playroom
+_and_ Attic shelves by putting in the relevant positional numbers for both.  They
+just happen not to overwrite each other :-)
+
+Addendum: How to make new toyz work separately
+================================================
+
+In all the games you need to give any toyz which are not to overwrite the originals
+their own ID numbers.  You already should know from the above how to find the ID 
+number.  What you need to change is the 2-byte number which comes before the
+bytes that tell the game whether it's hidden or not.  For instance, in the case
+of the Petz hermit crab, the ID is 2B27.  Change either 2B or 27 or both to some
+hexadecimal number which does not clash with another toy in your game.  Note that
+the game won't accept just any number for toyz or clothes, so you'll have to try
+numbers for yourself to see which ones work.
+
+Also, when you have the original in the game also and take it as well as a new item 
+hexed from it off the shelf, the two will look the same.  You need to separate them.
+You do that by changing all the "pointers".  There are three areas in which you should 
+to do this.  Let's take the Blue Picture Frame, which is in all the games.  The
+example below is mostly for a Petz one, but the same principle applies in Babyz:
+
+The "pointer" is Sprite_Pict_B1
+
+Up here there are two instances (in Petz):
+
+00012352 4830 0010 0700 0044 5844 6F77 6E6C 6F61 H0.....DXDownloa
+00012368 6400 0000 5370 7269 7465 5F50 6963 745F d...Sprite_Pict_
+00012384 4231 0000 0000 0000 C027 0010 0000 0000 B1.......'......
+00012400 2E3F 4156 4261 6E6E 6572 4162 6C65 4040 .?AVBannerAble@@
+00012416 0000 0000 0000 0000 C027 0010 0000 0000 .........'......
+00012432 2E3F 4156 486F 7374 4040 0000 0000 0000 .?AVHost@@......
+00012448 C027 0010 0000 0000 2E3F 4156 5844 4C69 .'.......?AVXDLi
+00012464 6E6B 4040 0000 0000 C027 0010 0000 0000 nk@@.....'......
+00012480 2E3F 4156 5853 6D61 7274 4F62 6A65 6374 .?AVXSmartObject
+00012496 4040 0000 0000 0000 C027 0010 0000 0000 @@.......'......
+00012512 2E3F 4156 5853 6F75 6E64 4040 0000 0000 .?AVXSound@@....
+00012528 C027 0010 0000 0000 2E3F 4156 5853 7072 .'.......?AVXSpr
+00012544 6974 6540 4000 0000 C027 0010 0000 0000 ite@@....'......
+00012560 2E3F 4156 5363 7269 7074 5370 7269 7465 .?AVScriptSprite
+00012576 4040 0000 0000 0000 C027 0010 0000 0000 @@.......'......
+00012592 2E3F 4156 416C 706F 5370 7269 7465 4040 .?AVAlpoSprite@@
+00012608 0000 0000 0000 0000 C027 0010 0000 0000 .........'......
+00012624 2E3F 4156 546F 7953 7072 6974 6540 4000 .?AVToySprite@@.
+00012640 C027 0010 0000 0000 2E3F 4156 5370 7269 .'.......?AVSpri
+00012656 7465 5F50 6963 7440 4000 0000 0000 0000 te_Pict@@.......
+00012672 C027 0010 0000 0000 2E3F 4156 5370 7269 .'.......?AVSpri
+00012688 7465 5F50 6963 745F 4231 4040 0000 0000 te_Pict_B1@@....
+
+(in Babyz):
+
+00007110 6E6C 6F61 6400 0000 5370 7269 7465 5F50 nload...Sprite_P
+00007120 6963 745F 4231 0000 5265 666C 6563 7469 ict_B1..Reflecti
+00007130 7665 0000 4D6F 7573 656C 696B 6500 0000 ve..Mouselike...
+00007140 5269 6465 6162 6C65 0000 0000 466C 6965 Rideable....Flie
+
+<I snip several lines of extra stuff from example>
+
+000073D0 7074 5370 7269 7465 4040 0000 0000 0000 ptSprite@@......
+000073E0 C429 0010 0000 0000 2E3F 4156 416C 706F .).......?AVAlpo
+000073F0 5370 7269 7465 4040 0000 0000 0000 0000 Sprite@@........
+00007400 C429 0010 0000 0000 2E3F 4156 546F 7953 .).......?AVToyS
+00007410 7072 6974 6540 4000 C429 0010 0000 0000 prite@@..)......
+00007420 2E3F 4156 5370 7269 7465 5F50 6963 7440 .?AVSprite_Pict@
+00007430 4000 0000 0000 0000 C429 0010 0000 0000 @........)......
+00007440 2E3F 4156 5370 7269 7465 5F50 6963 745F .?AVSprite_Pict_
+00007450 4231 4040 0000 0000 0000 0000 0000 0000 B1@@............
+
+Change that to, say, Sprite_Pict_B4
+
+You need to change it also here:
+
+00017120 0300 4600 4C00 4800 0700 5000 4900 4300 ..F.L.H...P.I.C.
+00017136 5400 5F00 4200 3100 0C00 5000 4900 4300 T._.B.1...P.I.C.
+00017152 5400 5F00 4200 3100 5F00 4100 5700 4100 T._.B.1._.A.W.A.
+00017168 5900 0300 4600 4C00 4D00 0300 5400 5800 Y...F.L.M...T.X.
+00017184 5400 0E00 4200 4500 5600 4500 4E00 5400 T...B.E.V.E.N.T.
+00017200 5F00 5000 4900 4300 5400 5F00 4200 3100 _.P.I.C.T._.B.1.
+00017216 0E00 5300 4F00 5500 4E00 4400 5300 5F00 ..S.O.U.N.D.S._.
+00017232 5000 4900 4300 5400 5F00 4200 3100 0300 P.I.C.T._.B.1...
+00017248 5700 4100 5600 0700 4200 3100 4800 4F00 W.A.V...B.1.H.O.
+00017264 4F00 4B00 3100 0700 4200 3100 4800 4F00 O.K.1...B.1.H.O.
+00017280 4F00 4B00 3200 0700 4200 3100 4800 4F00 O.K.2...B.1.H.O.
+00017296 4F00 4B00 3300 0000 0000 0000 0000 0000 O.K.3...........
+00017312 0100 0000 5370 7269 7465 5F50 6963 745F ....Sprite_Pict_
+00017328 4231 0000 0000 0000 0000 0000 0000 0000 B1..............
+
+so that it's like this (no need to bother with the sounds ones unless
+you actually want to change the sounds, but you need to change the
+FLH/FLM ones to B4 and for your on-screen tips the BEVENT one):
+
+00017120 0300 4600 4C00 4800 0700 5000 4900 4300 ..F.L.H...P.I.C.
+00017136 5400 5F00 4200 3400 0C00 5000 4900 4300 T._.B.4...P.I.C.
+00017152 5400 5F00 4200 3400 5F00 4100 5700 4100 T._.B.4._.A.W.A.
+00017168 5900 0300 4600 4C00 4D00 0300 5400 5800 Y...F.L.M...T.X.
+00017184 5400 0E00 4200 4500 5600 4500 4E00 5400 T...B.E.V.E.N.T.
+00017200 5F00 5000 4900 4300 5400 5F00 4200 3400 _.P.I.C.T._.B.4.
+00017216 0E00 5300 4F00 5500 4E00 4400 5300 5F00 ..S.O.U.N.D.S._.
+00017232 5000 4900 4300 5400 5F00 4200 3100 0300 P.I.C.T._.B.1...
+00017248 5700 4100 5600 0700 4200 3100 4800 4F00 W.A.V...B.1.H.O.
+00017264 4F00 4B00 3100 0700 4200 3100 4800 4F00 O.K.1...B.1.H.O.
+00017280 4F00 4B00 3200 0700 4200 3100 4800 4F00 O.K.2...B.1.H.O.
+00017296 4F00 4B00 3300 0000 0000 0000 0000 0000 O.K.3...........
+00017312 0100 0000 5370 7269 7465 5F50 6963 745F ....Sprite_Pict_
+00017328 4234 0000 0000 0000 0000 0000 0000 0000 B4..............
+
+Then finally here, below the name:
+
+00134768 7400 7500 7200 6500 2000 4600 7200 6100 t.u.r.e. .F.r.a.
+00134784 6D00 6500 0700 5000 6900 6300 7400 5F00 m.e...P.i.c.t._.
+00134800 4200 3100 0000 0000 0000 0000 0000 0000 B.1.............
+
+change to this:
+
+00134768 7400 7500 7200 6500 2000 4600 7200 6100 t.u.r.e. .F.r.a.
+00134784 6D00 6500 0700 5000 6900 6300 7400 5F00 m.e...P.i.c.t._.
+00134800 4200 3400 0000 0000 0000 0000 0000 0000 B.4.............
+
+And eureka!  Your picture frame and the original will come out as they
+are supposed to :-)
+
+Another note, for Babyz hexers.  I'm using here as an example a problem
+which Dani, who is making beautiful Babyz books, sent to me.  She had
+done the ID number correctly, and the redirecting, and the book showed
+up fine on the shelf.  However, when she took either her book, which
+she had called simply Book.toy, or the original Alphabet book, off the
+shelf, the other one disappeared.  This was caused by something which
+Babyz hexers have taken for granted, but which Petz hexers cannot get
+away with, as I show here:
+
+The real name of the Book inside is actually the same as the name of the 
+Alphabet Book.  In breedfiles etc for Petz, people are used to the fact that 
+it is essential to re-name the file inside as well as outside; in Babyz people
+have learned to be lazy because the game actually allows us a lot more
+leeway.  We're used to doing the ID number thing, hexers are even
+beginning to understand about the _X1 etc thing, but people often forget
+to rename properly.
+
+To make your book show up separately, you need to change the name.  It's
+best to change things in the following three places:
+
+Instead of
+
+00025056 0000 0100 0200 0300 0400 0500 0600 416C ..............Al
+00025072 7068 6162 6574 2042 6F6F 6B2E 746F 7900 phabet Book.toy.
+00025088 3F47 6574 4375 7272 656E 7450 6167 6543 ?GetCurrentPageC
+00025104 6F6E 6365 7074 7340 5370 7269 7465 5F50 oncepts@Sprite_P
+00025120 6963 426F 6F6B 5F58 3140 4055 4145 5841 icBook_X1@@UAEXA
+00025136 4156 3F24 7066 7665 6374 6F72 4057 3457 AV?$pfvector@W4W
+00025152 6F72 6443 6F6E 6365 7074 496E 6465 7840 ordConceptIndex@
+00025168 4050 4244 4040 405A 003F 4765 7443 7572 @PBD@@@Z.?GetCur
+00025184 7265 6E74 5061 6765 5069 6374 7572 6542 rentPagePictureB
+00025200 6F6F 6B52 6561 6374 696F 6E40 5370 7269 ookReaction@Spri
+00025216 7465 5F50 6963 426F 6F6B 5F58 3140 4055 te_PicBook_X1@@U
+00025232 4145 5841 4155 5069 6374 7572 6542 6F6F AEXAAUPictureBoo
+00025248 6B52 6561 6374 696F 6E40 4040 5A00 3F50 kReaction@@@Z.?P
+00025264 6C61 7946 6F6C 6579 536F 756E 6440 5370 layFoleySound@Sp
+00025280 7269 7465 5F50 6963 426F 6F6B 5F58 3140 rite_PicBook_X1@
+
+put
+
+00025056 0000 0100 0200 0300 0400 0500 0600 426F ..............Bo
+00025072 6F6B 2E74 6F79 0000 0000 0000 0000 0000 ok.toy..........
+00025088 3F47 6574 4375 7272 656E 7450 6167 6543 ?GetCurrentPageC
+00025104 6F6E 6365 7074 7340 5370 7269 7465 5F50 oncepts@Sprite_P
+00025120 6963 426F 6F6B 5F58 3640 4055 4145 5841 icBook_X6@@UAEXA
+00025136 4156 3F24 7066 7665 6374 6F72 4057 3457 AV?$pfvector@W4W
+00025152 6F72 6443 6F6E 6365 7074 496E 6465 7840 ordConceptIndex@
+00025168 4050 4244 4040 405A 003F 4765 7443 7572 @PBD@@@Z.?GetCur
+00025184 7265 6E74 5061 6765 5069 6374 7572 6542 rentPagePictureB
+00025200 6F6F 6B52 6561 6374 696F 6E40 5370 7269 ookReaction@Spri
+00025216 7465 5F50 6963 426F 6F6B 5F58 3640 4055 te_PicBook_X6@@U
+00025232 4145 5841 4155 5069 6374 7572 6542 6F6F AEXAAUPictureBoo
+00025248 6B52 6561 6374 696F 6E40 4040 5A00 3F50 kReaction@@@Z.?P
+00025264 6C61 7946 6F6C 6579 536F 756E 6440 5370 layFoleySound@Sp
+00025280 7269 7465 5F50 6963 426F 6F6B 5F58 3640 rite_PicBook_X6@
+
+instead of
+
+00034848 5200 4E00 3700 0000 0000 0000 0000 0000 R.N.7...........
+00034864 0100 0000 5370 7269 7465 5F50 6963 426F ....Sprite_PicBo
+00034880 6F6B 5F58 3100 0000 0000 0000 0000 0000 ok_X1...........
+00034896 0000 0000 416C 7068 6162 6574 2042 6F6F ....Alphabet Boo
+00034912 6B00 0000 0000 0000 0000 0000 0000 0000 k...............
+00034928 0000 0000 3D27 0000 A300 0100 0000 0000 ....='..........
+
+put
+
+00034848 5200 4E00 3700 0000 0000 0000 0000 0000 R.N.7...........
+00034864 0100 0000 5370 7269 7465 5F50 6963 426F ....Sprite_PicBo
+00034880 6F6B 5F58 3600 0000 0000 0000 0000 0000 ok_X6...........
+00034896 0000 0000 426F 6F6B 0000 0000 0000 0000 ....Book........
+00034912 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00034928 0000 0000 412E 0000 A300 0100 0000 0000 ....A...........
+
+and finally, instead of
+
+03187088 0000 0000 0000 0000 0D00 4100 6C00 7000 ..........A.l.p.
+03187104 6800 6100 6200 6500 7400 2000 4200 6F00 h.a.b.e.t. .B.o.
+03187120 6F00 6B00 0D00 4100 6C00 7000 6800 6100 o.k...A.l.p.h.a.
+03187136 6200 6500 7400 2000 4200 6F00 6F00 6B00 b.e.t. .B.o.o.k.
+03187152 0A00 5000 4900 4300 4200 4F00 4F00 4B00 ..P.I.C.B.O.O.K.
+03187168 5F00 5800 3100 0000 0000 0000 0000 0000 _.X.1...........
+
+put
+
+03187088 0000 0000 0000 0000 0400 4200 6F00 6F00 ..........B.o.o.
+03187104 6B00 0400 4200 6F00 6F00 6B00 0A00 5000 k...B.o.o.k...P.
+03187120 4900 4300 4200 4F00 4F00 4B00 5F00 5800 I.C.B.O.O.K._.X.
+03187136 3600 0000 0000 0000 0000 0000 0000 0000 6...............
+03187152 0000 0000 0000 0000 0000 0000 0000 0000 ................
+03187168 0000 0000 0000 0000 0000 0000 0000 0000 ................
+
+Note where I put the extra 00 bytes in each case to make up for the
+removal of all those letters which make up Alphabet, and note that in
+the last section I changed the letter-count in front of each name to 04
+instead of 0D.
+
+Your book and the Alphabet book can now be brought out at the same time.
+
+Enjoy
+
+Carolyn Horn
+
+
+
