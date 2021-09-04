@@ -1,0 +1,49 @@
+
+>How can you put spots on a non-spotted petz? 
+
+That's in the [Paint Ballz] area.  Take a look at the .lnz section
+for the Dalmatian and you'll see how it works; from that, you will be able
+to figure out what to add to the breed of your choice.  You've got, 
+underneath the lines which relate to the paw pads (which all petz have),
+what lookslike this:
+
+;individual variation
+;
+#2.B
+#1;right hand
+
+Okay, those are the variations in spots, and the first balls that you
+see listed are the ones for the front paws.  If you wanted to have the
+spots the same each time, you would not bother with the "#" signs --
+each # simply means "this is a different variation" and the double ##
+means "this is the end of the variations for this ball or set of ballz".
+The columns are clearly labelled, so you should be able to work out
+easily which ball is to be painted (base ball), and with how big a spot
+(diameter(% of baseball)), and where in the ball it sould go direction,
+etc.
+
+Similarly, in the Calico Cat you will see:
+
+;individual variation
+;
+;
+#3
+#2
+25,	45	1, -.8, -.6	65	15	3	-1	0	1	0
+25,	35	.8, -.1, -1	65	15	3	-1	0	1	0
+#1;left hip
+
+so you know that these first variations relate to the hips.
+
+A point of clarification here. I mention spots in detail in my Advanced 
+tutorial; and there I use as references the Dalmatian spots and Calico 
+patches, and what they look like in the original breedz' files, in order 
+to show you what you would be adding in to any other breed to paint on 
+spots or patches, _not_ just to show you how to change them in those two 
+breedz.  Seems, from some emails I get, that people don't understand 
+that fact.
+
+Hope this helps
+
+Carolyn Horn
+

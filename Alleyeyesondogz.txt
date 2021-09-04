@@ -1,0 +1,96 @@
+
+
+Question: Feeling rather ambitious, I attempted to make some alley-eyed dogz. 
+Unfortunately, it doesn't seem to be working. Is there perhaps a tutorial 
+somewhere on this?
+
+Answer: 
+
+Try this, on a Great Dane
+
+In the Adult .lnz:
+
+[Default Scales]
+#2
+157 	normal pet scale
+144 	normal ball scale
+#1
+110 	normal pet scale
+105 	normal ball scale
+##
+
+[Head Enlargement] ;old 98, 0
+#2.C
+120
+0
+#1
+100
+0
+##
+
+[Ball Size Override]
+;individual variation
+;eyes
+#3
+#2
+8,	-6
+32,	10
+#1
+8,	6
+32,	-3
+##
+
+(you'll need to add that [Ball Size Override] section in if you want it -- it's 
+not necessary but it gives the alley variety)
+
+And in [Ballz Info] you want this:
+
+245,	244,	-1,	0,	1,	-6,	-1,	-1	8 ;L eye
+
+244,	6,	-1,	0,	3,	8,	-1,	1	14 ;L iris
+
+245,	244,	-1,	0,	1,	10,	-1,	-1	32 ;R eye
+
+244,	6,	-1,	0,	3,	10,	-1,	1	38 ;R iris
+
+Finally, in the puppy .lnz you need to remove the eye and iris numbers from the 
+[Ball Size Override] -- unless you want to tie it in with the variations in the 
+adult, of course, in which case you might have fun with something like this, for 
+the adult
+
+
+[Ball Size Override]
+;individual variation
+;eyes
+#3.B
+#2
+8,	-6
+32,	10
+#1
+8,	6
+32,	-3
+##
+
+
+And this for the pup
+
+[Ball Size Override]
+;individual variation
+;eyes
+#3.B
+8,	6
+32,	-3
+#2
+8,	-3
+32,	12
+#1
+8,	6
+32,	-3
+##
+
+and finally, you might want to change the pup [Default Scales] and [Head Enlargement] 
+too.
+
+Cheers!
+
+Carolyn

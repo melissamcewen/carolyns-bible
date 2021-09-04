@@ -1,0 +1,25 @@
+
+Add Ballz
+=========
+
+Are you seeing the .lnz set out the way it's supposed to be, with the columns 
+under their headers? In [Add Ball], the column headers are like this:
+
+;base x y z color otlnCol spckCol fuzz group outline ballsize bodyarea addGroup texture
+
+Okay, they mean much what they say.  Any number in the first column is the base 
+ball relative to which you are adding your ball.  The numbers in the x, y and 
+z columns are the co-ordinates of the added ball relative to the base ball.  
+The fourth column, headed by "color" is the colour of the added ball, then you 
+get the outline colour, then the speckle colour (which is really meaningless 
+in the games from Petz II onwards), then the amount of fuzz, then the group 
+to which the ball belongs, then outline thickness and ball size, then the 
+bodyarea (makes a difference in Petz II and can make a difference in 
+2nd-gens in Petz 3-5).  Don't worry about addGroup, which comes next, 
+but don't confuse it with Texture which comes after that.  Some of the 
+lines (notably the tongue Add Ball) have a column after that which has 
+no header; the number in that column re-confirms (or "fixes") the base ball.
+
+I hope that helps!
+
+Carolyn

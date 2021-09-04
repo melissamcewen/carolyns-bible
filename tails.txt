@@ -1,0 +1,141 @@
+
+Making long tails and removing catz whiskers...
+
+How to control those pesky whiskers lines in Catz breedz
+=========================================================
+
+Okay, you've done everything you can think of -- made the whisker ball
+-999, listed it in [Omissions], and still the dratted line appears! 
+Aaaargh!  Well, the simple answer is here.  If you want no whiskers at
+all, pop this into the breedfile on a line by itself:
+
+[Whiskers]
+
+If you want to have some whiskers lines and not others, then list the
+whiskers you want underneath, for instance:
+
+[Whiskers]
+30, 57
+31, 60
+
+That's it.  Don't ask me how I found out how to do it; I look back at
+all the years of my hexing explorations and often wonder if I simply go
+crazy sometimes and try things at random :-)
+
+How to make tails longer and more flexible
+==========================================
+
+Tails are more of a problem.  You want to fiddle with a few areas here;
+first off you want to shift the basic tail ballz further apart from each
+other using the [Project Ball] section.  Also, for it to look right with
+stripes, you want to do what P.F.M did with the Tabby; and yes, it's
+[Add Ball] ballz, but that's nothing to worry about.  Take a look at
+the  Tabby's .lnz in Notepad or ResHacker.  See this:
+
+[Project Ball]
+44, 92, 50
+45, 93, 50
+46, 94, 50
+47, 95, 50
+48, 96, 50
+44, 97, 35
+45, 98, 45
+46, 99, 50
+47, 100, 65
+48, 101, 75
+3, 102, 50
+3, 103, 50
+
+All those in the first column are tail ballz, the last two being the
+butt ballz, and the second column numbers are higher than 66 and so are
+all [Add Ball] ballz.  The third column is how far apart they need to
+be.
+
+then, lower down:
+
+43, 44, 100
+44, 45, 100
+45, 46, 100
+46, 47, 100
+47, 48, 100
+
+These are all the basic tail ballz, with how far apart from each other
+they need to be.
+
+Okay, now we know how far apart everything is to be in the tail, we need
+to create the extra ballz that make the stripes (and make the tail
+longer). And here we have it all nice and clear for us.  I never do
+understand why people refuse to see the .lnz as it should be; people who
+edit direct into the hex editor are really editing blind.
+
+;tailstripes92
+;**note: kill 0 scale balls
+43, 	-10, 	0, 	13, 	95, (etc)
+44, 	-10, 	0, 	13, 	95, (etc)
+45, 	-10, 	0, 	13, 	95, (etc)
+46, 	-10, 	0, 	13, 	95, (etc)
+47, 	-10, 	0, 	13, 	95, (etc)
+43, 	10, 	0, 	-13, 	95, (etc)
+44, 	10, 	0, 	-13, 	95, (etc)
+45, 	10, 	0, 	-13, 	95, (etc)
+46, 	10, 	0, 	-13, 	95, (etc)
+47, 	10, 	0, 	-13, 	95, (etc)
+43, 	30, 	-30, 	15, 	95, (etc)
+43, 	-30, 	-30, 	15, 	95, (etc)
+
+Now, the lines ;tailstripes92 and ;**note: kill 0 scale balls are
+invisible to the game.  These kinds of line, which start with
+semi-colons, are programmers' comments, put there to help them debug
+their code etc, but they happen also to be handy to us hexers :-)  We
+have been conveniently told that the following lines of code are all
+added tail balls, and that these tail balls all start with ball number
+92, which saves us the trouble of counting down the lines from ball 67
+to find out which ball is which ball-number.  So in the original tabby
+our first additional tail ball is ball number 92, the next one is number
+93 and so on until we get to ball 103.  Each of these balls is given a
+position relative to a base tail ball, as well as a size, colour,
+fuzziness etc (as indicated by the column headers which are also
+programmers' comments).  Now look back at the [Project Ball] section,
+and maybe those numbers will now make sense to you?  Add Ball 92, which
+is positioned relative to the base tail ball 43 by the x,y,z
+(left/right, up/down, forward/back) co-ordinates -10, 0, 13 is also
+distant from ball 44 by a factor of 50.
+
+You can of course adjust the distances just about as much as you wish,
+and add in extra tail ballz, as well as changing the fuzziness and size
+of the added ballz.  I'm just showing you how P.F.Magic did it -- and of
+course Studio Mythos didn't change any of that in Petz 5.
+
+And that's how you make a long, luxuriant tail which doesn't behave
+oddly :-)
+
+In the Dogz games, you can get a similar idea of how to do it if 
+you study Great Danes:
+
+[Project Ball]
+;TAIL
+57, 58, 130
+58, 59, 130
+59, 60, 130
+60, 61, 130
+61, 62, 130
+58, 83, 50
+59, 84, 50
+60, 85, 50
+61, 86, 50
+62, 87, 50
+
+[Add Ball]
+;tail83
+57, 	0, 	0,	0, 	55, (etc)
+58, 	0, 	0,	0, 	55, (etc)
+59, 	0, 	0,	0, 	55, (etc)
+60, 	0, 	0,	0, 	55, (etc)
+61, 	0, 	0,	0, 	55, (etc)
+
+Enjoy!
+
+Carolyn Horn
+
+
+

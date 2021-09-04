@@ -1,0 +1,229 @@
+
+Quick explanation:
+===================
+For people who don't want to wade through a lot of explanation and details, there are two basic ways to make individual "leopard" spots on a breed without using a special leopard furfile.  
+
+1) You can place a spot in Paint Ballz and give it a thick outline with a number such as 5 in the "outline" column; it looks good and is quick but you need to put -1 in the spot's texture column and you don't get any texture in the spot. 
+
+2) This tutorial or "howto" explains the other method, of placing a patch on a patch.  Basically what you do is, place a "paint ball" spot on each of the chosen breed's ballz -- and then place another paint ball of a different colour and smaller size, in the exact same position as the first one.  This method allows you to have furfile textures in the spots.
+
+Detailed explanation:
+=====================
+To follow this "howto" in more detail, you will need to try hexing the way I do.  This is my method:
+
+Open the breedfile into Hex Workshop (or your some other true hex editor -- _not_ VIM).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.
+
+Okay, if you've done all that then what follows will make sense.  If not, you'll need to find a tutorial written by someone else.
+
+To make leopard spots using the patch-on-a-patch method, you will need to add some "paint" balls.  Scroll down breed.txt in Notepad until you see [Paint Ballz].  Under that you will see the column headers:
+;base ball diameter(% of baseball) direction color outlinecolor fuzz  outline group texture.  
+These mean exactly what they say; the first column is the number of the base ball to which the paint ball will be added, the diameter is the size of the paint, the direction takes 3 columns because it pinpoints where on the ball the paint will be placed.  You will also see ;paws and a load of lines, which are mostly the colour under the pads of the paws.
+
+Right, what you want to do is to add various-sized and various-positioned ballz to this [Paint Ballz] section.  At the end of this "howto" you will see a load of lines of numbers; these are a bunch of suitable paint balls which can be copy-pasted into your cat breed's breed.text file and adjusted to suit yourself.  This will save you a lot of time.  But, just so that you know what you're doing, I want you to look carefully.  See how, for each position in the three "direction" columns, there are always two paint balls, one of which is 15 bigger than the other and is a different colour?  Right, that's how this trick is done.  The bigger of the two spreads out around the smaller and becomes the "outline".
+
+When you have entered all the spots (with their bigger "outline" spots) that you want, you will have a breed.txt which is too big.  It is possible to keep it like that, i.e. the wrong size, and add it back into your file if you download and know how to use one of the modern Resource Editors.  If you want to try that, there are various ones available, but most cost money -- there is however a freeware one at http://www.users.on.net/johnson/resourcehacker/ which you could grab.  I shall not be writing tutorials on how to use it; it's just a tool and you should be able to figure it out.  If you want to stick with the tried-and-true hexing method of replacing the breed.txt, then you will need to remove a lot of unwanted spaces and/or programmers' comments (the lines which start with a semi-colon) from breed.txt.  I have various short-cuts for doing this myself, but I think I only confuse people when I try to explain those methods, so I'm afraid you'll have to figure out something that works for you by yourself.
+
+If you want your individual spots to have a custom texture, you will need to understand something about the way [Paint Ballz] ballz work; the numbers in the texture column actually refer to the basic ball which happens to have the texture that you want (not to the [texture list] itself and not to the paint ballz' own base ball).  So if your left ankle ball has "My.bmp" as its texture, and that's the texture you want your spots to have, then you want to put 0 in the spots' texture column.
+
+Have fun making spotty catz!
+
+Carolyn Horn
+
+Here are the leopard catz Paint Ballz ready to use:
+===============================================
+
+;ankles
+0,	15	0.9,	-0.4,	-0.1	45	-1	1	-1	4	1
+0,	30	0.9,	-0.4,	-0.1	98	-1	1	-1	4	1
+1,	15	-0.9,	-0.4,	-0.1	45	-1	1	-1	4	1
+1,	30	-0.9,	-0.4,	-0.1	98	-1	1	-1	4	1
+;belly
+2,	20	0.1,	-0.7,	0.6	45	-1	2	-1	4	1
+2,	20	0.4,	0.8,	0.2	45	-1	2	-1	2	1
+2,	20	0.9,	-0.1,	0	45	-1	4	-1	4	1
+2,	20	-0.5,	-0.7,	-0.2	45	-1	2	-1	3	1
+2,	20	0.4,	-0.8,	-0.1	45	-1	2	-1	2	1
+2,	20	0.6,	0.2,	0.6	45	-1	2	-1	3	1
+2,	20	0.8,	-0.3,	0.2	45	-1	1	-1	3	1
+2,	20	-0.8,	-0.3,	0.2	45	-1	1	-1	2	1
+2,	20	-0.1,	-0.7,	0.6	45	-1	2	-1	4	1
+2,	20	-0.4,	0.8,	0.2	45	-1	2	-1	2	1
+2,	20	-0.9,	-0.1,	0	45	-1	1	-1	4	1
+2,	35	0.1,	-0.7,	0.6	98	-1	2	-1	4	1
+2,	35	0.4,	0.8,	0.2	98	-1	2	-1	2	1
+2,	35	0.9,	-0.1,	0	98	-1	4	-1	4	1
+2,	35	-0.5,	-0.7,	-0.2	98	-1	2	-1	3	1
+2,	35	0.4,	-0.8,	-0.1	98	-1	2	-1	2	1
+2,	35	0.6,	0.2,	0.6	98	-1	2	-1	3	1
+2,	35	0.8,	-0.3,	0.2	98	-1	1	-1	3	1
+2,	35	-0.8,	-0.3,	0.2	98	-1	1	-1	2	1
+2,	35	-0.1,	-0.7,	0.6	98	-1	2	-1	4	1
+2,	35	-0.4,	0.8,	0.2	98	-1	2	-1	2	1
+2,	35	-0.9,	-0.1,	0	98	-1	1	-1	4	1
+;butt
+3,	20	0.1,	-0.7,	0.7	45	-1	3	-1	3	1
+3,	20	-0.1,	-0.7,	0.7	45	-1	2	-1	2	1
+3,	20	0.1,	0.6,	0.7	45	-1	1	-1	3	1
+3,	35	0.1,	-0.7,	0.7	98	-1	3	-1	3	1
+3,	35	-0.1,	-0.7,	0.7	98	-1	2	-1	2	1
+3,	35	0.1,	0.6,	0.7	98	-1	1	-1	3	1
+;cheeks
+4,	15	0.7,	-0.6,	-0.2	45	-1	2	-1	4	1
+4,	30	0.7,	-0.6,	-0.2	98	-1	2	-1	4	1
+5,	15	0.7,	-0.6,	-0.2	45	-1	2	-1	4	1
+5,	30	0.7,	-0.6,	-0.2	98	-1	2	-1	4	1
+;chest
+6,	20	-0.5,	-0.6,	0.4	45	-1	2	-1	4	1
+6,	20	0.4,	-0.7,	0.5	45	-1	2	-1	4	1
+6,	35	-0.5,	-0.6,	0.4	98	-1	2	-1	4	1
+6,	35	0.4,	-0.7,	0.5	98	-1	2	-1	4	1
+6,	70	-0.1,	0.7,	-0.6	45	-1	4	-1	4	1
+6,	85	-0.1,	0.7,	-0.6	98	-1	4	-1	4	1
+;chin
+7,	15	0.7,	-0.6,	-0.2	45	-1	2	-1	4	1
+7,	30	0.7,	-0.6,	-0.2	98	-1	2	-1	4	1
+;elbows
+12,	15	0.5,	-0.5,	-0.6	45	-1	1	-1	3	1
+12,	15	0.1,	0,	0.9	45	-1	1	-1	4	1
+12,	15	0.8,	-0.4,	0.3	45	-1	1	-1	2	1
+12,	15	0.9,	0.3,	0	45	-1	1	-1	3	1
+12,	15	-0.8,	0.2,	0.4	45	-1	1	-1	4	1
+12,	15	-0.3,	0.1,	-0.9	45	-1	1	-1	2	1
+12,	30	0.5,	-0.5,	-0.6	98	-1	1	-1	3	1
+12,	30	0.1,	0,	0.9	98	-1	1	-1	4	1
+12,	30	0.8,	-0.4,	0.3	98	-1	1	-1	2	1
+12,	30	0.9,	0.3,	0	98	-1	1	-1	3	1
+12,	30	-0.8,	0.2,	0.4	98	-1	1	-1	4	1
+12,	30	-0.3,	0.1,	-0.9	98	-1	1	-1	2	1
+13,	15	-0.5,	-0.5,	-0.6	45	-1	2	-1	4	1
+13,	35	-0.1,	0,	0.9	45	-1	1	-1	2	1
+13,	15	-0.8,	0.4,	0	45	-1	1	-1	3	1
+13,	15	-0.8,	-0.5,	0.1	45	-1	1	-1	4	1
+13,	15	0.5,	0.2,	-0.8	45	-1	1	-1	2	1
+13,	15	0.8,	0.2,	0.4	45	-1	1	-1	3	1
+13,	30	-0.5,	-0.5,	-0.6	98	-1	2	-1	4	1
+13,	30	-0.1,	0,	0.9	98	-1	1	-1	2	1
+13,	30	-0.8,	0.4,	0	98	-1	1	-1	3	1
+13,	30	-0.8,	-0.5,	0.1	98	-1	1	-1	4	1
+13,	30	0.5,	0.2,	-0.8	98	-1	1	-1	2	1
+13,	30	0.8,	0.2,	0.4	98	-1	1	-1	3	1
+;fingers
+18,	40	-0.4,	-0.4,	-0.8	45	-1	1	-1	2	1
+18,	55	-0.4,	-0.4,	-0.8	98	-1	1	-1	2	1
+20,	40	-0.4,	-0.4,	-0.8	45	-1	1	-1	2	1
+20,	55	-0.4,	-0.4,	-0.8	98	-1	1	-1	2	1
+;head
+24	20	-0.1	-0.9	-0.3	49	-1	1	-1	2	1
+24	35	-0.1	-0.9	-0.3	99	-1	1	-1	2	1
+;hips
+25,	15	0.7,	-0.6,	-0.2	45	-1	2	-1	4	1
+25,	15	0.8,	-0.4,	0.1	45	-1	1	-1	2	1
+25,	15	0.1,	0.1,	0.9	45	-1	1	-1	3	1
+25,	15	0.8,	0.4,	-0.4	45	-1	1	-1	2	1
+25,	15	0.6,	0.3,	0.6	45	-1	2	-1	3	1
+25,	30	0.7,	-0.6,	-0.2	98	-1	2	-1	4	1
+25,	30	0.8,	-0.4,	0.1	98	-1	1	-1	2	1
+25,	30	0.1,	0.1,	0.9	98	-1	1	-1	3	1
+25,	30	0.8,	0.4,	-0.4	98	-1	1	-1	2	1
+25,	30	0.6,	0.3,	0.6	98	-1	2	-1	3	1
+26,	15	-0.5,	-0.7,	-0.2	45	-1	2	-1	2	1
+26,	15	-0.9,	-0.1,	0.2	45	-1	1	-1	4	1
+26,	15	-0.1,	0.1,	0.9	45	-1	1	-1	3	1
+26,	15	-0.8,	0.4,	-0.4	45	-1	1	-1	2	1
+26,	15	-0.6,	0.3,	0.6	45	-1	2	-1	3	1
+26,	30	-0.5,	-0.7,	-0.2	98	-1	2	-1	2	1
+26,	30	-0.9,	-0.1,	0.2	98	-1	1	-1	4	1
+26,	30	-0.1,	0.1,	0.9	98	-1	1	-1	3	1
+26,	30	-0.8,	0.4,	-0.4	98	-1	1	-1	2	1
+26,	30	-0.6,	0.3,	0.6	98	-1	2	-1	3	1
+;knees
+32,	15	0.5,	-0.5,	-0.6	45	-1	1	-1	3	1
+32,	15	0.1,	0,	0.9	45	-1	1	-1	4	1
+32,	15	0.8,	-0.4,	0.3	45	-1	1	-1	2	1
+32,	15	0.9,	0.3,	0	45	-1	1	-1	3	1
+32,	15	-0.8,	0.2,	0.4	45	-1	1	-1	4	1
+32,	15	-0.3,	0.1,	-0.9	45	-1	1	-1	2	1
+32,	30	0.5,	-0.5,	-0.6	98	-1	1	-1	3	1
+32,	30	0.1,	0,	0.9	98	-1	1	-1	4	1
+32,	30	0.8,	-0.4,	0.3	98	-1	1	-1	2	1
+32,	30	0.9,	0.3,	0	98	-1	1	-1	3	1
+32,	30	-0.8,	0.2,	0.4	98	-1	1	-1	4	1
+32,	30	-0.3,	0.1,	-0.9	98	-1	1	-1	2	1
+33,	15	-0.5,	-0.5,	-0.6	45	-1	2	-1	4	1
+33,	15	-0.1,	0,	0.9	45	-1	1	-1	2	1
+33,	15	-0.8,	0.4,	0	45	-1	1	-1	3	1
+33,	15	-0.8,	-0.5,	0.1	45	-1	1	-1	4	1
+33,	15	0.5,	0.2,	-0.8	45	-1	1	-1	2	1
+33,	15	0.8,	0.2,	0.4	45	-1	1	-1	3	1
+33,	30	-0.5,	-0.5,	-0.6	98	-1	2	-1	4	1
+33,	30	-0.1,	0,	0.9	98	-1	1	-1	2	1
+33,	30	-0.8,	0.4,	0	98	-1	1	-1	3	1
+33,	30	-0.8,	-0.5,	0.1	98	-1	1	-1	4	1
+33,	30	0.5,	0.2,	-0.8	98	-1	1	-1	2	1
+33,	30	0.8,	0.2,	0.4	98	-1	1	-1	3	1
+;knuckles
+34,	15	0.5,	-0.5,	0.6	45	-1	1	-1	2	1
+34,	15	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+34,	30	0.5,	-0.5,	0.6	98	-1	1	-1	2	1
+34,	30	-0.3,	-0.5,	-0.6	98	-1	1	-1	3	1
+35,	15	-0.5,	0.5,	0.6	45	-1	1	-1	2	1
+35,	15	0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+35,	30	-0.5,	0.5,	0.6	98	-1	1	-1	2	1
+35,	30	0.3,	-0.5,	-0.6	98	-1	1	-1	3	1
+;shoulders
+38,	15	0.7,	-0.6,	-0.2	45	-1	2	-1	4	1
+38,	15	0.8,	-0.4,	0.1	45	-1	1	-1	2	1
+38,	15	0.1,	0.1,	0.9	45	-1	1	-1	3	1
+38,	15	0.8,	0.4,	-0.4	45	-1	1	-1	2	1
+38,	15	0.6,	0.3,	0.6	45	-1	2	-1	3	1
+38,	30	0.7,	-0.6,	-0.2	98	-1	2	-1	4	1
+38,	30	0.8,	-0.4,	0.1	98	-1	1	-1	2	1
+38,	30	0.1,	0.1,	0.9	98	-1	1	-1	3	1
+38,	30	0.8,	0.4,	-0.4	98	-1	1	-1	2	1
+38,	30	0.6,	0.3,	0.6	98	-1	2	-1	3	1
+39,	15	-0.5,	-0.7,	-0.2	45	-1	2	-1	2	1
+39,	15	-0.9,	-0.1,	0.2	45	-1	1	-1	4	1
+39,	15	-0.1,	0.1,	0.9	45	-1	1	-1	3	1
+39,	15	-0.8,	0.4,	-0.4	45	-1	1	-1	2	1
+39,	15	-0.6,	0.3,	0.6	45	-1	2	-1	3	1
+39,	30	-0.5,	-0.7,	-0.2	98	-1	2	-1	2	1
+39,	30	-0.9,	-0.1,	0.2	98	-1	1	-1	4	1
+39,	30	-0.1,	0.1,	0.9	98	-1	1	-1	3	1
+39,	30	-0.8,	0.4,	-0.4	98	-1	1	-1	2	1
+39,	30	-0.6,	0.3,	0.6	98	-1	2	-1	3	1
+;soles
+41,	15	0.5,	-0.5,	0.6	45	-1	1	-1	2	1
+41,	15	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+41,	30	0.5,	-0.5,	0.6	98	-1	1	-1	2	1
+41,	30	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+42,	15	-0.5,	0.5,	0.6	45	-1	1	-1	2	1
+42,	15	0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+42,	30	-0.5,	0.5,	0.6	98	-1	1	-1	2	1
+42,	30	0.3,	-0.5,	-0.6	98	-1	1	-1	3	1
+;tail
+43,	15	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+43,	30	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+44,	15	0.5,	-0.5,	0.6	45	-1	1	-1	2	1
+44,	30	0.5,	-0.5,	0.6	98	-1	1	-1	2	1
+45,	15	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+45,	30	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+46,	15	0.5,	-0.5,	0.6	45	-1	1	-1	2	1
+46,	30	0.5,	-0.5,	0.6	98	-1	1	-1	2	1
+47,	15	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+47,	30	-0.3,	-0.5,	-0.6	45	-1	1	-1	3	1
+48,	15	0.5,	-0.5,	0.6	45	-1	1	-1	2	1
+48,	30	0.5,	-0.5,	0.6	98	-1	1	-1	2	1
+;toes
+50,	40	-0.4,	-0.4,	-0.8	45	-1	1	-1	2	1
+50,	55	-0.4,	-0.4,	-0.8	98	-1	1	-1	2	1
+52,	40	-0.4,	-0.4,	-0.8	45	-1	1	-1	2	1
+52,	55	-0.4,	-0.4,	-0.8	98	-1	1	-1	2	1
+;wrists
+63,	15	0.9,	-0.4,	-0.1	45	-1	1	-1	4	1
+63,	30	0.9,	-0.4,	-0.1	98	-1	1	-1	4	1
+64,	15	-0.9,	-0.4,	-0.1	45	-1	1	-1	4	1
+64,	30	-0.9,	-0.4,	-0.1	98	-1	1	-1	4	1
+
+
+
+

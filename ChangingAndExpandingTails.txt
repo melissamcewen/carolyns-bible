@@ -1,0 +1,183 @@
+
+Naturally-moving drop-tails
+============================
+
+I've been asked a few times now how to make drop tails, or
+tails with different shapes, that don't behave oddly and that
+aren't stiff (as happens with all-addball tails).
+
+Well, all of my drop-tails work as intended, including the ones
+in my "howto" examples.  They were all made before the modern 
+craze for addball-only tails swept through the Petz community, 
+because I always try to work _with_ the behaviours of base ballz
+rather than disabling them.  I'm not saying anything against
+addball-only tails, many of them look great and I have downloaded
+all the stunning new creations by addballz-only fans.  I'm fully
+delighted by the gorgeous breedz of today :-)
+
+But as soon as you start to try, say, adding extra ballz to the 
+end of the tail it moves oddly -- and no amount of fiddling in [Move] 
+and [Project Ball] will alter that, because you're trying to go
+against the natural behaviours of the tail.
+
+If we work _with_ the behaviours, we can make something really 
+good, doing some useful work through [Move] and [Project Ball] as 
+well as adding ballz in the right way.  It's best to build in the 
+behaviours with your tail, folding the added ballz into it really, 
+rather than just adding them on to the end.  The [Project Ball] 
+stuff is then pretty simple.  I'll use as example a couple of rough
+designs which I sent to people who asked for help; they will have
+changed the positions etc when finishing off their breedz so I
+feel that it's okay to use my rough "sketches" here.
+
+Note that you need to remove any tail data that might already exist 
+in the relevant section of the LNZ ([Move] etc) and put my rough
+example stuff there instead.
+
+First example is a curved drop-tail on a cat.
+
+CATZ
+====
+
+Let's say you want a prehensile type of tail on a cat breed.
+You want it to be long, slightly stretchy-looking, and down-curving.
+Catz have particularly difficult behaviours, as their tails 
+switch in many directions right up to the tip of the tail.
+So, you want to reposition the existing tail ballz:
+
+Under [Move]
+
+;tail
+43, 0, 5,   20,  3
+44, 0, 20,  50,  3
+45, 0, 50,  100, 3
+46, 0, 100, 160, 3
+47, 0, 150, 200, 3
+48, 0, 180, 170, 3
+
+and you want to "anchor" them:
+
+Under [Project Ball]
+
+2, 44, 100
+2, 45, 100
+2, 46, 100
+2, 47, 95
+2, 48, 95
+;
+43, 44, 140
+44, 45, 140
+45, 46, 140
+46, 47, 140
+47, 48, 140
+;note that you will be making extra ballz to
+;go between the originals, so let's say your
+;extras are ballz number 92-96.  We'll come to
+;positioning them when we come to [Add Ball], but
+;for now we anchor them up here.
+44, 92, 60
+45, 93, 60
+46, 94, 60
+47, 95, 60
+48, 96, 60
+
+Under [Add Ball] you want to position your extra ballz
+and give them size, colour, etc.
+
+;tail 92
+43, 0, 0,  0, 55,  0, 0, 1, 6, -1, 0, 0, 0, 1,43
+44, 0, 0,  0, 45,  0, 0, 1, 2, -1, 0, 0, 0, 1,44
+45, 0, 0,  0, 55,  0, 0, 1, 2, -1, 0, 0, 0, 1,45
+46, 0, 0,  0, 45,  0, 0, 1, 2, -1, 0, 0, 0, 1,46
+47, 0, 30, 0, 55,  0, 0, 2, 2, -1, 0, 0, 0, 1,47
+
+And finally, we join the whole tail up under [Linez]
+
+48, 96, 1, -1, -1, -1, 100, 100
+96, 47, 1, -1, -1, -1, 100, 100
+47, 95, 1, -1, -1, -1, 100, 100
+95, 46, 1, -1, -1, -1, 100, 100
+46, 94, 1, -1, -1, -1, 100, 100
+94, 45, 1, -1, -1, -1, 100, 100
+45, 93, 1, -1, -1, -1, 100, 100
+93, 44, 1, -1, -1, -1, 100, 100
+44, 92, 1, -1, -1, -1, 100, 100
+92, 43, 1, -1, -1, -1, 100, 100
+43, 3, 1, -1, -1, -1, 100, 100
+
+You will want to alter the shape, I've only done it roughly,
+but the tail will move in a natural kind of way.
+
+DOGZ
+====
+
+So you want to ahve a prehensile-looking tail on a dogz breed.
+Okay, the principle is exactly the same as for the catz.
+You want to reposition the existing tail ballz:
+
+Under [Move]
+
+;tail
+57, 0, 5,   20,  49
+58, 0, 20,  50,  49
+59, 0, 50,  100, 49
+60, 0, 100, 160, 49
+61, 0, 150, 200, 49
+62, 0, 180, 170, 49
+
+and you want to "anchor" them:
+
+Under [Project Ball]
+
+48, 58, 100
+48, 59, 100
+48, 60, 100
+48, 61, 95
+48, 62, 95
+57 58 140
+58 59 140
+59 60 140
+60 61 140
+61 62 140
+;note that you will be making extra ballz to
+;go between the originals, so let's say your
+;extras are ballz number 83-87.  We'll come to
+;positioning them when we come to [Add Ball], but
+;for now we anchor them up here.
+58 83 60
+59 84 60
+60 85 60
+61 86 60
+62 87 60
+
+Under [Add Ball] you want to position your extra ballz
+and give them size, colour, etc.
+
+;tail83
+57 0 0 0 90 244 0 1 6 -1 0 13 0 1 57
+58 0 0 0 90 244 0 1 2 -1 0 13 0 1 58
+59 0 0 0 90 244 0 1 2 -1 0 13 0 1 59
+60 0 0 0 90 244 0 1 2 -1 0 13 0 1 60
+61 0 30 0 90 244 0 2 2 -1 0 13 0 1 61
+
+
+And finally, we join the whole tail up under [Linez]
+
+62 87 1 -1 244 244 100 100
+87 61 1 -1 244 244 100 100
+61 86 1 -1 244 244 100 100
+86 60 1 -1 244 244 100 100
+60 85 1 -1 244 244 100 100
+85 59 1 -1 244 244 100 100
+59 84 1 -1 244 244 100 100
+84 58 1 -1 244 244 100 100
+58 83 1 -1 244 244 100 100
+83 57 1 -1 244 244 100 100
+57 49 1 -1 244 244 100 100
+
+You will want to alter the shape, I've only done it roughly,
+but the tail will move in a natural kind of way.
+
+Enjoy!
+
+Carolyn

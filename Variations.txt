@@ -1,0 +1,120 @@
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the .dog or .cat file -- it really _is_ a small text file, you 
+see, and when you look at it you can see exactly what you're doing without 
+having to laboriously count numbers in the hex editor.  So, hexing my way, 
+here's the best I can explain:
+
+Question: How can I make variations in my breed?
+---------
+
+Answer:
+-------
+
+Variations can be added into just about any area of the .lnz.  You can have a variety of eyelids, for instance:
+
+[256 Eyelid Color]
+#3
+29, 2
+#2
+90, 1
+#1
+244, 0
+##
+
+Now, the the game knows that these are variations when it sees the # numbers.  To do it right, you need to have the highest # number that you want -- in my example I've got 3 variations, so the highest is #3 -- then the data below it for that variation (in this case 29, 2), then the next variation number (#2), and so on, making sure that you have every number from the highest down to 1 without missing any out and finishing _always_ with ##.  The example above is good; this next one
+
+#3
+29, 2
+#1
+244, 0
+##
+
+is not because it misses out #2.  Even if you don't want #2 to be different from the default, you should keep it in.
+
+Now, if you want variations in the [Paint Ballz], you can add a set of individual variations to each ball (take a look at the Calico cat or Dalmatian dog if you want to see what I mean).  Just start with your highest # number, put the data for the ballz you want to have in that variation under it, then the next # number and so on down to ##
+
+If you want variations in [Add Ball], it can work the same way -- and needs to, if the variations involve placing of the ball.  But there can be complications with this if you are needing to connect any of the Add Ballz that come after your variations together with Linez, so be careful with this.  If all you want to alter are the colour, group or texture, the best place to do it is in the [Color Info Override] which is used to provide such variations for the [Ballz Info] also.  You can have four columns in this override section, although often only two are used.  The first column contains the ball number, the second the colour, the third is the group and the fourth the texture.  When you have variations in this part, you need to have no data under the top # number -- this allows for the defaults that you've placed in the [Ballz Info] or [Add Ball] areas.  So it would look like this, taking the Great Dane as an example:
+
+
+[Color Info Override]
+;individual variation
+#8.E
+#7
+#6
+#5;body light brown
+49, 105
+19, 105
+43, 105
+16, 105
+40, 105
+(etc)
+
+Now, there are three "slots" for the [Ballz Info]-based dane to come out with, and then "slot" 5 is colour 105 and so on.  Don't worry about the .E in #8.E at this stage; this has to do with something I talk about later.
+
+For the [Add Ball] and [Ballz Info] ballz, if you want to have variations in fuzz  in adults you can create a [Fuzz Override]  section and, if you want a ball size variation in the adults, you can add a [Ball Size Override] also somewhere above the [Ballz Info] section.  The ones down at the bottom of the .lnz section are overrides for the pups or kittens, you understand.
+
+All of the variations work in the same way; if you leave the top # number with no data between it and the next, the game will take defaults when that variation comes out.
+
+Question: How can I make it so that certain colours of spots, eyelids etc come out with certain colours of ballz?
+---------
+
+Okay, this is where the numbers such as #8.E or #2.A etc come in.  If you want, for instance, your Great Dane to have sometimes a pink body with blue spots and sometimes a green body with red spots, but never pink with red or green with blue, then you need to have your set of variations start with a #number.letter and make sure that you have a set of variations in the [Paint Ballz] which start with the same #number.letter.  So your dane has, for instance, pink body ballz in [Ballz Info] (variation #8.E will then be the slot for pink) and your next variation is green ballz:
+
+#8.E
+#7
+49, 135
+19, 135
+43, 135
+16, 135
+40, 135
+(etc)
+
+Okay, now go to Paint Ballz and decide which ballz are going to have spots.  Then, after the paw pad spots, start your set of variations:
+
+#8.E
+(blue spot information)
+#7
+(red spot information)
+#6
+(etc)
+
+finishing off as always with ## after you've done #1's data.
+
+One thing to remember; when you are making variations, never have a blank line.  If you want to separate out sections for your own convenience later, make sure that any separations are done by an empty line with a semi-colon, like this:
+
+#8.E
+#7
+49, 135
+19, 135
+43, 135
+16, 135
+40, 135
+;
+#6
+49, 155
+19, 155
+43, 155
+16, 155
+40, 155
+(etc)
+
+The field of variations is a large one, with lots of possibilities.  Fiddle around a bit, see what you can achieve.  I've made breedz where some variations are longhaired, or some are mini, etc -- you can fit a lot into a breedfile just by using variations and making certain things fit together with this #number.letter linking of variations
+
+happy hexing!
+
+Carolyn
+
+
+
+
+
+
+

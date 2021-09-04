@@ -1,0 +1,143 @@
+Variations and how they work.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+
+I've decided to do this "special" on variations because it's becoming 
+clear to me that a lot of people don't quite understand how to make 
+variations tie in together correctly in, say, eyelids, [Paint Ballz], 
+[Add Ball], [Linez], and various "override" sections. Variations can 
+be added to just about any area of the .lnz, and you can tie up specific 
+colour, size, and fuzz etc variations in such a way that, for instance, 
+fawn patches and eyelids will only come out on brown pets and grey patches 
+and eyelids on white ones. You can tie in variations between baby and 
+adult .lnz sections also, so that when you adopt a fuzzy pup or kitten 
+from the Adoption centre, it will grow up to be fuzzy also (or not, if 
+you so choose). 
+
+As you probably know by now if you work with variations, each section 
+has one or more set of variations when you see a # followed by a number 
+after it as, for instance: 
+
+[256 Eyelid Color]
+#3
+29
+#2
+19
+#1
+59
+## 
+
+The game expects to see the # numbers diminish by one until they get to 
+the ## which finishes off that specific variation set. Now, lets take as 
+an example that you want to make sure that a dark grey eyelid is always 
+on a pet with no patches and a white body; the variation is that there 
+are grey patches on a pale grey-eyelidded white body, and that there are 
+chocolate lids and fawn markings on a chocolate body. It so happens that 
+your main breed [Ballz Info] balls are white. 
+
+Right, let's go back to the eyelids, and indicate to the game that this 
+is a set of "hooked" variations. To do this we take the top # number and 
+add a period and uppercase letter to it, so it will look like this: 
+
+[256 Eyelid Color]
+#3.A
+29
+#2
+19
+#1
+59
+## 
+
+It doesn't seem to matter what letter you choose, so long as you always 
+have the same letter at the start of the set which is to be "hooked" to 
+it. And this is the point that I want to emphasise: You do not need to 
+put a (dot)(letter) after every single # number! I've seen a lot of people 
+do this, and they have problems with the game either not tying up the 
+variations properly or not showing them correctly on 2nd-gens. 
+
+Okay, so you want to tie in the patches next. You want the white body of 
+the [Ballz Info] section to have the dark grey lids, so you put #3.A followed 
+by no data -- the game will realise what's expected. You want the white, 
+pale-grey-lidded body to have patches, so put grey-patch data under #2, 
+and you want fawn markings on a brown body, so we choose #1 for that here: 
+
+[Paint Ballz]
+#3.A
+#2
+(grey patch data)
+#1
+(fawn patch data)
+## 
+
+And then there's [Color Info Override], where your first (#3.A) is the white 
+body so no data goes after it and it will pick up the [Ballz Info] data, your 
+second also is the white body so no data to go under #2, and the third (under 
+#1) is chocolate: 
+
+[Color Info Override]
+#3.A
+#2
+#1
+(chocolate ball data)
+## 
+
+This works every time; it works when you want to tie in different ball sizes 
+([Ball Size Override] -- you may need to create this section for yourself in 
+the adult part of the .lnz) and textures ([Color Info Override]) or fuzziness 
+([Fuzz Override] -- you may need to create this section for yourself too) or 
+[Linez], [Move], etc etc -- the quantity of possible variations is enormous. 
+One other thing to note is that if you are doing several variation sets in 
+a given area -- as with the Dalmatian spots -- you separate them with lines 
+that have a semi-colon, never a blank line (the game sees the blank line and 
+thinks that you've finished with that part of the .lnz). So you would have: 
+
+#3
+#2
+(data)
+#1
+(data)
+##
+;
+#3
+#2
+(data)
+#1
+(data)
+##
+
+
+Never
+
+
+#3
+#2
+(data)
+#1
+(data)
+## 
+
+#3
+#2
+(data)
+#1
+(data)
+##
+
+1) Remember to leave one of the # numbers with no data under it, or your game 
+will never pick up the relevant data from the [Ballz info] area. 
+
+2) Remember always to finish a variation set with ##. 
+
+3) Remember to tie in a variation set with others using only one letter to 
+"hook" in each variation set (and put it on the top number in the variation sets). 
+
+4) Remember that if you are doing several variation-sets in one section, you never 
+separate them with blank lines. 
+ 
+For those who didn't see my previous "Howto" on variations, I've got a downloadable 
+version of this text which includes that earlier one also.
+
+Enjoy! 
+
+Carolyn Horn 
+
+

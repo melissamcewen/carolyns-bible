@@ -1,0 +1,237 @@
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you have finished editing breed.txt and made sure it's the same size as before, open it in the hex editor, select all and copy/paste it into the same area of the breedfile from whence you first copied it.  I explain this because for some reason many people don't seem to be able to figure out that you copy/paste the breed.txt file back like this.
+
+It is possible instead to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+Adding Wingz to breedz.
+=======================
+
+What you need to do when adding wingz is to put extra ballz into the [Add Ball] section of your breed's .lnz area, and then join them up correctly in the [Linez] section.  You need to decide where you want your wingz to be on the breed, and whether you want them to be flapping or not.  For instance, you might want wingz attached to the back or head, and you might want them not to flap; in that case, you want to "attach" them to the head ball or the back/chest ball.  If you want them to "flap", then attach them to the ear or shoulder ballz.  The first thing you need to do is to make small hidden "base" ballz, and then you will be building the wingz' balls up with respect to those bases.  This is necessary because if you attach them directly to the actual head or chest ball, the linez will be horribly thick.  Right, now you've made those decisions, you can go ahead and make the breed.  Remember that you will be adding a lot of data, so you will need to compensate for that by removing un-needed stuff if you're using a hex editor.
+
+Adding Wingz to a dog
+=====================
+
+I'll take a sheepdog as example, and I'll attach them to the shoulders.  The [Add Ball] balls stop at ball number 94, so your first wing ball will be 95.  You want a base add-ball for each wing, attached to the shoulders 18 and 42, and then the rest of the wing balls' x,y,z positions will be calculated with respect to those.  You'll want the basic wing shape, certainly -- and I also like to have those little flip-at-the-end "feathers" and the little balls of "plumage" that are tucked in at the beginning of the "flight feathers", so I'll add all of those here.
+
+So, add to [Add Ball]:
+
+;wingz 95
+;base	x	y	z	color otlnCol spckCol	fuzz  group  outline ballsize bodyarea addGrp tex
+18	9,	 -70,	42,	 19	13	-1	0	0	-1	35	0	0	0
+;xtra R wing
+42	-9,	 -70,	 42,	 19	13	-1	0	0	-1	35	0	0	0
+;Left Wing  97
+95	35,	0,	0,	144	-1	-1	-1	0	-1	27	0		0
+95	47,	-25,	27,	144	-1	-1	-1	0	-1	25	0	0	0
+95	45,	-18,	50,	144	-1	-1	-1	0	-1	25	0	0	0
+95	45,	-5,	70,	144	-1	-1	-1	0	-1	25	0	0	0
+95	33,	36,	57,	144	-1	-1	-1	0	-1	25	0	0	0
+95	20,	60,	46,	144	-1	-1	-1	0	-1	25	0	0	0
+95	15,	50,	25,	144	-1	-1	-1	0	-1	25	0	0	0
+95	17,	35,	5,	144	-1	-1	-1	0	-1	25	0	0	0
+95	35,	12,	17,	144	-1	-1	-1	0	-1	25	0	0	0
+95	37,	14,	32,	144	-1	-1	-1	0	-1	25	0	0	0
+95	40,	5,	45,	144	-1	-1	-1	0	-1	25	0	0	0
+;Right Wing 108-118
+96	-35,	0,	0,	144	-1	-1	-1	0	-1	27	0	0	0
+96	-47,	-25,	27,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-45,	-18,	50,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-45,	-5,	70,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-33,	36,	57,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-20,	60,	46,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-15,	50,	25,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-17,	35,	5,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-35,	12,	17,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-37,	14,	32,	144	-1	-1	-1	0	-1	25	0	0	0
+96	-40,	5,	45,	144	-1	-1	-1	0	-1	25	0	0	0
+;filler	balls 119-124
+95	35,	0,	20,	  4	-1	-1	-1	0	-1	21	0	0	0
+95	37,	-3,	30,	80	-1	-1	-1	0	-1	21	0	0	0
+95	37,	0,	52,	  5	-1	-1	-1	0	-1	21	0	0	0
+96	-35,	0,	20,	  4	-1	-1	-1	0	-1	21	0	0	0
+96	-37,	-3,	30,	80	-1	-1	-1	0	-1	21	0	0	0
+96	-37,	0,	52,	  5	-1	-1	-1	0	-1	21	0	0	0
+;xtra lef 125-130
+95	55,	68,	125,	89	-1	-1	-1	0	-1	15	0	0	0
+95	60,	65,	 90,	89	-1	-1	-1	0	-1	15	0	0	0
+125	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+126	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+95	60,	60,	 70,	89	-1	-1	-1	0	-1	15	0	0	0
+129	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+;xtra rig 131-136
+96	-55,	68,	125,	89	-1	-1	-1	0	-1	15	0	0	0
+96	-60,	65,	 90,	89	-1	-1	-1	0	-1	15	0	0	0
+131	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+132	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+96	-60,	60,	 70,	89	-1	-1	-1	0	-1	15	0	0	0
+135	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+;xtra 137
+102	9,	 -5,	35,	88	-1	-1	-1	0	-1	 5	0	0	0
+
+add to [Linez]:
+
+;left	wing
+97,	98,	0,	 -1,	13,	13,	100,	100
+98,	99,	0,	 -1,	13,	13,	100,	100
+99,	100,	0,	 -1,	13,	13,	100,	100
+100,	101,	0,	-1,	-1,	-1,	100,	100
+101,	102,	0,	-1,	-1,	-1,	100,	100
+;plumage
+101,	107,	0,	-1,	13,	13,	100,	100
+102,	106,	0,	-1,	13,	13,	100,	100
+103,	105,	0,	-1,	13,	13,	100,	100
+104,	97,	0,	-1,	13,	13,	100,	100
+;filler
+97,	100,	0,	-1,	-1,	-1,	100,	100
+;right,	wing
+108,	109,	0,	-1,	13,	13,	100,	100
+109,	110,	0,	-1,	13,	13,	100,	100
+110,	111,	0,	-1,	13,	13,	100,	100
+111,	112,	0,	-1,	-1,	-1,	100,	100
+112,	122,	0,	-1,	-1,	-1,	100,	100
+;plumage
+112,	118,	0,	-1,	13,	13,	100,	100
+113,	117,	0,	-1,	13,	13,	100,	100
+114,	116,	0,	-1,	13,	13,	100,	100
+115,	108,	0,	-1,	13,	13,	100,	100
+;filler
+108,	112,	0,	-1,	-1,	-1,	100,	100
+;xtra lef
+125,	100,	0,	140,	13,	13,	100,	100
+126,	100,	0,	130,	13,	13,	100,	100
+127,	125,	0,	-1,	13,	13,	100,	100
+128,	126,	0,	-1,	13,	13,	100,	100
+129,	100,	0,	249,	13,	13,	100,	100
+130,	129,	0,	-1,	13,	13,	100,	100
+;xtra rig
+131,	111,	0,	140,	13,	13,	100,	100
+132,	111,	0,	130,	13,	13,	100,	100
+133,	131,	0,	-1,	13,	13,	100,	100
+134,	132,	0,	-1,	13,	13,	100,	100
+135,	111,	0,	249,	13,	13,	100,	100
+136,	135,	0,	-1,	13,	13,	100,	100
+;join to bases
+96,	42,	0,	-1,	-1,	-1,	100,	100
+95,	18,	0,	-1,	-1,	-1,	100,	100
+96,	108,	0,	-1,	13,	13,	100,	100
+95,	97,	0,	-1,	13,	13,	100,	100
+
+You'll want to alter the colours on your breed of course, and possibly the x,y,z co-ordinates; but that's the wingz I put on my breedz, and I like 'em that way ;-)
+
+I include a sound-stripped sample breed for Dogz 3.
+
+Adding Wingz to a cat
+======================
+
+I'll take a Russian Blue as an example, and I'll attach them to the shoulders.  The [Add Ball] balls stop at ball number 91, so your first wing ball will be 92.  You want a base add-ball for each wing, attached to the shoulders 38 and 39, and then the rest of the wing balls' x,y,z positions will be calculated with respect to those.  You'll want the basic wing shape, certainly -- and I also like to have those little flip-at-the-end "feathers" and the little balls of "plumage" that are tucked in at the beginning of the "flight feathers", so I'll add all of those here.
+
+
+;wings 92
+;base	x	y	z	color otlnCol spckCo
+38	9,	 -70,	42,	 99	13	-1	0	0	-1	35	0	0	0
+;xtra R wing
+39	-9,	 -70,	 42,	 99	13	-1	0	0	-1	35	0	0	0
+;Left Wing  94
+92	35,	0,	0,	144	-1	-1	-1	0	-1	27	0		0
+92	47,	-25,	27,	144	-1	-1	-1	0	-1	25	0	0	0
+92	45,	-18,	50,	144	-1	-1	-1	0	-1	25	0	0	0
+92	45,	-5,	70,	144	-1	-1	-1	0	-1	25	0	0	0
+92	33,	36,	57,	144	-1	-1	-1	0	-1	25	0	0	0
+92	20,	60,	46,	144	-1	-1	-1	0	-1	25	0	0	0
+92	15,	50,	25,	144	-1	-1	-1	0	-1	25	0	0	0
+92	17,	35,	5,	144	-1	-1	-1	0	-1	25	0	0	0
+92	35,	12,	17,	144	-1	-1	-1	0	-1	25	0	0	0
+92	37,	14,	32,	144	-1	-1	-1	0	-1	25	0	0	0
+92	40,	5,	45,	144	-1	-1	-1	0	-1	25	0	0	0
+;Right Wing 105-115
+93	-35,	0,	0,	144	-1	-1	-1	0	-1	27	0	0	0
+93	-47,	-25,	27,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-45,	-18,	50,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-45,	-5,	70,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-33,	36,	57,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-20,	60,	46,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-15,	50,	25,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-17,	35,	5,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-35,	12,	17,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-37,	14,	32,	144	-1	-1	-1	0	-1	25	0	0	0
+93	-40,	5,	45,	144	-1	-1	-1	0	-1	25	0	0	0
+;filler	balls 116-121
+92	35,	0,	20,	  4	-1	-1	-1	0	-1	21	0	0	0
+92	37,	-3,	30,	80	-1	-1	-1	0	-1	21	0	0	0
+92	37,	0,	52,	  5	-1	-1	-1	0	-1	21	0	0	0
+93	-35,	0,	20,	  4	-1	-1	-1	0	-1	21	0	0	0
+93	-37,	-3,	30,	80	-1	-1	-1	0	-1	21	0	0	0
+93	-37,	0,	52,	  5	-1	-1	-1	0	-1	21	0	0	0
+;xtra lef 122-127
+92	55,	68,	125,	89	-1	-1	-1	0	-1	15	0	0	0
+92	60,	65,	 90,	89	-1	-1	-1	0	-1	15	0	0	0
+122	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+123	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+92	60,	60,	 70,	89	-1	-1	-1	0	-1	15	0	0	0
+126	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+;xtra rig 128-133
+93	-55,	68,	125,	89	-1	-1	-1	0	-1	15	0	0	0
+93	-60,	65,	 90,	89	-1	-1	-1	0	-1	15	0	0	0
+128	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+129	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+93	-60,	60,	 70,	89	-1	-1	-1	0	-1	15	0	0	0
+132	0,	 -5,	20,	88	-1	-1	-1	0	-1	5	0	0	0
+;xtra 134
+99	9,	 -5,	35,	88	-1	-1	-1	0	-1	 5	0	0	0
+
+;start	end	fuzz	col	lfCol	rtCol	sThck	eThick
+;left	wing
+94,	95,	0,	 -1,	13,	13,	100,	100
+95,	96,	0,	 -1,	13,	13,	100,	100
+96,	97,	0,	 -1,	13,	13,	100,	100
+97,	98,	0,	-1,	-1,	-1,	100,	100
+98,	99,	0,	-1,	-1,	-1,	100,	100
+;plumage
+98,	104,	0,	-1,	13,	13,	100,	100
+99,	103,	0,	-1,	13,	13,	100,	100
+100,	102,	0,	-1,	13,	13,	100,	100
+101,	94,	0,	-1,	13,	13,	100,	100
+;filler
+94,	97,	0,	-1,	-1,	-1,	100,	100
+;right,	wing
+105,	106,	0,	-1,	13,	13,	100,	100
+106,	107,	0,	-1,	13,	13,	100,	100
+107,	108,	0,	-1,	13,	13,	100,	100
+108,	109,	0,	-1,	-1,	-1,	100,	100
+109,	119,	0,	-1,	-1,	-1,	100,	100
+;plumage
+109,	115,	0,	-1,	13,	13,	100,	100
+110,	114,	0,	-1,	13,	13,	100,	100
+111,	113,	0,	-1,	13,	13,	100,	100
+112,	105,	0,	-1,	13,	13,	100,	100
+;filler
+105,	109,	0,	-1,	-1,	-1,	100,	100
+;xtra lef
+122,	97,	0,	140,	13,	13,	100,	100
+123,	97,	0,	130,	13,	13,	100,	100
+124,	122,	0,	-1,	13,	13,	100,	100
+125,	123,	0,	-1,	13,	13,	100,	100
+126,	97,	0,	249,	13,	13,	100,	100
+127,	126,	0,	-1,	13,	13,	100,	100
+;xtra rig
+128,	108,	0,	140,	13,	13,	100,	100
+129,	108,	0,	130,	13,	13,	100,	100
+130,	128,	0,	-1,	13,	13,	100,	100
+131,	129,	0,	-1,	13,	13,	100,	100
+132,	108,	0,	249,	13,	13,	100,	100
+133,	132,	0,	-1,	13,	13,	100,	100
+;join to bases
+93,	39,	0,	-1,	-1,	-1,	100,	100
+92,	38,	0,	-1,	-1,	-1,	100,	100
+93,	105,	0,	-1,	13,	13,	100,	100
+92,	94,	0,	-1,	13,	13,	100,	100
+
+As with the dogz version, you'll want to alter the colours on your breed of course, and possibly the x,y,z co-ordinates.  But that's the shape and size of wingz that I put on my breedz, and I like 'em that way ;-)
+
+I include a sound-stripped sample breed for Catz 3.
+
+Enjoy!
+
+Carolyn Horn
+
+

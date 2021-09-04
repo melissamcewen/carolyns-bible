@@ -1,0 +1,71 @@
+
+Some notes to help with wingz difficulties
+
+A note on changing the colours
+===============================
+
+Take notice of the Linez in my wingz if you want to change the colour
+of the "flight feathers" at the back of the wingz.  Look here:
+
+;xtra lef
+122,	97,	0,	140,	13,	13,	100,	100
+123,	97,	0,	130,	13,	13,	100,	100
+124,	122,	0,	-1,	13,	13,	100,	100
+125,	123,	0,	-1,	13,	13,	100,	100
+126,	97,	0,	249,	13,	13,	100,	100
+127,	126,	0,	-1,	13,	13,	100,	100
+
+140, 130 and 249 are specified colours for the linez.  Where you see -1
+in that column, it means "take the colour from the ball in the first
+column", but you can specify a colour as I did there.  So, either
+specify your own colour or change it to -1, depending on what you want.
+
+
+A note on fixing the "off one shoulder" effect of sweaters on winged breedz
+===========================================================================
+
+The problem with only one of the wingz -- the "off one shoulder" fashionable 
+look (LOL!) -- boils down to the fact that the base ball for each wing is made 
+relevant to each shoulder, and for some unfathomable reason the left shoulder 
+does not pass on its clothes properties to that base ball.  I don't have time to 
+delve further into this, but a working solution is to change the base balls to be 
+relevant to the elbows instead of the shoulders.
+
+So if you don't want that "off the shoulder" look in any winged breedz of mine,
+put this, in dogz-based breedz:
+
+;base	x	y	z (etc)
+ 7	0,	 -90,	32,
+;xtra R wing
+31	0,	 -90,	 32, (etc)
+
+instead of this:
+
+;base	x	y	z (etc)
+18	9,	 -70,	42,
+;xtra R wing
+42	-9,	 -70,	 42, (etc)
+
+and this, in catz-based breedz:
+
+;base	x	y	z (etc)
+12	0,	 -90,	32, (etc)
+;xtra R wing
+13	 0,	 -90,	 32, (etc)
+
+instead of this:
+
+;base	x	y	z (etc)
+38	9,	 -70,	42, (etc)
+;xtra R wing
+39	-9,	 -70,	42, (etc)
+
+I'll be releasind a load of "base" winged breedz soon, one for each P.F.Magic 
+original breed, with the wingz altered in this way, but I'll be keeping all the 
+winged hexies that are already at my site the way they are.  I rather like the 
+quirky effect :-)  But if you want 'em different in your game, then change those 
+two lines as indicated above.
+
+Enjoy
+
+Carolyn Horn

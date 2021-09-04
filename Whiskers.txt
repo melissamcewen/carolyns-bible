@@ -1,0 +1,22 @@
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  Oh, and for people who wonder what to do with it when you've finished editing it; well, you open it in the hex editor again, check that it's the same size as it was before, and then copy/paste it over the same place whence it came!
+
+It is possible to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+How to control those pesky whiskers lines
+=========================================
+
+Okay, you've done everything you can think of -- made the whisker ball -999, listed it in [Omissions], and still the dratted line appears!  Aaaargh!  Well, the simple answer is here.  If you want no whiskers at all, pop this into the breedfile on a line by itself:
+
+[Whiskers]
+
+If you want to have some whiskers lines and not others, then list the whiskers you want underneath, for instance:
+
+[Whiskers]
+30, 57
+31, 60
+
+And that's it, truly.
+
+Carolyn Horn
+

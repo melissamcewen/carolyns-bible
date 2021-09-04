@@ -1,0 +1,57 @@
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the .dog or .cat file -- it really _is_ a small text file, you 
+see, and when you look at it you can see exactly what you're doing without 
+having to laboriously count numbers in the hex editor.  So, hexing my way, 
+here's the best I can explain:
+
+Question: 
+---------
+
+How can I stop ugly wrong-colour spots from showing through my catz' head when I edit the ears?
+
+Answer:
+-------
+
+Here's how the ear basically works, to start with.  The cat's ear is made up of a base ball in the head (Ballz nos. 8 and 10) and a tip (Ballz nos. 9 and 11), then a selection of [Add Ball] ballz and [Linez] all make up the rest of the shape.  
+
+In [Add Ball], you usually get the three nose balls and then
+
+;ears 80
+8, 	-10, 	-25, 	-8, 	69, etc.
+
+In the Linez, the first column of numbers contains the ballz from which the default colour of each linez is taken; for instance
+
+;srt	end	fuzz	col	lfCol	rtCol	sThck	eThick
+<snip other lines of code>
+80, 	8,      0, 	-1, 	-1, 	 -1,	100,	100
+
+This tells the game that ball 80 is attached to ball 8 by a line which has the default colour (that's what -1 means) of ball 80.  The other columns show that the default colour is used for the outline of each side of the linez, and the thickness of the linez's sides.
+
+The problem is almost always caused by either ballz 8 and 10 being too large or the wrong colour and showing through or by the [Add Ball] ballz 80, 82, 83, 85 being in slightly the wrong place and/or wrong size.
+
+If it's the base earball, the one that's in the head, you can fix it by reducing it and/or changing its colour.  You can try fooling around with it in the [Move] area too if you want to.
+
+If it's the Add ballz that are causing the problem, then you need to alter their position or resize them.  Try these x,y,z numbers and size for ball 80: 
+
+-3, -30, -8, (for the coordinates) and 4 (for the ballsize) 
+
+And for ball 83 
+
+3, -30, -8, (for the coordinates) and 4 (for the ballsize) 
+
+The other two ballz, basically on the outside of the head at the side, can be shifted and resized too if they are proving to be a problem.  And if the ballz being so small cause a problem with the linez being too thin, just thicken up the linez a bit.
+
+Enjoy
+
+Carolyn Horn
+
+
+

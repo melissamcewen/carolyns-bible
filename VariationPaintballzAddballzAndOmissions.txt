@@ -1,0 +1,159 @@
+
+Question:
+=========
+I can do markings (spots or patches), but I can't do making variations 
+(ie. individuals have different. markings)
+
+I'm assuming that your markings are all [Paint Ballz] markings.  But first,
+you should know that in any area of the .lnz (this goes for default scales, 
+sounds pointers, texture lists -- _any_ area!) you can make as many variations 
+as you wish. The normal kind of variation set goes like this, starting with a 
+# number and then counting downwards to the ##:
+
+#3
+< data for this variation>
+#2
+< data for this variation>
+#1
+< data for this variation>
+##
+
+When you leave one of the variatons blank, like this, where you see that #3 
+has no data:
+
+#3
+#2
+< data for this variation>
+#1
+< data for this variation>
+##
+
+the blank, or data-less, one will use the defaults. You need this if you have 
+ball colour variations under [Color Info Override], because if you don't have 
+one blank variation # in there then your [Ballz Info] colours won't show.
+
+Now, if you want to make variations within the [Paint Ballz] area, just start 
+putting variations in after any items that you want not to vary (such as the 
+paw pads which are usually there). So you'd have all the paw pad lines of data, 
+or any other non-variable lines of data, and then you would start on your series 
+of variations. In the Dalmatian you can see that the game can pick from a whole 
+load of different sets of variations, but you don't need to be as complex as that. 
+Say you want four variations of spots on the snout, each a different size and 
+colour, including one with no spot at all. It could look like this:
+
+#4
+#3
+56, 70 -.8, -.8, -1 35 (etc -- rest of line of data)
+#2
+56, 90 -.8, -.8, -1 15 (etc -- rest of line of data)
+#1
+56, 50 -.8, -.8, -1 65 (etc -- rest of line of data)
+##
+
+Right, this is just a straight set of variations. But perhaps you want a set of 
+red patches on a black dog, but orange patches on a white dog and white patches 
+on a fawn dog, and never the other way around. For this you need to bring in the 
+"linking" system. This is simple, but a lot of people get it wrong.
+
+Say your [Ballz Info] contains the black dog data. Your [Color Info Override] should 
+be laid out like this:
+
+#3.A
+#2
+<white dog balls numbers and colours>
+#1
+<fawn dog balls numbers and colours>
+##
+
+Now go to your [Paint Ballz] section and put in a set of variations like this:
+
+#3.A
+<red patches data> (will go only on black dogs)
+#2
+<orange patches data> (will go only on white dogs)
+#1
+<white patches data> (will go only on fawn dogs)
+##
+
+And there you have it -- a set of linked variations.
+
+
+Question:
+==========
+To make all the variations I want would involve adding an assload of addballz, 
+and I really don't want to since there's already a ton in there and the .LNZ is 
+getting huge.
+
+Answer:
+======
+Add Ballz can be handled a little differently, so you don't need quite as 
+much data in there as you might think; you only need to add the ball data 
+once there, and you can then use the simple [Omissions] list to include or 
+remove them.  Here's how I do it:
+
+Add into [Add Ball] all the added ballz that I'm going to want.  Keep a note 
+of which group of add ballz are which numbers; I tend to pop in little 
+commented-out line-counts.  Join up everything the way I will want it to 
+appear in [Linez].  Don't worry if some variations won't be using these 
+balls and linez; put 'em in anyway.  If you want to be absolutely correct 
+about it, do the linez as a set of linked variations, so that they link in 
+properly with the [Omissions] that I'm about to discuss.
+
+Now, say I want a variation which doesn't include added ballz numbers 90-100, 
+another which has those but not ballz numbers 120-123, and another that has 
+'em all.  Okay, then I handle it in [Omissions], under which I first keep the 
+list of ballz that are _always_ omitted (65-76) and any others that I happen 
+to want to be omitted in my breed.  I want the omissions to be part of a 
+linked variations series, so I'm going to have a suitable #<number>.<letter> 
+at the top of the variation set.  
+
+[Omissions]
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+<ditto all the numbers that are always omitted>
+;
+#3.A <-this one has no data, so it's the variation containing all ballz
+#2
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+#1
+120
+121
+122
+123
+##
+
+(An important note for anyone who doesn't realise, by the way: when you add stuff 
+to a section of the .lnz, make sure that there is no blank line between your lines 
+of data, or the game will ignore the stuff that's been separated by the blank line; 
+if you want to separate things out to make them clearer, put a semi-colon all by 
+itself on what would otherwise be a blank.)
+
+[Omissions] is your friend.  Even when you're not managing [Add Ball] variations 
+with it, using that rather than what most people do, which is make ballz 
+infinitesimally small, is a much more reliable method and will carry on to 
+2nd-gen reliably.
+
+Enjoy!
+
+Carolyn
+

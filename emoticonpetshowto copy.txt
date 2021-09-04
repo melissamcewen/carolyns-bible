@@ -1,0 +1,50 @@
+
+Make your own Emoticon Petz...
+===============================
+
+This "howto" supposes that you have some hexing experience.  If you don't, 
+I advise reading a more basic tutorial and understand what's going on.  Oh, 
+and don't forget -- _always_ keep a safe copy of anything that you are editing, 
+especially pet files.
+
+Question:
+==========
+
+Is it hard to hex them to your own petz / breeds?
+-----------------------------------------------
+
+It's easy to add them to your breedz.  And since the arrival of Nicholas' LNZPro 2, 
+it's also easy to add them to  petfiles -- previously the most you could do with 
+petfiles really was to enable the original hidden ballz and maybe add texture to them. 
+This howto concentrates on adding various emoticons to a breedfile.  It's up to you
+to figure out how to add the [Add Ball] ballz and Linez for your chosen emoticon
+to a pet using LNZPro 2.  It's the same really as adding any extra ballz to a pet :-)
+
+I include in this zipfile two sets of .lnz files, one for a cat breed and one for a 
+dog breed;  they are intended for use with my external-lnz packages and they overwrite 
+the originals.  You can also of course use LNZPro 2 to put them into any other Great 
+Dane or Black and White cat breedfile or, suitably edited, into any other breed.  
+They will work with any version of the game Petz 3, 4 or 5.  I have not tested them 
+with Petz II, but they should work fine.  In P3-5, your adopted pets will be able 
+to breed with each other, but I have no idea what the results will be :-)
+
+If you look under [Add Ball], you'll see a whole series of Added Ballz, each with a 
+little header such as ;heart 77, ;question mark 101 and so on.  I think that's clear 
+enough; each line of code is an added ball and you can fiddle around with colours, 
+textures etc to your heart's content; also what base ball the emoticon is attached 
+to of course.  It's fun to add them to the ear tip ballz or tail tip, because they 
+move around a lot that way, but they can be added to any base ball of course.
+
+You're not done yet though.  Next you need to make sure that the correct ballz for 
+any emoticon that you _don't_ want are all listed under [omissions].
+
+And finally we come to the [Linez].  If you're making your own emoticons, you need 
+to be sure that whatever needs to be connected up is connected there.  You can leave 
+the lines of code there even when ballz are listed in [Omissions], and that makes it 
+a lot quicker to enable some emoticons -- as you can see, what I did was put all the 
+emoticons that I thought I might use into [Add Ball] and [Linez], and then just list 
+the ones I didn't want in each adoptee in [Omissions].
+
+Cheers!
+
+Carolyn

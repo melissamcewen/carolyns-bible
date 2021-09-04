@@ -1,0 +1,451 @@
+Converting different versions of petz breeds for other versions of the game.
+============================================================================
+
+Contents: You need a hex editor! (and useful tools)
+          How to make a Petz 3 or 4 breed from a Petz 2 one (and vice versa)
+          How to make a Petz 4 breed from a Petz 3 one (and vice versa)
+          Changing the sounds if the original was a "speciez" hexie
+          Getting your petz 2 hexie pets into Petz 3 or Petz 4
+          How to make a Petz 2, 3 or 4 breed from a Petz 3 or 4 .pet file
+          Converting Dogz or Catz 1 breeds to Petz 2, 3 or 4
+          Getting your petz 1 hexies into Petz 2, 3 or 4
+Appendix: Colour lists for Dogz 1 and Catz 1
+
+Included in the zip with this tutorial: Colour charts for Catz 1, Dogz 1, Petz II-5
+                                        How to convert breedz from Petz 4 to Petz 5
+                                        How to convert from petz 3 English to International versions
+                                        Ballz Lists for Catz and Dogz
+
+NOTE: This tutorial does not tell you how to use halfway-house programs such as VIM, which is really a text editor but lets you open breedfiles. Nor does it tell you how to use any of the more modern programs which have been created within the past 2-3 years.  But for your information, there are now Resource Editors which can edit breedfiles, such as ResHacker which is available at http://www.users.on.net/johnson/resourcehacker/ and there is a breed-converting tool at Firebird's site http://www.thepetzwarehouse.com/~mkandc/
+
+This tutorial is intended to show you what needs to be changed, and it goes through the process using my own specific methods.  These use a hex editor and may seem old-fashioned, but they work.  Other people may do it differently :-)  Also, if you are new to hexing and are trying to convert a breed that someone has created since the turn of the century, using one of the modern Resource Editors, you'll find it confusing to try converting my way; I can do it easily, but the thought of explaining to a new user how to fix the .lnz section to fit makes my brain wobble.  If you cone across one of those breedz, either get the creator to convert it or use ResHacker to do the conversion.
+
+You need a hex editor! (and useful tools)
+========================================
+
+First, for this you have to use a hex editor at least some of the time.  If you don't have one, there are loads of them available for download, and they all do the same basic tasks, although some of them have complicated "bells and whistles" too for power-users.  You can get various freeware ones, such as: 
+Hexedit, from
+http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+Some people like the freeware Axe version 2, available from various places including "Carolyn's Creations"
+http://www.thepetzwarehouse.com/~carolyn/carolyn.htm
+and "Oddballz Neo"
+http://www.dmwright.com/oddballz/
+
+If none of these suit you, do a google search for "hex editor" and "freeware"; there are a _lot_ of hex editors available as freeware or shareware.
+
+All of them are pretty straightforward to install, I think.  Then, if you have the shortcut to your chosen one on your desktop, you can drag-and-drop any file you want to investigate onto it.  They all show files in a similar way: there are three sections, the left-hand one being the "Address" section and containing numbers which show which byte you're looking at (in Hex numbers usually), and it starts at 00.  The middle section is the meat of the thing, being the actual data of the file shown as hexadecimal numbers.  The right-hand side shows the file itself also, but in this case as raw ASCII so that you see it as a mix of weird symbols or dots and text.  Most of the time you will be looking at that right-hand section in order to find or fiddle with bits of text.
+
+Other useful tools
+------------------
+
+Pet2Bmp.exe available from the Petzwarehouse, or from Daniel's Odd-petz site -- an amazingly useful little tool that takes the drudgery out of Adoption-Centre bitmaps.
+
+Notepad.exe -- came with Windows.  Used for altering the text part of breedfiles.  If you prefer, you can use a program called Vim, available from Silver's site also (complete with tutorial on its use).
+
+Mspaint.exe -- came with Windows; you might want it (or a paint package of your choice) to edit Furfiles or Adoption Centre bitmaps.
+
+Sndrec32.exe -- comes with Windows, I think -- or preferably some better Wav sound editor. This is really just if you're going to do species other than dogs or cats; then you may want to change the sounds. There are quite a few freeware or shareware Wav file editors on the Internet.  Try http://www.winfiles.com/apps/98/wav.html and see which one suits you best.
+
+How to make a Petz 3 or 4 breed from a Petz 2 one (and vice versa)
+=================================================================
+
+This is really very simple but time-consuming.  The main item you need to concentrate on is the core of the breed, the text .LNZ file which is what people mostly "hex-edit" within a breedfile.  I'll use Rlyskrm's Petz 2 Pug dog as an example, but the same principle applies to all breedz for Dogz 2 and Catz 2.
+
+Okay, you've got two files for the Pug in Petz 2:
+
+Pug.dog
+PugX.dog
+
+The Pug dog was made from the Bulldog; you can tell that by opening the Pug.dog file into the hex editor and doing a search for lnz.  It will get you to the name of the .LNZ file which in this case is bd.lnz; and bd is short for bulldog (I think the .lnz names for all the original breeds are logical enough to figure out, except for the Chinchilla Persian cat which is Rd.lnz).
+
+You want to find the beginning of the actual .LNZ so, in this case, do a search for
+
+; bulldog
+
+which is the starting point.  In some hexed breedz, this has been changed from the P.F.Magic original, but you will still be able to find the right place by searching for 
+
+[Default Linez File]
+
+which is near the beginning of what you want.  Position your cursor before the ";" in front of the breed name, and highlight from there all the way down to 
+
+PF. Magic, Inc. Lets not talk about me
+
+Copy this to a new file and save it as, for instance, PugPetz2.txt.
+
+Now get a copy of the Petz 3 or Petz 4 Bulldog.dog file and do the same thing with it; copy the text and name the new file, say, PugPetz3.txt.
+
+If you open both text files side-by-side, now, you will see that they are laid out in a very similar fashion.  I'm afraid that there is no real alternative to simply entering the numbers that you see in the Petz 2 textfile into the Petz 3 or 4 one, making sure that any extra numbers or smaller numbers are compensated for by removal or addition of spaces elsewhere.
+
+You can't simply cut-and-paste the Petz 2 file into Petz 3 or 4, because the sizes are very different, plus of course there are sections in the petz 2 file that don't exist in the Petz 3 or 4 one -- the clothing, for instance, where the Petz 2 version has "#4;sweater, black" etc, the Petz 3 or 4 bulldog has a section under "#4;body light brown" which is "; was sweater".  You would want to make the ballz under that section right for the body colour, because in Petz 3 or 4 you can put "real" clothing on the dog.
+
+There's one thing that I must point out; if you want to convert to Petz 2 a Petz 3 or 4 breed that makes use of an add-on item of clothing -- such as my Swedish Elks or Yori's delightful Pokemon series -- you're going to have to do some creative work with extra ballz, and as I haven't tried it myself yet, I can't give you details of how to do it.  But I can point you, I hope, in the right direction.  Take a look at the Petz 2 Chinchilla Persian; it has extra ballz for the female's bow, in the "addballz" section, from ballz 92-98.  You could alter these to produce, for instance, the forehead-curl on Yori's Meowrth.  With the Great Dane, there are no such extra ballz defined in the Petz 2 breed, so you would have to add some in yourself in order to add horns or antlers etc.
+
+When you've finished, remembering to keep the Petz 3 or Petz 4 file exactly the same number of bytes big, copy-and-paste it back into the correct place in the breedfile.
+
+You can now rename the breed and make it show up in the Adoption Centre as described in various tutorials, including mine on hexing Petz 3.
+
+And for converting a Petz 3 or 4 breed to Petz 2, of course, the process is identical -- just that you enter the numbers from the Petz 3 or 4 textfile into the Petz 2 one.
+
+How to make a Petz 3 breed from a Petz 4 one (and vice versa)
+=============================================================
+
+This is _so_ easy...  Bless P.F.M, for once, for not changing anything that's relevant to the hexer in the breedfiles.  All except for the Bunny and Pig which came with petz 4, that is; those two cannot be directly converted as there is no equivalent original in Petz 3, and will not be covered in depth in this tutorial.  But those two -- and any hexies made from them -- can be squeezed into a Persian.cat and a Bulldog.dog file; you just need to edit the data into the relevant .LNZ as you would when hexing any breed, and copy the furfiles for the bunny, and copy and split up the soundfiles for the pig, into exernal directories.
+
+The only breed that has a small alteration in it is the Alley Cat.
+
+All other Petz 3 breeds are identical, from the ID (often called the offset number, or The Byte) right down through the bitmaps to the end of the .LNZ (text section which a hexer edits).  So, open your hexie and a copy of the relevant original into your hex editor.  Search for BM in your hexie, then put your cursor in front of the ID number which is just above that and select all that section (from the ID number down through the bitmap(s) to the end of the .lnz, which ends with PFM_[V2.001]). Copy and paste it over the original.  Save. 
+
+In the case of the Alley Cat, Petz 4 has an extra small part of the .lnz, with the header [Adjust Clothing], which you want to avoid copying over.  So select from the ID down to [Lnz Version]..2 in your hexie and paste that over the same area of your original.  Then select from 
+
+; Alley Cat kitten
+
+to the end of the .lnz in the hexie and paste it over the same area (from ; Alley Cat kitten to the end of the .lnz) in your original.
+
+Then go down to the naming section, where you see 
+
+.c.). .1.9.9.7. P.F...M.a.g.i.c.,. .I.n.c.  
+
+In Petz 4 there's a lot of stuff after that; ignore it.  I believe that's just something to do with the sound recognition system.  But you do want to rename the breed, so do that in the relevant place below .c.). .1.9.9.7. P.F...M.a.g.i.c.,. .I.n.c.  , and compensate for any extra letters in the usual manner, by removing or adding null bytes (hex 00) in the area after the names.
+
+There are also the internal sounds; If the breed you're converting is one of the few hexies that was made with internal sounds, you can copy-and-paste from the beginning of the first RIFF (beginning of the first wav file) to the end of the last wav file, because those also appear to be unchanged between Petz 3 -- Petz 4 original breedfiles :-)
+
+Changing the sounds if the original was a "speciez" hexie
+=========================================================
+
+I think that all Petz 2 breedz so far (except for mine, which are already made also for petz 3 and 4) have their soundfiles untouched, and only a few Petz 3 breedz have Speciez sounds at the time of writing this -- my own Horse Equus, Great Bearz, and Swedish Elk, plus the sounds which I inserted into Dawn's Guinea pig, all have the sounds internally.  I'm afraid these sounds can't be extracted and copied directly from a breedfile of one version of the game to the other, because they are different sizes, _but_ they can be extracted, split apart and put into a physical subdirectory.  Of course, you can use your own soundfiles, there's no law that says the breed has to sound exactly as the person who made the original wished :-)
+
+Some breedz, such as my Pig-hogz and Chickenz, have been made with external sounds already, so you would only have to copy them straight into the relevant subdirectory.
+
+I'll take as example my Horse Equus.  Since I kept the sounds internal to the breedfile, they are all in a lump directly after the WAV list.  Do a search for RIFF, and you will find the beginning of it.  There are 78 sounds in there, and they finish just before the section right at the bottom which starts .(.c.). .1.9.9.7. P.F...M.a.g.i.c.,. .I.n.c.
+
+You can either laboriously copy these into 78 new files and rename them <your name>.WAV, or you can gather a bunch of new sounds yourself.  But if you do make new sounds, you'd probably better make sure they are 8 bit, 22,050 Hz, Mono.  Put these in a suitable subdirectory off your Petz 2 Dogz directory; call it "h\sound", for instance, so the WAV files all go into the directory \resource\dogz\h\sound.
+
+Now, in your Petz 2 breedfile, find:
+
+[Sounds]
+\ptzfiles\dog\gd\gdsnd.txt
+
+Change that to
+
+[Sounds]
+\resource\dogz\h\hesnd.txt
+
+You now want to make that "hesnd.txt" file.  Okay, do a search for 
+
+Sounds root path=
+
+and copy from there to the end of the last WAV to a new file, and save it as "hesnd.txt", in the directory \resource\dogz\h.
+
+Change the first line in the new textfile to
+
+Sounds root path=resource\dogz\h\sound.
+
+Now, you want to go through the whole list, making sure that your sounds are pointed to correctly; this means removing all the gd\sounds\.  For instance, gd\sounds\gd_yell01.WAV needs to be changed to yodel.wav (without the "gd\sounds\") if you're going to get your breed to yodel at that point. Leave the TOY wavs alone, also the ones which say "none.wav".  Where there is a sound that doesn't fit with your breed, either make a sound for it, put it in the sound subdirectory, and enter its name over that wrong sound in the list, or replace its name with none.wav.  It's a bit time-consuming, but worth the effort to get proper sounds for your species.
+
+Getting your petz 2 hexie pets into Petz 3 or Petz 4
+=====================================================
+
+This involves making a Petz 3 breedfile of your Petz 2 hexie's breed.  You can simply rename another breedfile, making sure that the Petz 3 name is _exactly_ the same as the name that's _within_ the Petz 2 breedfile  (some breedz were made where that name was slightly different from the name of the .dog and X.dog files).  This will work, but your pet won't look anything like your Petz 2 version.  The place to look for the breed name is of course down near the bottom of the file where you see (.c.). .1.9.9.7. P.F...M.a.g.i.c.,. .I.n.c.
+
+But the best thing to do, if you want your pet to look and sound right, is to make a Petz 3 breed that's the same as the petz 2 one, as I show above, as well as making sure that the name is correct.
+
+How to make a Petz 2, 3 or 4 breed from a Petz 3 or 4 .pet file
+===============================================================
+
+If you have a much-loved corrupt pet or see a particularly attractive or unusual petz 3 or petz 4 pet on the net, you can make a breedfile out of it for Petz 2 or for Petz 3 or 4.  This won't work for petz 2 pets, unfortunately, as the data inside them isn't laid out as text.  Once you have copied the data you need from the petfile, if you can't use the pet itself in your game, do please put it back up somewhere for adoption -- someone will be happy to give it a good home!
+
+Look at the pet file in your trusty hex editor.  Scroll down until you see p.f.magicpetzIII.[Texture List].  Put your cursor on that and highlight everything until you get to the end of the text and numbers, where a load of null bytes start.  Copy the highlighted part into a new file and save it as a .txt file.
+
+If you want to use the baby from a pregnant mother for this, you have to highlight another section, from a fair bit lower down in the pet file, past a lot of null bytes and other stuff, which starts simply with [Texture List].  Highlight from that down to the end of _its_ text and numbers, to where another section of null bytes (Hex 00) starts, and save that as a .txt file.
+
+Now, if you were to open either of these into Notepad, you'll see a whole load of numbers and black squares; what you need to do is see it as it should be, a series of lines and columns of numbers, so you want to replace the black squares (which are really Line Feeds -- Hex 0A) with Carriage return/Line feeds -- Hex 0D0A.  In the Hex editor, therefore, replace all instances of 0A with 0D0A.
+
+You can now open this file in Notepad, and you'll see that it has a lot of similarities to the .LNZ section of a breedfile.  And in fact, it almost entirely consists of information that you can insert back into a breedfile of your choice to make an exact clone of the pet.  Choose the breedfile carefully -- if it's a mixed-breed pet which uses, for instance, the Great Dane sounds, you'll want to use that as the basis for the breed.  How do you know which sounds it uses?  Well, it's in this line:
+
+[Sounds]
+\ptzfiles\dog\gd\gdsnd.txt
+
+So, get your Great Dane breedfile and copy the text .LNZ file from it into a .txt file as described above, under "How to make a Petz 3 or 4 breed from a Petz 2 one".
+
+What you want to do now is put all the data from your pet textfile into the .LNZ textfile.  It may sound daunting, but in fact is not too bad when you get down to it.  Just open both files side by side on the screen, as you would when converting Petz 2 to petz 3 or 4 breeds (or vice versa) and start at the top.
+
+If the textures are different, or a furfile is needed, make sure that is entered instead of the texture list in the breedfile.
+
+Overwrite the numbers in the various extension, enlargement and default areas (remembering to compensate for extra or fewer bytes), also the [256 Eyelid Color].  Things like head tilt limits are unlikely to be different, but you can check if you like.  If the breedfile has colour or size variations -- you can tell that by the "#" numbers, such as (in the Great Dane)
+
+[Leg Extension];16 16
+#2.A
+15
+15
+#1
+17
+17
+##
+
+and you don't want any of those, just replace the extra numbers with spaces.
+
+[Add Ball] comes next, and at first it's a jumble of lines of numbers.  _Don't panic_!  In fact, if you look closely at each line of numbers it's almost identical usually to the equivalent line in the breedfile; it's just that in the breedfile it's broken up with those programmers comments such as "; mount align ball 67".  See how, if it's a dog, the first line starts with 48, the next 33, the next 48 -- or if it's a cat, they start with 2, 19, 2?  Those are the base ball numbers in the exact same way as they are in the breedfile.  Nothing much is likely to be different until you get past the first ten lines, the last three of which start with 2 in a cat file and 48 in a dog file.  After that you are into the equivalent of the section which starts "; ### From here down are animator's addballz 77." and it starts to be different, sometimes a little bit, sometimes a lot.
+
+Replace the data in this section of the [Add Ball] with the data from the pet file. You may find that you have to actually add some lines to the ones already there, or you may find that you have to remove a line or two, depending on how many the petfile has here.  Oh, and there will probably be an extra column of numbers -- ignore that, you won't need it.
+
+Down here you're into the extra balls which relate to things like ears, nose, tail; you can figure out which is which by looking at the ball numbers in that first column.  They are not usually in the exact same order as in the pet file, but don't let that bother you; just find which line corresponds with which and enter any numbers which have changed such as colour of size etc.  You'll probably want the ballz lists handy, included in this zipfile, so you can follow what you're actually doing.  
+
+With sections such as [Thin/Fat], [Move], [Project Ball],  you may have to make some changes; they also are in a slightly different ball-number-order in the pet file, but just remember that the number in the first column is the number of the ball and you can't go wrong.
+
+Forget [Key Balls] and [Omissions] and, usually, [Linez].  None of these are likely to have changed, although you may want to check in the [Linez] to make sure.  Ignore the last two columns in the [Linez].
+
+Now we're down to the [Ballz Info], and you will want to enter all changed data in here.  The ballz here are in the correct order as you see them in the breedfile, and the first column is (as with the breedfile) the colour of the ball.  So, where you might see
+
+[Ballz Info]
+98 -1 0 0 -1 -1 1 2
+
+in the pet file, and
+
+[Ballz Info]
+55, 244, -1, 1, -1, -2, 6, 1 0 ;L ankle
+
+in the original breedfile, you would want to replace 55 with 98, 244 with -1, etc.  Don't worry that there is no corresponding number for the last number column in the breedfile (0 in this line); this contains only the number of the ball (not used here in the pet file).  Remember to compensate as usual for extra bytes inserted or any that are removed; and don't go deleting any of the commas.
+
+Now, in breedfiles where you have 
+
+[Color Info Override]
+;individual variation
+
+sections, you'll want to either remove these or make sure that they fit the new breed you're making.  The pet file data doesn't include that of course, since it's just the one pet.
+
+Now you're into the [Paint Ballz] section, with some rather horrific looking numbers such as 
+
+9 60 0 0.957826 0.287348 244 -1 0 -1 -1 -1 1
+
+Once again, don't panic.  You will find equivalents in the breedfile [Paint Ballz]:
+
+9, 62 0, 1, .3 39 -1 0 -1 -1 -1
+
+where the numbers 0, 1, .3 are the "direction" column.  0 0.957826 0.287348 are three very similar numbers to these.  You can replace them fully if you like (but you'll have to find spaces to remove to compensate) or you can truncate them to something like 0, 0.96, 0.29
+
+Once again, there is an extra column at the end...  ignore it.
+
+Remember, this section is the paw pads and any odd patches or spots the breed may have, so you might have to add in a few lines from the pet file which aren't in the breedfile.  That's okay -- just keep them in the exact same form as the other ones in the breedfile (i.e. where there should be a comma, make sure there is one) and make sure you compensate.
+
+[Fur Color Areas] will probably not be any different, but you might want to check.
+
+Then the petfile starts all over again with the [Texture List].  I believe that this has to do with puppy/kitten stages; all you need out of it for your breedfile/hex painted file is the bits which relate to the bottom, puppy, part of the breedfile's .LNZ.  So check out the [Default Scales] and extensions etc here, plus any [Adjust Clothing] etc.
+
+Make sure the [Ball Size Override] etc are either disabled or are going to do what you want them to do, and Eureka!  You have transferred your poor corrupted pet into a breedfile of its own, producing identical clones -- or you've made a brand-new breed out of an exciting-looking pet!
+
+Converting Dogz or Catz 1 breeds to Petz 2, 3 or 4
+==================================================
+
+Yes, it is possible.  The key here is the .lnz files which, in the case of Catz 1 are in the Ptzfiles\Cat\Resource subdirectory off your main Catz.xxx directory -- and in the case of Dogz 1 in the Data driectory off your main Dogz.xxx directory.
+
+What you have to do is basically the same as I describe above, in the "How to make a Petz 3 or 4 breed from a Petz 2 one" section.  You need to enter stuff from the .lnz files into the text part of the Petz 2, 3 or 4 breedfile.
+
+First of all, though, remember that the colours for Dogz 1 and Catz 1 are different from each other and from the colours in the later programs.  At the end of this file I list the colours for both the Petz 1 games.  In the zipfile with this tutorial, you should find a reasonably accurate .html chart of colours for Petz 2-4.
+
+I'll explain the conversion procedure for Dogz, but the principle is the same with Catz.  The only real differences are that 
+
+1) in Dogz, you can figure out which breed was used to make the "hexie" by looking at the open the [Skeleton Type].  The numbers here are the key: 0 started as a Terrier, 1 was a Bulldog, 2 was a Scotty, 3 was a Chihuahua and 4 was a Bigdog (Great Dane in the later programs).  In Catz, you don't have this indication, but then there aren't a great number of hexies for Catz 1 anyway, and you can just use whichever Petz 2, 3 or 4 breedfile seems closest in sound and personality.
+
+2) in Catz, the kitten info is in the .lnz files which begin with a "k", so you would enter things like [Head Enlargement] etc from that into the "kitten" area at the bottom of the Petz 2, 3 or 4 textfile.
+
+3) a Catz breed has a [Linez] section which looks closer to the petz 2, 3 or 4 ones, so you might find that a little easier to deal with.  It also has a [Project Ball] section, which you want to make sure is entered correctly.
+
+So, open the hexie's .lnz file into Notepad, and a copy of the chosen petz2, 3 or 4 textfile into Notepad, and view them side by side.  The items such as [Eyelid Color], the extensions, etc, are all easy to transfer across.  Any items that there is no equivalent of in your new breedfile, ignore.  Stuff like [256 Iris Color] needs to be noted and entered into the correct place in the [Ballz Info].
+
+Okay, now we come to the [Linez] section; this indicates in the earlier programs which ballz are attached to which, and how much fuzz there is in the line that attaches them.  In Petz 2 to 3 these are a little more complex -- colours and thickness of the edges of the linez are defined -- but the idea is the same.  If you want your breed to look the same as the dogz 1 or catz 1 one, you'll probably have to make sure that you've got the same ballz linked together.  Try it without changes, but if it looks all wrong you're going to have to fiddle around in this area and in the [Project Ballz] areas (I know there aren't any of the latter in Dogz 1, so you'll have to do some guesswork if you decide it's needed) to make sure that the correct look is achieved.  Most hexers won't have changed these, though, so you should be okay ignoring them if you've chosen the right breed to start hexing.
+
+The part that most people will have changed is the lists which detail out the "eBall_" colours, fuzz etc.  What you want in your petz 2, 3 or 4 breed is the [256 Ball Color] numbers, rather than the [16 Ball Color].  So, enter those numbers into the first column of the [Ballz Info].  Then there's [Speckle Color], [Ball Size Diffs], [Puppy Balls] (not sure you an use this one), [Outline Type], [Outline Color], and [Fuzz].  Enter all except for the Puppy Balls into the relevant column of the [Ballz Info].
+
+Ignore the [Default Factors]; these are to do with personality, and I think are unusable in the later programs, although there may be a way of using them that I don't know about yet.
+
+Then, the sounds -- if the breed is a dog or cat, you won't want to bother with that.  If it's a different species, then you'll want the correct sounds, which you can use or create yoruself as described above.
+
+The reverse conversion, turning Petz 2 - 3 breedz into Petz 1, is rather less rewarding, because so much has to be lost during the conversion process.  All the textures, the extra ballz, the additional Linez and Project Ballz info...  They can't be converted as far as I know.  But of course you can change the extensions and ball size defaults, as well as all the colours, ball sizes and fuzz.
+
+Getting your petz 1 hexies into Petz 2 -- 4
+===========================================
+
+To import a "hexie" Dogz 1 breed into Petz 2, 3 or 4, it seems that you have to fool the program a little.  First off, make your hexed breed for the new game as close as possible to the one for your original pet, or he/she won't look right at all.  Then, make sure that the name of the breedfile (inside the file as well) is the same as one of the 5 P.F.Magic originals that correspond with the original Dogz 1 breedz (Scottie, for instance.  It doesn't matter which you choose -- Scottie, Mutt, Great Dane, Chihuahua, Bulldog -- only make sure that you've moved the P.F.Magic version out of the Resource\Dogz directory first).  Now, open your Dogz.ini file (it'll be in the root Dogz.xxx directory) into Notepad.  Find the line which says
+
+Your Pet=.\data\stumpy.lnz
+
+(or whatever the "hexed" breed is called).  Change that to, for instance,
+
+Your Pet=.\data\scotty.lnz
+
+Now go to your Data directory, move the Scotty.lnz to a temporary place, and rename your pet's breedfile Scotty.lnz.  Now you can import your pet into either Dogz 2, Dogz 3 or Dogz 4.
+
+A similar bit of fiddling around is required for importing a Catz 1 hexie.  In this case, once again make your breedfile and make sure that it's named to correspond to one of the original five: B+W Shorthair (that's Ahunter), Siamese, Persian, Orange Shorthair (Ascaredy), Tabby.  Say you choose B+W Shorthair; okay, you have to move the P.F.Magic Ahunter.lnz out of the Ptzfiles\Cat\Resource subdirectory of your catz program, and rename your hexie's adult .lnz Ahunter.lnz.  You don't need to rename the kitten file.  Now go to the pet you want to convert -- the Catz 1 .cat file -- and open it into Notepad.  Where it says
+
+Cat1=\ptzfiles\cat\resource\Aginger.lnz or whatever your breed's name is
+
+Change it to
+
+Cat1=\ptzfiles\cat\resource\Ahunter.lnz
+
+You can now import your dear old pet into the new game, and have it looking as you wanted it to.
+
+These imported pets will now use the original P.F.Magic breedfiles, in the same way as hex-painted pets do.  You don't need to throw away your carefully hexed breedfile, though; just rename it and make it show up in the Adoption Centre, and you will have your Petz 1 breed in Petz 2, 3 or 4 and be able to adopt as many as you wish.
+
+Enjoy
+
+Carolyn Horn
+
+Appendix 1:
+***********
+
+Colour list for Catz 1
+======================
+
+Note that
+the files themselves contain a handy rule-of-thumb about which of the
+16-palette colours is which:
+
+0  black
+1  dark Red
+2  dark Green
+3  dark Yellow (this is really more like an olive green)
+4  dark Blue
+5  dark Magenta
+6  dark Cyan (teal?)
+7  dark Grey
+8  light Grey
+9  Red
+10 Green (this is a bright almost fluorescent green)
+11 Yellow
+12 Blue (a bright blue)
+13 Magenta (bright)
+14 Cyan
+15 White
+
+Note that if you have the later programs, the colours are _not_ all
+directly interchangeable.  Numbers 10-15 are very different, being pale
+greys in Petz3.
+
+The 256-palette adds a lot more beyond these 16.  I list here just the
+ones I've found out by personal experiment; some of the colour
+descriptions are rough.  Where I put a number in brackets with a # in
+front, it's because I think that one is in the game's brush colour
+palette:
+
+16  bright blue
+17	dark green
+18	blue
+19	bright green
+20	very dark grey
+21	purple-blue
+22	dark brown
+23	mid-brown
+24	scarlet
+25	fluorescent pink
+26	yellow
+27	orange-red
+28-37	blacks (#32)
+38-47	light greys (#42)
+48-57	darker greys (#52)
+58-68	purplish blue/greys (#62)
+69-77	light brown (#72)
+78-87	darker browns (#82)
+88-97	yellows (#92)(higher numbers darker)
+98-107	orange (#102)
+108-117	Dark red (almost purply-red) (#112)
+118	pink (tongue)
+119-127	pink (#122)
+128-142	Various greys, light and dark
+143	red
+144	very dark red
+
+From here on some of the colours seem to change a fair bit as the pet
+moves:
+
+145-152 various reds (mostly dark; flash to browns or greys)
+153-156 brownish reds (flash to browns)
+157-159 dark browns (flash to pinky-red)
+160-164 light browns (some flash to very dark browns)
+165-169 various mid to dark greys (some flash to different greys)
+170-174 various very light to mid greys
+175-179 very pale blue-whites
+180-184 greens (these sometimes flash to very pale blue-white)
+185-189 various pale greens/greenish blues (sometimes flash to dark blue)
+190     dark blue
+191     grey (flashes to dark blue or muddy green)
+192     pale grey
+193     pale grey
+194     muddy green
+195     black
+196     very dark brown
+197     very pale grey
+198     pale grey
+199     pale grey
+200     very pale grey
+201     pale grey (flashes to dark blue)
+202     pale grey (flashes to dark blue)
+203     pale grey (flashes to dark blue)
+204     pale grey
+205     light grey
+206     black
+207     pale grey
+208     powder blue
+209     pale blue (flashes to darker)
+210     pale blue (flashes to darker blue or slate grey)
+211     pale blue (flashes to darker)
+244     black
+255     black (flashes to dark red)
+
+Dogz 1 colour list:
+===================
+
+16-palette colours:
+
+0  black
+1  dark Red
+2  dark Green
+3  dark Yellow (this is really more like an olive green)
+4  dark Blue
+5  dark Magenta
+6  dark Cyan (teal?)
+7  dark Grey
+8  light Grey
+9  Red
+10 Green (this is a bright almost fluorescent green)
+11 Yellow
+12 Blue (a bright blue)
+13 Magenta (bright)
+14 Cyan
+15 White
+
+Note that if you have the later programs, the colours are _not_ all
+directly interchangeable.  Numbers 10-15 are very different, being
+pale greys in Petz3.
+
+The 256-palette adds a lot more beyond these 16.  I list here just
+the ones I've found out by personal experiment; some of the colour
+descriptions are rough.
+
+16-18	light greys
+19-21	darker greys
+22-25	yellow-browns
+26-27	mid-brown
+29-33	yellow-browns to browns
+40	brown
+45	dark brown
+50	dark brown
+55	dark brown
+60	light bright green
+65	light olive green
+70	yellow
+75	yellow-green
+79	red
+80	red
+85	purple (dark lilac)
+90	blue-green
+95	purple-blue
+100	black
+130	dark brown
+150	dark green
+200	white
+208	light green
+244	orange
+

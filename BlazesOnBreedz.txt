@@ -1,0 +1,54 @@
+
+
+First off, I'm going to show you how to do these the way I edit; I know this confuses some people, but I don't know how else to explain things.  A quick note on how I edit: I always edit breedfile .lnz sections (which is the part we are all editing to make different colours, sizes, tattos, etc) by copying the .lnz out into a new file in the hex editor, saving it as breed.txt, and then editing it in Notepad.  When I'm done editing, I open it in the hex editor again and copy it back into the breedfile. The reason I do this is because I then see the .lnz exactly the way it was before the programmers compiled it into the .dog or .cat file -- it really _is_ a small text file, you see, and when you look at it you can see exactly what you're doing without having to laboriously count numbers in the hex editor.  So, hexing my way, here's the best I can explain it:
+
+
+Face streaks (Blazes)
+---------------------
+
+The face streak is a set of [Paint Ballz].  In catz you can see it in the Black and White shorthair, like this:
+
+[Paint Ballz]
+;base ball diameter(% of baseball) direction color outlinecolor (etc)
+;paws
+
+(I've snipped the paws data for this "howto") then you come to this:
+
+;individual variation
+#2;face streak
+#1
+24,    7     0, -.5, -.7     15   15   3   -1   2   1   0
+24,   10     0, -.4, -.7     15   15   3   -1   2   1   0
+24,   10     0, -.4,  -1     15   15   4   -1   2   1   0
+24,   16     0, -.2,  -1     15   15   4   -1   2   1   0
+24,   22     0,   0,  -1     15   15   4   -1   2   1   0
+24,   22     0,  .2,  -1     15   15   4   -1   2   1   0
+##
+
+Okay, you don't need the #2, #1 and ## as long as you don't want some of your catz to come out without the streak.  Concentrate on the actual data, and you'll see that there are a load of paint ballz on base ball 24, which is the cat's head ball.  The "diameter" is the size of the paint ball, and you can see (it's the second column) that they get grdually bigger as they go down the face.  You can tell that they are going down the face by the numbers in the "direction" column; this column has three numbers for each ball.  
+
+So the first ball, size diameter 7% of the head,  is positioned at 0, -.5, -.7 on the head ball; this means it is "0" sideways (i.e. not to the right or the left at all), it's up the ball by .5 (a larger minus number is always further up) and it's forward by .7 (a larger minus number is further forward).
+
+The last ball, size diameter 22% of the head and therefore larger, is at position 0,  .2,  -1 which means it's still neither to left nor right, it's lower on the head (a positive number, .2) and it's further forward (-1, which is a bigger minus number than -.7).
+
+Now then, you can put a streak like this on a dog too -- adjusting the sizes and positions of each ball if they don't look right to you -- by changing that 24 base ball to the dog head ball, which is 52.  This will only put it on the head, though, and you will probably also want your blaze to go on the snout too, as the dog has a bigger snout than a cat.  You can either put a similar streak on the snout ball also by putting in another set with base ball56, or you can use the face patches that you can see on a Mutt, once again adjusting them to suit:
+
+On the muzzle there are these:
+
+56,   55    0,  -.4,  -1    15   15   4   -1   4   1   0
+56,   30    0,  -.8, -.3    15   15   4   -1   4   1   0
+56,   20    0,  -.8,  .3    15   15   4   -1   4   1   0
+56,   55    .7,  .5,  -1    15   15   4   -1   4   1   0
+56,   55    -.7, .5,  -1    15   15   4   -1   4   1   0
+
+You'll notice that the two lowest ballz are two of the biggest (55%) and also that they are slightly to each side (.7 and -.7)  you may want this or not -- anyway, experiment with these to suit yourself and also with these, on the head:
+
+52,   20    0,  -.2,  -1    15   15   4   -1   4   1   0
+52,   16    0,  -.3,  -.7   15   15   4   -1   4   1   0
+
+Okay, when you've added all these paint ballz into your breedfile's .lnz, you'll have a lot of extra bytes in there.  The trick I use to keep an eye on the size of the file is, in Windows Explorer (My Computer will do too), I right-click on the breed.txt file when I've first saved it out.  I choose properties and I make a note of the Size where it shows (xx,xxx bytes) -- where xx,xxx is a number of course!  Then when I've added all the extra stuff that I want to, I do the same thing and see how many extra bytes I've got.  I have to remove that number of bytes from within the breed.txt file, and that's pretty simple to do using my Notepad method.  Things that can go are commented-out lines -- i.e. lines which start with a semi-colon (these are just programmers' comments) as well as loads of spaces or tabs.  Just make sure that there is always at least one space or tab or comma between any number and its neighbour, and make sure that you're not removing stuff from the "kitten" or "puppy" section (down below where you see the words puppy or kitten).  Only remove stuff from the kitten or puppy section if you've added bytes down there.
+
+Happy Blazing
+
+Carolyn Horn
+

@@ -1,0 +1,118 @@
+
+labrador ears on a dane
+=======================
+
+This example is on a Great Dane.  I'm hoping that you can understand what I'm saying, so that if you want to use a different breed as base you'll be able to figure it out.  This is my final "howto" and example on ears; people really should be able to figure out how to do it on other breedz from all the details I've given in these "howto" files, and I really don't have time to make templates for every single possible variation on ears out there!
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you have finished editing breed.txt and made sure it's the same size as before, open it in the hex editor, select all and copy/paste it into the same area of the breedfile from whence you first copied it.  I explain this because for some reason many people don't seem to be able to figure out that you copy/paste the breed.txt file back like this.
+
+It is possible instead to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+You want to put labrador ears on a dane.  You will need to replace or delete various Great dane ear info:
+
+In the [Move] section, the dane has this
+
+6,	0,	-20,	10,	52
+30,	0,	-20,	10,	52
+
+Instead, the labrador has this for ears:
+
+5,	1,	12,	-6
+29,	-1,	12,	-6
+4,	-6,	18,	-6
+28,	6,	18,	-6
+
+Then, in the [Project Ball] section, the dane ears are further modelled by changing the distances that ballz 6 and 30 sit from the head and iris balls.
+
+;EARS
+52, 6, 79
+52, 30, 79
+38, 6, 120
+14, 30, 120
+
+You may want to remove these and put in the labrador's
+
+52, 6, 95
+52, 30, 95
+
+You may find that you want to keep it the old great-dane way anyway, as it might look better that way.  Try them both, see which looks best to you in both this section and the [Move] section.
+
+Now the Dane has some extra ballz added in [Add Ball]:
+
+; ### From here down are animator's addballz 77.
+6, 	6, 	-10,	-3, 	55, (etc)
+30, 	-6, 	-10,	-3, 	55, 
+6, 	3, 	-18,	-3, 	55, 
+30, 	-3, 	-18,	-3, 	55, 
+6, 	13, 	-27,	-12, 	55, 
+30, 	-13, 	-27,	-12, 	55, 
+
+You'll need to replace those with the Labrador's
+
+4, 	-15, 	-9, 	15, (etc)
+28, 	15, 	-9, 	15, 
+4, 	4, 	17, 	-3,
+28, 	-4, 	17, 	-3,
+5, 	18, 	0, 	0,
+29, 	-18, 	0, 	0,
+
+as well as changing the six ballsizes to 18, 18, 12, 12. 21 and 21.
+
+and of course you do not list any ear ballz at all in [Omissions], so remove these that are listed there in the Dane:
+
+4
+5
+28
+29
+
+Note that the added ballz are differently numbered ballz in the Labrador from those in the Great Dane; in the dane they are ballz 77 - 82 and in the Labrador they are 82 - 87.  This means that you cannot copy the linez exactly aziz from the labrador; you'll have to change each instance of 82 to 77 and so on.  Here's how the ears will look in linez, then:
+
+;ears
+6,	 5,  (etc)
+5,	 4,
+30,	 29,
+29,	 28,
+77,	 4,
+77,	 5,
+4,	 79,
+28,	 78,
+78,	 29,
+77,	 79,
+78,	 80,
+28,	 80,
+77,	 81,
+78,	 82,
+77,	 6,
+78,	 30,
+79,	 5,
+80,	 29,
+6,	 81,
+30,	 82,
+5,	 81,
+29,	 82,
+4,	 81,
+28,	 82,
+52,	 6,
+52,	 30,
+
+And finally in [Ballz Info], the left and right ear ballz:
+sizeDif group
+left ears:
+  10,	2,
+   4,	2,
+  -3,	2,
+right ears:
+  6,	2,
+  4,	2,
+ -3,	2,
+
+In this case, the ear "group" is different, and that can have an effect on the size of the ball as well as other things such as how it behaves when you paint it in the game.  You don't necessarily need to change the [Ballz Info] size etc; it depends on how it looks to you.
+
+That's it; a Dane with Labrador-style flop-ears. Included in this "howto" zipfile is an overwriting Great Dane of that type, for Petz 4, so that you can examine its internals if you are interested.  This breedfile does not have all the GD sounds, by the way, in order to reduce its size, so don't be surprised if it's very quiet.
+
+Hope that helps.
+
+Carolyn Horn
+
+
+

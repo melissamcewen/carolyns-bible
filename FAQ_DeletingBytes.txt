@@ -1,0 +1,44 @@
+
+
+>I need to delete about 4,000 bytes in my Lab file and I've already deleted 
+>the entire Color Info Override section & the Outline Color Override section.  
+>I really don't want to delete every little space in the ballz info section 
+>because it will take a year and a half but I will if I have to.  Is there any 
+>other section I can delete?
+
+I don't believe there's any complete section that you can delete that
+would have that many bytes.  I'd take them from the Ballz Info section -
+- I do that all the time, there's _loads_ in there.  What I do is copy
+the Ballz Info section into Word (Wordpad will do), and do a "replace
+all", choosing the number of spaces that I want to be replaced by just
+one.  Then I copy the ballz Info back into my working Notepad file.  In
+the Lab, if you replace all instances of two spaces with one space, and
+then replace all instances of comma and space with comma only, you'll
+remove a whopping 3,600 and it takes less than a minute altogether.
+That leaves 400 to go, and you can remove extra spaces or tabs (Word can
+deal with special characters like tabs, not sure if Wordpad can) in a
+similar fashion from the Linez, Addballz, or Paint Ballz sections.  They
+don't have as much of a space-removing bonanza as the Ballz info, of
+course.
+
+Finally, all lines which start with a semi-colon are "commented out" --
+which means that the game ignores them.  They are either guidelines for
+the programmers, or they are lines of code that the programmers have
+decided they don't need but they never got around to deleting them.  So
+you can delete lines such as
+OUTLINE --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+and so on.  I tend to leave those until last, as they are handy for us
+hexers to refer to as well, and I like to leave them for anyone who is
+going to use one of my breedz as a base.
+
+I've managed to pack a few breedz pretty thoroughly this way -- my
+"Calibean" cat up at Anso's site is a good example of this, I made it specifically
+for hexers to examine, as I get asked about how to do spots a lot.  The Calibean
+contains all the calico's patches, plus the dalmatian's spots, plus a
+few colour variations.  It is well stuffed with code, and removing the
+spaces etc only took me a few minutes.
+
+Hope that helps
+
+Carolyn Horn
+

@@ -1,0 +1,49 @@
+
+Make your own Mystery-Emoticon Petz...
+===============================
+
+This "howto" supposes that you have some hexing experience.  If you don't, I advise reading a more basic tutorial and understand what's going on.  Oh, and don't forget -- _always_ keep a safe copy of anything that you are editing, especially pet files.
+
+Question:
+==========
+
+Is it hard to hex them to your own petz / breeds?
+-----------------------------------------------
+
+It's easy to add them to your breedz, but not to petfiles as that would require adding a lot of extra data.  The most you can do with petfiles really is to enable the original hidden ballz and maybe add texture to them.  
+
+For pet files
+=============
+Here's how to enable those hidden balls; un-omit them from [Omissions].  No no, don't hit me!  I'll explain.  There are some Add Ball Ballz which are hidden, and they are used by the programmers for alignment etc.  These balls are given an Addgroup number which makes them invisible most of the time, but not all of the time.  the programmers obviously wanted them to be invisible all of the time, so they listed them under [Omissions]:
+
+[Omissions]
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+
+Don't bother with 65 and 66 unless you want your "orbs" visible all the time, as those aren't [Add Ball] ballz.  But  the ballz 67-76 can all be made visible if you wish; just change all of those numbers to, say, 66 and then compensate for the altered numbers as usual somewhere like in the [Paint Ball] section.
+
+I include a pet who has had a couple of his "hidden" balls enabled; when Oscar gets excited they'll appear.
+
+For Breedfiles
+==============
+However, if you're hexing them into your breedfile, it's incredibly easy.  I include in this zipfile two sets of .lnz files, one for a cat breed and one for a dog breed;  they are intended for use with my external-lnz packages and they overwrite the originals.  They will work with any version of the game Petz 3, 4 or 5.  I have not tested them with Petz II.  Your adopted pets will be able to breed with each other, but I have no idea what the results will be :-)
+
+Okay, if you look under [Add Ball], you'll see a whole series of Added Ballz, each with a little header such as ;heart 77, ;question mark 101 and so on.  I think that's clear enough; each line of code is an added ball and you can fiddle around with colours, textures etc to your heart's content; also what base ball the emoticon is attached to of course.  It's fun to add them to the ear tip ballz or tail tip, because they move around a lot that way, but they can be added to any base ball of course.
+
+You're not done yet though.  Next you need to make sure that the correct ballz for any emoticon that you _don't_ want are all listed under [omissions].  You'll see that I already have a load of ballz listed there.  Some of the ballz in the list have a semi-colon in front of them.  This means that those particular emoticons are _not_ listed; the semi-colon tells the game to skip that line.
+
+And finally we come to the [Linez].  If you're making your own emoticons, you need to be sure that whatever needs to be connected up is connected there.  You can leave the lines of code there even when ballz are listed in [Omissions], and that makes it a lot quicker to enable some emoticons -- as you can see, what I did was put all the emoticons that I thought I might use into [Add Ball] and [Linez], and then just list the ones I didn't want in each adoptee in [Omissions].
+
+Cheers!
+
+Carolyn

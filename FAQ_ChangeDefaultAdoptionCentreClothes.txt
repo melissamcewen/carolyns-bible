@@ -1,0 +1,43 @@
+Adding Clothing to pets that come out of the Adoption Centre
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Some time ago, when I posted on the newsgroup the information on adding 
+Antlers to Elks etc which I include in my Breedmaking tutorial, I was asked:
+
+> how do you modify existing clothing?  Example, I want my chihuahuas 
+> to have glasses instead of sweaters.  Where do I find the info to 
+> tell the prog to look for the glasses instead of the sweater?
+
+Well, first off, where it says [Flat Clothing], change that to [Add Clothing].  
+Then, you can find out what the .lnz (.clz) for the given item of clothing is 
+either by looking inside the .clo file or (a little easier perhaps) by putting 
+the item on some pet, closing the game, and looking in the .pet file for the 
+string art\Sprites\Toyz\
+
+So, in the case of Glasses, you would have the "kind" is Glasses (you find that 
+defined inside the Glasses file), the "toy_dll" is the .clo file Glasses.clo 
+in your clothes directory, and the "lnz file" is Clot_Glasses.clz:
+
+[Add Clothing]
+; kind: Shirt,Pant, [snip stuff] ,Glasses
+; kind       		toy_dll      	lnz file
+#3.D
+Glasses "\Resource\Clothes\Glasses.clo" "art\Sprites\Toyz\Clot_Glasses\Clot_Glasses.clz"
+#2
+#1
+##
+
+> OH, and is it possible to make it random?
+
+Yes. You can make just about anything random in a .LNZ file with sensible use 
+of variations; for instance, with my Minifluffies I gave them randomly coloured 
+eyelids, just by putting in some extra # numbers.  Actually the thing that people
+find more difficult is to hook variations together so that they are _not_ random,
+LOL!
+
+Experiment, it can't hurt so long as you've got everything backed-up.  That's 
+part of the fun of it :-)
+
+Enjoy
+
+Carolyn Horn

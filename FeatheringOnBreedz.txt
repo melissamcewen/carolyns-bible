@@ -1,0 +1,261 @@
+
+How to put "Feathering" on to various parts of a breed
+------------------------------------
+
+Includes tail, legs, chest, belly, neck, head...  I include a Great Dane as an example, but these techniques will work on any breed.  Remember to use the correct ball numbers for the various body parts if you are doing a catz breed -- for instance, the head ball will be 24 instead of 52.
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you have finished editing breed.txt and made sure it's the same size as before, open it in the hex editor, select all and copy/paste it into the same area of the breedfile from whence you first copied it.  I explain this because for some reason many people don't seem to be able to figure out that you copy/paste the breed.txt file back like this.
+
+It is possible to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+Question: How can I feather the tail?
+------------------------------------
+Answer: Here's how:
+
+I'm hoping that you can understand what I'm saying, so that if you want to use a different breed as base you'll be able to figure it out, or if you want to put feathering on other body-parts.
+
+Okay, you need to put a few anchor balls -- one at bottom of tail one in middle ball and one near tip -- and then do extra add ballz, plus put in some linez. 
+
+Anchor ballz are added in exactly the same way as any other added ball; I call them "anchor" ballz to try and clarify why I use extra ballz that you don't really see, not in any attempt to confuse.  There's always something in my tutorials that confuses someone, I begin to despair of ever writing anything clearly enough.
+
+The reason for "anchor balls" is simply so that you can make sure that the line joining two balls is the width that you want.  If you add a ball to the belly at some distance from the belly, and then join it to the belly with a line, the line will be the same width as the belly at one end.  If you make a small anchor ball and position it inside the belly, then a line from it to your visible added ball will be the correct width.  Anchor balls are usually invisible because they are inside the base ball.
+
+
+I would suggest an arrangement like this in Add Ball:
+
+;tailfeather (ballz 95, 96,  97, are anchor ballz)
+57,     0,      0,     10,       50,    0, 	0, 	1, 	2, 	-1, 	22, 	0,          0,		1 
+58      0,      0,      5,       50,    0, 	0, 	1, 	2, 	-1, 	18, 	0,          0,		1 
+59,     0,      0,      0,       50,    0, 	0, 	1, 	2, 	-1, 	16, 	0,          0,		1 
+; feathers 98 - 106
+95,      0,     10,     5,       69,    0, 	0, 	6, 	2, 	-1, 	12, 	0,          0,		1 
+95,      0,     20,     7,       69,    0, 	0, 	6, 	2, 	-1, 	26, 	0,          0,		1 
+95,      0,     30,     10,      69,    0, 	0, 	6, 	2, 	-1, 	12, 	0,          0,		1 
+96,      0,     30,    5,      69,    0, 	0, 	6, 	2, 	-1, 	12, 	0,          0,		1 
+96,      0,     20,     10,      69,    0, 	0, 	6, 	2, 	-1, 	26, 	0,          0,		1 
+96,      0,     10,     7,      69,    0, 	0, 	6, 	2, 	-1, 	12, 	0,          0,		1 
+97,      0,     30,    5,      69,    0, 	0, 	6, 	2, 	-1, 	12, 	0,          0,		1 
+97,      0,     20,     7,      69,    0, 	0, 	6, 	2, 	-1, 	26, 	0,          0,		1 
+97,      0,     10,     10,      69,    0, 	0, 	6, 	2, 	-1, 	26, 	0,          0,		1 
+
+Then down in linez:
+
+; feathers
+98       95,    3,      -1,     -1,     -1,     100,    100
+99,      95,    3,      -1,     -1,     -1,     100,    100
+100,      95,    3,      -1,     -1,     -1,     100,    100
+101,      97,    3,      -1,     -1,     -1,     100,    100
+102,      97,    3,      -1,     -1,     -1,     100,    100
+103,      97,    3,      -1,     -1,     -1,     100,    100
+;
+104       96,    3,      -1,     -1,     -1,     100,    100
+105,      96,    3,      -1,     -1,     -1,     100,    100
+106,      96,    3,      -1,     -1,     -1,     100,    100
+101,      96,    3,      -1,     -1,     -1,     100,    100
+102,      96,    3,      -1,     -1,     -1,     100,    100
+103,      96,    3,      -1,     -1,     -1,     100,    100
+;
+98       96,    3,      -1,     -1,     -1,     100,    100
+99,      96,    3,      -1,     -1,     -1,     100,    100
+100,      96,    3,      -1,     -1,     -1,     100,    100
+;more tail
+57, 	99, 	6,	-1,	244, 	244,	100,	100
+99, 	102, 	6,	-1,	244, 	244,	100,	100
+105, 	105, 	6,	-1,	244, 	244,	100,	100
+106, 	61, 	6,	-1,	244, 	244,	100,	100
+
+That's fairly rough and you'd probably want to improve on that, but it works that way.
+
+
+Question: How can I put feathers on dogz (Like on the Golden R. on petz5)?
+------------------------
+
+As regards the Golden Retriever, though, here are the specific ballz, all nicely commented for us by those kind programmers: 
+
+[Add Ball] section: 
+
+;chestball 93 
+50, 0, 15, -20, 40, 21, 0, 6, 0, -1, 75, 0, 0, 0 
+;leg tufts front 94 
+7, -5, 0, 10, 48, 21, 0, 6, 0, -1, 50, 0, 0, 0 
+31, 5, 0, 10, 48, 21, 0, 6, 0, -1, 50, 0, 0, 0 
+18, -5, 0, 10, 48, 21, 0, 6, 0, -1, 60, 0, 0, 0 
+42, 5, 0, 10, 48, 21, 0, 6, 0, -1, 60, 0, 0, 0 
+;leg tufts rear 98 
+16, -10, 0, 10, 40, 21, 0, 6, 0, -1, 50, 0, 0, 0 
+40, 10, 0, 10, 40, 21, 0, 6, 0, -1, 50, 0, 0, 0 
+19, -5, 10, 15, 40, 21, 0, 6, 0, -1, 60, 0, 0, 0 
+43, 5, 10, 15, 40, 21, 0, 6, 0, -1, 60, 0, 0, 0 
+;more chest tufts 102 
+50, 0, 35, 5, 40, 21, 0, 6, 0, -1, 90, 0, 0, 0 
+48, 0, 40, 5, 40, 21, 0, 6, 0, -1, 75, 0, 0, 0 
+;tail balls 104 
+58, 0, 0, 0, 48, 21, 0, 5, 5, -1, 34, 0, 0, 0 
+58, 0, 10, 0, 40, 0, 0, 6, 5, -1, 37, 0, 0, 1 
+104, 0, 0, 20, 40, 0, 0, 6, 5, -1, 40, 0, 0, 1 
+59, 0, 5, 5, 40, 0, 0, 6, 5, -1, 35, 0, 0, 1 
+60, 0, 10, 0, 40, 0, 0, 6, 5, -1, 30, 0, 0, 1 
+
+and they are joined, in the [Linez] section, like this: 
+
+;leg tufts 
+94, 96, 6, -1, 109, 244, 95, 95 
+95, 97, 6, -1, 109, 244, 95, 95 
+98, 100, 6, -1, 109, 244, 95, 95 
+99, 101, 6, -1, 109, 244, 95, 95 
+;more chest tufts 
+102, 103, 6, -1, 109, 244, 95, 95 
+102, 93, 6, -1, 109, 244, 95, 95 
+;93, 54, 6, -1, 109, 244, 95, 95 
+103, 49, 6, -1, 109, 244, 95, 95 
+;more tail 
+57, 105, 6, -1, 244, 244, 100, 100 
+105, 106, 6, -1, 244, 244, 100, 100 
+106, 107, 6, -1, 244, 244, 100, 100 
+108, 61, 6, -1, 244, 244, 100, 100 
+
+Question: Can feathers go on, say, the head, or is it just a tail thing?
+--------------
+
+Feathers can go on any part of the breed.  I've done something of that sort in the spikes that I put on my dragonz etc, also my various horsey breedz (Pegasus etc) all have "feathering" on their necks to produce the manes.  It's all in the Add Ball and Linez.  
+
+Here's how I did the mane in the Galiceno:
+
+Add Ballz section:
+
+;Mane  95
+54,	0,	-35,	-5,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	-7,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	4,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	15,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+54,	0,	-25,	30,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+54,	0,	  0,	35,	200,	 45,	-1,	 3,	1,	-1,	35,	0	0	1
+;ManeTips  101
+54,	0,	 -49,	-10,	200,	 45,	-1,	 6,	1,	0,	40,	0	0	1
+54,	0,	 -49,	 -7,	200,	 45,	-1,	 6,	1,	0,	40,	0	0	1
+54,	0,	 -49,	0,	200,	 45,	-1,	 6,	1,	0,	40,	0	0	1
+54,	0,	 -49,	 5,	200,	 45,	-1,	 6,	1,	0,	40,	0	0	1
+54,	0,	-35,	10,	200,	 45,	-1,	 6,	1,	0,	50,	0	0	1
+54,	0,	-30,	25,	200,	 45,	-1,	 6,	1,	0,	50,	0	0	1
+;fronttuft 107
+52	0,	-50,	6	 59	 45	-1	0	0	 1	 5	0	0	0
+107	0,	  0,	-8	200	 45	-1	6	0	 1	30	0	0	0
+107	0,	  0,	-24	200	 45	-1	6	0	 1	20	0	0	0
+50	0,	-50,	6	 55	 -1	-1	3	0	-1	25	0	0	0
+
+Linez:
+
+;mane
+101,	95,	6,	-1,	244,	244,	100,	100
+102,	96,	6,	-1,	244,	244,	100,	100
+103,	97,	6,	-1,	244,	244,	100,	100
+104,	98,	6,	-1,	244,	244,	100,	100
+105,	99,	6,	-1,	244,	244,	100,	100
+106,	100,	6,	-1,	244,	244,	100,	100
+108,	52,	9,	-1,	-1,	-1,	100,	100
+109,	108,	9,	-1,	-1,	-1,	100,	100
+109,	101,	9,	-1,	-1,	-1,	100,	100
+109,	96,	-1,	-1,	-1,	-1,	100,	100
+100,	110,	 9,	-1,	 -1,	 -1,	100,	100
+
+
+I include a Dogz 4 breedfile as an example for you to see the feathering in action.  This one won't overwrite your own Dane, as I've re-named and given it its own ID.  It's a test example breed, so all the sounds have been removed to make it zip up smaller.  I've put most of the above "feathers" in it; my tail feather, the Petz 5 Golden retriever chest/belly and leg feathers, and my Galiceno mane.  In order to do this I had to re-number the Add Ballz because of course the first mane ball (for instance) could no longer be ball 95 etc.  So what I have in this example breed is:
+
+in [Add Ball]
+
+;tailfeather (ballz 95, 96, 97, are anchor ballz)
+57,	0,	0,	10,	50,	0,	0,	1,	2,	-1,	22,	0,	0,	1 
+58	0,	0,	5,	50,	0,	0,	1,	2,	-1,	18,	0,	0,	1 
+59,	0,	0,	0,	50,	0,	0,	1,	2,	-1,	16,	0,	0,	1 
+95,	0,	10,	5,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+95,	0,	20,	7,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+95,	0,	30,	10,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+96,	0,	30,	5,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+96,	0,	20,	10,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+96,	0,	10,	7,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+97,	0,	30,	5,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+97,	0,	20,	7,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+97,	0,	10,	10,	69,	0,	0,	6,	2,	-1,	12,	0,	0,	1 
+;;chestball (was 93 in my example above) 107
+50,	0,	15,	-20,	40,	21,	0,	6,	0,	-1,	75,	0,	0,	0	
+;leg	tufts	front	(94)	108
+7,	-5,	0,	10,	48,	21,	0,	6,	0,	-1,	50,	0,	0,	0	
+31,	5,	0,	10,	48,	21,	0,	6,	0,	-1,	50,	0,	0,	0	
+18,	-5,	0,	10,	48,	21,	0,	6,	0,	-1,	60,	0,	0,	0	
+42,	5,	0,	10,	48,	21,	0,	6,	0,	-1,	60,	0,	0,	0	
+;leg tufts rear (was 98) 112
+16,	-10,	0,	10,	40,	21,	0,	6,	0,	-1,	50,	0,	0,	0	
+40,	10,	0,	10,	40,	21,	0,	6,	0,	-1,	50,	0,	0,	0	
+19,	-5,	10,	15,	40,	21,	0,	6,	0,	-1,	60,	0,	0,	0	
+43,	5,	10,	15,	40,	21,	0,	6,	0,	-1,	60,	0,	0,	0	
+;more chest tufts (was 102)	116
+50,	0,	35,	5,	40,	21,	0,	6,	0,	-1,	90,	0,	0,	0	
+48,	0,	40,	5,	40,	21,	0,	6,	0,	-1,	75,	0,	0,	0
+;Mane (was 95) 118
+54,	0,	-35,	-5,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	-7,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	4,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+54,	0,	-40,	15,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+54,	0,	-25,	30,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+54,	0,	0,	35,	200,	45,	-1,	3,	1,	-1,	35,	0	0	1
+;ManeTips (was 101) 124
+54,	0,	-49,	-10,	200,	45,	-1,	6,	1,	0,	40,	0	0	1
+54,	0,	-49,	-7,	200,	45,	-1,	6,	1,	0,	40,	0	0	1
+54,	0,	-49,	0,	200,	45,	-1,	6,	1,	0,	40,	0	0	1
+54,	0,	-49,	5,	200,	45,	-1,	6,	1,	0,	40,	0	0	1
+54,	0,	-35,	10,	200,	45,	-1,	6,	1,	0,	50,	0	0	1
+54,	0,	-30,	25,	200,	45,	-1,	6,	1,	0,	50,	0	0	1
+;fronttuft (was 107-109) 130-133
+52	0,	-50,	6	59	45	-1	0	0	1	5	0	0	0
+130	0,	0,	-8	200	45	-1	6	0	1	30	0	0	0
+130	0,	0,	-24	200	45	-1	6	0	1	20	0	0	0
+50	0,	-50,	6	55	-1	-1	3	0	-1	25	0	0	0
+
+in [Linez]
+
+; tail feathers
+98	95,	3,	-1,	-1,	-1,	100,	100
+99,	95,	3,	-1,	-1,	-1,	100,	100
+100,	95,	3,	-1,	-1,	-1,	100,	100
+101,	97,	3,	-1,	-1,	-1,	100,	100
+102,	97,	3,	-1,	-1,	-1,	100,	100
+103,	97,	3,	-1,	-1,	-1,	100,	100
+;
+104	96,	3,	-1,	-1,	-1,	100,	100
+105,	96,	3,	-1,	-1,	-1,	100,	100
+106,	96,	3,	-1,	-1,	-1,	100,	100
+101,	96,	3,	-1,	-1,	-1,	100,	100
+102,	96,	3,	-1,	-1,	-1,	100,	100
+103,	96,	3,	-1,	-1,	-1,	100,	100
+;
+98	96,	3,	-1,	-1,	-1,	100,	100
+99,	96,	3,	-1,	-1,	-1,	100,	100
+100,	96,	3,	-1,	-1,	-1,	100,	100
+;leg tufts 
+108,	110,	6,	-1,	109,	244,	95,	95
+109,	111,	6,	-1,	109,	244,	95,	95
+112,	114,	6,	-1,	109,	244,	95,	95
+113,	115,	6,	-1,	109,	244,	95,	95
+;more chest tufts
+116,	117,	6,	-1,	109,	244,	95,	95
+116,	107,	6,	-1,	109,	244,	95,	95
+117,	49,	6,	-1,	109,	244,	95,	95
+;mane
+124,	118,	6,	-1,	244,	244,	100,	100
+125,	119,	6,	-1,	244,	244,	100,	100
+126,	120,	6,	-1,	244,	244,	100,	100
+127,	121,	6,	-1,	244,	244,	100,	100
+128,	122,	6,	-1,	244,	244,	100,	100
+129,	123,	6,	-1,	244,	244,	100,	100
+131,	52,	9,	-1,	-1,	-1,	100,	100
+132,	131,	9,	-1,	-1,	-1,	100,	100
+132,	124,	9,	-1,	-1,	-1,	100,	100
+132,	119,	-1,	-1,	-1,	-1,	100,	100
+123,	133,	9,	-1,	-1,	-1,	100,	100
+
+Have fun putting feathers everywhere!
+
+Carolyn Horn
+
+
+

@@ -1,0 +1,174 @@
+Breedz tips for Petz 2, 3, 4 and 5
+==================================
+
+Contents: Introduction
+          Furfile Variations
+          Lengthening Ears or Noses
+
+Introduction
+============
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the .dog or .cat file -- it really _is_ a small text file, you 
+see, and when you look at it you can see exactly what you're doing without 
+having to laboriously count numbers in the hex editor.  So, hexing my way, 
+here's the best I can explain.
+
+I assume when writing this set of tips that you already have the necessary tools 
+-- hex editor and Notepad -- and are familiar with the methods I use for editing 
+breedz and the terms that I use.  If everything I say sounds like gobbledy-gook 
+to you, then you either hex breedz a different way from me (i.e. you hex directly 
+into a hex editor) or you are new to hexing.  Either way, if you want to understand 
+what I'm about to tell you, please take a look at one of my basic breed-hexing 
+tutorials; they should make my methods clearer to you.
+
+Just remember, always remove extra spaces from the .lnz section to compensate for 
+any extra numbers etc that you add into it.  It is of course the .lnz section -- 
+i.e. the text part of the breedfile -- which is the section that is relevant to 
+all the tips in this tutorial.  If your .lnz is not exactly the same length, in 
+bytes, after you've finished as before you started, then when you pop it back 
+into the breedfile the breed _will not work_.  A further thing to note is that the 
+.lnz is actually in two parts; the adult part and the puppy or kitten part.  You 
+need to keep each of these parts basically the same length as they were before, 
+although the game does allow a little latitude here.  If you've edited the adult 
+section and it doesn't look as intended, remember that what you see when a pet 
+comes out of the Adoption Centre bascially uses the "overrides" from the puppy/kitten 
+part with is below the [Ballz Info] section.  It will have your adult changes when it 
+grows up.  A useful tip here is to change the [Little one] by removing the letters 
+"kit" or "pup" until you've finished editing the main part of the breed.  Change 
+it back when you have finished that and want to "fine-tune" the puppy or kitten stage.
+
+It is possible of course to edit breedfiles etc (_not_ petfiles!) in a modern-day 
+Windows Resource Editor such as the one at 
+http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the 
+.lnz file the way it's supposed to be and you don't have to keep the file size 
+always the same.  If you are editing Oddballz or Catz 1 or Dogz 1, then the only 
+Resource editor I know of that can handle their Resource files is the shareware 
+eXeScope which you can get from http://hp.vector.co.jp/authors/VA003525/Eindex.htm
+
+Please don't ask me how to use the tools; whether you use a hex editor or a resource 
+editor, I shall assume that you have practised a bit and know how to use it.
+
+Furfile Variations
+==================
+
+If you want to have a variety of textures, you need to find the [Texture List] 
+and put them in the list:
+
+\resource\catz\mybreed\mytexture1.bmp
+
+Your texture list could look like this for example:
+
+[Texture List]
+\resource\catz\mybreed\mytexture1.bmp  1 <-- this is texture number 0; the colour "argument" is 1
+\resource\catz\mybreed\mytexture2.bmp  1 <-- this is texture number 1; the colour "argument" is 1
+\resource\catz\mybreed\mytexture3.bmp  0 <-- this us texture number 2; the colour "argument" is 0
+
+You can have lots of textures in that list; just remember to use the number of the particular 
+texture that you want on any given ball in its texture column.  To remind you, the textures 
+in the list start at 0.  P.F.Magic numbers count from 0 upwards, so that the first item in 
+a list is always item number 0.  Don't confuse the "texture number" (i.e. position in list) 
+with the number (known as an "argument") which comes after the name of the bitmap.  So, 
+if you want the left ankle of a dog to be "mytexture1.bmp", change the number in the texture 
+column of the left ankle in the Ballz Info, since you want to use the third texture (number 2):
+
+;col  outCol  spklCl  fuzz  otlntTyp  sizeDif  group  texture  ball#
+[Ballz Info]
+  25,    244,    -1,     5,    -1,     8,      4,     2     0  ;L ankle
+
+Remember that this texture list is relevant to all Add Ballz.
+
+It is also relevant to Paint Ballz, although there are two important things to note with Paint Ballz:
+First, the number in the Paint Ball texture column is _not_ the number of the texture.  It is 
+the number of the base ball which has the texture you want.
+Second, if the only ball you can find with the same texture is ball number 17, this is fine, put
+17 in the Paint Ball texture column.  BUT this will crash the game when the pet is breeding unless
+you actually have 18 textures listed in the [Texture List].
+
+Right, now, on to the variations.
+----------------------------------
+
+You're looking for the [Color Info Override] section to do this properly.  You can have
+four columns in this section, although usually you will see just two.  Although there is
+no programmer's comment to head these columns, trust me, this is what they are:
+
+ball, colour, group, texture.  
+
+So if you want to have pets come out with different textures as well as different colours, 
+make sure there are four numbers for the ball you want to take the texture, the last number 
+being the important one.  You would need to make sure that there was a number in the third 
+column -- if you don't want to change that, just copy the group number from the [Ballz Info] 
+section for that ball.  For example, in a Siamese cat:
+
+2, 45, 1, 3
+3, 45, 3, 3
+
+Would give the belly and butt a fawn colour and your chosen fur texture number 3, i.e. 
+the fourth texture in the list of textures (remember, the first texture is counted as 0).
+
+If you want to tie the ball, colour, group and fur into other specific variations, such as
+patches or spots, fuzz amount etc, make sure that you have the usual variations # numbers in place
+for each section, such as
+
+#4.A
+#3
+<data>
+#2
+<data>
+#1
+<data>
+##
+
+If you want to know more about making variations work with each other, read my other Variations
+"howto"s, particularly the "VariationsAndHowTheyWork" textfile included in this zip.
+
+Lengthening ears or nose
+========================
+
+Enlarging the Ear Extension simply increases the distance between ear ballz and others, 
+it gives no new direction.  To make it cause a downward trend, you would need to give it a 
+minus number.  Changing
+
+[Ear Extension]
+100
+
+to
+
+[Ear Extension]
+-50
+
+produces a simple, and rather weird, down-trend of the ears.
+
+Similarly, you get weird results if you try to stretch or flatten a nose by much using the 
+[Face Extension], because all you're doing is changing the distance between the nose bottom 
+(or snout) and the head. Some amount of fiddling with it is fine, but you can just end up with 
+a weird-looking long thick Linez line or (if you use too large a minus number) the nose sticking 
+out of the back of the head.
+
+Really, to alter the positions of ear ballz, or of snout and nose ballz, you need to put them into 
+the [Move] area and alter their x, y, z positions.  
+
+The more negative or smaller the y number is, the further up it will be; the more positive the 
+number, the further down. The more negative the z number is, the further forward the ball will 
+be; the more negative the number, the further forward.  The x number is of course the
+sideways position, and more negative means further to the normal position's left as the pet 
+looks out of the screen at you.  If you don't follow what I mean about that sideways position,
+then try it for yourself, using some silly number such as -90, and you'll soon get the idea.
+
+Don't forget that you won't always get the same results in the puppy or kitten unless you 
+change the same things down in the puppy/kitten .lnz area.  A lot of people still write to me
+to say "I did this and this but I still can't see any difference at the Adoption centre."  Well,
+that's why.  They didn't remember to change the puppy/kitten .lnz.
+
+Enjoy!
+
+Carolyn Horn
+
+

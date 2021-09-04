@@ -1,0 +1,139 @@
+
+Half-lop ears
+=============
+
+This example is on a Great Dane.  I'm hoping that you can understand what I'm saying, so that if you want to use a different breed as base you'll be able to figure it out.
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  
+
+This is the way the original Dane ears are made; you will need to delete certain of these.  Let's suppose it's the left ear you want to stay up and the right ear you want to flop down like a bulldog's.
+
+In the [Move] section, you get the position of ball 6 and 30 altered from the basic (ignore the 4, 5, 28 and 29 here because those lines have been commented-out with semi-colons and are inactive).
+
+6,	0,	-20,	10,	52
+30,	0,	-20,	10,	52
+
+You may want to remove the line with 30 in it; the Bulldog has no such altered ear placements.
+
+Then, in the [Project Ball] section, the dane ears are further modelled by changing the distances that ballz 6 and 30 sit from the head and iris balls.
+
+;EARS
+52, 6, 79
+52, 30, 79
+38, 6, 120
+14, 30, 120
+
+You may want to remove the two lines which contain 30; the bulldog has no such altered ear placements.  You may find that you want to keep this in anyway, as it might look better that way.  Try them both, see which looks best to you in both this section and the [Move] section.
+
+Now the Dane has some extra ballz added in [Add Ball]:
+
+; ### From here down are animator's addballz 77.
+6, 	6, 	-10,	-3, 	55, (etc)
+30, 	-6, 	-10,	-3, 	55, 
+6, 	3, 	-18,	-3, 	55, 
+30, 	-3, 	-18,	-3, 	55, 
+6, 	13, 	-27,	-12, 	55, 
+30, 	-13, 	-27,	-12, 	55, 
+
+make a note of which Added Ballz are attached to the right hand side (i.e. ball 30); that's ballz numbers 78, 80, 82.  The Bulldog has no added ear ballz, but you don't want to actually delete these lines because if you did then the extra tail etc ballz would be numbered wrong and the [Linez] section would get messed up.  What you want to do is pop them into [Omissions].
+
+Down in [Omissions] you will see that ballz 4, 5, 28, 29 are to be omitted.  The Bulldog has no omitted ear ballz, so you want to remove 28 and 29 from here.  And you want to add 78, 80, 82 to the end of the Omissions section, each on a separate line like this:
+
+78
+80
+82
+
+In the Great Dane you have these ear [Linez]
+
+;ears
+81,	79, (etc)
+77,	6, 
+79,	6, 
+82,	80, 
+78,	30, 
+80,	30, 
+
+The Bulldog ears are like this:
+
+4,	5, (etc)
+5,	6, 
+28,	29, 
+29,	30, 
+
+So you want to replace the Great Dane line which starts 82, 80, with the Bulldog's 28, 29, one and the line which starts 78, 30, with the Bulldog's 29, 30, one; and you want to remove or comment-out (with a semi-colon) the line which starts 80, 30,
+
+Okay, we're all set.  It just remains to go down to the [Ballz Info] section and change the Great Dane right ear ballz 28, 29, 30 in the sizeDif column:
+
+sizeDif
+ 0
+ 0
+ 6
+
+into the Bulldog right ear:
+
+sizeDif
+ -5
+ -3
+ 4
+
+A note here -- with some breedz you may want to keep an eye on the [Thin/Fat] section in case there are ear ballz numbers listed in there, and of course some breedz may have ear ball sizes listed in the puppy's [Ball Size Override] section (down below the [Ballz Info].  Finally, if the ear looks odd -- too small, for instance, that will be because the Dane [Head Enlargement] and [Default Scales] are different from those in the Bulldog.  You'll need to fiddle with ball sizes to get around this problem.
+
+If you want a single floppy ear like the Labrador, then it goes like this:
+
+In [Move] there are ear placement alterations you'll need to put in:
+
+29,	-1,	12,	-6
+28,	6,	18,	-6
+
+in [Project Ball] you'll need to enter this:
+
+52, 30, 95
+
+In [Add Ball], where the Great Dane has 
+30, 	-6, etc
+30, 	-3, etc
+30, 	-13, etc
+
+Put this
+
+28, 	15, 	-9, 	15,
+28, 	-4, 	17, 	-3,
+29, 	-18, 	0, 	0,
+
+as well as changing the three ballsizes to 18, 14 and 21.
+
+and of course you do not list any ear ballz at all in [Omissions].
+
+Note that these added ballz are different number ballz in the Labrador from those in the Great Dane; in the dane they are ballz 78, 80, 82 and in the Labrador they are 83, 85, 87.  This means that you cannot copy the linez exactly aziz from the labrador; you'll have to change each instance of 83 to 78 and so on.  Here's how the right ear will look in linez, then:
+
+;ears
+30,	 29, 
+29,	 28, 
+28,	 78, 
+78,	 29, 
+78,	 80, 
+28,	 80, 
+78,	 82, 
+78,	 30, 
+80,	 29, 
+30,	 82, 
+29,	 82, 
+28,	 82, 
+52,	 30, 
+
+And finally in [Ballz Info], the right ear ballz:
+sizeDif group
+  6,     2,
+  4,     2,
+ -3,     2,
+
+In this case, the ear "group" is different, and that can have an effect on the size of the ball.  You don't necessarily need to change the [Ballz Info] size etc; it depends on how it looks to you.
+
+That's it; a couple of types of lop-ear for you.  And if you're good with variations, you can have a breedfile which comes out of the AC sometimes with one type of lop and sometimes with the other.  Included in this "howto" zipfile is an overwriting Great Dane of that type, for Petz 4, so that you can examine its internals if you are interested.  This breedfile does not have all the GD sounds, by the way, in order to reduce its size, so don't be surprised if it's very quiet.  Oh, and it has one or two other little differences from the normal Dane; it's my testbed breedfile :-)
+
+Hope that helps.
+
+Carolyn
+
+
+

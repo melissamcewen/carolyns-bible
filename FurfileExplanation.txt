@@ -1,0 +1,82 @@
+
+Explaining about textures
+-------------------------
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the .dog or .cat file -- it really _is_ a small text file, you 
+see, and when you look at it you can see exactly what you're doing without 
+having to laboriously count numbers in the hex editor.  So, hexing my way, 
+here's the best I can explain it:
+
+what you would see in the furfile - [Texture List] -- and [Ballz Info] 
+sections are something like this (it will be slightly different for
+each breedfile of course:
+
+[Texture List]
+\art\textures\jowl1.bmp        1
+\art\textures\hair3.bmp        1
+\art\textures\hair10.bmp       1
+
+;FUZZ --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;OUTLINE --> -1 = no outline, 0 = half outline, > 0 = outline thickness
+;col  outCol spklCl fuzz otlntTyp sizeDif group texture ball#
+[Ballz Info]
+55,    244,     -1,    1,    -1,    -2,     6,    1     0   ;L ankle
+98,    244,     -1,    1,    -1,     2,     3,    1     1   ;L eyebrow1
+98,    244,     -1,    2,    -1,     1,     3,    1     2   ;L eyebrow2
+98,    244,     -1,    1,    -1,     0,     3,    1     3   ;L eyebrow3
+55,    244,     -1,    0,    -1,     0,     0,    1     4   ;L ear1
+
+etc.  The above is exactly how it looks when you've got it into Notepad,
+and as you can see there are columns with nice helpful headers.  What
+you would do in order to make sure your own texture was in place,
+then, is to put \resource\dogz\mine1.bmp in the texture list, and
+then you want to also put what I call the "flag",  The flag is usually 
+1, 0, 60 or 65, but it can be other numbers also (try experimenting)
+and depends on the effect you want your bitmap to have.  0 makes the fur
+opaque to your ball colouring and 1 makes it see-through so that the
+colour takes on the texture.  60 produces a "brindling" effect.  So
+let's say you have a furfile with a picture on it (such as one of
+Jesse's "Tattoo" furfiles) and you want it to appear on the left hip.
+Change the [Texture List] thus:
+
+[Texture List]
+\resource\dogz\mine1.bmp      65
+\art\textures\hair3.bmp        1
+\art\textures\hair10.bmp       1
+
+Now, the first texture in the list is texture number 0.  This is always
+the way thing are counted in the Petz games; see how the first ball
+number is ball #0, which is the left ankle?  Well, in the same spirit,
+the first texture in the [Texture List] is texture number 0.  So when
+you want that texture, you need to make sure that the ball you want it
+on has 0 in its texture column.  So, make sure that all the other ballz 
+have texture number 1 which is hair3.bmp in this particular example, 
+or 2 which is hair10, and in fact in my example the balls I've shown
+already have it as 1:
+
+;col  outCol spklCl fuzz otlntTyp sizeDif group texture ball#
+[Ballz Info]
+55,    244,     -1,    1,    -1,    -2,     6,    1     0   ;L ankle
+
+See how the number in the "texture" column is already 1?  Right, now you
+want to find the hip info:
+
+55,    244,     -1,    1,    -1,      0,    6,    1    19   ;L hip
+
+and change the 1 in the texture column to 0:
+
+55,    244,     -1,    1,    -1,      0,    6,    0    19   ;L hip
+
+And eureka!  A picture on the left hip :-)
+
+Happy furfile-mixing!
+
+Carolyn Horn

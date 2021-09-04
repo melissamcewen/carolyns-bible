@@ -1,0 +1,69 @@
+
+A FAQ on cat ears and dog legs.
+
+Slant legs on Dogz
+===================
+
+I keep being asked about this, so I thought everyone
+ would like to know the answer to "how do I put slant legs on dogz?"
+
+Angling legs in Dogz is pretty simple; just move the various leg 
+and foot ballz, under the [Move] section.  but you want to be careful 
+not to overdo it.  For instance, in the slant-leg, down-tail variation 
+of my Sarans German Shepherd, I've got this, which I think looks good 
+in poses _and_ in the game:
+
+;knee		
+16, 	-7, 	 9,	-5
+40, 	7, 	 9,	-2
+;ankle
+0,	-7, 	-10,	8 
+24,	7, 	-2,	5 
+;feet 
+12,	-7,	0,	20
+36,	7,	0,	20
+;toes   
+20,	-7,	0,	19
+21,	-7,	0,	19
+22,	-7,	0,	19
+44,	7,	0,	19
+45,	7,	0,	19
+46,	7,	0,	19
+;butt
+49,	0,	20,	0
+;hips
+19, 	0, 	20,	-7
+43, 	0, 	20,	-7
+
+But if you do it so that, for instance, the z co-ordinate is set too far 
+back, the dog's legs can fling out alarmingly when it runs.
+
+As a side note, I've also got a drop tail variation in that breedfile, to 
+go with the slant legs, and if you check out the file you can see how I 
+did that particular one.
+
+
+Round Ears On Catz similar to my Dogz Tyger
+===========================================
+
+You can change the position of the ears in [Move] to something like:
+
+9,	-8, 0, -20
+11,	8, 0, -20	
+8,	18, -25, -5 
+10,	-18, -25, -5 
+
+and then remove any Add Ballz that you don't want (listing them in [Omissions]  
+is a good way).  You might want to keep and change a couple of [Add Ballz] so 
+that they give ballz 8 and 10 a kind of outline and back -- the simplest would 
+be a large ball, say size 60, at position 0, 0, 8 relative to the base balls 8 
+and 10.  Then you'd want to make sure that ballz 8 and 9, 10 and 11 are joined 
+in [Linez].  I believe that I just used a simple outline in my dogz Tyger; I 
+think it depends on your own preferences, but you may find that the colour won't 
+go to 2nd-gens if you use the outline method.  
+
+Happy hexing
+
+Carolyn
+
+

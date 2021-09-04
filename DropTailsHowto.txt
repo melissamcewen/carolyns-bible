@@ -1,0 +1,151 @@
+
+
+Okay, drop tails seem to be a regularly recurring problem for people, 
+so here's a "howto" that I hope will help.
+
+Included in this zipfile is a test Dogz 3 breedfile which is a Labrador, with a
+downward-pointing tail of unusual colouring so that you can see what has happened
+to each ball.  This breedfile has been stripped of its sounds so as to decrease 
+its size for downloading, and it _WILL_ overwrite your Labrador breed, so remember 
+to keep a backup of your original if you use this. If you have a different version 
+of the game and you want to see the dog, then just  copy the .lnz section of this 
+file into a copy of your game's labrador.dog file. After all, you are a hexer, aren't you :-)
+
+Just a note as to my editing methods so that with any luck all that I go on about in
+most of my tutorials or "howto"s will make sense.  
+This is my method: open the breedfile into Hex Workshop (or some other true hex
+editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string 
+[Little one] and place your cursor in front of it.  Scroll down and select from 
+there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. 
+Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file 
+from the drop-down file menu in the hex editor.  Place the cursor in it and choose 
+Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad. 
+This is the .lnz section of the breedfile (or .clz section of a clothes file),
+which _is_ actually itself a small text file.
+And for people who wonder what to do with it when you've finished editing it; well, 
+you open it in the hex editor again, check that it's the same size as it was before, 
+and then copy/paste it over the same place whence it came!
+
+Right, on with how to make a drop tail.  I'm going to use a Labrador as the base here
+but if I can make you understand what you're doing, you should be able to go on to
+make drop-tails on any breed.  Remember that things look a little different in
+the various different breedz, but the same principles apply in all of them:
+
+1) The distances between tail balls need to be adjusted in a negative direction,
+and they need also to be set at suitable distances away from the belly ball in
+order to prevent the tail from being wagged through the body.  You want the 
+[Project Ball] section for this
+
+2) In some cases you may wish to move some of the tail ballz down slightly from
+their normal positions relative to the butt.  You want the [Move] section for this.
+
+3) You may find that some ballz are listed under [Omissions]; you will probably want
+to bring those ballz back into service, and if you do so you will need to remove them
+from [Omissions] and join them up to their neighbouring tail ballz in [Linez].
+
+4) Some breedfiles have added tail ballz, such as the Great Dane; the Labrador also
+has one added ball.  Such ballz can be useful in making the tail flexible, and you
+may want to play around with them, maybe adding some of your own.  To simplify this
+"howto" I am removing any such ballz from [Add Ball], but if you want to keep or add
+any such ballz, remember to adjust their x,y,z co-ordinates (as well of course as 
+colour, fuzz and size), and make sure that they are connected up right in [Linez].
+
+5) The tail ball sizes and fuzz amounts will probably need to be altered in [Ballz
+Info] to give the effect you want.
+
+6) Finally, you will have to check that the breedfile doesn't have different [Move],
+[Project Ball], or Fuzz or Ball Size Overrides in the puppy section of the .lnz (the 
+part which comes below the [Ballz info] section).
+
+So, on to specifics.  Open your labrador's .lnz file and look for [Project Ball].  
+Below that you'll find the tail data of the labrador:
+
+;tail
+57, 58, 60
+58, 59, 100
+59, 60, 100
+59, 94, 70
+
+This tells the game that ball 57 is distant by 60 units from ball 58 and so on.  You 
+want to tell the game that the tail ballz are distant from each other in a downward 
+direction (hence a minus number) and then you want to tell it to keep the tail balls 
+a suitable distance from the belly ball, because otherwise the end of the tail will 
+wag through the belly of the dog.  I know that some of these lines, especially the 
+ones which specify the distance of the belly to the tail ballz, are not already in 
+the Labrador's [Project Ball] section, so you're going to have to add them as well 
+as changing what's already there. So you want to have in that section, instead of the 
+above, something like this:
+
+;TAIL
+57, 58, -18
+58, 59, -18
+59, 60, -20
+60, 61, -20
+61, 62, -20
+48, 58, 110
+48, 59, 130
+48, 60, 145
+48, 61, 165
+48, 62, 180
+
+You can of course vary these distances to suit the effect that you want, increasing 
+the distances between some ballz and decreasing others.  But the above is a good place
+to start.
+
+Now then, the two tail ballz 57 and 58 are naturally set a little high relative to the
+butt to look good in a drop tail.  So you want to add them into the [Move] area and 
+set them lower.  I've chosen 15 as a good distance down for them to be:
+
+57,	0, 15, 0
+58,	0, 15, 0
+
+(Remember, in [Move], a larger positive number in the up/down column is further downward,
+and a larger negative number is further upward.)
+
+Two of the Labrador's tail ballz are unused; for some reason the makers decided it was
+better that way.  So for a nice luxuriant down-pointing tail, put them back by removing 
+these from [Omissions]:
+
+62
+61
+
+I'm making the tail relatively simple for the purposes of this "howto", so remove this, 
+from [Add Ball]
+
+;tail ball94
+58, 	0, 	0, 	0, 	95, 	21, 	0, 	5, 	5, 	-1, 	34, 	0,          0,		0 
+
+Of course the Linez section has the ballz connected to each other in sequence as well as to 
+the butt ball -- something you need to remember to check on.  If you're using a Great Dane as a base 
+and not keeping the Add Ballz (in the GD, the added tail ballz are connected in between each 
+of the normal tail ballz), you have to be careful about this also.  Anyway, in my example Labrador,
+since you've removed an added tail ball and are replacing the normal end-of-tail ballz, you'll 
+need to change this, in [Linez], from:
+
+58, 	94, 	2,	-1,	28, 	28,	100,	100		;tail/butt
+94, 	59, 	2,	-1,	28, 	28,	100,	100		;tail/butt
+
+to this:
+
+57, 	58, 	3,	-1,	28, 	28,	100,	100
+58, 	59, 	2,	-1,	28, 	28,	100,	100
+59, 	60, 	2,	-1,	28, 	28,	100,	100
+60, 	61, 	2,	-1,	28, 	28,	100,	100
+61, 	62, 	2,	-1,	28, 	28,	100,	100
+
+and you need to do that for all the variations that you choose to keep in the file 
+(#1;golden body etc).
+
+After that, you only have to change ball sizes and fuzz in the [Ballz Info] section, and maybe 
+fuzz in the [Linez] section, to get the effect you want.
+
+One final thing, though, in the Labrador -- this particular breed _does_ have stuff in the
+puppy area that will affect the look of the pet as it comes out of the Adoption Centre.
+You need to insert or alter the same data in [Move] and [Project Ball] that you had above,
+in the adult section, and you need to make sure that the [Ball Size Override] and 
+[Fuzz Override] is the way you want it for the tail ballz 57-62.
+
+Happy tail-flipping
+
+Carolyn Horn
+

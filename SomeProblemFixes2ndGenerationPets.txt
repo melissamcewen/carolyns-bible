@@ -1,0 +1,66 @@
+
+Some fixes to breedfiles, to make 2nd generation pets come out the way you want.
+================================================================================
+
+These fixes work for Petz 3, 4 and 5.  I don't cover every possible problem in this "howto";  I'll probably add to it as time goes by, but for now it contains:
+
+Making the newborn kitten or pup usually take up the colours from the breedfile
+Fixing some problems with balls not connecting properly (when both parents are from the same breed)
+Fixing baby chickenz whose heads are all messed-up and whose parents are both chickenz 
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  Oh, and for people who wonder what to do with it when you've finished editing it; well, you open it in the hex editor again, check that it's the same size as it was before, and then copy/paste it over the same place whence it came!
+
+It is possible to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+
+Making the newborn kitten or pup usually take up the ball colours from the breedfile
+================================================================================
+
+The problem is that you've hexed a beautiful breedfile with just the colours you want on all the ballz, and you've checked that the breed comes out right from the Adoption Centre as well as that it looks perfect as an adult.  Then you have a breeding programme and over and over again the baby comes out either with the original P.F.Magic or Studio Mythos breedfile's colours or with patches of odd default colours.  No matter what you do, you can't seem to get the breedfile to pick up on the actual breed colours.
+
+Well, What you have here is the way the game deals with ball groups, so the solution for this lies in the "group" columns and in the [Fur Color Areas].  It varies a little between breedz, and I've only had time to check out a couple, but if you fiddle around in those parts you will eventually get the result you're looking for.  Here are a couple of examples:
+
+Scottie-based breedz
+--------------------
+What I've found works is to set the numbers in the group and, usually, addgroup columns of the extra Add Ballz to 1, also the numbers in the "group" column (for everything except things such as nostrils, eye and iris) to 1, and then you can control things down where you see [Fur Color Areas]. In the
+
+;FurColorTrait
+
+column, try replacing the number 1 with 2; this will give your babies colours taken from the breedfile, while the number 4 will most likely produce colours taken from the mother.  Try out various numbers there, see what you get.  Also, remember that the group column numbers do affect things such as how the paint brush in the game paints the balls, so if that matters to you try fiddling with those also.
+
+Chihuahua-based breedz
+----------------------
+
+In the Chihuahua-based breed, if you change the number in the ;FurColorTrait column of [Fur Color Areas] to 3, your pets will mostly breed a baby whose colours have been taken from the hexed breedfile.  If that doesn't produce the correct colours often enough on its own for you, I've found once again that putting 1 in the Group column of the [Ballz Info] section, for each ball, helps too. Other combinations of numbers may of course work, I don't have time to test 'em all; I really
+just wanted to give you a pointer.  Again, the changing of the Group numbers to 1 of course affects things like how they take paint if you use the brush in the game.  It doesn't seem to significantly affect the ball sizes in this case.
+
+Fixing some problems with balls not connecting properly 
+(when both parents are from the same breed)
+=======================================================
+
+I say "when they are both from the same breed" because different breedz -- particularly hexie species -- have different [Add Ballz] balls, which means that the [Linez] can end up connected really oddly in some offspring.  This is _not_ about that kind of problem, which is inherent in cross-breeding.
+
+Right, your problem is that you've created an addball to use as its base, say, the chest and another one to use as its base the ankle, and you have a [Linez] line to link these two added ballz.  The pet shows up beautifully at the Adoption Centre and grows to adulthood like a dream.  Then it breeds, and no matter what you do those two balls refuse to join up.
+
+Well, the answer is this: when it comes to getting the data for babies, the game simply doesn't like ballz from different body groupings to be joined.  So it just ignores those linez.  No problem; you can fool it.
+
+The way to fix it is to over-ride the "bodyarea" number for each different-bodyarea ball that's to be joined.  You do this by choosing one of the normal bodyarea numbers and putting it in that column for all the relevant balls.  I chose 1 for the problem case that I was sent, which seemed to do no harm at the Adoption Centre plus it definitely produced a properly-connected baby.  If you see problems such as things moving wrongly (I didn't see anything like that, but I suppose you might), try altering that number in some of the groupings and see what happens. Don't choose 8, as that's the head (unless of course you want the added ballz to basically be head balls) or 0, as that tells the game to choose defaults.
+
+Fixing baby chickenz whose heads are all messed-up and whose parents are both chickenz
+======================================================================================
+
+This one is weird; it seems that, for most chickenz babies,  although the data is basically there as per the original (with a few variations such as you would expect), the game usually does one very odd thing.
+
+It takes the [project Ball] section, complete, and puts the lines in a different order in the pet.  Same Project Ball data, same length of Project Ball section, same checksum -- just the lines are in a different order. 
+
+As yet I've not found a way of getting the game to always put them in the correct order when a baby is born.  There is a simple fix you can do in your hex editor if you want to, until I do find how to make it work right -- if I ever can!
+
+Remember to save a copy of the petfile somewhere safe before doing this:
+
+In any pure-chickenz baby born like this, open the mother in your hex editor and copy the 630 bytes from the beginning of [Project Ball] down to just before [Eyes].  Paste those bytes over each of the two [Project Ball] sections of the baby.
+
+Enjoy
+
+Carolyn Horn
+
+

@@ -1,0 +1,54 @@
+
+For people who want to be able to make all males come out of the 
+AC, or all females, or to make a particular variation always one
+gender...
+
+Add this to the .lnz file if you want breed to be all male:
+
+[Force To Male]
+1
+
+if you want it all female:
+
+[Force To Female]
+1
+
+If variation #2.A is to be male but #1 female:
+
+[Force To Male]
+#2.A
+1
+#1
+0
+##
+[Force To Female]
+#2.A
+0
+#1
+1
+##
+
+If variation #2.A is to be male but #1 can be either:
+
+[Force To Male]
+#2.A
+1
+#1
+0
+##
+
+One point to remember -- these words in brackets have to be very
+specific indeed.  Remember, they are commands for the game to pick 
+up on and so they _must_ be exact.  For instance
+
+[Force To Male]
+
+will work
+
+[Force to Male]
+
+will not.
+
+Enjoy!
+
+Carolyn Horn

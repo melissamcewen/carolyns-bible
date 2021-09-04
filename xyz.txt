@@ -1,0 +1,61 @@
+
+MOVING THE SPOTS / PATCHES
+
+Here is an example sent to me a while ago; I was being asked how to
+move the [Paint Ballz].  What I say below applies also to [Add Ball]
+ballz' x,y,z positions, and it's also something that might help
+you to understand about the x,y,z shifts in [Move].
+
+First off, what I was sent was a copy of data which showed that my 
+questioner was editing directly into the hex editor.  I edit in a totally 
+different way, so what she was showing me makes very little sense to me.  
+People who edit direct into the hex editor are trying to "paint by numbers", 
+counting laboriously the number of dots or numbers or spaces until they 
+get to the number they want.  How can they possibly really _understand_ 
+the files that way??  The way I do it, I get to see the thing laid out the 
+way it's supposed to be, as a text file with columns that have handy headers 
+(programmers' comments really, designed to help them but it also helps us hexers).
+
+Instead of
+
+> ..;paws.;belly p
+> atch..48,  80   -
+> 9, -.7, -5       
+>    .109.35.4.-1.
+> 5.0..##
+
+we would then see it as
+
+[Paint Ballz]
+;base ball diameter(% of baseball)  direction   color outlinecolor (etc)
+;paws
+;belly patch
+48,  80   -9, -.7, -5               109 35 4 -1 5 0
+##
+
+See?  Much clearer, and you can see that the base ball is 48, the diameter 
+is 80, the x,y,z are -9, -.7, -5, the colour is 109, the outline colour 35, 
+and so on.
+
+Okay, on to moving spots.  Each ball on a pet or babyz has three co-ordinates, 
+just as every part of your own body does.  Your fingernail is on the top of 
+your finger and centrally placed.  So, relative to the centre of your 
+finger-tip, its x direction is zero (neither to left nor right), its y 
+(up/down) direction is "up" by a certain amount, and its z direction 
+(forward/back) is slightly forward.  In Petz and Babyz, these co-ordinates, or 
+"directions", are shown by numbers.  The x is more negative or positive 
+depending on whether the added ball is to left or right, the y is more 
+negative if the added ball is higher up, and the z is more negative if 
+it's further forward.  The same applies to paint Ballz, except that in 
+this case the ball is always on the surface of the base ball, so the 
+position is all to do with where on the surface it is -- to one side 
+or the other, closer to the top, or closer to the front.
+
+Oh, and I can never remember whether more negative for the x position
+is more left or right -- even after all these years, I _still_ have to
+guess.  One of these days I'll actually remember to note it down...
+
+I hope that helps
+
+Carolyn
+

@@ -1,0 +1,41 @@
+
+Question:
+
+> I'm editing a Chinchilla Persian but I don't want the pets to have sleepy-sickness.
+
+Answer:
+
+The "sleepy-sickness fix" and "alley sickness fix" which I've got up are for petfiles only, 
+to help people whose pets are adopted or bred from P.F.Magic or StudioMythos original files. 
+
+What you need is the behaviour-swapping / personality-swapping technique, but  the other 
+way round from the way I have in my "howto".
+
+Sleepy-sickness is one of those "special" problems, like the Alley fleas, which need extra 
+attention; so, as far as I've found up to now, if you want to have a breed that produces 
+sleepy-sickness free pets, you need to do the same thing that I did with the Alley Cat.   
+That is, put the Chinchilla .scp and .lnz files into a different breedfile which has been 
+renamed to Chinchilla Persian with the correct ID and "rd" mnemonic.  Of course as I say 
+in my behaviour-swapping Howto, you can do this as external .lnz and .scp files if you're 
+just making litters, it's quicker and easier.  
+
+If you use the original Chinchilla Persian.cat file as a base, you will always get pets 
+that are prone to sleepy sickness even if you change the .scp; it's in the virtual "dna" 
+that the game engine uses, in a way.  If you use a different, renamed and ID'd file, 
+you'll get pets that are free of it.  
+
+If you're just adopting out litters, you don't have to distribute the altered breedfile -- 
+the adopted pets will be free of the disease when used with the original breedfile, just 
+as with the Alley sickness.  They should also breed fine to the nth generation without it.
+
+So the bottom line is:
+
+If you start with a breedfile which is not of an "infected" type, and use all the .lnz
+and .scp files from an "infected" type, your pets will be free of "genetic" illnesses.
+If you adopt a pet from the uninfected breedfile, you can then play with and breed from
+it using an infected breedfile; the pet will use the correct behaviours but will be immune
+to the sicknesses.
+
+Hope that helps
+
+Carolyn Horn

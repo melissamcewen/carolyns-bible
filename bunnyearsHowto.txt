@@ -1,0 +1,259 @@
+
+This "howto" attempts to explain how you can make any breed -- dog or cat -- have bunny ears.  Included in the zip are three example breedz for Petz 3, with their sounds stripped to make them zip up small.  Even if your version of Petz is different, you should be able to study their .lnz sections anyway.  I'm hoping that the information in those and in this "howto" will help you to figure out how to put the ears onto any breed of your choice.  You do need to experiment for yourself to see what looks best to you with each and every breed that you make; this is why I always try to make it so that you will understand the pronciples, because the creative hexer really can't "paint by numbers" and expect everything to work.
+
+It also incidentally shows you how to add Alley-cat Fangs to a dog breed.
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you have finished editing breed.txt and made sure it's the same size as before, open it in the hex editor, select all and copy/paste it into the same area of the breedfile from whence you first copied it.  I explain this because for some reason many people don't seem to be able to figure out that you copy/paste the breed.txt file back like this.
+
+It is possible instead to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+As always, remember to keep a backup copy of your original breedfile somewhere safe in case the whole thing goes horribly wrong.
+
+Bunny Ears
+==========
+
+On a cat, your bunny ears are pretty simple.  These are the "bunny" parts that you need to put in place of the ear data in your cat breed:
+
+[Ear Extension]
+100
+
+[Move]	
+;ears
+9,	-5, -85, 12
+11,	5, -85, 12
+
+[Add Ball]
+
+;ears 80
+8, 	-10, 	-80, 	20, 	33, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+8, 	15, 	-75, 	7, 	15, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		2 
+8, 	40, 	-70, 	20, 	33, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+10, 	10, 	-80, 	10, 	33, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+10, 	-15, 	-75, 	7, 	15, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		2
+;85
+10, 	-40, 	-70, 	20, 	33, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+8, 	6, 	-20, 	0, 	33, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+9, 	-3, 	9, 	-12, 	15, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		2 
+10, 	-6, 	-20, 	0, 	33, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+11, 	3, 	9, 	-12, 	15, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		2 
+;90
+8, 	7, 	-38, 	-10, 	15, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+10, 	-7, 	-38, 	-10, 	15, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+8, 	15, 	-70, 	28, 	33, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1 
+10, 	-15, 	-70, 	28, 	33, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1
+
+
+[Linez]
+
+;left ear
+80, 	86,      1, 	-1, 	-1, 	-1,	100,	100
+82, 	86,      1, 	-1, 	-1, 	-1,	100,	100
+80, 	9,      1, 	-1, 	-1, 	-1,	100,	100
+82, 	9,      1, 	-1, 	-1, 	-1,	100,	100
+81, 	87,     1, 	-1, 	-1, 	-1,	100,	80
+81, 	90,     1, 	-1, 	-1, 	-1,	100,	80
+92, 	9,      1, 	-1, 	-1, 	-1,	100,	100
+92, 	86,     1, 	-1, 	-1, 	-1,	100,	100
+92, 	80,     1, 	-1, 	-1, 	-1,	100,	100
+92, 	82,     1, 	-1, 	-1, 	-1,	100,	100
+;right ear
+83, 	88,     1, 	-1, 	-1, 	-1,	100,	100
+85, 	88,     1, 	-1, 	-1, 	-1,	100,	100
+83, 	11,     1, 	-1, 	-1, 	-1,	100,	100
+85, 	11,     1, 	-1, 	-1, 	-1,	100,	100
+84, 	89,     1, 	-1, 	-1, 	-1,	100,	100
+84, 	91,     1, 	-1, 	-1, 	-1,	100,	100
+93, 	11,      1, 	-1, 	-1, 	-1,	100,	100
+93, 	88,     1, 	-1, 	-1, 	-1,	100,	100
+93, 	83,      1, 	-1, 	-1, 	-1,	100,	100
+93, 	85,     1, 	-1, 	-1, 	-1,	100,	100
+
+[Ballz Info]
+
+33,      31,      244,        2,       -1,      -15,        0,       1    eBall_earL1,
+33,      31,      244,        2,       -1,       20,        0,       1    eBall_earL2,
+33,      31,      244,        2,       -1,      -15,        0,       1    eBall_earR1,
+33,      31,      244,        2,       -1,       20,        0,       1    eBall_earR2,
+
+Note that a couple of breedz, such as the Maine Coon and Tabby, have add ballz after the ears, so you're going to have todo some calculations if you want to put bunny ears on those.  Take the Tabby, for instance; it's got all those extra balls on the legs and tail, and several of them are connected in [Linez].  The example cat breed included with this "howto" is a Tabby, so you can see how adding bunny ears is done.
+
+On a dog
+=======
+
+Now then, a dog's ears are constructed quite differently from a cat's.  The dogz ear is made with three basic ear ballz and designed to hinge and flap more than a catz' ear.  Your bunny ears will be more flippetty in a dogz breed, and there's not a lot that you can do about it if you don't like it; a certain amount of anchoring could be done by manipulating [Project Ball] and [Move] statements, but personally I like the sight of dogz careering around with their big bunny-ears flapping back and forth.  
+
+Anyway, for a dog breed, you need to enter all the bunny ear data -- but you need to make sure that the ear base ball numbers are the dog ear-ball numbers, you need to take into account (and list under omissions) the dog's unwanted third [Ballz Info] ear ball, you need to take into account that extra dog ear balls _don't_ always start at add ball 80, and you need to make adjustments for the fact that Dogz ears are arranged and behave differently.  
+
+I'll give two examples here; 
+
+1) The Scotbun:
+===================
+
+First of all, there are three ear ballz on each side for a dog breed.  I want to put cat-type bunny ears on my dog, so one of the basic ballz has to be discarded, and because of the way dog ears move, I've chosen to remove the tip earball, or ballz 4 and 28.  So I put them into the omissions section:
+
+[Omissions]
+4
+28
+
+Now, I need to shift ballz 5 and 29 up a fair bit to make the bunny tips, adjusting them to look okay on this breed:
+
+[Move]			
+5,	 5, -85, 12
+29,	-5, -85, 12
+
+As with the catz that I put bunny ears on to, there need to be some added ballz for the dogz also.  In the case of the Scottie there are already six extra ear ballz listed, so I overwrote those with my data, adn tweaked the x and y co-ordinates so that they looked fun to me on a Scottie head:
+
+[Add Ball]
+
+;ears 77
+6, 	-10, 	-60, 	20, 	63, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+6, 	15, 	-55, 	7,	 10, 	0, 	0, 	0, 	0, 	 -1, 	20, 	8,          0,		1 
+6, 	40, 	-50, 	20, 	63, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+30, 	10, 	-60, 	20, 	63, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+30, 	-15, 	-55, 	7, 	10, 	0, 	0, 	0, 	0, 	 -1, 	20, 	8,          0,		1
+30, 	-40, 	-50, 	20, 	63, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+
+then there is all the other add ball stuff that a Scottie has;  after that I happen to have already put fangs on my example breed, because I've been asked how to put Alley-cat fangs on a dog:
+
+;fangs 90
+15, 	2, 	25, 	0, 	15, 	0, 	0, 	0, 	-1, 	 -1, 	10, 	0,          0,	-1
+39, 	-2, 	25, 	0, 	15, 	0, 	0, 	0, 	-1, 	 -1, 	10, 	0,          0,	-1
+
+So the rest of my bunny ears start at 92:
+
+;extra ear ballz (was 86) 92
+6, 	0, 	  5, 	0,	 63, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+5, 	-3, 	9, 	-12, 	60, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		1 
+30, 	 0, 	 -5, 	0, 	63, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+29, 	3, 	9, 	-12, 	60, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		1 
+;(was 90) 96
+6, 	7, 	-38, 	  4, 	60, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+30, 	-7, 	-38, 	  4, 	60, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+6, 	15, 	-70, 	28,	63, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1 
+30, 	-15, 	-70, 	28, 	63, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1
+
+Then we join up the ears properly in [Linez], as well as the fangs of course:
+
+;left ear
+77, 	92,      1, 	-1, 	-1, 	-1,	100,	100
+79, 	92,      1, 	-1, 	-1, 	-1,	100,	100
+77, 	5,      1, 	-1, 	-1, 	-1,	100,	100
+77, 	79,      1, 	-1, 	-1, 	-1,	100,	100
+79, 	5,      1, 	-1, 	-1, 	-1,	100,	100
+78, 	93,     1, 	-1, 	-1, 	-1,	100,	100
+78, 	96,     1, 	-1, 	-1, 	-1,	100,	100
+98, 	5,      1, 	-1, 	-1, 	-1,	100,	100
+98, 	92,     1, 	-1, 	-1, 	-1,	100,	100
+98, 	77,     1, 	-1, 	-1, 	-1,	100,	100
+98, 	79,     1, 	-1, 	-1, 	-1,	100,	100
+;right ear
+80, 	94,     1, 	-1, 	-1, 	-1,	100,	100
+82, 	94,     1, 	-1, 	-1, 	-1,	100,	100
+80, 	82,     1, 	-1, 	-1, 	-1,	100,	100
+80, 	29,     1, 	-1, 	-1, 	-1,	100,	100
+82, 	29,     1, 	-1, 	-1, 	-1,	100,	100
+81, 	95,     1, 	-1, 	-1, 	-1,	100,	100
+81, 	97,     1, 	-1, 	-1, 	-1,	100,	100
+99, 	29,      1, 	-1, 	-1, 	-1,	100,	100
+99, 	94,     1, 	-1, 	-1, 	-1,	100,	100
+99, 	80,      1, 	-1, 	-1, 	-1,	100,	100
+99, 	82,     1, 	-1, 	-1, 	-1,	100,	100
+;fangs
+90, 	15,      -1, 	-1, 	244, 	244,	100,	100  
+91, 	39,      -1, 	-1, 	244, 	244,	100,	100  
+
+Note that I've put an extra line in each ear, between ballz 77/79 and 80/82, as this improves the look from behind in dogz.
+
+I didn't bother to change the [Ballz Info] for the ears, and they aren't listed in the puppy ball size overrides so there was no need to do anything there.
+
+Now for another example:
+
+The Chihuahua
+=============
+
+The Chihuahau may seem to be a simpler case, as it alrady has something of the bunny ear shape only smaller.  However, you would still have to do quite a bit of re-jigging as well as adding a ball for each ear, so I find it simpler to go with the method that I used in the Scotbun.  So as before, I [Move] ballz 5 and 29:
+
+[Move]	
+;ears
+5,	 5, -85, 12
+29,	-5, -85, 12
+
+make sure that these two, which were already in the [Move] area, are commented-out or removed:
+
+;6,	18,	-35,	5,	52	
+
+;30,	-18,	-35,	5,	52	
+
+
+Now you want rid of this:
+
+;upper ears 77
+6, 	18, 	-85, 	-15, 	 89, 	0, 	0, 	-1, 	0,      -1, 	15, 	0,          0,		1 
+30, 	-18, 	-85, 	-15, 	 59, 	0, 	0, 	-1, 	0, 	-1, 	15, 	0,          0,		1 
+
+as well as the two uppermost ear balls, but you don't want to just delete ballz 77 and 78 (it would mean you'd have to re-do even more stuff in the [Linez] section) so you need this:
+
+[Omissions]
+4
+28
+77
+78
+
+you want this instead of what's in the [Add Ball] ear section (I've made some small alterations to take into account the shape and size of the Chi head as opposed to the Scottie one):
+
+;ears 83
+6, 	-10, 	-60, 	20, 	53, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+6, 	15, 	-55,	10,	 10, 	0, 	0, 	0, 	0, 	 -1, 	20, 	8,          0,		1 
+6, 	40, 	-50, 	20, 	53, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+30, 	10, 	-60, 	20, 	53, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+30, 	-15, 	-55,	10, 	10, 	0, 	0, 	0, 	0, 	 -1, 	20, 	8,          0,		1
+30, 	-40, 	-50, 	20, 	53, 	0, 	0, 	0, 	0, 	 -1, 	22, 	8,          0,		1 
+
+and this:
+
+;base ears 93 
+6, 	0, 	  5, 	0,	53, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+5, 	-3, 	9, 	-12,  	50, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		1 
+30, 	 0, 	 -5, 	0,	53, 	0, 	0, 	0, 	0, 	 -1, 	27, 	8,          0,		1 
+29, 	3, 	9, 	-12, 	50, 	0, 	0, 	0, 	-1, 	 -1, 	12, 	8,          0,		1 
+;
+6, 	7, 	-38, 	  4, 	50, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+30, 	-7, 	-38, 	  4, 	50, 	0, 	0, 	0, 	0, 	 -1, 	12, 	8,          0,		-1 
+6, 	15, 	-70, 	28,	 53, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1 
+30, 	-15, 	-70, 	28, 	53, 	0, 	0, 	0, 	0, 	 -1, 	32, 	8,          0,		1
+
+then [Linez] needs to be re-jigged so that only _this_ ear information is in there (remember that it's joining up the same relative ear ballz as for the Scotbun, but that the ear ball numbers are different):
+
+;left ear
+83, 	93,      1, 	-1, 	-1, 	-1,	100,	100
+85, 	93,      1, 	-1, 	-1, 	-1,	100,	100
+83, 	85,      1,	 -1, 	-1, 	-1,	100,	100
+83, 	5,      1,	 -1, 	-1, 	-1,	100,	100
+85, 	5,      1, 	-1, 	-1, 	-1,	100,	100
+84, 	94,     1, 	-1, 	-1, 	-1,	100,	100
+84, 	97,     1, 	-1, 	-1, 	-1,	100,	100
+99, 	5,      1, 	-1, 	-1, 	-1,	100,	100
+99, 	93,     1, 	-1, 	-1, 	-1,	100,	100
+99, 	83,     1, 	-1, 	-1, 	-1,	100,	100
+99, 	85,     1, 	-1, 	-1, 	-1,	100,	100
+;right ear
+86, 	95,     1, 	-1, 	-1, 	-1,	100,	100
+88, 	95,     1, 	-1, 	-1, 	-1,	100,	100
+86, 	88,     1, 	-1, 	-1, 	-1,	100,	100
+86, 	29,     1, 	-1, 	-1, 	-1,	100,	100
+88, 	29,     1, 	-1, 	-1, 	-1,	100,	100
+87, 	96,     1, 	-1, 	-1, 	-1,	100,	100
+87, 	98,     1, 	-1, 	-1, 	-1,	100,	100
+100, 	29,      1, 	-1, 	-1, 	-1,	100,	100
+100, 	95,     1, 	-1, 	-1, 	-1,	100,	100
+100, 	86,      1, 	-1, 	-1, 	-1,	100,	100
+100, 	88,     1, 	-1, 	-1, 	-1,	100,	100
+
+Once again, I felt no need to change the basic ball sizes for the ears in [Ballz Info], and the puppy section in the chihuahua has no ear-ball overrides that you need to deal with.
+
+And there you have it; I hope that helps.
+
+Enjoy!
+
+Carolyn Horn
+

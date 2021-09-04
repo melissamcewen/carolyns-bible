@@ -1,0 +1,100 @@
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the BabyzRez.dll or the .dog or .cat file -- it really _is_ a small 
+text file, you see, and when you look at it you can see exactly what you're 
+doing without having to laboriously count numbers in the hex editor.  
+
+When editing an actual .baby or .pet file, the method is a little different.  Take
+a look at my earlier baby- or pet-file-editing "howotos" for more details on how
+I edit those.  The most important thing to remember is to always, _always_
+work with a copy of a baby or pet, and keep the original safe somewhere away
+from the game.
+
+So, hexing my way, here's the best I can explain:
+
+Question: 
+---------
+
+How can I make a Babyz or Petz with a missing limb?
+
+Answer:
+-------
+
+I've wondered about whether I should make this "howto" because I can imagine that it might give babyz and petz "abusers" something unpleasant to do.  But there are always abusers anyway, and it also seems to me that there should be a babyz or petz for every player, not just for people who wnat to see "perfect" ones.  Everyone should be able to identify with something in the game, which is why, long ago, I made Jenn with her green plaster-cast and Katielass with her missing leg, as well as some three-legged pups.  So if someone who is missing a limb wants to make a baby of their very own to play with, or someone who had a much-loved three-legged cat or dog wants one in their game, who am I to stand in their way?
+
+There are two ways to do it; you can amputate a limb from an already-adopted babyz/pet or you can edit the relevant .lnz section in the BabyzRez.dll (or a .dog or .cat file) and adopt a new babyz (or dogz or catz).
+
+Existing Babyz
+=============
+If you're talking about editing an actual .baby file, you need to list all the body parts which you want to remove under [Omissions].  For instance if you are removing the left leg apart from the hip, you want to put these numbers in there, each showing that it's on a separate line by having hexadecimal 0A before it:
+
+2
+5
+59
+61
+64
+71
+102
+104
+106
+
+Now, remember that you have just added 28 bytes -- 19 numbers and 9 "line feed" characters (that's hexadecimal 0A).  You will need to remove 28 bytes (from the very useful [Paint Ballz] section) and adjust things so that the checksum remains the same.  If what I say here confuses you, please read my earlier .baby hexing "howto"s.You only have to put these omissions in the top, or "adult" section, by the way.
+
+Existing petz
+=============
+
+The same as for existing babyz, see above, but obviously you want to list the ballz for whichever limb it is that your pet is to lose.
+
+New Adoptions -- Babyz
+======================
+If you're talking about adopting a brand-new partially-limbed baby, you need to add in an [Omissions] list to your chosen .lnz.  This list usually resides in the babymaster.lnz, and of course there's nothing to prevent you from editing it there, but it can be a pain to have to edit two .lnz files if you don't need to.  The [Omissions] that are in the baby's .lnz override the babymaster ones.  So, take the [Omissions] section from the babymaster, and add your own balls to the list.  In the case of a missing left leg, you'd have the same balls to list as I mention above, so the whole thing looks like this:
+
+[Omissions]
+32
+33
+34
+87
+108
+118
+119
+120
+121
+122
+124
+125
+126
+127
+128
+129
+2
+5
+59
+61
+64
+71
+102
+104
+106
+
+compensate for the added bytes by removing un-needed ones as usual, and continue hexing to make the baby you want.  When you come to adopt it, it will be missing the left leg except for the hip.
+
+New Adoptions -- Petz
+======================
+
+.dog and .cat breedfiles already contain an [Omissions] list.  Just add to it the ball numbers for the limb that you want to lose, as shown above but obviously with the correct numbers for a dog or cat.  Your finished breedfile will produce the limbless puppy or kitten at the Adoption Centre for you.
+
+I know that some people make missing limbs by making numbers like -999, but that can cause problems in 2nd-gen pets in Petz 3,4 and 5; it's much more elegant simply to list them under [Omissions].  Note that this is not the way to remove whiskers from catz; for that, you need to have an empty [Whiskers] section.  Add it into the breedfile if it doesn't have one, and don't put any numbers under it, or if it does have one (the Tabby cat, for instance), remove the numbers from it.
+
+Enjoy
+
+Carolyn Horn
+
+
+

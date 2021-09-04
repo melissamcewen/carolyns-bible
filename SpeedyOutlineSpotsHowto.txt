@@ -1,0 +1,52 @@
+
+How to speedily put leopard-type spots onto a breed
+===================================================
+
+Outlined spots are usually done by either placing a patch on a patch (method covered in my other "leopard" tutorials or, much simpler and quicker, by giving each individual spot or patch a thick outline.
+
+The important tip which will give you outlines which work is this:  You need to make sure the number in the texture column is set to -1, and you will want to thicken the outline to a number such as 5.  That's it.  If that's all you want to know, you can stop reading now; the rest of this tutorial is just about speedy hexing :-)
+
+A note before we start
+**********************
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you've finished editing, there are two ways of getting the .lnz back into the breedfile:
+
+1) Open it into the hex editor and select it all, choose Copy, then open the breedfile into the hex editor, find and select the same area as before, and choose paste, and save (this was the only possible way up until just a year or so ago).  For this method you need to make sure that the .lnz is the same size after you've finished editing as it was before you started. 
+
+or
+
+2) you get a nifty modern Resource editor at a place such as  http://www.users.on.net/johnson/resourcehacker/ and you copy it back into that, making sure that you copy the adult part into the Adult .lnz section of the editor and the kitten or puppy part back into the kitten or puppy part of the editor.  You can even, with some resource editors, edit directly into it.  The advantage of option 2 is that you don't have to worry about keeping the length of .lnz sections the same.  However, it's up to you to practise a bit with the tool so that you learn how it works.
+
+Okay, on with the "howto"
+************************
+
+What I'm talking about here is the speedy creation of spot types that have that special, outlined look of the leopard or the African Wild dog, without the need for using special leopard furfiles and without the job taking days of boring, fiddly work.
+
+Altering a lot of spots can be time-consuming, but there are a few shortcuts you can take if you are willing to try editing my way -- i.e. copying the .lnz section out into a new file, saving it and editing in Notepad _or_ editing directly in resourcehacker.  I don't use Vim, so I don't know if there are similar shortcuts that can be used in it.  I really would not recommend editing directly into a hex editor when so many alterations are to be made, as that is _very_ fiddly and time-consuming, and errors can creep in more easily.
+
+You want to fiddle with Dalmatian or Calico cat-type spots or patches, so if the breed you're editing isn't a Dalmatian (or Calico), you'll probably want to also grab the spots from a spotty breed rather than having to make each one from scratch.
+
+Spots from an original game breedfile come with a load of variations, which of course can be a pain to have to manipulate or remove one by one.  A handy tip at this point is to get a dalmatian or calico pet which has come out of the Adoption Centre with _roughly_ the spot configuration that you want to see in your breed.  A serious note here -- I am _not_ suggesting that you take a pet from a breed that someone else has carefully made and do this.  Nobody needs to do this kind of stealing, and it doesn't give that sense of achievement either.  Right, now open the pet into your hex editor and search for [Paint Ballz].  Select the whole of the Paint Ballz area (you don't need the actual words, just the numbers) and save that into a new file in the hex editor, saved as paint.txt.
+
+At this point it's quite useful to have a program, such as Word, which will do block search/replace and will also do tables.  Obviously you don't need to; you can do all this manually in Notepad, but I'm talking speed here.  For instance, I've just now gone through all the steps I'm giving you in this message and I have the game open with my very own new leopard-spot dalmatian running around in it.  The whole process took me about half an hour.  Anyway, open paint.txt into it and search/replace all spaces to tabs.  Select everything and convert text to table.  Delete the final column.  What you're left with now are 11 columns which correspond to the headers (3 colums for "direction"):
+
+;baseball diameter direction color outlinecolor fuzz outline group texture
+
+The three "direction" columns include numbers with long decimal places; you may want to reduce the size of these, although it's not necessary -- but you'll probably want to do some re-positioning anyway.  It's up to you.
+ 
+But for doing the "leopard" effect using outlines, what you're after (apart from the color column) are the outlinecolor and outline columns.  You also -- and I repeat, as this is important -- need to make sure the number in the texture column is set to -1.  With this method, it's quick and easy.  Select the relevant column in the table, copy it into a new file, search and replace to insert the number of your choice, and paste each column back in place.  Convert table to text, paste the whole thing into your .lnz, save, check file size, adjust for any extra or fewer spaces, and paste the .lnz back into your breedfile.  Another note -- I found that 5 was a good number to have in the outline column, and I also increased many of the numbers in the diameter column to 50 or greater.  You may prefer other sizes.
+
+If you want texture in your spots as well as outline, then you may have to do the patch-on-a-patch method.  That is more fiddly, because each spot requires two paint balls and you have to get the placing of the inner patch exactly right.
+
+And if you want variations, then you can either do another whole set or two this way or you can split up a few sets by jumbling them up and inserting # numbers in suitable places.
+
+It's a wonderfully broad hobby, hexing :-)
+
+Included in this "howto" zipfile is a Petz 4 Dalmatian with outline spots done this way; it's only rough, and it doesn't have all of the breedz' sounds in place (to reduce size) but you might find it helpful.  It overwrites the original, so make sure you have that one safe.
+
+Happy hexing.
+
+Carolyn
+
+
+

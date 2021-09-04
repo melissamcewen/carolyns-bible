@@ -1,0 +1,165 @@
+
+This "howto" attempts to explain how you can make a tail go up and over the back of a breed, and how to make ears that will be down for a pup and up for an adult dog.
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  When you have finished editing breed.txt and made sure it's the same size as before, open it in the hex editor, select all and copy/paste it into the same area of the breedfile from whence you first copied it.  I explain this because for some reason many people don't seem to be able to figure out that you copy/paste the breed.txt file back like this.
+
+It is possible instead to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+To make the tail go up and over the back for a Dalmatian
+===============================================
+
+If you're trying to do this for a different breed, remember that the same basic principle applies; you want to shift the tail ballz in the [Move] and the [Project Ball] areas.  Some breedz (the Great Dane for instance) have extra tail ballz in [Add Ball]; you will need to make sure you've got those also adjusted to suit (or removed / "omitted" entirely with corresponding alterations under [Linez]) or else you're likely to get a "concertina" effect.  Some breedz repeat the information down in the puppy area, so watch for that.  The Dalmation doesn't, but there's nothing to stop you from adding the sections into the puppy area of the Dalmatian and adjusting them so that the puppy looks really good too.  The following looks pretty good to me as a compromise between Adult and Pup without having to calculate two different versions for the two stages:
+
+Under [Move] instead of
+
+;tail
+57,	0,	3,	0
+58,	0,	3,	0
+
+put this
+
+;tail
+57,	0,	-10,	  0
+58,	0,	-30,	-40
+59,	0,	-35,	-45
+60,	0,	-20,	-50
+61,	0,	  0,	-60
+62,	0,	20,	-70
+
+Under [Project Ball] instead of
+
+;tail
+57, 58, 60
+58, 59, 60
+59, 60, 60
+60, 61, 60
+61, 62, 60
+
+put this
+
+;tail
+57, 58, 40
+58, 59, 40
+59, 60, 40
+60, 61, 40
+61, 62, 30
+48, 58, 110
+48, 59, 100
+48, 60, 90
+48, 61, 75
+48, 62, 60
+
+If you want 
+
+You can fool around with this of course, to get the position right for your own breed, but remember that the [Project Ball] information controls the distance between any two ballz, that the [Move] information shifts a ball sideways, up/down, and  forward/back of its norm, and that whatever you do that makes it look right in a pup may look awful in an adult dog.  You have to keep checking between adult and puppy stage; it's probably best to start by making it look right in the adult stage before seeing how it looks in the pup.  You can do this quickly by changing this
+
+[Little one]
+dmpup.lnz
+
+to this
+
+[Little one]
+dm.lnz
+
+and then changing it back again when you're happy with the way the adult looks.
+
+I include the usual sound-stripped Petz 3 breed as an example; it's the one called Dalmatail.dog and it won't overwrite your original.  You can copy the data from this breed directly into your own if you wish; I don't include Petz 4 or 5 versions as you can easily copy the data into copies of the Dalmatian base breedz.
+
+Ears -- making them go down for a pup and up for adult dog
+==============================================
+
+Right, let's continue with the dalmatian as base breed.  The person who requested this tutorial also wanted an up-over-the-back tail on the breed, so this complicates things rather and means that there is going to be a lot of data to squeeze into the puppy part of the breed.
+
+So, you're going to have to do this differently because of the amount of data that you will need to enter, and I am in fact going to suggest that you use a Resource Editor for the start of this particular job.  I say "for the start" because I have found that too much fiddling and re-saving of files in ResHacker can cause compiling errors and crashes.  So, I'd suggest entering in the necessary extra stuff and then doing your fine tweaking via my usual hex editor/Notepad method.  Well, that's what I did for my example breed, anyway.
+
+Just so you follow what's going on and also why I'm diverting briefly from my usual methods, there are a few things you need to understand here:
+
+First, the actual ear behaviour and the basic position that the game expects for a given breed's ear ballz is controlled by something that, as far as I know at present, we cannot edit.  So for instance, when a dalmatian shakes its head, the ears are expected to flap in a certain way, and that is quite different from the way a Dane's ear flips.  You may want to bear this in mind when choosing your base breed.  Also, because the game sees the basic position of the ear ballz as different for each specific breed, this means that if you have a Dalmatian and expect to just remove the add balls to get it to look like a Bulldog's ears, you're out of luck.  You are going to have to move some ballz, altering the [Move] and [Project Ball] data, and that's going to have to be different in the puppy section.  It's necessary to include in the puppy's [Move] and [Project Ball] data all the information that's supposed to be in those areas, not just the ear information, particularly if you have some other alterations (such as the upward-curving tail that's also in this "howto").
+
+Second, the pup uses the same actual [Linez] information as the adult dog; as far as I can tell, you cannot get away from that fact, or at least I've not been able to overcome this and I don't think anyone else has either.
+
+Third, the basic ear information that you _can_ edit is located in the [Move], [Project Ball] and, in most cases, the [Add Ball] area.  The [Add Ball] extras complicate matters just that bit too much, because the ear ballz need to be joined in [Linez], and as I say above, [Linez] has to be the same for pup and adult.  So if you have, say, added balls for a Dane-type ear that you want for the adult but no added balls for, say, a bulldog-type ear that you want for the pup, your Linez are going to look all wrong between the two.
+
+Fourth, the .lnz section (which is the part that we all edit) is in fact _two_ .lnz files.  The biggest part, from (in the case of the Dalmatian) the "; dalmation" down to where you see "; dalmation puppy" is the adult.  The small part, from "; dalmation puppy" down to "PFM_[V2.001]" is the puppy.  Each of these two sections needs to stay the same size, if you're using a hex editor, or the game will crash; i.e it is not workable to put lots of stuff in the puppy section and compensate by deleting from the adult section.
+
+Okay on with the show; how to fix it so that the ears point down in the pup and up in the adult.
+
+The adult ears need to be moved from the normal dalmatian position, so what you need in that area is something similar to this, bearing in mind that the first column is the ball number, the next three are its x,y,z position and the fifth is the ball to which this position is relative:
+
+4,	-15,	-25,	-12,	52
+5,	0,	-10,	 4,	52
+6,	0,	 -5,	15,	52
+28,	15,	-25,	-12,	52
+29,	 0,	-10,	 4,	52
+30,	0,	 -5,	15,	52
+
+and to make sure that they are reasonably well "anchored" in place, the [Project Ball] section needs something like this:
+
+;EARS
+52, 6, 79
+52, 30, 79
+38, 6, 120
+14, 30, 120
+5, 4, 100
+6, 5, 100
+29, 28, 100
+30, 29, 100
+
+The next thing to do is to remove all the ear Add Balls plus, and this is important, any mention of them elsewhere in the file.  (You can of course list them under [Omissions] instead, but removing them is likely to be a better solution.  If you're using a breed which has its added earballz listed before other extra ballz, then you're going to have to keep them in place, but you must then list them under [Omissions].) So either comment-out (put a semi-colon at the start of the line) or replace completely with spaces the lines from ;ears 82 onwards in the [Add ball] section.  Then, in the [Linez] section, replace all the ear data with this:
+
+;ears
+4,   5, 	1,	-1,	244, 	244,	100,	100
+5,   6, 	1,	-1,	244, 	244,	100,	100
+28,  29, 	1,	-1,	244, 	244,	100,	100
+29,  30, 	1,	-1,	244, 	244,	100,	100
+
+If you have any paint balls which have as their base any number of ball from 82 upwards, remove or comment-out those also.
+
+Now, if you happen to have any variations in [Color Info Override], make sure that you have removed or commented-out any ball numbers from 82 upwards and finally -- very important, or it will crash the game -- in [Fur Markings] remove numbers 83, 85, 87 etc.
+
+You'll want to change the ball sizes in sizeDif; I chose ball sizes and group numbers like those of the Dane, so for the left ear balls I have for the left:
+
+sizeDif	group
+
+ 0,	0
+ 0,	0
+ 6,	0
+
+and also for the right ear:
+
+ 0,	0
+ 0,	0
+ 6,	0
+
+That's your adult dog done -- it will have up-pointing ears.
+
+Now you need to tackle the puppy, and this is where you need to enter more stuff than the .lnz section allows for.  You need to enter the whole of the [Move] and [Project Ball] data from the adult section, and then change the ear information in both those areas for the pup.  The [Move] information would look like this for neatly down-tucked ears:
+
+4,	-6,	 15,	6,	52
+5,	3,	 12,	16,	52
+6,	0,	 10,	15,	52
+28,	6,	 15,	6,	52
+29,	-3,	 12,	16,	52
+30,	0,	 10,	15,	52
+
+and in the [Project Ball] area you simply don't enter any ear data at all -- copy all the data from the adult part _except_ for the ear data.
+
+Then you will want to tweak the ear-ball size for the pup, so under [Ball Size Override] enter something like this:
+
+4,-5
+5,-3
+6,4
+28,-5
+29,-3
+30,4
+
+and hey presto, there you are -- a dog which has down-turned ears as a pup and up-pointing ears as an adult.  You will doubtless want to tweak it to suit your own breed, but that's the way it's done.
+
+I include sound-stripped Petz 3, 4 and 5 breedfiles as usual as examples -- but remember, these ones have been edited with the help of ResHack, so you won't be able to copy the data directly into your own breed in a hex editor.  You will need to use a Resource Editor to work with this, or use my breed as a base and copy/paste all the sounds back into it from your own breedfile.  To copy the sounds back in, simply search for RIFF in your own breed in a hex editor (it comes directly below the sound list and is the start of the first sound file) and select from there down to the naming area and choose copy.  Now select the same area in my example breed and choose paste.  Save.  You will now have my breed fully operational, and you can tweak it to your heart's content.  I have given the Dalmatip3, p4, and p5 breedz the same ID number because they are only test breedz, not intended for the Petz Community to use for swapping adopted pets.
+
+Enjoy!
+
+Carolyn Horn
+
+
+

@@ -1,0 +1,321 @@
+
+
+First off, I'm going to show you how to do these the way I edit; I know 
+this confuses some people, but I don't know how else to explain things.  
+I always edit breedfile .lnz sections (which is the part we are all editing 
+to make different colours, sizes, tattos, etc) by copying the .lnz out 
+into a new file in the hex editor, saving it as breed.txt, and then editing 
+it in Notepad.  When I'm done editing, I open it in the hex editor again 
+and copy it back into the breedfile. The reason I do this is because I 
+then see the .lnz exactly the way it was before the programmers compiled 
+it into the .dog or .cat file -- it really _is_ a small text file, you 
+see, and when you look at it you can see exactly what you're doing without 
+having to laboriously count numbers in the hex editor.  So, hexing my way, 
+here's the best I can explain.
+
+I include in this zipfile a couple of example breedz, one of which is a 
+simple base "unicorn" type for Catz 5 and one of which, for Catz 3, has had
+almost all spikes I could think of, and a couple similarly for Dogz 5 and Dogz 3. 
+I shall be converting them to the other versions of petz eventually and making them
+available on my "tutorial examples" page, but for now these are the 
+ones that I was working on while I made this tutorial.
+
+Question: How can I make Unicorn horns/ talons/ fangs/ etc on my breedz?
+---------
+
+Answer:
+-------
+
+Unicorn-horns and back-spikes are all made in the same way; in [Add Ball] you make a new "base" ball which is partially just inside the ball to which you wish to attach your spike, then put a smaller [Add Ball] some distance away from it in the direction you want, and then attach the two in [Linez].  You can of course have more than one ball in a line with the others to give a "knobbly" effect or add a tassel.  Fangz and talons are even simpler; you only need the one extra ball for each because the original base ball (toe, finger, jowl) is small enough to make the linez look right. 
+
+Here's an example of a bunch of spikes added to a Mutt.  I want it to have all the spikes mentioned above, including fangs and talons as an example of spikes which don't need the added base ball.  The actual base balls of jowlz and fingers/toes are, as I say above, small enough to make the linez look right -- but also they don't roll around each other in the way that the bigger balls do, so that the spikes continue to look right.  Nice and simple.
+
+Okay, then in Add Ball I have this for the fangs and talons on my Mutt:
+
+;fangs 88
+15,2,30,0,15,0,0,0,-1,-1,10,0,0,-1
+39,-2,30,0,15,0,0,0,-1,-1,10,0,0,-1
+;talons  90-95
+9, 0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+10,0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+11,0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+33,0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+34,0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+35,0,30,-19,39,-1,0,0,-1,-1,7,0,0,0
+;96-101
+20,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+21,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+22,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+44,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+45,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+46,0,35,-19,39,-1,0,0,-1,-1,7,0,0,0
+
+and in [Linez] I have this:
+
+;fangs
+88,15,-1,-1,244,244,100,100  
+89,39,-1,-1,244,244,100,100  
+;talons
+90,9,-1,-1, 89, 89,100,100
+91,10,-1,-1, 89, 89,100,100
+92,11,-1,-1, 89, 89,100,100
+93,33,-1,-1, 89, 89,100,100
+94,34,-1,-1, 89, 89,100,100
+95,35,-1,-1, 89, 89,100,100
+96,20,-1,-1, 89, 89,100,100
+97,21,-1,-1, 89, 89,100,100
+98,22,-1,-1, 89, 89,100,100
+99,44,-1,-1, 89, 89,100,100
+100,45,-1,-1, 89, 89,100,100
+101,46,-1,-1, 89, 89,100,100
+
+Right, now on to the things that need a ball for the bottom and for the top of the spike, and that also move around and cause problems if we don't "anchor" them.  The first is the horn, and I want a tassel or tuft on mine, as well as a bobble in the middle, yes indeed.  Okey-dokey, here are the added ballz needed:
+
+;horn 102-104
+52	0,-50, 9,  211 200 -1 -1 0 -1 30 0 0 0
+102	0,-30, -5, 206 200 -1 -1 0 -1 30 0 0 0
+102	0,-50,-10, 211 200 -1 -1 0 -1 10 0 0 0
+;tuft105-107
+52	0,-50, -2  80  206 -1 0 0 -1  0 0 0 0
+105	0,-60,-10  80  206 -1 6 0 1  10 0 0 0
+105	0,-63,  -5 206 249 -1 6 0 1  25 0 0 0
+
+Ballz 102 and 105 are the "anchor" balls, and the horn is going to use that anchor ball as its bottom -- the other two balls are its middle bobble and its tip -- and the tuft has two balls just to make it look tufty.  (If you don't want the central bobble in the horn you don't need to have it of course -- but remember that the tip ball will then be ball number 103, not 104, which you need to remember when joining the tip to the bottom in [Linez].)  
+
+For this horn I've decided that I'm happy to have a wide base for it, so I'll join the "anchor" ball to the head.  We don't need to join up the tuft or the middle horn ball, so this will do in [Linez]:
+
+;horn
+102,52,-1,-1,-1,-1,100,100
+104,102,-1,-1,249,249,100,100
+
+You'll notice, by the way, that I'm adding colours to some of my linez and to the left and right outline of the linez.  I'm feeling crazy today :-)
+
+Where are we.  Oh yes, I want spikes all down the spine.  I don't care what you say, I want spikes and I'm going to have 'em!  This is a bit more complicated, as I want them to look as if they are in the right place at least most of the time, and my dratted pet is going to keep rolling all over the place.  There will be some moments when they slip around a bit, that can't be helped, but I can minimise it by putting in base balls to give them a bit of anchorage.
+
+We want spikes between the shoulders and on the back, butt and base of tail, don't we -- no, don't run away, come back here and humour the old woman.  We do.  All those things.  Yes.  So I want to put a suitable base ball on each area:
+
+;spike butt108
+49,0,-15,0,	79,0,0,-1,-1,-1,10,0,0,1
+;spikebelly 109	
+48,0,-15,0,	80,0,0,-1,-1,-1,10,0,0,1
+;spike chest110
+50,0,-15,10,	79,0,0,-1,-1,-1,10,0,0,1
+;spiketail111	
+57,0,-10,10,	80,0,0,-1,-1,-1,10,0,0,1
+
+which I don't want to actually see on the pet, so I list them under [Omissions]:
+
+108
+109
+110
+111
+
+and then I want to do the spikes relative to those base balls:
+
+;spike bottoms 112
+108,0,-10,-23, 40,-1,-1,0,1,-1,25,0,0,2
+108,0,-15,-7, 60,-1,-1,0,1,-1,25,0,0,1
+108,0,-15,4, 40,-1,-1,0,1,-1,25,0,0,1
+109,0,-10,-23, 60,-1,-1,0,1,-1,25,0,0,2
+109,0,-15,-7, 40,-1,-1,0,1,-1,25,0,0,1
+109,0,-15,4, 60,-1,-1,0,1,-1,25,0,0,1
+110,0,-10,-13, 40,-1,-1,0,1,-1,25,0,0,2
+110,0,-15,-7, 60,-1,-1,0,1,-1,25,0,0,1
+110,0,-15,14, 40,-1,-1,0,1,-1,25,0,0,1
+111,0,-10,-13, 60,-1,-1,0,1,-1,25,0,0,2
+111,0, -5,-7, 40,-1,-1,0,1,-1,25,0,0,1
+111,0, -5,14, 60,-1,-1,0,1,-1,25,0,0,1
+;spikeTips 124-135
+108,0,-45,-35, 40,-1,-1,0,1,0,10,0,0,2
+108,0,-39,-10, 60,-1,-1,0,1,0,10,0,0,1
+108,0,-39,0, 40,-1,-1,0,1,0,10,0,0,1
+109,0,-45,-35, 60,-1,-1,0,1,0,10,0,0,2
+109,0,-39,-10, 40,-1,-1,0,1,0,10,0,0,1
+109,0,-39,0, 60,-1,-1,0,1,0,10,0,0,1
+110,0,-45,-35, 40,-1,-1,0,1,0,10,0,0,2
+110,0,-39,-10, 60,-1,-1,0,1,0,10,0,0,1
+110,0,-39,0, 40,-1,-1,0,1,0,10,0,0,1
+111,0,-35,-35, 60,-1,-1,0,1,0,10,0,0,2
+111,0,-29,-10, 40,-1,-1,0,1,0,10,0,0,1
+111,0,-29,0, 60,-1,-1,0,1,0,10,0,0,1
+
+and of course I need to link them up in [Linez]:
+
+;spikes  
+124,112,-1,-1,244,244,100,100
+125,113,-1,-1,244,244,100,100
+126,114,-1,-1,244,244,100,100
+;
+127,115,-1,-1,244,244,100,100
+128,116,-1,-1,244,244,100,100
+129,117,-1,-1,244,244,100,100
+;
+130,118,-1,-1,244,244,100,100
+131,119,-1,-1,244,244,100,100
+132,120,-1,-1,244,244,100,100
+;
+133,121,-1,-1,244,244,100,100
+134,122,-1,-1,244,244,100,100
+135,123,-1,-1,244,244,100,100
+
+Well, that's my Jabber Mutt (for Petz 3) done.  <squints at finished product> Well, a few variations here and there, a bit of texture maybe, and I've got something really quite fun and original.
+
+Horn Only
+---------
+
+For people who only want the horn and nothing else, take a look at the included Dalmatian-based breed.  I have made it into a Unileopadali (the example breedfile is for Petz 5), and decided to make it so that the horn doesn't have such a wide base; this means that I had to make another smallish base "anchor" ball just inside the head.  I tweaked the ball positions and size slightly to suit a more delicate breed.  So, all that I added were the [Add Ball] lines:
+
+;horn 88-91
+52	0, 0,  -9, 69  200 -1 -1 0 -1 25 0 0 0
+52	0,-50, -9, 211 200 -1 -1 0 -1 25 0 0 0
+88	0,-30, -5, 206 200 -1 -1 0 -1 20 0 0 0
+88	0,-50,-10, 211 200 -1 -1 0 -1 10 0 0 0
+
+and Linez lines:
+
+;horn
+88,89,-1,-1,-1,-1,100,100
+91,89,-1,-1,249,249,100,100
+
+Everything on a Cat
+-------------------
+
+So let's do the whole thing to a cat.  I'm choosing a Maine Coon, and I'm calling it a Silver Tabby because I have a downloaded pet which needs a breedfile which I don't have.  I found the ID number (one of my tutorials somewhere tells you how to do this) so, with the ID number and name I can run the pet -- but hey, that seems a little dull, so I think I'll turn it into a spiky breed and see what happens when I breed my downloaded pet with it.  This is the kind of fun thing you can do when you're a hexer :-)
+
+Right, for my Maine Coon-based breed to have all the above items, I need to do all the above, but the ball numbers will of course be different and there has to be some alteration of the x,y,z directions on the [Add Ball] ballz to make it look right:
+
+[Add Ball] stuff:
+
+;fangs 92
+30,2,30,0,200,0,0,0,-1,-1,10,0,0,-1
+31,-2,30,0,200,0,0,0,-1,-1,10,0,0,-1
+;talons  94-99
+16, 0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+17,0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+18,0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+19,0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+20,0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+21,0,30,-19,206,-1,0,0,-1,-1,7,0,0,0
+;100-105
+49,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+50,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+51,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+52,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+53,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+54,0,35,-19,206,-1,0,0,-1,-1,7,0,0,0
+;horn 106-108
+24	0,-50, 9,  211 200 -1 -1 0 -1 20 0 0 0
+106	0,-30, -5, 206 200 -1 -1 0 -1 30 0 0 0
+106	0,-50,-10, 211 200 -1 -1 0 -1 10 0 0 0
+;tuft109-111
+24	0,-50, -2  80  206 -1 0 0 -1  0 0 0 0
+109	0,-60,-10  80  206 -1 6 0 1  10 0 0 0
+109	0,-63,  -5 206 249 -1 6 0 1  25 0 0 0
+;spike butt112
+3,0,-20,0,	79,0,0,-1,-1,-1,10,0,0,1
+;spikebelly 113	
+2,0,-20,0,	80,0,0,-1,-1,-1,10,0,0,1
+;spike chest114
+6,0,-20,10,	79,0,0,-1,-1,-1,10,0,0,1
+;spiketail115	
+43,0,-10,10,	80,0,0,-1,-1,-1,10,0,0,1
+;spikeBottoms116
+112,0,-20,-23, 40,-1,-1,0,1,-1,25,0,0,0
+112,0,-25,-7, 10,-1,-1,0,1,-1,25,0,0,0
+112,0,-25,4, 40,-1,-1,0,1,-1,25,0,0,0
+113,0,-20,-23, 10,-1,-1,0,1,-1,25,0,0,0
+113,0,-25,-7, 40,-1,-1,0,1,-1,25,0,0,0
+113,0,-25,4, 10,-1,-1,0,1,-1,25,0,0,0
+114,0,-20,-13, 40,-1,-1,0,1,-1,25,0,0,0
+114,0,-25,-7, 10,-1,-1,0,1,-1,25,0,0,0
+114,0,-25,14, 40,-1,-1,0,1,-1,25,0,0,0
+115,0,-20,-13, 10,-1,-1,0,1,-1,25,0,0,0
+115,0,-15,-7, 40,-1,-1,0,1,-1,25,0,0,0
+115,0,-15,14, 10,-1,-1,0,1,-1,25,0,0,0
+;spikeTips 128-139
+112,0,-65,-35, 40,-1,-1,0,1,0,10,0,0,0
+112,0,-59,-10, 10,-1,-1,0,1,0,10,0,0,0
+112,0,-59,0, 40,-1,-1,0,1,0,10,0,0,0
+113,0,-65,-35, 10,-1,-1,0,1,0,10,0,0,0
+113,0,-59,-10, 40,-1,-1,0,1,0,10,0,0,0
+113,0,-59,0, 10,-1,-1,0,1,0,10,0,0,0
+114,0,-65,-35, 40,-1,-1,0,1,0,10,0,0,0
+114,0,-59,-10, 10,-1,-1,0,1,0,10,0,0,0
+114,0,-59,0, 40,-1,-1,0,1,0,10,0,0,0
+115,0,-45,-35, 10,-1,-1,0,1,0,10,0,0,0
+115,0,-39,-10, 40,-1,-1,0,1,0,10,0,0,0
+115,0,-39,0, 10,-1,-1,0,1,0,10,0,0,0
+
+[Omissions]:
+
+112
+113
+114
+115
+
+[Linez]:
+
+;fangs
+92,30,-1,-1,244,244,100,100
+93,31,-1,-1,244,244,100,100
+;talons
+94,16,-1,-1, 89, 89,100,100
+95,17,-1,-1, 89, 89,100,100
+96,18,-1,-1, 89, 89,100,100
+97,19,-1,-1, 89, 89,100,100
+98,20,-1,-1, 89, 89,100,100
+99,21,-1,-1, 89, 89,100,100
+100,49,-1,-1, 89, 89,100,100
+101,50,-1,-1, 89, 89,100,100
+102,51,-1,-1, 89, 89,100,100
+103,52,-1,-1, 89, 89,100,100
+104,53,-1,-1, 89, 89,100,100
+105,54,-1,-1, 89, 89,100,100
+;horn
+106,24,-1,-1,-1,-1,100,100
+108,106,-1,-1,249,249,100,100
+;spikes  
+128,116,-1,-1,244,244,100,100
+129,117,-1,-1,244,244,100,100
+130,118,-1,-1,244,244,100,100
+;
+131,119,-1,-1,244,244,100,100
+132,120,-1,-1,244,244,100,100
+133,121,-1,-1,244,244,100,100
+;
+134,122,-1,-1,244,244,100,100
+135,123,-1,-1,244,244,100,100
+136,124,-1,-1,244,244,100,100
+;
+137,125,-1,-1,244,244,100,100
+138,126,-1,-1,244,244,100,100
+139,127,-1,-1,244,244,100,100
+
+A few variations, a nice new texture or two, and eureka!  A pretty new silvery Tabby with, well, extra stuff.
+
+They'll be coming to lock me away soon, I'm sure...
+
+Horn Only
+---------
+
+For people who only want the horn and nothing else, take a look at the included B+W Shorthair-based  breed (it's for Petz 5).  I have made it into a Unisunswirl, and as with the Unileopadali I decided to make it so that the horn doesn't have such a wide base.  This means that I had to make another smallish base "anchor" ball just inside the head.  I tweaked the ball positions and size slightly to suit the breed and how I wanted it to look.  So, all that I added were the [Add Ball] lines:
+
+;horn 92-95
+24	0, 0,  -9, 39  200 -1 -1 0 -1 30 0 0 0
+24	0,-50, -9, 206 200 -1 -1 0  2 30 0 0  0
+93	0,-40, -5, 206 249 -1  0 0  2 25 0 0 -1
+93	0,-60,-10, 220 200 -1 -1 0 -1 10 0 0 -1
+
+and Linez lines:
+
+;horn
+92,93,-1,-1,-1,-1,100,100
+95,93,-1,-1,159,159,100,100
+
+NOTE:  To see the "Silver Tabby" breed (for Petz 3) the way I intended it to look, make sure that the included texture bitmaps t6.bmp, t7.bmp, t8.bmp are in a subdirectory off the game's resource\Catz directory, called tabby.  To see the Unisunswirl correctly, put the swirl.bmp in the game's resource\Catz directory.
+
+happy hexing!
+
+Carolyn
+
+

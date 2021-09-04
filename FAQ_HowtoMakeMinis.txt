@@ -1,0 +1,55 @@
+
+>  How to make a mini mutt or Hex it. Please!I AM BEGGING you.
+
+Okay, the key is in the [Default Scales].
+
+In the Mutt, look for
+
+[Default Scales]
+150     normal pet scale
+145     normal ball scale
+
+this is for the adult.  Try changing the "150" to "100" and the "145" to
+" 95" (notice the space in  95, to make up for the number being one
+character shorter).
+
+and for the puppy:
+
+[Default Scales];adult 150 145
+98      normal pet scale
+115     normal ball scale
+
+Try changing the "98" to "58" and the "115" to " 75" (once again, notice
+that you need the space in  75, to make up for the shorter number).
+
+Another example; Using the Dachschund, up at the top of the .lnz section we
+have the defaults for the fully-grown adult:
+
+[Default Scales]
+120     normal pet scale
+125     normal ball scale
+
+And at the bottom of the .lnz, below ; Dachshund puppy, we have for the
+basic puppy size (as it comes out of the Adoption Cantre:
+
+[Default Scales];adult 150 145
+75      normal pet scale
+100     normal ball scale
+
+ignore ;adult 150 145, it does nothing and is inaccurate anyway; that's
+just a programmer's note.  You can change the sizes of puppy/kitten and
+adult separately -- make for instance a huge pup and a tiny adult -- by
+changing the numbers 120 and 125 downwards by the same amount and the
+numbers 75 and 100 upwards by the same amount.  If you want weird
+effects (including a bloated look or a pop-eyed "skeleton" effect), just
+change those two numbers in each section relative to each other.
+Altering the normal pet scale and normal ball scale by different amounts
+alters the basic underlying shape of the breed.
+
+The only breed that seems more complicated is the Poodle, but mini-poodles
+can also be easily created simply by changing all the [Default Scales].
+
+Cheers
+
+Carolyn Horn
+

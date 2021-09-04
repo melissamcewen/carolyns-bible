@@ -1,0 +1,191 @@
+Question:
+
+Is it possible to edit the mice in Petz 4 or 5?
+
+Answer:
+
+You can hex the mice in Petz 4 and 5 the same way as for Petz 3.  The
+.lnz files which you would hex are in the Petz 4 Rez.dll (or Petz 5
+Rez.dll).  These .dll files are ones which you would not be able to
+share on the Internet with others, as they are core game files, not the
+peripheral files that we usually edit -- clothes, breedz etc (and the
+Petz 5 one is huge).  But there is nothing to stop you from editing them
+in your own game or distributing them as small patches.
+Petz II mice can also be edited in a similar fashion, and Oddballz Grubz.
+
+The mouse .lnz files can be found by opening Petz 4 Rez.dll in your hex
+editor and searching for mousesnd.txt.  When you get there, you want to
+scroll up slightly until you get to [Num Ballz]..16.  Put the cursor in
+front of that, and select from there down to PFM_[V2.001].  Choose Copy;
+open a new file in the hex editor, choose Paste, and save this new file
+as mouse.txt.  You can then open it in Notepad and edit it; both mouse
+.lnz files are in there.  You can also change the sounds if you want, by
+directing \ptzfiles\mouse\mousesnd.txt to a different sounds list on
+your hard drive (and of course putting new sounds wherever that list
+points to).  You can copy the mouse sounds list out in the same manner
+as the .lnz file; you find it by searching for
+path=ptzfiles\mouse\sounds and selecting from Sounds root to
+MSstrug4.WAV.
+
+As regards behaviours, there is no way I know of being able to edit the
+actual mouse behaviour files; I keep looking for a way in which it's
+possible for the hand to stroke the mouse, but so far without luck.
+
+If you want to distribute hexed mice of your own for other people to
+put in their games, then you are going to need a patcher program.
+Remember to warn downloaders that they need to keep a backup of
+their .dll file.  You can find a shareware patcher at
+http://www.funduc.com/text/
+
+Others may be available; try searching on www.google.com.  I have an 
+old DOS freeware one which requires some ability to use a DOS box, 
+and I may upload it to this archive if there is enough interest.
+
+It would also be possible to distribute the simple .lnz itself, if
+people are willing to download and learn how to use the freeware
+Resource Hacker, available from
+http://www.users.on.net/johnson/resourcehacker/
+
+for a more detailed instruction on how to edit the mice, here is the
+information copy/pasted from my Petz 3 tutorial:
+
+THE MICE! (and cockroaches)
+==========================
+
+It is possible to change your default mice and cockroach shapes, colours 
+and even sounds.  The bad news is that you need to hex edit the 
+"Petz 3 Rez.dll" file which is in your Resource directory, so you 
+won't be able to put your special mice up for download in the same 
+way as you can put up your breedz etc.  The good news is that you can 
+put up the .LNZ itself, for anyone else who understands how to download 
+and insert it into their own copy, and the sounds.
+
+But please _please_ backup your "Petz 3 Rez.dll" file in a very safe place 
+before you even begin to touch this; if you don't, and you accidentally 
+corrupt it, your game will either not run or will crash, and you will 
+have no option but to reinstall the game.
+
+The .LNZ text for these starts at offset number 040C38.  When you've 
+scrolled down to that part of the file, highlight from the beginning of
+
+[Num Ballz]..16 
+
+down to 
+
+PFM_[V2.001] (c) 1997 PF. Magic, Inc. Lets not talk about me
+
+Copy this to a new file and save it as a .txt file.  Open it in Notepad 
+and you will see that it has three sections, two of which contain [Linez], 
+[Addballz], and all three of which contain [Ballz Info]; the first section 
+is the cockroach and the last two are the two mice.
+
+Edit these in the same way as you would the breedfiles in the main Petz 3 
+tutorial, it's all pretty straightforward if you've followed that okay.  
+You can change shape, colour and sizes; indulge your imagination.  But 
+remember to keep the edited textfile _exactly_ the same length as the original.
+
+Paste it back in to the same area of the .DLL, run the game and eureka!  
+Hexed mice!
+
+Okay, so now you want to change the sounds.  In the mouse LNZ textfile, 
+change \ptzfiles\mouse\mousesnd.txt to something like 
+\resource\mouses\mousesn.txt and make a "mouses" subdirectory off the 
+resource directory.
+
+Now you need to get the textfile "mousesn.txt".  You could do a search in 
+the .Dll for 
+
+Sounds root path=ptzfiles\mouse
+
+and extract the list to a textfile.  But to save you the effort, here's 
+the list; just copy everything between the +++++++ lines to a text file:
+
++++++++
+Sounds root path= ptzfiles\mouse\sounds
+MSeat1.WAV
+MSeat2.WAV
+MSeat3.WAV
+none.wav
+none.wav
+none.wav
+MSfear1.WAV
+MSfear2.WAV
+MSfear3.WAV
+none.wav
+none.wav
+none.wav
+MSidle1.WAV
+none.wav
+MSidle3.WAV
+MSidle4.WAV
+MSidle5.WAV
+none.wav
+MSidle7.WAV
+none.wav
+none.wav
+MSstrug1.WAV
+MSstrug2.WAV
+MSstrug3.WAV
+MSstrug4.WAV 
++++++++
+
+Save this file as mousesn.txt and put it into your resource\mouses\ directory.  
+Now, open it and change the directory and one letter of each WAV line, so that 
+it looks something like:
+
+Sounds root path=resource\mouses\sound
+MSeam1.WAV
+MSeam2.WAV
+MSeam3.WAV
+etc
+
+Now you need to make the soundfiles and put them in a "sound" subdirectory off 
+the mouse directory.  Make sure that they are not too big -- really you don't 
+want them bigger than 15k, but I suppose you could make bigger, I haven't 
+tried -- and that they are 22,050 Hz, 4 bit, Mono.  Name them exactly as the 
+.WAV files are named in the .txt list.
+
+Run the game -- your mice should now speak with the voices you chose!
+
+The cockroaches can be edited in exactly the same way, using the cockroach part 
+(first section) of the mouse .LNZ and the cockroach sound list:
+
++++++++
+Sounds root path= ptzfiles\mouse\sounds
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+roach.wav
+++++++++
+
+The observant will notice that only one WAV file is needed for the roach :-)
+
+Follow the same directions as for the mouse, and there's no reason why it shouldn't 
+work.
+
+Enjoy
+
+Carolyn Horn
+
+

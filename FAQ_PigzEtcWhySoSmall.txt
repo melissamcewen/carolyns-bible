@@ -1,0 +1,38 @@
+
+>are the little Pig infants
+>meant to be as small as they seem to be?
+
+As to the size of pigletz and other Speciez, there will be a
+significant number which will turn out small, also (with pigz and bunniez) 
+a large number that will have pink eyes.  It would seem that this is because 
+the game engine has some kind of defaults that will often override the 
+information in a breedfile; it's probably the mechanism which causes 
+mutations normally.  
+
+Some hexed breedz are deliberately made with the Default Scales too large
+or too small for the game to accept, although it does accept them in first-
+generation adopted pets.  But then the 2nd-gens default to the game's own 
+idea of defaults.  In the case of the pig and bunny, however, this is 
+not the case. 
+
+Such tiny piglets, elks, etc have no problems.  By the way, there is a site
+called "Lilliput"
+http://www.gregg5.fsnet.co.uk/LPRL/Index.htm
+where they specialise in miniature pets; there's a huge demand for them,
+apparently.  These are all supposed to have been bred without any hexing, so
+you can see that the game will produce miniatures normally anyway.  It's just
+that the probability is higher for a mini-pet with the hexed speciez breedz.
+
+There is no danger to your game or to other pets in keeping miniatures.
+However, if you want to make your babies bigger and can't seem to breed 
+them the size you want, you can (with great care) change the numbers for the 
+default sizes within the petfile.  Search for Default Scales (there will be 
+two places where you will find this) and alter the numbers to suit yourself,
+but remember to alter some unimportant numbers in the Paint Ballz areas such
+that the checksum remains the same as before.  If you don't know what I'm
+talking about, download my "editing petfiles" tutorial and read it carefully
+before touching the numbers inside your pet.
+
+Hope that helps
+
+Carolyn Horn

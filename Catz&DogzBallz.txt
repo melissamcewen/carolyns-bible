@@ -1,0 +1,225 @@
+For the Catz programs:
++++++++++++++++++++++
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+The main list goes from 0-66:
+
+0	ankleL,
+1	ankleR,
+2	belly,
+3	butt,
+4	cheekL,
+5	cheekR,
+6	chest,
+7	chin,
+8	earL1,
+9	earL2,
+10	earR1,
+11 	earR2,
+12	elbowL,
+13	elbowR,
+14	eyeL,
+15	eyeR,
+16	fingerL1,
+17	fingerL2,
+18	fingerL3,
+19	fingerR1,
+20	fingerR2,
+21	fingerR3,
+22	handL,
+23	handR,
+24	head,
+25	hipL,
+26	hipR,
+27	irisL,
+28	irisR,
+29	jaw,
+30	jowlL
+31	jowlR,
+32	kneeL,
+33	kneeR,
+34	knuckleL,
+35	knuckleR,
+36	neck,
+37	nose,
+38	shoulderL,
+39	shoulderR,
+40	snout
+41	soleL (i.e. the foot),
+42	soleR (i.e. the foot),
+43	tail1 (nearest to the butt),
+44	tail2,
+45	tail3,
+46	tail4,
+47	tail5,
+48	tail6 (tip),
+49	toeL1,
+50	toeL2,
+51	toeL3,
+52	toeR1,
+53	toeR2,
+54	toeR3,
+55	tongue1,
+56	tongue2,
+57	whiskerL1
+58	whiskerL2,
+59	whiskerL3,
+60	whiskerR1
+61	whiskerR2,
+62	whiskerR3,
+63	wristL,
+64	wristR,
+65	zorient,
+66	ztrans
+
+The Animator's Add Balls are a little different in each breed, because of the different needs that different breedz have.  For instance, the Tabby cat has stripes which need to be specified...  You can work them out by studying the relevant breed's .LNZ, so I include only the more standard ones here:
+
+67 mount align ball
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball
+75 utility ball
+76 utility ball
+(there's probably no need to touch 67-76 usually)
+
+The following are different in some breeds; just check out the one you're working with:
+
+77 } nose
+78 }
+79 }
+
+80 } head -- Ears region
+81 }
+82 }
+85 }
+86 }
+87 } left side top of head in front of ear (near jowl and cheek)
+88 }
+89 } right side top of head in front of ear (near jowl and cheek)
+90 } ears
+91 }
+
+92} Fangs (See Alleycat) or Ruff (see maine Coon)
+93}
+
+For the Dogz programs:
++++++++++++++++++++++
+Ballz number list; L means left and R means right.
+-------------------------------------------------
+The main list goes from 0-66:
+
+0	;L ankle
+1	;L eyebrow1
+2   	;L eyebrow2
+3  	;L eyebrow3
+4  	;L ear1
+5  	;L ear2
+6 	;L ear3
+7   	;L elbow
+8    	;L eye
+9   	;L finger1
+10   	;L finger2
+11  	;L finger3
+12  	;L foot
+13 	;L hand
+14 	;L iris
+15	;L jowl
+16	;L knee
+17	;L nostril
+18	;L shoulder
+19	;L hip
+20	;L toe1
+21	;L toe2
+22	;L toe3
+23	;L wrist
+24	;R ankle
+25	;R eyebrow1
+26	;R eyebrow2
+27	;R eyebrow3
+28	;R ear1
+29	;R ear2
+30	;R ear3
+31	;R elbow
+32	;R eye
+33	;R finger1
+34	;R finger2
+35	;R finger3
+36	;R foot
+37	;R hand
+38	;R iris
+39	;R jowl
+40	;R knee
+41	;R nostril
+42	;R shoulder
+43	;R hip
+44	;R toe1
+45	;R toe2
+46	;R toe3
+47	;R wrist
+48	;belly
+49	;butt
+50	;chest
+51	;chin
+52	;head
+53	;jaw
+54	;neck
+55	;nose (bottom)
+56	;snout
+57	;tail1
+58	;tail2
+59	;tail3
+60	;tail4
+61	;tail5
+62	;tail6
+63	;tongue1
+64	;tongue2
+65	;Z-trans
+66	;Z-orient
+
+The Animator's Add Balls are a little different in each breed, because of the different needs that different breedz have.  For instance, the Poodle has tufts which need to be specified...  You can work them out by studying the relevant breed's .LNZ, so I include only the more standard ones here:
+
+67 mount align ball 
+68 steal captured toy align ball
+69 steal toy standing align ball
+70 dig align ball
+71 fill in hole align ball
+72 rest on pillow align ball
+73 drop object at point align ball
+74 utility ball 
+75 utility ball 
+76 utility ball 
+(there's probably no need to touch 67-76 usually)
+
+The following are different in some breeds; just check out the one you're working with:
+
+77   } ears outside; top spot on left 
+78   }       and second from top right 
+79   }       and second from top left?
+80   } ears outside, top spot on right 
+81   }      and third from top on R
+82   }      third from top spot on L 
+
+83   } tail
+84   }  
+85   }
+86   }
+87   }
+
+88   }  tongue (or chin)
+
+89   } test cover up part of jowls
+90   } test cover up part of jowls
+91   } cheek/jowls; go from cheek or mouth 
+92   }              corners to snout or nose
+
+93   } Inside mouth at front above chin; L
+94   } Inside mouth at front above chin; R
+
+As an example of differences and extra balls, take the Poodle:
+poodle head puff 89-91
+poodle puffs 92-95
+poodle puffs without outlines for unshaved poodles 96-99

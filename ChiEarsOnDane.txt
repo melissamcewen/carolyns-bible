@@ -1,0 +1,285 @@
+
+Aaaargh...  Please, people, stop this obsession with ears!  Do, please, try
+reading all the various "howto"s that I've done and then figure out for
+yourself which of the information under [Move], [Project Ball], [Omissions],
+[Add Ball], [Linez], and [Ballz Info] needs changing.  Remember that if you
+change the order of things in [Add Ball], then [Linez] will need to be 
+significantly altered also, plus keep an eye on any Add Ball numbers that
+may be in [Project Ball] and [Move].
+
+So here is, I hope, the last ear-changing "howto", this time for putting 
+chihuahua ears on a Dane.  Please don't ask me how to do any more ears,
+or I'll start climbing the walls and gibbering at you.
+
+Once again, Just to make it a little different for myself and for people who are 
+getting tired of ear "howto"s, I also include how to put whiskers on your dogz.
+
+Included in this zipfile is a test Dogz 4 breedfile which is a Dane with chi 
+ears and whiskers and a load of fancy spots for the spot-fanatics which also
+seem to swarm in the Petz Community.  This breedfile has been stripped of
+its sounds so as to decrease its size for downloading, and it _WILL_ overwrite
+your Dane breed, so remember to keep a backup of your original if you use this.
+If you have a different version of the game and you want to see the dog, then just 
+copy the .lnz section of this file into a copy of your game's Dane.dog file.
+After all, you are a hexer, aren't you :-)
+
+Just a note as to my editing methods so that with any luck all that I go on about in
+most of my tutorials or "howto"s will make sense.  
+This is my method: open the breedfile into Hex Workshop (or some other true hex
+editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string 
+[Little one] and place your cursor in front of it.  Scroll down and select from 
+there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. 
+Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file 
+from the drop-down file menu in the hex editor.  Place the cursor in it and choose 
+Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad. 
+This is the .lnz section of the breedfile (or .clz section of a clothes file),
+which _is_ actually itself a small text file.
+And for people who wonder what to do with it when you've finished editing it; well, 
+you open it in the hex editor again, check that it's the same size as it was before, 
+and then copy/paste it over the same place whence it came!
+
+Now, on to putting chi ears on your Dane:
+
+In [Move] replace this:
+
+;4,	0,	-20,	10,	52	; omitted
+;5,	0,	-20,	10,	52	; omitted
+6,	0,	-20,	10,	52	
+;28,0,	-20,	10,	52	; omitted
+;29,0,	-20,	10,	52	; omitted
+30,	0,	-20,	10,	52	
+
+with this:
+
+6,	18,	-35,	5,	52	
+30,	-18,	-35,	5,	52	
+
+In [Project Ball] remove this:
+
+;EARS
+52, 6, 79
+52, 30, 79
+38, 6, 120
+14, 30, 120 
+
+Since we are about to alter things in [Add Ball], you will also need to deal with the tail ballz:
+
+;TAIL
+57, 58, 130
+58, 59, 130
+59, 60, 130
+60, 61, 130
+61, 62, 130
+58, 83, 50
+59, 84, 50
+60, 85, 50
+61, 86, 50
+62, 87, 50
+
+and the tongue ball:
+
+64, 88, 50
+
+and the 
+
+;mouth corners
+15, 89, 86
+39, 90, 86
+
+by replacing the tail add ball numbers 83-87 with the new 103-107, the tongue 88 with 79,
+and the mouth corners 89 and 90 with the new 80 and 81.
+
+You don't need to add any earball numbers under [Omissions], as the necessary ballz are 
+already listed there.
+
+In add ball replace all the stuff from 77 upwards with the chi stuff, altering the colours 
+to suit your breed of course:
+
+;upper ears 77
+6,	18,	-20,	-15,	 49,	0,	0,	-1,	0,	-1,	15,	0,	0,	1 
+30,	-18,	-20,	-15,	 49,	0,	0,	-1,	0,	-1,	15,	0,	0,	1 
+;tongue 79
+63,	0,	0,	0,	1,	0,	0,	-1,	-1,	-1,	-1,	0,	0,	1,	63 
+;cheeks 80
+56,	15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+56,	-15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+;upperlip 82
+15,	0,	0,	-3,	 40,	0,	0,	-1,	0,	-1,	27,	0,	0,	1
+;ears 83
+6,	-20,	-5,	-18,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+6,	-5,	5,	6,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	0
+6,	10,	25,	-10,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+30,	20,	-5,	-18,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+30,	5,	5,	6,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	0
+30,	-10,	25,	-10,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+;whiskas89
+15,	30, 0, 0	109	0	0	0	-1	-1	0	0	0
+15,	35, 15, 0	109	0	0	0	-1	-1	0	0	0
+39,	-30, 0, 0	109	0	0	0	-1	-1	0	0	0
+39,	-35, 15, 0	109	0	0	0	-1	-1	0	0	0
+;base ears 93 
+52,	40,	-40,	10,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	1 
+52,	30,	-35,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	43,	-18,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	-40,	-40,	10,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	1 
+52,	-30,	-35,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	-43,	-18,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+
+Note: you'll want to tweak the x,y,z co-ordinates of the "base ears" Add Ballz 93 and 96, 
+as the head ball on a Dane is different from that on a Chihuahua and the ears will seem
+unconnected from the head unless you do alter those co-ordinates.
+
+Now replace the new Chi cheeks:
+
+;cheeks 80
+56,	15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+56,	-15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+
+with the old dane jowls:
+
+;jowls (was 89 is now 80)
+56, 	17, 	25, 	6, 	95, 	0, 	0, 	0, 	3, 	-1, 	30, 	0,          0,		0 
+56, 	-17, 	25, 	6, 	95, 	0, 	0, 	0, 	3, 	-1, 	30, 	0,          0,		0 
+
+then add on the end the mouth corners and jowlz of the dane
+
+;cheeks (was 91 is now 99-100)
+51, 	20, 	-25, 	23, 	55, 	0, 	0, 	-1, 	0, 	-1, 	30, 	0,          0,		1 
+51, 	-20, 	-25, 	23, 	55, 	0, 	0, 	-1, 	0, 	-1, 	30, 	0,          0,		1 
+
+;mouth corners (was 93 is now 101-102)
+51, 	8, 	-3, 	5, 	95, 	0, 	0, 	0, 	3, 	-1, 	22, 	0,          0,		0 
+51, 	-8, 	-3, 	5, 	95, 	0, 	0, 	0, 	3, 	-1, 	22, 	0,          0,		0 
+
+and the extra tail ballz of the dane:
+
+;tail (was 83 is now 103-107)
+57, 	0, 	0,	0, 	55, 	0, 	0, 	1, 	6, 	-1, 	22, 	0,	    0,	 	1
+58, 	0, 	0,	0, 	55, 	0, 	0, 	1, 	2, 	-1, 	18, 	0,	    0, 		1
+59, 	0, 	0,	0, 	55, 	0, 	0, 	1, 	2, 	-1, 	16, 	0,	    0,	 	1
+60, 	0, 	0,	0, 	55, 	0, 	0, 	1, 	2, 	-1, 	14, 	0,	    0,	 	1
+61, 	0, 	0,	0, 	55, 	0, 	0, 	2, 	2, 	-1, 	14, 	0,	    0, 		1
+
+Now, the ball numbers for the cheeks, jowls and mouth corners are no longer 89, 90, 91, 92, 93, 94.  
+They are now 80, 81, 99, 100, 101, 102. 
+Also the tongue addball is now 79.
+And the tail ballz are 103-107. 
+You need to remember (or make a note of) all this for the Linez.
+
+If you _don't_ want the Whiskas in this breed, just list those 
+balls and the upperlip one under [Omissions]:
+
+82
+89
+90
+91
+92
+
+in [Linez] change 88 to 79 so that the tongue ballz all join up correctly
+63, 	79, 	0,	-1,	244, 	244,	100,	100		;tongue
+79, 	64, 	0,	-1,	244, 	244,	100,	100		;tongue
+
+Replace the ear linez info with this 
+
+6,	83,	0,	-1,	-1,	-1,	100,	100
+84,	6,	0,	-1,	-1,	-1,	100,	100
+6,	85,	0,	-1,	-1,	-1,	100,	100
+83,	77,	0,	-1,	244,	25,	100,	100
+84,	77,	0,	-1,	-1,	-1,	100,	100
+93,	85,	0,	-1,	-1,	-1,	100,	100
+85,	77,	0,	-1,	25,	244,	100,	100
+93,	83,	0,	-1,	-1,	-1,	100,	100
+30,	86,	0,	-1,	-1,	-1,	100,	100
+87,	30,	0,	-1,	-1,	-1,	100,	100
+30,	88,	0,	-1,	-1,	-1,	100,	100
+86,	78,	0,	-1,	25,	244,	100,	100
+87,	78,	0,	-1,	-1,	-1,	100,	100
+96,	88,	0,	-1,	-1,	-1,	100,	100
+88,	78,	0,	-1,	244,	25,	100,	100
+96,	86,	0,	-1,	-1,	-1,	100,	100 
+93,	6,	0,	-1,	-1,	-1,	100,	100 
+83,	94,	0,	-1,	244,	25,	100,	100 
+85,	95,	0,	-1,	25,	244,	100,	100 
+93,	94,	0,	-1,	-1,	-1,	100,	100 
+93,	95,	0,	-1,	-1,	-1,	100,	100 
+96,	30,	0,	-1,	-1,	-1,	100,	100 
+86,	97,	0,	-1,	25,	244,	100,	100 
+88,	98,	0,	-1,	244,	25,	100,	100 
+96,	97,	0,	-1,	-1,	-1,	100,	100 
+96,	98,	0,	-1,	-1,	-1,	100,	100
+
+Change the tail ball info so that the ballz join up correctly
+
+62, 	107, 	1,	-1,	244, 	244,	95,	95		;tail
+107, 	61, 	1,	-1,	244, 	244,	95,	95		;tail
+61, 	106, 	1,	-1,	244, 	244,	95,	95		;tail
+106, 	60, 	1,	-1,	244, 	244,	95,	95		;tail
+60, 	105, 	1,	-1,	244, 	244,	95,	95		;tail
+105, 	59, 	1,	-1,	244, 	244,	95,	95		;tail
+59, 	104, 	1,	-1,	244, 	244,	95,	95		;tail
+104, 	58, 	1,	-1,	244, 	244,	95,	95		;tail
+58, 	103, 	1,	-1,	244, 	244,	95,	95		;tail
+103, 	57, 	1,	-1,	244, 	244,	95,	95		;tail
+57, 	49, 	1,	-1,	244, 	244,	95,	40		;tail/butt
+
+Now, you have to re-connect the cheek and mouth-corner ballz properly since you 
+moved them from 89 etc to 80 etc.  So instead of this:
+
+;face
+;52, 	89, 	0,	-1,	244, 	244,	95,	95
+;52, 	90, 	0,	-1,	244, 	244,	95,	95
+91, 	89, 	0,	-1,	-1, 	-1,	95,	45
+92, 	90, 	0,	-1,	-1, 	-1,	95,	45
+53, 	93, 	0,	-1,	-1, 	-1,	100,	100
+53, 	94, 	0,	-1,	-1, 	-1,	100,	100
+93,	 51, 	0,	-1,	-1, 	-1,	100,	100
+94,	 51, 	0,	-1,	-1, 	-1,	100,	100
+51, 	56, 	0,	244,	244, 	244,	0,	100	
+91, 	15, 	0,	-1,	-1, 	-1,	100,	70	
+92,	39, 	0,	-1,	-1, 	-1,	100,	70	
+;91, 	56, 	0,	-1,	-1, 	-1,	100,	100	
+;92,	 56, 	0,	-1,	-1, 	-1,	100,	100	
+91, 	 93, 	0,	-1,	-1, 	-1,	95,	95	
+92,	 94, 	0,	-1,	-1, 	-1,	95,	95	
+89,	 15, 	0,	-1,	244, 	244,	95,	95
+90,	 39, 	0,	-1,	244, 	244,	95,	95
+;89, 	51, 	0,	-1,	244, 	244,	90,	90
+;90, 	51, 	0,	-1,	244, 	244,	90,	90
+
+you want this
+
+;face
+99, 	80, 	0,	-1,	-1, 	-1,	95,	45
+100, 	81, 	0,	-1,	-1, 	-1,	95,	45
+53, 	101, 	0,	-1,	-1, 	-1,	100,	100
+53, 	102, 	0,	-1,	-1, 	-1,	100,	100
+101,	 51, 	0,	-1,	-1, 	-1,	100,	100
+102,	 51, 	0,	-1,	-1, 	-1,	100,	100
+51, 	56, 	0,	244,	244, 	244,	0,	100	
+99, 	15, 	0,	-1,	-1, 	-1,	100,	70	
+100,	39, 	0,	-1,	-1, 	-1,	100,	70	
+99, 	 101, 	0,	-1,	-1, 	-1,	95,	95	
+100,	 102, 	0,	-1,	-1, 	-1,	95,	95	
+80,	 15, 	0,	-1,	244, 	244,	95,	95
+81,	 39, 	0,	-1,	244, 	244,	95,	95
+
+If you want your breed to have whiskers, add this to the .lnz file somewhere:
+
+[Whiskers]
+;start, end, color
+15, 89, 45
+15, 90, 45
+39, 91, 45
+39, 92, 45
+
+And finally, in [Ballz Info] you'll want to change the size of ballz 6 and 30 each to -4.
+
+You can of course tweak the various ballz and linez to suit yourself, but that's the basics 
+of how to do it.
+
+Enjoy!
+
+Carolyn Horn
+
+
+

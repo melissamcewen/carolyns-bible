@@ -1,0 +1,43 @@
+
+Converting Petz 4 breedfiles to Petz 5
+======================================
+
+This is just a quick "howto" which I hope to improve on soon, but I thought I'd better get this out quickly as a lot of people are asking.
+
+It's almost as simple as converting from Petz 3 to Petz 4, and indeed the method is the same, but there are a couple of things to watch out for.
+
+As with all breed conversions, you need a hex editor.  I'm sure you already have one if you're trying to convert breedz, but if you haven't, a quick Internet search on www.google.com for "freeware" and "hex editor" should produce a few.
+
+I'm assuming that, if you are reading this, you are already familiar with the basics and with using a hex editor.  I'm also assuming that what you are going to convert is a fairly standard hexie; not one which has been re-compiled in a Resource Editor and not one of the more complex breedz, such as my Snowbo or Swedish Elk, which have additional clothes and different sounds etc, or have several new internal names for sprites etc.  It's best that you learn how to convert standard hexies and understand what you're doing before you try tackling those.  Then, when you do come to something complex, you will be able to figure out how to do it relatively easily.
+
+Okay, open the Petz 4 hexie into your hex editor.  Now also open a copy of the Petz 5 base breedfile into the hex editor.  Search in both for the two uppercase letters BM.  A few bytes above that you will see the two bytes that make up the offset number; these two bytes are 10 bytes from the start of BM.  In the case of the Great Dane, for instance, it is F403 and you can see it in the line above the BM in the hex part of the example below:
+
+00008920 0000 0000 426F 6F74 7A00 0000 0000 0000 ....Bootz.......
+00008930 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00008940 0000 0000 F403 0000 0100 0000 0000 0000 ................
+00008950 424D C029 0000 0000 0000 3204 0000 2800 BM.)......2...(.
+
+select these two bytes in the old hexie and choose "copy"; then select the two bytes in the P5 file and choose "paste".  Now then, we have the bitmap section (which is what that BM is the start of).  This is where it gets a little tricky; if you have internal bitmaps in your hexie, then you will have to turn them into external bitmaps in P5, because that game no longer keeps them in the breedfiles.  So in the hexie breedfile, you will need to select each of the bitmaps, copy/paste each one into a new file in the hex editor, and save each one out with a suitable name.  One of these will be the Adoption Centre bitmap, and you want to copy/paste that into the new P5 breedfile.  But there is one more little trap; some breedfiles contain two copies of the AC bitmap, one after the other.  So, open the AC bitmap into the hex editor and select the whole of it.  Now select the same number of bytes in the P5 file, starting with BM.  You should end up with either another BM directly after (in which case, do the same again) or with the start of the .lnz file (in the form of a semi-colon followed by the name of breed).
+
+Right, now it's the turn of the .lnz section itself.  In the hexie, select the whole of the .lnz, from that beginning part down to PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Select the same area of the Petz 5 file.  Are they the same length?  Yes?  Hurray!  In that case, "copy" the hexie's selected part and "paste" it into the P5 files' selected part.  If the answer was "no", then the difference in size will probably lie in the [Texture List].  So you can either select the .lnz sections down to where that list starts and copy/paste and then select them from the start of the [Ballz Info] to the PFM_[V2.001] and copy/paste, editing the texture list by hand later, or you can copy the hexie's .lnz out to a new file in the hex editor, save it as breed.txt, edit the texture list in Notepad so that it points correctly to your furfiles, remove or add spaces to make breed.txt the correct length, re-open it into the hex editor, and copy/paste it back into the P5 breedfile.
+
+The only remaining part that will need to be edited is the re-naming area near the bottom of the file.  do a search for the hex string 50004600; that'll get you to the correct place.  Close below it, in the Great Dane for instance, you'll see this:
+
+000AF270 0000 0000 0000 0000 0000 0000 0000 0000 ................
+000AF280 0000 0000 0000 0000 0500 4200 6F00 6F00 ..........B.o.o.
+000AF290 7400 7A00 0A00 4700 7200 6500 6100 7400 t.z...G.r.e.a.t.
+000AF2A0 2000 4400 6100 6E00 6500 0200 4700 6400  .D.a.n.e...G.d.
+000AF2B0 0000 0000 0000 0000 0000 0000 0000 0000 ................
+
+Now, your hex editor may show the dots as blanks or squares or weird characters.  It doesn't matter; those are not ASCII bytes, and the editor is trying to make sense of them in its ASCII pane.  What you want to do is to select from three bytes before the start of the name area -- in this case the start is B.o.o -- to a few bytes after it in each breedfile.  Select the same number of bytes, make sure that they start three bytes before the start of the name, and then you can safely copy/paste from the one into the other.
+
+Now make sure that your P5 breedfile is renamed to the same name as your hexie, and eureka!  It should come out of the Adoption Centre the next time you open the game.
+
+NOTE: Custom-made furfiles will cause the game to crash if they are any size which is not a multiple of 32 pixels wide and a multiple of 32 pixels high.  So a furfile which is 32x32, or 32x64, or 64x64, or 64x128 etc will work fine; one which is 30x48 will crash your game when the pet tries to come out.  It's a simple matter to open the bitmap into your paint program and change the image size, although it's a nuisance to have to remember.  Oh, and I believe that 128x128 is as large as you can go without also crashing the game.
+
+Two final things I have noticed: 1) quite often the P5 game won't show a hexie unless you have all the official breedz in the Catz/dogz directories 2) if you have the pigz or bunniez visible in the Adoption Centre (see my "fixed" breedfiles) you will notice that one or two of the breedz at the bottom of the list are missing from the adoption centre.  This is easy enough to fix; just have "adoptable" pig and/or bunny breedfiles in the catz/dogz directories only when you actually want to adopt them.  Have the game's default breedfiles in there when you don't.
+
+Hope that helps
+
+Carolyn Horn
+

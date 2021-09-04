@@ -1,0 +1,342 @@
+Sounds -- how to make your species "speak"
+==========================================
+
+Contents -- You need a hex editor or Easy-edit kit and a sound editor
+            What needs changing inside the breedfile
+            Making the sounds Internal
+            Making the Sounds External
+
+You need a hex editor or Easy-edit kit and a sound editor
+==========================================================
+
+First, try my easy-edit kits.  They are downloadable from my site and,
+if you read the readmes and install them properly, the only thing you'll
+need to use for sound altering is Notepad and a sound editor!
+
+If you don't use the easy-edit kits, you'll have to use a hex editor at
+least some of the time.  If you don't have one, there are loads of them
+available for download, and they all do the same basic tasks, although
+some of them have complicated "bells and whistles" too for power-users. 
+You can get various freeware ones, such as: 
+Hexedit, from
+http://www.okinfoweb.com/moe/files/hexedit.zip 
+Hexedit (yes, same name, different program) from
+http://www-physics.mps.ohio-state.edu/~prewett/hexedit/index.html
+Axe, available from some of the simtelnet mirrors but hard to get and
+so, at the time of writing this, you can also download Axe from my site.
+
+If none of these suit you, do an Internet search (using one of the
+online search engines such as Google or Yahoo) for "hexedit" and
+"freeware".  All of them are pretty straightforward to install, I
+think.  Then, if you have the shortcut to your chosen one on your
+desktop, you can drag-and-drop any file you want to investigate onto
+it.  They all show files in a similar way: there are three sections, the
+left-hand one being the "Address" section and containing numbers which
+show which byte you're looking at (in Hex numbers usually), and it
+starts at 00.  The middle section is the meat of the thing, being the
+actual data of the file shown as hexadecimal numbers.  The right-hand
+side shows the file itself also, but in this case as raw ASCII so that
+you see it as a mix of weird symbols or dots and text.  Most of the time
+you will be looking at that right-hand section in order to find or
+fiddle with bits of text.
+
+It is possible of course to edit breedfiles etc (_not_ petfiles!) in a
+modern-day Windows Resource Editor such as the one at
+http://www.users.on.net/johnson/resourcehacker/ which is fine, as you
+get to see the .LNZ file the way it's supposed to be and, as opposed to
+using a hex editor for the job, you don't have to keep the file size
+always the same.  The down side is that Resource Hacker re-compiles the
+file each time you make changes, and eventually it often corrupts.
+
+Other useful tools
+------------------
+
+Notepad.exe -- came with Windows.  Used for altering the text info 
+on soundfiles.
+
+Sndrec32.exe -- comes with Windows, I think -- or preferably some better 
+Wav sound editor. This is really just if you're going to do species other 
+than dogs or cats; then you may want to change the sounds. There are quite 
+a few freeware or shareware Wav file editors on the Internet.  Try the 
+Google search engine to find what's available these days and see which 
+one suits you best.
+
+Before you start...
+------------------
+
+1. Make a backup of your breedfile before you start fiddling with it!
+
+2. Remember as with all sections of the breedfile that everything 
+has to be the same size (same number of actual bytes) after you've 
+finished as before you started, unless you're using Resource Hacker
+to delete or replace sounds.  You can of course use that for the job,
+but remember that Resource Hacker can end up corrupting your file if
+you change too much too many times, so make sure you always have a
+recent backup of the file, clearly labelled so that you can find it 
+again -- I say "clearly labelled" because you can easily get muddled;
+Resource Hacker never changes the date when it saves a file.
+
+If you're making a breed which shouldn't have cat or dog sounds, you'll 
+want to change the sounds almost completely.  If you want it to be mute,
+then all you need to do is to redirect the Sounds .txt file to somewhere
+nonexistent.  This doesn't crash the game, it simply mutes the breed.
+
+If you want your own sounds, then read on...  There are three areas you 
+want to deal with; two are lists and one is the huge part which contains 
+the RIFFs.  You'll need the Hex editor, Notepad (if you do it my way), 
+and a Wav file editor (I use Cooledit, but I'm sure others are just as good).
+
+What needs changing inside the breedfile
+========================================
+
+I shall take the Great Dane as example here; the same principle applies 
+to all breeds, whether based on cats or dogs.
+
+First, as I mentioned in Part 1 of this tutorial, near the top of the 
+breedfile there is the List Of All which looks like this in the ASCII 
+section of your hex editor:
+
+..........B.M.P.
+..B.O.O.T.Z...L.
+N.Z...G.D...G.D.
+P.U.P...S.C.P...
+T.X.T...B.E.V.E.
+N.T._.D.O.G._.G.
+D...G.D.S.N.D...
+W.A.V...G.D._.B.
+A.R.K.A.N.G.R.Y.
+0.1...G.D._.B.A.
+R.K.A.N.G.R.Y.0.
+2
+
+Etc.
+
+This is a list of what's in the breedfile.  As with the bitmaps, if
+you are creating Internal sounds, you will find that the Great Dane and
+your breed will "share" sounds, with the result that (for instance) your
+Bear will bark like a dog and your game's Dane will growl like a bear.
+Actually rather quaint, but if you have it like that at least you should
+intend it to be that way and know how to change it if you want to :-)
+
+It is of course possible to redirect the sounds to a directory on the 
+hard disc, from within the .Lnz section, and if you do, you can keep the 
+sound list with its G.D._.B.A.R.K.A.N.G.R.Y.0.1 plus the unused standard 
+internal sounds.  But if you do that, and you are intending to let others 
+download your file, it will make the whole thing much bigger than it need 
+be.  Better, in that case, to over-write all the RIFF section with null bytes 
+(Hex 00) -- and alter the section containing G.D._.B.A.R.K.A.N.G.R.Y.0.1 
+as detailed above so that your other Great Dane pets don't become silent!
+If you're using Resource Hacker to remove the sounds from the inside of
+the breed, none of this will be necessary because the breed will naturally
+reduce in size and the references to the sounds will automatically be
+removed.
+
+Making the Sounds Internal (are you _crazy_??)
+=========================
+
+So, back to the Great Dane List Of All; you can see that there is quite a 
+long list of WAV sounds (78 of them to be precise) starting from
+
+G.D._.B.A.R.K.A.N.G.R.Y.0.1
+G.D._.B.A.R.K.A.N.G.R.Y.0.2
+
+In the case of altered internal sounds, you will have to change a letter 
+in every single one of these (as with the bitmaps above) if you don't 
+want the sounds to clash, so it will look something like:
+
+G.D._.B.A.R.K.A.N.G.R.S.0.1
+G.D._.B.A.R.K.A.N.G.R.S.0.2
+
+You will have to keep a note of what letters you've changed in the above 
+list because you'll need to change the same letters in _another_ list 
+which I'll discuss later.
+
+Apart from the need to change the sound names here, this first list is 
+an important one, because it shows the sounds in order of appearance 
+in the file, so you will know that the first RIFF will be an angry bark 
+and so on.  Very useful if you want to put the sounds inside the breedfile 
+and therefore need to know where to put the sounds of an infuriated or 
+happy guinea-pig.
+
+The next area of importance for the sound-changer is much further down 
+the breedfile, past the bitmaps and main .LNZ editing area, where you 
+will see a list of WAVs.  This is a text area of the file and starts:
+
+Sounds root path=ptzfiles\dog
+
+and finishes
+
+sharedsnd\puppy\NONE.WAV....RIFF
+
+That word RIFF is the beginning of the first actual WAV file.  You can 
+highlight the whole of this text from Sounds to the last NONE.WAV, copy 
+it into a new file, and save it as a .txt file.  This can be opened in 
+Notepad and edited to suit.  The sounds which you can alter are all listed 
+as being in the directory gd\sounds\; here you will want to change the 
+individual letters to correspond with the ones which you changed in the 
+first list -- so where you see
+
+gd\sounds\gd_barkangry01.WAV
+gd\sounds\gd_barkangry02.WAV
+
+you would change that (in this example) to 
+
+gd\sounds\gd_barkangrs01.WAV
+gd\sounds\gd_barkangrs02.WAV
+
+Now, the stuff which is listed under various "sharedsnd\" directories 
+is in the main resource .DLLs.  If you want to edit them in your own .dll, 
+remember that they are _shared_ sounds, so you'll have your other dogz or 
+catz using them too! 
+
+Meanwhile, you have (in the Great Dane) 78 adult sounds to play with, 
+which is a lot of work already, without having to do the rest (more than 200)!
+
+What you have to do with any of the other sounds that you don't want is 
+to turn them off.  Do that simply by replacing, say,
+
+sharedsnd\puppy\pb_howlyiplow01.WAV
+with
+sharedsnd\puppy\NONE.WAV
+
+BUT remember -- if you're doing all this internally, fill out that line 
+with spaces to make the line the same length as before!!  The finished text 
+file _must_ end up the same length as the one you started with unless you 
+have chosen to make the sounds external.
+
+When you've finished, copy-and-paste the finished WAV list back into the 
+breedfile exactly where it came from.  
+
+And now -- the RIFFs <screams gently>  What you have here is a set of 78 
+WAV files, each one slightly different in size, and most of which you 
+will want to change (as for instance with a horse).  The only way I've 
+found so far of getting it right is to copy out the whole 599,522 byte 
+section from the beginning of the first RIFF to just before the letter 
+count (HEX 17) before (.c.). .1.9.9.7. .P.F...M.a.g.i.c.,. .I.n.c.  
+_Don't_ remove that letter count, by the way; it works in the same 
+way as the letter count before the breed name (discussed in Part 1).
+
+Now that you have this chunk of Wavs, you want to split it into individual 
+ones.  That means cutting and pasting 78 sections, from the beginning of 
+each RIFF to the beginning of the next, into individual new files and 
+saving them.  Make sure you number them so that you know which sound goes 
+back where, and so that you can figure out which neigh, whinny or whatever 
+should go in which (using the first list above).
+
+Then get out your sound editor and the horse sounds (or bear, etc) that you 
+want to put into the breed.  You will find that they are too big...  Well, 
+for each of the 78 sounds, take the original taken from the Great Dane breed, 
+paste into it a suitable section of the horse sounds, and save it; it should 
+be in the correct format for petz then (4 bit or 8 bit, 22,050 Hz, Mono) and 
+either the exact size in bytes or smaller.  If it's bigger you're going to 
+have to try again, slicing a bit off in your sound editor.  If it's smaller, 
+you will be able to add the necessary number of null bytes (HEX 00) to the 
+end of it in the hex editor.
+
+Okay, now that you've got your 78 new sounds, each in the correct format 
+and each the correct size, you can re-assemble them in the correct order.  
+The finished file should be the exact number of bytes in length as the 
+original chunk you copied.  Copy and paste it back into the breedfile in 
+the right place.
+
+You should now be able to run the breed and hear whatever thumps or 
+whimpers you chose to leave for the puppy; you'll have to bring a pet
+to adulthood in order to hear your new sounds.  You can either adopt
+one and check it out quickly enough by putting the computer clock forward, 
+tickling the pet (so it doesn't run away) and opening the game; do 
+this a few times and you'll soon hear those sounds. Or you can download
+and install the brain-sliders (from my site) or Omar's debugger (from
+Daniel Wright's site) and use the sliders to "age" the pet at the 
+Adoption Centre.  If you don't approve either of fast-forwarding the clock, 
+or using brain-sliders, you're going to have to wait a few days...
+
+Well, that was a lot of work, wasn't it?  I can't believe that I went 
+through the whole patient process for my early Species -- the Great Bear,
+Horse Equus, Swedish Elk, and Dawn's Guinea Pig.  Sheesh.  Anyway,
+if you're a masochist at heart that's how to do it.
+
+Making the Sounds External
+==========================
+
+Ah, the bliss -- this is so much simpler!  First off, with a Petz 3, 4 
+or 5 breed, if you don't want your breedfile to be unneccessarily large 
+for sending through the Internet, select the whole of the RIFFs section 
+in your Hex editor and replace everything there with null bytes (hex 00), 
+and alter the section containing G.D._.B.A.R.K.A.N.G.R.Y.0.1 as detailed 
+above so that your other Great Dane pets don't become silent.  When zipped, 
+the breedfile will now be very small, and the size of the final zip will 
+depend only on the number and size of WAVs you use.  With a Petz II breed, 
+you can do the same thing with some of them, but others have all the sounds 
+in their "X" file, so you can simply replace the "X" file with another 
+small one and rename it.
+
+Now get your new species sounds, sort them into types -- sad, frightened, 
+happy etc, and name them accordingly.  Better make sure they are 
+4 bit or 8 bit, 22,050 Hz, Mono.  Now, put these in a suitable subdirectory 
+off your Petz game's Dogz directory; call it "h\sound", for instance, so 
+the WAV files all go into the directory \resource\dogz\h\sound.
+
+Now, in your breedfile (assuming your breed was hexed from 
+a Great Dane), find:
+
+[Sounds]
+\ptzfiles\dog\gd\gdsnd.txt
+
+Change that to
+
+[Sounds]
+\resource\dogz\h\hesnd.txt
+
+You now want to make that "hesnd.txt" file.  Okay, as for Internal 
+sounds, do a search for 
+
+Sounds root path=
+
+and copy from there to the end of the last WAV to a new file in the 
+hex editor, only this time save it as "hesnd.txt", in the directory 
+\resource\dogz\h.  You might as well replace that section within the 
+breedfile with null bytes (hex 00), as you don't want it to be used.
+
+Change the first line in the new textfile to
+
+Sounds root path=resource\dogz\h\sound
+
+Now, you want to go through the whole list, making sure that your 
+sounds are pointed to correctly; this means removing all the gd\sounds\.  
+For instance, gd\sounds\gd_yell01.WAV needs to be changed to yodel.wav 
+(without the "gd\sounds\") if you're going to get your breed to yodel 
+at that point. Leave the TOY wavs alone, also the ones which say "none.wav".  
+Where there is a sound that doesn't fit with your breed, either make a 
+sound for it, put it in the sound subdirectory, and enter its name over 
+that wrong sound in the list, or replace its name with none.wav.  If you 
+want it to moan every time "moan" is listed in the textfile, but you only 
+have one suitable sound for the moan, just replace all the variations 
+of moan in the text file with copies of that single wav file name.  
+If you want it to have some of the sounds which are in the shared Dll, 
+simply leave those in the textfile.  The game will pick them up.  
+You _do_ need to have the same number of lines in the textfile when 
+you finished as when you started, if you want the game to pick up the 
+correct files at the correct times.
+
+It's a bit time-consuming, but worth the effort to get proper sounds 
+for your species.  It's a lot less hassle and a lot more flexible 
+than inserting the files into the breedfile, and it has the added 
+bonus that you can have your breed making sounds when it's a puppy 
+or kitten as well as when it's adult.
+
+Troubleshooting
+---------------
+
+If the game crashes when the pet tries to make a new noise, check that 
+you've got all those sounds in the correct format (WAV, 4 bit or 8 bit, 
+22,050 Hz, Mono).  It _is_ possible to use compressed sounds of a particular 
+kind, but on some computers they can either crash the game or not be heard.
+
+If the pet makes no sounds at all, or refuses to make his adult noises, 
+or makes the wrong noises at the wrong times, check that you have everything 
+exact; the two lists have to agree about the sound names, and for internal 
+sounds, the sizes (in bytes) of each individual sound have to be exact.
+
+Enjoy!
+
+Carolyn

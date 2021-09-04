@@ -1,0 +1,47 @@
+
+I want my duckling to look like a ball of yellow fluff, but not my adult duck.
+=========================================
+
+This is how I do the trick:
+
+In the adult .LNZ, in [Add Ballz], I put the extra fluff ballz and I make them very small.
+I make a note of which ball-number each extra added ball is by the usual method of counting
+down the lines of added ball data.
+
+In the "kitten" or "puppy" .LNZ, I pop those ball-numbers into the [Ball Size Override]
+section, putting each ball number on a new line with a space between it and the size that
+I want the ball to be.
+
+The babies will come out with the big fluffy balls, and they will gradually disappear as
+the baby grows up as if the pet is moulting its baby-down.
+
+I want the same as above, but I want extra balls to make wings, and they grow in funny
+=========================================
+
+Yes, I've done a lot of experimenting here and this is what works.  For this you are
+either going to have to use external-lnz files or ResHacker, as the kitten or puppy file
+is going to be much bigger than before unless you're using the Chinchilla Persian.
+
+As before, in the adult .LNZ, in [Add Ballz], I put in all the extra ballz that I want.
+I make the baby's fluff balls very small and I make the wings (or other extensions) how
+I want them to look in the adult.
+
+Now I take the adult [Add Ballz] section and paste that into the kitten or puppy area,
+complete and untouched.  Now here comes the bit that you need to get right, or it'll be
+very frustrating.  The number of ballz in this [Add Ballz] section needs to be the exact
+same number as in the adult [Add Ballz].  Try adding in an extra one or removing one, and
+your whole puppy/kitten add ball data will simply be disregarded by the game.
+
+Right, there are only some things that can be changed between the two; but the important
+things are these:  The ball size and the ball position.  It is much better to use this
+method for ball position than, say, [Move], because you can sometimes get unpredictable 
+results (crashes etc) if you list added ballz in [Move].
+
+You will now find that the baby comes out as you wish, and will grow delicately into 
+a fully-fledged adult.
+
+Enjoy
+
+Carolyn
+
+

@@ -1,0 +1,529 @@
+Tutorial for editing Catz 1 breedfiles (Mac and Windows) and pet files (Windows)
+===============================================================================
+
+The earlier version of this tutorial was done in 1999.  This version updated
+and with Mac user information April 2003.
+
+Contents: Editing Breedfiles (includes colour list and Balls list)
+          Testing or Installing the new breed
+          "Hex-painting" individual cats.
+
+Also included in the zipfile is a colour chart bitmap.
+
+
+Editing breedfiles
+=================
+
+Mac users:
+----------
+The Mac game is a little different from its Windows counterpart, in that 
+all the cat breed resource files are packed into one, called CatzData.rsrc,
+instead of being spread out individually in a directory or folder.  This 
+means that anyone who wants to edit a breed is going to have to do a little
+work with ResEdit, and the simple text editor if you want to edit in a similar
+way to Windows users with Notepad.
+
+First of all, find CatzData.rsrc (it's in your game's Resources folder) and
+make a copy of it.  Put the copy somewhere safe; you can then always get 
+back to your original 5 breedz with no trouble.
+
+Now open the CatzData.rsrc file in ResEdit.  Open the  "Alnz" item, and 
+then open your breed of choice; for instance, take the "aclown" which is 
+listed in there.  Select all of the aclown text -- make sure it's the
+ascii, not the hex numbers representation, that you're selecting -- and 
+choose copy.  You can now "paste" it into the text editor, edit it to your 
+heart's content and then, when you want to see how it's going, select it 
+all, copy it back over the original aclown and save.  Perform the same 
+operations with the "kclown" that's in the resource file.  When you've 
+finished the breed, it will be in the "Jester" basket at the Adoption Centre.
+
+If your previously-adopted cat was a "Jester" type and you play with it 
+instead of adopting a new pet, then it will transform into your new breed.  
+Don't forget to choose "Restore Original Colours" from the Options menu in 
+the game if you want your breed to look right!  Your pet will of course 
+transform back into the original Jester if you replace the edited 
+CatzData.rsrc with the original one, and again you will have to restore 
+its original colours.
+
+Windows users:
+--------------
+Look in your Resource directory; you will see several files with the
+extension .LNZ.  These are the breedfiles.
+
+There are two files for each breed; the kitten version starts with K and
+the adult with A. You will have to edit both to make your breed; the
+kitten can be as similar to or different from the adult as you like.
+
+So, if you start with a siamese, you will edit:
+
+Asiamese.lnz
+Ksiamese.lnz
+
+These can be opened into Notepad and edited there.  
+
+For both Mac and Windows users:
+-------------------------------
+
+Okay, now that we've found the files and got them open, we can start
+the editing :-)
+
+Change the numbers, not the text, as the program needs the text in 
+order to recognise which numbers to use where.  Much of it is 
+self-explanatory, such as:
+
+[256 Eyelid Color]
+32
+
+[256 Iris Color]
+0
+
+[16 Eyelid Color]
+0
+
+[16 Iris Color]
+15
+
+The numbers here are for the colours, assuming first that the palette of
+the user's computer will be a 256-colour one and second a 16-colour one.
+The 16 colours go from 1 to 15, and the 256 colours go from 0 to 255.  
+Use the colour chart included with this "howto" to help you choose the
+colours you want.
+
+The whiskers too can be changed:
+
+[Whiskers]
+;start, end, color
+30, 57, 8
+
+If you list nothing under [Whiskers], the pet will have no whiskers, as
+with my Zott.  You can change it so that the whisker balls are joined
+to balls other than the jowls.
+
+The Defaults can be changed to make giant or miniature breeds, of course:
+
+[Default Scales]
+128			normal pet scale
+128			normal ball scale
+256			puppy pet scale
+256			puppy ball scale
+
+I presume the baby stage is referred to as "puppy" as a legacy from the
+original Dogz program.  The numbers that I would normally change are the
+two "normal" ones.  If you change one to be a larger number than the
+other, you can get unusual effects, such as skeletal or very fat.
+
+Don't go fiddling with the lists such as [Eyes] unless you want unpredictable
+results:
+
+[Eyes]
+15, 14			RightEye/leftEye
+28, 27 			RightIris/leftIris
+
+As with Petz 2 and 3, the various enlargements and extensions can be
+changed; for instance:
+
+[Leg Extension]
+-10
+50
+
+shortens the front legs by -10 but lengthens the back legs by 50.
+
+Also of course if you want to be adventurous (and maybe get
+some weird effects) there's nothing to stop you from fiddling with the
+numbers in the [Move] and [Project Ball] sections, or the [Linez]. 
+In fact, you will have to do so if you want to do anything as unlike
+a cat shape as, say, my Zott.
+
+In the [Move], the first number is the ball and the second the 
+distance from the normal that it is offset to the side, up/down, or
+forward/back.  
+
+In the [Project Ball], the first number is one ball, the second number 
+is another, and the third number is the distance between the two.  
+
+Mac users will find that most of the lists that I talk about next (apart
+from the [Linez]) appear for them simply as single columns, without the 
+column of mnemonics that show up for Windows users. Don't worry about it, 
+just keep a copy of my ballz list handy (lower down in this tutorial).  
+
+The numbers in the [Head Balls], are simply listings of the actual numbers 
+for the balls, so that the program will know that ball number "7" (the chin) 
+must be treated as a head ball by the game's engine.
+
+[Head Balls]
+4	eBall_cheekL,
+5	eBall_cheekR,
+7	eBall_chin,
+etc
+
+You _can_ add other ballz to the [Head Balls] list; they will then move
+around in the same way as the head itself.
+
+In the [Linez], you have
+ 
+;srt	end	fuzz	col	lfCol	rtCol	sThck	eThick
+
+which works like this: first ball and second ball to which the linez are
+attached; fuzz and colour of the linez; colour of their outlines; and the
+thickness of the outline on each side of the linez. Here is a list of
+the ballz and their numbers if you want to fiddle with these sections (L
+refers to left and R to right):
+
+0	ankleL,
+1	ankleR,
+2	belly,
+3	butt,
+4	cheekL, (ball behind the Jowl and chin balls, and below the ear),
+5	cheekR,
+6	chest,
+7	chin,
+8	earL1, (tip)
+9	earL2, (base)
+10	earR1,
+11 	earR2,
+12	elbowL,
+13	elbowR,
+14	eyeL,
+15	eyeR,
+16	fingerL1,
+17	fingerL2,
+18	fingerL3,
+19	fingerR1,
+20	fingerR2,
+21	fingerR3,
+22	handL,
+23	handR,
+24	head,
+25	hipL,
+26	hipR,
+27	irisL,
+28	irisR,
+29	jaw,  (goes back into the head from the chin, between the cheeks),
+30	jowlL (the ball beside the snout and nose, in front of the cheek),
+31	jowlR,
+32	kneeL,
+33	kneeR,
+34	knuckleL,
+35	knuckleR,
+36	neck,
+37	nose,
+38	shoulderL,
+39	shoulderR,
+40	snout (directly behind nose),
+41	soleL (i.e. the foot),
+42	soleR (i.e. the foot),
+43	tail1 (nearest to the butt),
+44	tail2,
+45	tail3,
+46	tail4,
+47	tail5,
+48	tail6 (tip),
+49	toeL1,
+50	toeL2,
+51	toeL3,
+52	toeR1,
+53	toeR2,
+54	toeR3,
+55	tongue1,
+56	tongue2,
+57	whiskerL1 (upper whisker Left.  Whiskers spring from jowl),
+58	whiskerL2,
+59	whiskerL3,
+60	whiskerR1 (upper whisker Right),
+61	whiskerR2,
+62	whiskerR3,
+63	wristL,
+64	wristR,
+65	zorient,
+66	ztrans
+
+An important section, particularly for those who want a completely different
+shape to their breed, is the [Omissions] section.  Listed under this
+heading are all the ballz that you want to have not show up.  Be aware
+that any ball which is listed here will also affect the way [Linez] works
+when a Line is listed as joining an Omitted ball to a visible one.
+Note that if you want _whiskers_ to disappear you must have a blank [Whiskers]
+section (as shown above).
+
+The sections [256 Ball Color] and [16 Ball Color] are the start of what,
+in Petz II and 3, would be the [ballz info] table.
+
+In the original Dogz and Catz, this information is laid out as a series
+of lists beginning
+
+[256 Ball Color]
+[16 Ball Color]
+Refer to the colour chart to change your cat's colouring
+
+[Body Area]
+This appears to be similar to the "group" of later programs, 
+which controls how balls group together when they are painted by the paint 
+brush, as well as some other ball behaviours.
+
+[Speckle Map] (there doesn't seem much point in altering this)
+[Speckle Color]
+Speckles are the only way of getting textures in the Catz 1 breedz.
+All you can do with them is change the colour, but that can have good
+effects.
+
+[Ball Size Diffs] 
+This is where you can give your cat a huge nose or whatever; it's the 
+sizes of ballz relative to the defaults listed above.
+
+[Puppy Balls]  
+how much balls are enlarged when in "puppy" mode -- which of course
+means "kitten" in this case :-)
+
+[Outline Type]	
+As the programmers' notes say:
+-1 = no outline, 0 = half outline, > 0 = outline thickness
+
+[Outline Color]
+Erm, well, pretty simple -- it's the colour of the ball outline.  
+Refer to the colour chart :-)
+
+[Fuzz]
+As the programmers' notes say: How fuzzy is ball. 
+0 = no fuzz, 1 = some fuzz, 2 = more fuzz, 3 = boocoo fuzz
+
+Mess around with the numbers -- size, amount of outline and/or fuzz, and
+colours -- in the above "ballz info" sections to your heart's content;
+you can produce fascinating, beautiful, and repulsive effects.  Remember
+to hit "restore default colours" in the game when you are attempting to
+see the results of your colour changes on your test pet!
+
+Note that the files themselves contain a handy rule-of-thumb about 
+which of the 16-palette colours is which:
+
+0  black
+1  dark Red
+2  dark Green
+3  dark Yellow (this is really more like an olive green)
+4  dark Blue
+5  dark Magenta
+6  dark Cyan (teal?)
+7  dark Grey
+8  light Grey
+9  Red
+10 Green (this is a bright almost fluorescent green)
+11 Yellow
+12 Blue (a bright blue)
+13 Magenta (bright)
+14 Cyan
+15 White
+
+Note also that if you have the later programs, the colours are _not_ all
+directly interchangeable.  Numbers 10-15 are very different, being pale
+greys in Petz3.
+
+The 256-palette adds a lot more beyond these 16.  I list here just the
+ones I've found out by personal experiment; some of the colour
+descriptions are rough.  Where I put a number in brackets with a # in
+front, it's because I think that one is in the game's brush colour
+palette:
+
+16  bright blue
+17	dark green
+18	blue
+19	bright green
+20	very dark grey
+21	purple-blue
+22	dark brown
+23	mid-brown
+24	scarlet
+25	fluorescent pink
+26	yellow
+27	orange-red
+28-37	blacks (#32)
+38-47	light greys (#42)
+48-57	darker greys (#52)
+58-68	purplish blue/greys (#62)
+69-77	light brown (#72)
+78-87	darker browns (#82)
+88-97	yellows (#92)(higher numbers darker)
+98-107	orange (#102)
+108-117	Dark red (almost purply-red) (#112)
+118	pink (tongue)
+119-127	pink (#122)
+128-142	Various greys, light and dark
+143	red
+144	very dark red
+
+From here on some of the colours seem to change a fair bit as the pet
+moves, at least they do so in my game:
+
+145-152 various reds (mostly dark; flash to browns or greys)
+153-156 brownish reds (flash to browns)
+157-159 dark browns (flash to pinky-red)
+160-164 light browns (some flash to very dark browns)
+165-169 various mid to dark greys (some flash to different greys)
+170-174 various very light to mid greys
+175-179 very pale blue-whites
+180-184 greens (these sometimes flash to very pale blue-white)
+185-189 various pale greens/greenish blues (sometimes flash to dark blue)
+190     dark blue
+191     grey (flashes to dark blue or muddy green)
+192     pale grey
+193     pale grey
+194     muddy green
+195     black
+196     very dark brown
+197     very pale grey
+198     pale grey
+199     pale grey
+200     very pale grey
+201     pale grey (flashes to dark blue)
+202     pale grey (flashes to dark blue)
+203     pale grey (flashes to dark blue)
+204     pale grey
+205     light grey
+206     black
+207     pale grey
+208     powder blue
+209     pale blue (flashes to darker)
+210     pale blue (flashes to darker blue or slate grey)
+211     pale blue (flashes to darker)
+244     black
+255     black (flashes to dark red) which is interesting, since the palette
+(used for my colour chart) shows it as white.
+
+At the bottom of the file, there will be a list of [Default Factors].
+These may well let you change the personality of your breed.  Fool around
+with them -- it's a luxury that people with later versions of the game
+don't get :-)
+
+I believe that the three columns in this section relate to:
+default value,  rate of change, and a weighting factor (or limit of randomness).
+
+I've not really experimented much with this section, but judging by what's
+in the other early P.F.Magic games, these probably are the defaults for
+certain quirks of the breed.  And, looking into the various breedz I see that
+Scaredy's highest default number is in the 8th row down, and I would have 
+thought that that should be fear, so you can perhaps guess the other lines 
+in a similar way by comparing the cats.
+
+Anyway, fiddle around and see what results you get.  You should be able to 
+control (for instance) how much excitement is normal for your breed, and 
+how much variation there can be in the amount of excitement within the breed.
+My guess would be that the 11 lines of numbers correspond, not necessarily 
+in this order, to:
+
+energy, 
+fullness, 
+fitness, 
+happiness, 
+independence, 
+seriousness, 
+talkativeness, 
+fear,
+sickness, 
+catnipped, 
+fleas.
+
+But I could be wrong.  See what you can discover!
+
+For Windows users
+==================
+
+Here's something that you might like to try if you're making different
+species out of your cat:
+
+[Sounds]
+catsnd.txt
+
+Look in the Resource directory and you'll see catsnd.txt.  Unfortunately it 
+seems that editing it to point to different-named .WAV files doesn't seem to 
+work, I have no idea why, but you can still have different sounds in your game.  
+Just take all the files out of the game's "Sounds" directory and put them
+somewhere safe; then put your own new .wav sounds in there and rename them
+to exactly the same names as the ones you've just removed.
+
+All the ones listed in the default catsnd.txt file are .WAV files -- don't be 
+fooled by the .WVV extension.
+
+This is something that you will definitely have to alter:
+
+[Little one]
+ksiamese.lnz
+
+Change ksiamese.lnz to the "k" version of whatever your breed is going
+to be.  So if it's going to be a Ferret, and you call the adult .LNZ file
+Aferret.lnz, you must call the kitten Kferret.lnz and enter its name in
+that section of the adult file.
+
+For Mac users
+=============
+
+I'm sorry, I have no idea how to manipulate Macintosh soundfiles.  It should be
+possible to make your own and replace the ones in the game, but I cannot help
+you with details; you'll have to experiment.
+
+Testing or installing
+=====================
+
+For Mac users, adopt a pet from the relevant base breed, then just keep 
+saving the .lnz file in ResEdit, then opening the game to see your pet's
+progress.  Remember to hit "restore original colours" of course.
+
+For Windows users, test the breedfile as you go along by making sure that 
+the .LNZ files are in the resource directory, copying one of your .cat files
+and renaming it -- something like "test.cat".  Then open the cat file
+into notepad and, where you see it says 
+Cat1=\ptzfiles\cat\resource\Asiamese.lnz (or whatever the .LNZ file is for
+the original breed), change that to Cat1=\ptzfiles\cat\resource\Aferret.lnz
+(or whatever your breedfile is called).
+
+Also, open up the file "lastcat.ini" and where it says 
+
+Cat=F:\CATZ.CAR\jonbo.cat (or whatever the name was of the last cat played
+with) change the cat's name to Cat=F:\CATZ.CAR\test.cat
+
+Now you can run the program each time you want to see the way your cat is
+shaping up, and it will gambol around for you.  Remember to choose the
+"restore original colours" from the options menu each time!
+
+Note that you can test it as an adult by changing the "Age1=" line in
+the .cat file; make it Age1=100 if you want to test the adult stage, and
+Age1=1 if you want to test it as a kitten.
+
+Installing your finished breed is the same as for testing it, really.
+But Windows users, if you wish to adopt a _brand new_ kitten, you must 
+temporarily remove one of the P.F.Magic breeds from the Ptzfiles\Cat\Resource
+directory, and rename the files Aferret.lnz and Kferret.lnz to the name
+of that breed.  Make sure that there are no .cat files in the main
+directory, and open up catz.  Your ferret (or whatever) will pop up out
+of the basket of whichever breed was replaced. Simply adopt the cat in
+the usual manner, ignoring the fact that the breed name and picture is
+the old one. 
+
+Close the game. Now, rename the files back to Aferret.lnz and Kferret.lnz
+and replace the P.F.Magic files.  You must next open the .cat file of your
+newly-adopted kitten into Notepad and make sure that the line which starts
+"Cat1=" is changed to point to the Ferret file as above.
+
+"Hex painting" an individual cat (Windows users)
+================================================
+
+Unlike with the .pet files of later P.F.magic games, it's perfectly
+possible to change things within the adopted cat's own file.  I've
+already shown how the age can be changed; all the other lines are
+editable too, though I'd keep a copy of your favourite cat if I were
+you before fiddling around.  
+
+With respect to the colours, for instance, this is much more accurate and
+customisable than using the paintbrush.  Look for the line "saved Cat 256
+color=" in your .cat file.  The string of numbers after that will be the
+colours of the balls in order from 0 upwards (refer to my list above).
+ So, if you want to change the chin colour, find the 8th number and change
+it.
+
+The other areas, such as forgetfulness. learning etc, can probably be
+tweaked to change the personality of the pet; I don't know what each
+number means, but I'm sure a little experimentation will produce some
+interesting results.
+
+Enjoy!
+
+Carolyn
+
+

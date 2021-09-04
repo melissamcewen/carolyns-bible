@@ -1,0 +1,500 @@
+Tutorial for editing Dogz 1 breedfiles and adopted dogs' files
+==============================================================
+
+Contents: Editing Breedfiles (includes colour list and Ball numbers list)
+          Bugfix for missing right middle toe
+          Testing or Installing the new breed
+          "Hex-painting" individual dogs.
+          Expanded Colour List for Dogz 1
+Attachments: Colour Chart for Dogz 1
+
+
+Editing breedfiles
+=================
+
+Look in your Data directory; you will see some files with the extension
+.LNZ. These are the breedfiles.  There is one .LNZ for each breed, so,
+if you start with a bulldog, you will edit Bulldog.lnz.
+
+These can be opened into Notepad and edited there.  Change the numbers,
+not the text, as the program needs the text in order to recognise which
+numbers to use where.  Much of it is self-explanatory, such as:
+
+[16 Eyelid Color]
+3
+
+[256 Eyelid Color]
+26
+
+The numbers here are for the colours, assuming first that the palette of
+the user's computer will be a 16-colour one and second a 256-colour one.
+
+The Defaults can be changed to make giant or miniature breeds, of course:
+
+[Default Scales]
+260			normal pet scale
+300			normal ball scale
+180			puppy pet scale
+240			puppy ball scale
+
+If you change the pet scale numbers for either puppy or adult ("normal" is adult) 
+more than you change the ball scale numbers, the pet will be more stretched or more
+roly-poly than usual (depending on which is changed upwards in size relative to the 
+other). The results can be quite interesting!
+
+Don't go fiddling with the following lists unless you want unpredictable
+results -- aww heck, what's wrong with "unpredictable"?  LOL -- try
+changing the eyes around, for instance 8 32 instead of 32, 8...
+
+[Eyes]
+32, 8			RightEye/leftEye
+38, 14 			RightIris/leftIris
+
+[Key Balls]
+52		head
+50		chest
+
+[Tongue Balls]
+63
+64
+
+[Head Balls]
+1		eBall_Lbrow1,			// 1
+2		eBall_Lbrow2,			// 2
+3		eBall_Lbrow3,			// 3
+4		eBall_Lear1,			// 4
+5		eBall_Lear2,			// 5
+6		eBall_Lear3,			// 6
+8		eBall_Leye,			// 8
+14		eBall_Liris,			// 14
+15		eBall_Ljowl,			// 15
+etc
+
+That's because these are simply listings of the actual numbers for the
+balls, so that the program will know that the number "15" is a head ball
+and so it won't go floating around loose :-)
+
+[Omissions] is a useful thing to have if you want to make wildly different
+breedz such as my Snowbo.  Listing some balls here like this
+
+[Omissions]
+1
+2
+3
+(etc)
+
+causes those ballz to disappear, and if you then enlarge other ballz or
+stretch distances between with the various Extensions and join them
+up suitably with lines in [Linez], you can get a most non-doggy dogz.
+
+As with Petz 2 and 3, the various enlargements and extensions such
+as [Leg Extension], [Body Extension], [Face Extension], can be
+changed; also of course if you want to be adventurous (and maybe get
+some weird effects) there's nothing to stop you from fiddling with
+the numbers in the above-mentioned listed ball sections, or the [Linez]. 
+In the [Linez], you have:
+
+start ball, end ball, fuzz amount
+
+which means the start ball and end ball to which the linez are attached,
+plus the amount of fuzz on each line.  One of the things you can try
+here to possibly get unusual shapes is to attach one of the ballz to a
+different one.
+
+Here is a list of the ballz and their numbers if you want to fiddle with
+these sections.  L = left, R = right:
+
+0	L ankle
+1	L eyebrow1 (nearest the nose)
+2   	L eyebrow2
+3  	L eyebrow3
+4  	L ear1
+5  	L ear2
+6 	L ear3
+7   	L elbow
+8    	L eye
+9   	L finger1
+10   	L finger2
+11  	L finger3
+12  	L foot
+13 	L hand
+14 	L iris
+15	L jowl
+16	L knee
+17	L nostril
+18	L shoulder
+19	L hip
+20	L toe1
+21	L toe2
+22	L toe3
+23	L wrist
+24	R ankle
+25	R eyebrow1 (nearest the nose)
+26	R eyebrow2
+27	R eyebrow3
+28	R ear1
+29	R ear2
+30	R ear3
+31	R elbow
+32	R eye
+33	R finger1
+34	R finger2
+35	R finger3
+36	R foot
+37	R hand
+38	R iris
+39	R jowl
+40	R knee
+41	R nostril
+42	R shoulder
+43	R hip
+44	R toe1
+45	R toe2
+46	R toe3
+47	R wrist
+48	belly
+49	butt
+50	chest
+51	chin
+52	head
+53	jaw
+54	neck
+55	nose (bottom)
+56	snout
+57	tail1 (nearest the butt)
+58	tail2
+59	tail3
+60	tail4
+61	tail5
+62	tail6
+63	tongue1
+64	tongue2
+65	Z-trans
+66	Z-orient
+
+The sections [256 Ball Color] and [16 Ball Color] are the start of what,
+in Petz2 and 3, would be the [ballz info] table; in the later programs,
+the 16 Ball Colour is omitted, of course, and the information is laid
+out as:
+
+;col  outCol  spklCl  fuzz  otlntTyp  sizeDif  group  texture  ball#
+
+In the original Dogz, similar information is laid out as a series of
+lists beginning:
+
+[256 Ball Color] -- uses a 256-colour palette
+
+[16 Ball Color] -- uses only the first 16 colours, from 0-15, and used when 
+the computer is set to see only 16 colours.  This has a lot less flexibility,
+but with any luck most people's PCs can now see 256 or more colours.
+
+[Speckle Color] -- this is where you can give your dog's fur some slight 
+appearance of texture. As far as I can tell, the control of these speckles
+is pretty limited; you can't control the number, size or placing of speckles
+from within the .lnz file.  You can control whether they exist or not --
+putting -1 for every ball on which you want no speckles turns them off for
+that ball -- also you can change their colour.  However, I'm afraid even that
+is quite limited.  If you have a pale-coloured dog and want it to have even
+paler speckles, I have so far found that they will come out black.  I've tried 
+it for various combinations of pale colours, and the result is always the same;
+very dark or black speckles.  On the other hand, if the basic ball colour is a
+medium-to-dark one, speckles do usually take on the colour that you want them to.
+Some colours are "opaque" and others not so; this probably has an effect here also.
+Occasionally some strange anomalies occur even with a medium ball colour; for
+instance, a ball colour of 244 with speckles of 250 gives fawn with faintly 
+greenish specks, while a ball of 243 with speckles of 250 gives fawn with 
+red specks!  Anyway, experiment for yourself here; it's good when you get
+an effect that you like.
+
+[Ball Size Diffs] -- this is where you can give your dog a huge nose or
+whatever; it's the sizes of ballz relative to the defaults.
+
+[Puppy Balls]  how much balls are enlarged when in puppy mode -- self-explanatory!
+
+[Outline Type]	-1 = no outline, 0 = half outline, > 0 = outline thickness -- also
+self-explanatory, I think.
+
+[Outline Color]	-- this is a good place to get a nice effect; a pale outline
+colour will actually work as intended with a pale-coloured ball (unlike the 
+speckle colours), so you can get a nice sense of fluffy fur if you fiddle with this.
+
+[Fuzz]  how fuzzy is ball 0 = no fuzz, 1 = some fuzz, 2 = more fuzz, 3 =
+boocoo fuzz -- there's not much point in going above 3, but no harm in trying :-)
+
+Mess around with the numbers -- size, amount of outline and/or fuzz, and
+colours -- in the above "ballz info" sections to your heart's content;
+you can produce fascinating, beautiful, and repulsive effects.  Note that
+the files themselves contain a handy rule-of-thumb about which of the
+16-palette colours is which:
+
+0  black
+1  dark Red
+2  dark Green
+3  dark Yellow (this is really more like an olive green)
+4  dark Blue
+5  dark Magenta
+6  dark Cyan (teal?)
+7  dark Grey
+8  light Grey
+9  Red
+10 Green (this is a bright almost fluorescent green)
+11 Yellow
+12 Blue (a bright blue)
+13 Magenta (bright)
+14 Cyan
+15 White
+
+Note also that if you have the later programs, the colours are _not_ 
+all directly interchangeable.  Numbers 10-15 are very different, being
+pale greys in Petz3.  It's not a simple matter of number-substitution
+if you're converting a breed from or to a later version; really, you
+have to largely rebuild the breed.
+
+The 256-palette adds a lot more beyond these 16.  I list here just
+the ones I've found out by personal experiment; some of the colour
+descriptions are rough.
+
+16-18	light greys
+19-21	darker greys
+22-25	yellow-browns
+26-27	mid-brown
+29-33	yellow-browns to browns
+40	brown
+45	dark brown
+50	dark brown
+55	dark brown
+60	light bright green
+65	light olive green
+70	yellow
+75	yellow-green
+79	red
+80	red
+85	purple (dark lilac)
+90	blue-green
+95	purple-blue
+100	black
+130	dark brown
+150	dark green
+200	white
+208	light green
+244	orange
+
+Finally, there will be a list of [Default Factors] in which you can
+change the personality of your dog!  For the Bulldog the defaults are:
+
+[Default Factors]
+40, 20 			// excitement
+80, 20		 	// naughty
+80, 20			// grab object
+40, 20			// clumsy
+20, 20			// groom
+30, 20			// ham
+80, 20			// bark
+50, 20			// sickness
+10, 20			// spray fear
+80, 20			// frustaiton
+100, 20			// age
+
+I think that  The numbers in the two columns refer to: "Centre default
+factor" and "Random offset range on either side of default value". So
+you should be able to control (for instance) how much excitement is
+normal for your breed, and how much variation there can be in the amount
+of excitement within the breed.  You can change the numbers in the first
+column to negative numbers if you wish; for instance, changing the "spray
+fear" to -100 appears to give your dogz no fear of the spray.
+
+And here's something that you might like to try if you're making different
+species out of your dog:
+
+[Sound List]
+sounds/basndlst.txt		// adult
+sounds/bpsndlst.txt		// puppy
+40				// % of maturity for playing adult sounds
+
+Look in the Sounds directory and you'll see Basndlst.txt and Bpsndlst.txt.
+You can copy those and rename them, maybe to sealasnd.txt & Sealpsnd.txt
+and edit it also to point to different .WAV files.  All the ones listed
+in the default .txt files (look for them also in the Sounds directory)
+are .WAV files -- and they can of course be replaced also.  If you want
+your breed to have sounds listed in your "sealasnd.txt" and "Sealpsnd.txt"
+files, of course you will have to put that instead of basndlst.txt
+bpsndlst.txt in your breedfile.
+
+Bugfix for right middle toe
+===========================
+
+It might be a feature of the version of the game that I've got, but I
+have found that most, possibly all, of the breedz look as if they have
+only the two outer toes on the right back foot.  This is fine if you
+like it, and I know of no way of making the actual ball of the toe
+show up.  But you can make something that looks like a toe in the correct
+place by putting in the following, under
+
+[Linez]		// start ball, end ball, fuzz amount
+
+45, 36, 1			Rtoe2/Rfoot
+45, 46, 1			Rtoe2/Rtoe3
+45, 44, 1			Rtoe2/Rtoe1
+
+You will have to adjust the eBall_Rtoe2 under [Ball Size Diffs] to make
+it look right; for instance, in my American Staffordshire I gave it -8
+or else it looked as if he had a square block between his toes.
+
+Testing or installing
+=====================
+
+You can test the breedfile as you go along by making sure that the .LNZ
+file is in the Data directory, and copying your adopted dogz' files.
+I dare say that you have more than one, but in case you don't, here's
+how it's done:
+
+  Store the Brain.pbt, Brain.bak, Tricks.tdt, Dogz.ini and Saved.lnz 
+  for each adopted dog in a separate subdirectory, and move (in this
+  case, copy, because you're going to do testing with this one!) the
+  one which you're intending to play with into the root Dogz directory.
+
+  Change the "Your Pet=.\data\xxxxx.lnz" line in the Dogz.ini file so
+  that the .LNZ file pointed to is yours.
+
+Now you can run the program each time you want to see the way your dog
+is shaping up, and it will gambol around for you.  Remember to choose
+the "restore original colours" from the options menu each time!
+
+Note that you can test it as an adult by changing the "age=" line in
+the .INI file; make it Age=100 if you want to test the adult stage,
+and Age=1 if you want to test it as a puppy.
+
+Installing your finished breed is the same as for testing it, really.
+But if you wish to adopt a _brand new_ puppy, you must temporarily
+remove one of the P.F.Magic breeds from the Data directory, and rename
+your .LNZ to the name of that breed.  
+
+If you have a version of the game that doesn't allow for activating 
+the adoption kit, or you want to make work for yourself and have it like 
+the day you first adopted your pet, make sure that you have the serial
+number for your Dogz program handy (!!) and that Brain.pbt, Brain.bak,
+Tricks.tdt, Dogz.ini and Saved.lnz are not in the main directory (keep
+them safe in case of accidents!), and open up dogz.  Your breed will pop
+up out of the door of whichever breed was replaced, if you tap on it.
+Simply adopt the dog and enter the serial number in the usual manner,
+ignoring the fact that the breed name etc is the old one.
+
+Otherwise, go to Options and choose "Activate Adoption Kit".  If you want 
+to keep your old pet to play with at some other time, you first need to
+make sure that Brain.pbt, Brain.bak, Tricks.tdt, Dogz.ini and Saved.lnz 
+are copied away from the main directory (I keep mine safe in a subdirectory
+named after the breed).  Your breed will pop up out of the door of whichever 
+breed was replaced, as above. Simply adopt the dog in the usual manner, 
+ignoring the fact that the breed name etc is the old one.
+
+Close the game. Now if you want to, you can rename the pup's .lnz file 
+back to your original breed's name and put the P.F.Magic file back into 
+the Data directory.  If you do this, then you do have to open the  Dogz.ini 
+file into Notepad and make sure that the line which starts "Your Pet="
+is changed to point to the correct .LNZ file (as above), or the pup 
+will look like the P.F.Magic original when he comes out to play.
+
+"Hex painting" an individual dog
+================================
+
+Unlike with the .pet files of later P.F.magic games, it's perfectly
+possible to change things within the adopted dog's own file;  I'd
+keep a copy of your favourite dog's files first if I were you, though,
+before fiddling around.
+
+The files you can edit in Notepad are Saved.lnz (which has the colours)
+and Dogz.ini (which has the age of the pet and one or two other bits
+of info).
+
+Take care with the latter that you don't delete numbers like your user
+code or serial number!
+
+With respect to the colours, this is much more accurate and customisable
+than using the paintbrush.  The column of numbers is the colours of the
+balls in order from 0 upwards (refer to my list above).  So, if you want
+to change the left elbow colour, find the 8th number and change it.
+
+The age and playpen background can be edited in the .ini file.
+
+The final file which can be edited will need a hex editor, I'm afraid;
+if you don't like using them then this is no use to you.  But anyone
+who is happy with a hex editor can open the file Brain.pbt and scroll
+to the bottom, where there are Learnweights and Desirethresholds etc.
+ Try tweaking some of those numbers if you want to; who knows, you
+might come up with an interesting new personality for your dog!
+
+Expanded Color List for Dogz 1
+=========================
+
+Note that this list of colours relates to Dogz 1 only.
+
+0 black
+1 dark Red
+2 dark Green
+3 dark Yellow (this is really more like an olive green)
+4 dark Blue
+5 dark Magenta
+6 dark Cyan (teal?)
+7 dark Grey
+8 light Grey
+9 Red
+10 Green (this is a bright almost fluorescent green)
+11 Yellow
+12 Blue (a bright blue)
+13 Magenta (bright)
+14 Cyan
+15 White
+
+16-21 light greys to darker greys as number increases
+22-27 yellow-browns to mid-browns
+28-33 yellow-browns to browns
+34-39 reds
+40-45 browns
+46-51 red-browns
+52-57 dark brown
+58-63 light bright green (dayglo)
+64-69 light earthy to olive greens
+70-75 yellows and yello-greens
+76-81 bright reds
+82-87 purples (pale to dark lilac)
+88-93 blue-green
+94-99 purple-blues
+100-105 blacks
+106-111 greeny-yellow to yellow-brown
+112-117 mid green to dark blue
+118-123 oranges
+124-129 Pale purple to green
+130-135 dark browns
+
+140 dayglo pink
+145 purple-black
+150 dark green
+155 bright dayglo green
+160 slightly darker dayglo green
+165 black
+170 dark grey
+175 very pale grey
+180 olive green
+185 pale olive green
+190 dark blue
+195 black
+200 white
+202 white
+204 slate grey
+208 light green
+210 pale turquoise
+215 light bright green
+220 reddish purple
+225 mid purple
+230 red (dark scarlet)
+235 bright scarlet
+240 orange-red
+244 orange
+250 pale fawny-yellow
+255 black
+
+Enjoy!
+
+Carolyn
+
+

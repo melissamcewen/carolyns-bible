@@ -1,0 +1,252 @@
+Question:
+
+> Please could you teach me how to make my own breed names. :)
+
+Answer:
+
+Sure, what's the problem exactly?  To make non-overwriting breedfiles
+which are not external-lnz, you only _need_ to change two things; the
+Byte, or ID number, and the Name.  If you're using a hex editor, here's
+how to do the Name:
+
+THE NAME
+--------
+
+So, you want to rename the breed.  Say you want to hex a "Minifluff"
+breed.  First off, you'll need to physically name the breedfile, so save
+what you've done so far and exit from the hex editor.  Name the breed
+Minifluff.cat and re-open it into the editor.  Now search for the Hex
+string:
+
+50004600
+
+This gets you down to the bottom of the file, where the bit that looks
+like P.F.M.a.g.i.c starts, and just above the breed name which looks
+like
+
+..H.o.m.e.b.o.d.
+y...P.e.r.s.i.a.
+n...P.r.........
+
+Don't touch the ...H.o.m.e.b.o.d.y or ...P.r unless you know exactly
+what you're doing; changing the first can crash the game right away, and
+changing the second causes a crash just as your pets are about to make a
+Happy Announcement.  It's possible to change them if you change _every_
+reference to Homebody or Pr earlier in the breedfile, but you don't need
+to do it and it's more bother, more things to go wrong for a hexer who's
+just beginning to make separate breedz.
+
+Replace the letters of P.e.r.s.i.a.n with those of your own breed. 
+Don't go changing the dots in between the letters -- those _have_ to be
+null bytes (hex 00).  Now, Minifluff is two letters longer than Persian,
+so you'll have to add the final two letters to the end of the name, with
+00 between each letter, and we end up with what looks like
+M.i.n.i.f.l.u.f.f. Now, this makes the breedfile four bytes longer than
+it was so, in the area of null bytes directly after P.r. delete four
+bytes.  Also, the letter count is wrong.  "Eh?  Wot letter count?"  I
+hear you cry...  Well, take a look at the three dots between
+H.o.m.e.b.o.d.y and M.i.n.i.f.l.u.f.f, in the hex section of the
+editor.  You should see 00 07 00. This tells the program that Persian is
+7 letters long. You need to tell the program that Minifluff is 9 letters
+long -- so, change that 07 to 09 and the letter count is correct. 
+Remember, when putting in the letter-count, that the number is in
+hexadecimal, so that if your name is 12 letters long, your number is 0C.
+
+If the new breed name were to be shorter than the original (i.e. just
+"Mini"), you could if you wished leave the letter count alone and simply
+fill in the unused letters with null bytes (...M.i.n.i.........P.r), or
+you could change it to ...M.i.n.i...P.r, change the letter-count to 04,
+and correct the file size by putting 6 null bytes in after the P.r.  The
+latter is the more elegant thing to do.
+
+If you _have_ decided to also change the pet name and/or 2-letter mnemonic
+P.r, do that in the same way, but remember that you're going to have to
+also change them elsewhere in the file  The instances of pr here:
+
+Liveliness..\Ptz
+Files\cat\BEvent
+_cat_Mixed.txt..
+\Ptzfiles\cat\pr
+\BEvent_cat_pr.t
+xt..\ptzfiles\ca
+t\pr\pr.lnz.\ptz
+files\cat\cat.sc
+p...\ptzfiles\ca
+t\pr\pr.scp.....
+
+and P.R here, plus here is where you would change H.O.M.E.B.O.D.Y
+
+..........B.M.P.
+..H.O.M.E.B.O.D.
+Y...L.N.Z...P.R.
+..P.R.K.I.T...S.
+C.P...T.X.T...B.
+E.V.E.N.T._.C.A.
+T._.P.R...P.R.S.
+N.D...W.A.V...C.
+
+and Homebody here, where the ID number is
+
+....PersianSprit
+e...............
+....Homebody....
+
+If you're using Resource Hacker, the naming is simpler; go to String
+Table, 63, click on 1033 and type in the name you want instead of the
+breed name.  However, to change the ID number I believe you still need
+to alter something in a hex editor even if you use ResHacker to save out
+the RCData resources (using the Action menu) then, after editing, from
+the Action Menu choose "Replace other Resource" to put it back in.  So
+as far as I know, you need a hex editor or LNZPro 2 for this:
+
+THE BYTE, or ID NUMBER
+-----------------------
+
+This is very important if you want your breed to show up separately in
+the Adoption Centre.  It's the offset byte/number.  Don't panic!  This
+is actually very simple when you know what to look for.  In a breedfile
+which has not been ResHacked it comes just before the section which
+starts with BM, so search for the uppercase letters .  In a breedfile
+which has been ResHacked, it comes just after the naming area of the
+file, so search for the hex string 50004600 go get to a few lines above
+it.
+
+The original Bunny and Pig are the only breeds which look a little
+different at this point, because there is a larger gap between the list
+and the BM. The reason for the gap is because there is a small,
+headerless bitmap tucked in there, but it's not important to the hexer
+and the offset byte is still in the line above the first bitmap to start
+with BM.  In the Bunny, you will see BunnySprite, then Cotton, then BM4,
+and the offset is between Cotton and BM4.  In the Pig, you will see
+PigSprite, then Wilbur, then BM, and the offset is between Wilbur and
+BM.
+
+In a non-ResHacked Persian, therefore, the list ends with what looks (in
+the ASCII part of the hex editor) like
+
+00033456 4500 5700 5400 4900 3800 0000 0000 0000 E.W.T.I.8.......
+00033472 0100 0000 5065 7273 6961 6E53 7072 6974 ....PersianSprit
+00033488 6500 0000 0000 0000 0000 0000 0000 0000 e...............
+00033504 0000 0000 486F 6D65 626F 6479 0000 0000 ....Homebody....
+00033520 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00033536 0000 0000 EB03 0000 0100 0000 0000 0000 ................
+00033552 424D C029 0000 0000 0000 3204 0000 2800 BM.)......2...(.
+
+Now, look at the line just above BM.) in the _hex numbers_ section --
+highlight that line by clicking the left mouse button at the beginning
+of it, holding the button down while running along the line, then
+lifting your finger.  The line will look very like this:
+
+0000 0000 EB03 0000 0100 0000 0000 0000
+
+Either or both of the two bytes EB and 03 can be changed to any other
+hexadecimal number.  In case you're not familiar with the way Hex
+numbers count upwards, here's a table of our normal Decimal system
+alongside the Hexadecimal:
+
+Dec     Hex
+ 0      00
+ 1      01
+ 2      02
+ 3      03
+ 4      04
+ 5      05
+ 6      06
+ 7      07
+ 8      08
+ 9      09
+ 10     0A
+ 11     0B
+ 12     0C
+ 13     0D
+ 14     0E
+ 15     0F
+ 16     10
+ 17     11
+ 18     12
+etc
+
+If you're still not sure, use the calculator that comes with Windows;
+choose View > Scientific.  You can then put in a number in Decimal (Dec)
+and see it converted to Hex.
+
+Although you can easily choose a number that won't clash with other
+breeds on your computer, if you want to make your breed available to
+others, you're going to come up against one small problem that we all
+have; making sure that our breeds don't clash with anyone else's.  In
+the past, the PetzGallery doled out numbers to people who wanted to
+conform to the "PetzGallery Standard".  Nowadays, the best thing to do
+is to pop along to the P.O.N.D. site http://zeva.sphosting.com/pond/ and
+see what numbers are "taken".  Of course the numbers list isn't
+complete, but it's the best you can do.  Some sites have their numbers
+listed, such as Vickie's Petz zoo and mine (in the Infobits page).  Mine
+are simple; the ones I was given by the PetzGallery are:  all of 0009 to
+FF09 all of 0040 to FF40 and these are the ones I've used for my breedz
+as well as for many other people's breedz.  Good numbers to avoid are
+those ending in 03 or 04, since in the early Petz 3 days those were the
+numbers most used. 
+
+If the file had been edited with Resource Hacker at some time in the
+past, and you're looking for the ID number in a hex editor, you'll find
+it below the naming area (search for the hex string 50004600) and below
+the words PersianSprite and Homebody.  Look in the hex numbers section
+on the bottom line of this example and you'll see EB03.
+
+00719552 2900 2000 3100 3900 3900 3700 2000 5000 ). .1.9.9.7. .P.
+00719568 4600 2E00 4D00 6100 6700 6900 6300 2C00 F...M.a.g.i.c.,.
+00719584 2000 4900 6E00 6300 2E00 0000 0000 0000  .I.n.c.........
+00719600 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719616 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719632 0800 4800 6F00 6D00 6500 6200 6F00 6400 ..H.o.m.e.b.o.d.
+00719648 7900 0700 5000 6500 7200 7300 6900 6100 y...P.e.r.s.i.a.
+00719664 6E00 0200 5000 7200 0000 0000 0000 0000 n...P.r.........
+00719680 0000 0000 0100 0000 5065 7273 6961 6E53 ........PersianS
+00719696 7072 6974 6500 0000 0000 0000 0000 0000 prite...........
+00719712 0000 0000 0000 0000 486F 6D65 626F 6479 ........Homebody
+00719728 0000 0000 0000 0000 0000 0000 0000 0000 ................
+00719744 0000 0000 0000 0000 EB03 0000 0100 0000 ................
+
+You should now be able to open your breedfile and the Persian in the
+same game.
+
+"Still won't show up" Troubleshooting
+-------------------------------------
+
+The first thing is to remember, for each letter you add there must be a
+null byte (Hex 00) after it -- even if that letter is a space such as
+you would have between "Minifluff" and "Puff" in a "Minifluff Puff.cat"
+breed.
+
+Second, that letter count must be right!  (Also, by the way, _don't_
+remove the letter-count of 02 from in front of the P.r. or you will have
+troubles later.)
+
+Third, you did name the breed the exact same name as you're entering
+into this area, didn't you?
+
+Fourth, check that your Offset Byte (see first section above) is
+different from the other breeds you've got in your Resource directory.
+ 
+Fifth, if you hexed this breed in a hex editor is that you need to end
+up with the .cat or .dog file exactly the same length as before, so that
+for every byte you add in the name, you must delete a byte in the area
+of null bytes which comes after the name and two-letter mnemonic (P.r in
+the case of the Persian).  And for every byte you delete in the name,
+you must _add_ one in that area.
+
+Sixth, if you edited it in Resource Hacker, check that the program
+didn't corrupt the file.  Resource Hacker corrupts files very easily. 
+You might find that the file won't open again in Resource Hacker, or you
+might find that something has corrupted in the String Table section. 
+Simply re-type the information that should be in there, compile, and
+save.  With any luck, if that was what was wrong, the breedfile will now
+work.
+
+All that's left after that is to change the Adoption centre bitmap if
+you want to.  I'd wait until you've got the naming and ID right before
+tackling that, but I do have information on how to do that in my old
+breed-editing tutorials.
+
+Hope that helps
+
+Carolyn

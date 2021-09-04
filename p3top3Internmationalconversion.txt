@@ -1,0 +1,83 @@
+
+Please note that this is an extra part of my main breedz-converting tutorial.  This assumes you already know that you need a hex editor, and how to use it -- and that you will remember to make backup copies of your files before editing them!
+
+How to make a Petz 3 International breed from a Petz 3 English-language one
+==========================================================================
+
+There are four basic things which need to be converted in most breedfiles:
+
+The ID number (sometimes called offset number, or "byte").
+The Adoption Centre bitmap (and any other bitmaps that may be there -- Tabby, Maine Coon, etc.
+The .lnz section, which is the section that everyone edits, including those who hex-paint litterz.
+The Naming area.
+
+The Petz 3 breedz for all versions of the game are identical from the ID number right down through the bitmaps to the end of the .LNZ (text section which a hexer edits).  So, open your hexie and a copy of the relevant original into your hex editor.  Search for BM in your hexie, then put your cursor in front of the ID number (which is just above that, or rather 12 bytes before it)  and select all that section down to the end of the .lnz, where you see PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Copy and paste it over the original.  Save.  
+
+Then go down to the naming section, where you see 
+
+00088EE0 0000 1700 2800 6300 2900 2000 3100 3900 ....(.c.). .1.9.
+00088EF0 3900 3700 2000 5000 4600 2E00 4D00 6100 9.7. .P.F...M.a.
+00088F00 6700 6900 6300 2C00 2000 4900 6E00 6300 g.i.c.,. .I.n.c.
+
+You want to rename the breed, so do that in the relevant place below .c.). .1.9.9.7. P.F...M.a.g.i.c.,. .I.n.c., such as this, in the German version of the dachshund:
+
+00088F30 0000 0000 0000 0000 0500 4F00 7300 6B00 ..........O.s.k.
+00088F40 6100 7200 0900 4400 6100 6300 6800 7300 a.r...D.a.c.h.s.
+00088F50 6800 7500 6E00 6400 0200 4400 6800 0000 h.u.n.d...D.h...
+00088F60 0600 4400 6100 6300 6B00 6500 6C00 0000 ..D.a.c.k.e.l...
+
+There are four items here, each with a hex byte 00 between each of its letters:
+
+1) Oskar, which is the default name offered to you at the Adoption centre.  I'd leave this alone unless you're willing to go through the earlier part of the breed and alter it in a few places.  it isn't necessary to change this.
+2) Dachshund, which you need to change to the same name as the .dog file in the dogz directory.
+3) Dh, which you should only change if the breedfile you're converting has a different pair of letters.  If the breedfile _does_ have a different pair of letters, you need to change a few more things earlier in the file.  See the Appendix B below if this is the case.
+4) Dackel, which is just the name that shows up with the picture at the adoption centre.  Change this if you wish only.
+
+Now, between each of these four items you see three dots in my example.  They are hexadecimal numbers, the first and third being 00 and the second being the letter-count of the item which comes after.  So Dh is two letters (ignore the hex 00 which separates the letters), and the three bytes that come before it are 00 02 00 if you look in the hexadecimal pane.  Dachshund is 9 letters long, so the three bytes before it are 00 09 00.  It all sounds much more complex than it is.
+
+Compensate for any extra or fewer letters in the usual manner, by removing or adding null bytes (hex 00) in the area directly after all four of the items.
+
+Appendix A: 
+----------
+There are also, in some breedz, internal sounds; If you want to, you can copy-and-paste from the beginning of the first RIFF (which is the beginning of the first wav file) to the end of the last wav file.
+
+Appendix B: 
+-----------
+Some Petz 3 breedz, such as many of my Species, are also altered in other places.  However, the only parts which you will really have to take notice of and alter in your International version are those which relate to that third item in the naming area, for instacen the Dh in the dachshund.  If the breed that you're converting has, say, Sd in this place, it will need to be changed there and in the following places earlier in the breedfile (apart from the .lnz section which you should already have copied):
+
+0000BFE0 0000 0000 506C 6179 6675 6C6E 6573 7300 ....Playfulness.
+0000BFF0 4C69 7665 6C69 6E65 7373 0000 5C50 747A Liveliness..\Ptz
+0000C000 4669 6C65 735C 646F 675C 4245 7665 6E74 Files\dog\BEvent
+0000C010 5F44 6F67 5F4D 6978 6564 2E74 7874 0000 _Dog_Mixed.txt..
+0000C020 5C50 747A 4669 6C65 735C 646F 675C 6468 \PtzFiles\dog\dh
+0000C030 5C42 4576 656E 745F 446F 675F 6468 2E74 \BEvent_Dog_dh.t
+0000C040 7874 0000 5C50 747A 4669 6C65 735C 646F xt..\PtzFiles\do
+0000C050 675C 6468 5C64 682E 6C6E 7A00 5C50 747A g\dh\dh.lnz.\Ptz
+0000C060 4669 6C65 735C 646F 675C 646F 672E 7363 Files\dog\dog.sc
+0000C070 7000 0000 5C50 747A 4669 6C65 735C 646F p...\PtzFiles\do
+0000C080 675C 6468 5C64 682E 7363 7000 0000 0000 g\dh\dh.scp.....
+
+you'll find the area easily by searching for \dh\ in your original breedfile, and \sd\ in the hexie.  Change all instances of dh to sd.
+
+next, you want to find the List of all that's in the file.  It's directly above the BM, and starts like this:
+
+0000D2F0 0000 0000 0000 0000 0300 4200 4D00 5000 ..........B.M.P.
+0000D300 0500 4F00 5300 4B00 4100 5200 0300 4C00 ..O.S.K.A.R...L.
+0000D310 4E00 5A00 0200 4400 4800 0500 4400 4800 N.Z...D.H...D.H.
+0000D320 5000 5500 5000 0300 5300 4300 5000 0300 P.U.P...S.C.P...
+0000D330 5400 5800 5400 0D00 4200 4500 5600 4500 T.X.T...B.E.V.E.
+0000D340 4E00 5400 5F00 4400 4F00 4700 5F00 4400 N.T._.D.O.G._.D.
+0000D350 4800 0500 4400 4800 5300 4E00 4400 0300 H...D.H.S.N.D...
+
+Select everything from N.Z...D.H...D.H. down to just before DachshundSprite and paste over that area the equivalent part from your English-version hexie.
+
+The names will be a little different in the different language versions of course, but the basic method is the same. And I am told that a German-language breed will work with any other European-language version of the game, and vice versa.
+
+Happy converting
+
+Carolyn
+
+
+
+
+

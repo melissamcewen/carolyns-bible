@@ -1,0 +1,36 @@
+Just a note about an ID clash...
+
+I think that not everyone realises that ID clashes can happen
+ between dogz and catz breedz, not just between catz and catz
+ or dogz and dogz.  It's _all_ the breedfiles in your game
+ that count; every one of them needs to have an individual ID
+ number or they won't work.
+
+If you suspect that the ID-clash Syndrome has hit your game,
+ first off remove all the pets from your game and then remove
+ _all_ hexies from the game, from both the dogz and catz
+ directories if you have both.  Make sure that all the originals
+ are in place.  Run the game.  
+
+Are all the basic breedz showing up?  
+
+1.If No, you have a different problem.  If it's Petz 5, you
+ may have the "bottom-drop-off nasties", and to fix that
+ just put back into the game a breed that's near the bottom
+ of the alphabet, such as Unicorn or Zebra.  If it's Petz 4
+ or lower, then the problem may turn out to be a corrupted
+ breed.
+
+2.If Yes, you can find out which is the clashing breed by
+ closing the game, putting some breedz back, and opening it
+ again to check if they all show up. Continue to do this
+ until the rogue breed is in there and it (or one of the
+ others) doesn't show. 
+
+Ta-da! Game back to normal
+
+Enjoy
+
+Carolyn Horn
+ 
+ 

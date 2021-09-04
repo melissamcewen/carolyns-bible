@@ -1,0 +1,54 @@
+
+This is in reply to someone who wrote asking for more breedz for the
+Petz 3 International games.
+
+It actually works for any version of the game, so long as you download
+the relevant "easy-edit" package for your game.  You can make external-
+lnz overwrites for your own game, quickly and easily.
+
+If you want to have a _lot_ of other breedz very quickly,
+don't mind them being "overwriting", and are willing to do a little
+work, I would advise this:
+
+First, download my "For Easy-editing" Original Breedz for Non-English Catz
+and Dogz 3.  Get the Sound-stripped, external-lnz ones.  Install them as
+per the instructions (making sure you've got your originals safe
+somewhere first of course!).  You will not have to use a hex editor
+but you do need one tool for viewing and copying from.
+
+Download the freeware ResHacker and unpack it
+http://www.users.on.net/johnson/resourcehacker/
+
+Download the breedz that you want -- for any version of Petz from
+P3-P5.  For instance, if you want my Calicochi, download that and unpack
+it to a temporary directory.  With ResHacker you can open the breedfile,
+navigate to the LNZ and then the ch and then the 1033 in the left-hand
+pane. Select everything that you see in the right-hand pane from 
+
+; chihuahua 
+
+right down to 
+
+Hat     0,4,0      1.2.  
+
+and choose Copy.
+
+Open the ch.lnz, which you downloaded in my easy-edit package, in Notepad.
+Select the whole of it and choose paste.  Save.
+
+Now repeat the process with the chpup in Reshacker and the chpup.lnz in
+Notepad.
+
+Next time you open the game, your chihuahua will come out of the AC
+looking like the Calicochi!
+
+You can do a similar thing with all of the breedz that you see out there
+on the internet.  The downside is that you will end up with a lot of
+overwriting .lnz files and you will need to be well-organised to keep
+clear which is which; the up-side is that you can breed any pet with any
+.lnz in place and get some very interesting breeding-programs going.
+
+Enjoy!
+
+Carolyn
+

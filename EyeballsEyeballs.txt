@@ -1,0 +1,57 @@
+
+I've been asked a few times now how to add textures to eyes.  Well,
+there are a few different ways, all of which involve using the eye ball
+itself as the iris, instead of the iris ball outline.  Here are a couple
+of my favourites:
+
+Method 1 -- with a white eyeball
+=============================
+
+Make the iris balls, together with their outlines, all colour 244 and small
+enough to look like pupils only.  You may find this easier to control if you 
+list the iris ballz under [Omissions] and use a pair of [Add Ball] ballz, 
+
+14 0 0 0 244 244 0 0 0 -1 13 8 0 4 -1
+38 0 0 0 244 244 0 0 0 -1 13 8 0 4 -1
+
+which you would then list under [Eyes]
+
+[Eyes]
+32, 8			RightEye/leftEye
+<your add ball no.>,<your add ball no.>	RightIris/leftIris
+
+Now make your eye ball colour the colour that you wish yout pet's iris to be
+and make the eye ball outline colour 245.  Give it an otlntTyp of 5 and sizeDif 
+of -4, say, for a Great Dane.  You can then use a texture.  You can also use
+[Paint Ballz] if you wish.
+
+Method 2 -- with a coloured eyeball, closer to real life
+=================================================
+
+I like this one best of all, and it's the one which I used to make the two
+petz in the accompanying downloadable zipfile.  Once again, my size examples
+are for a Great Dane.  You may need to tweak them for other breedz.
+
+For the game's iris ballz 14 and 38, make them otlntTyp 1 and sizeDif -3.
+Make both of their ball and outline colours 244.  Fuzz -1 of course unless
+you want a slight fuzziness.
+
+For the game's eye ballz 8 and 32, set the ball colour to the colour you
+want the iris.  Set the outline colour to 244, and Fuzz -1.  otlntTyp 2 
+and sizeDif -3.  Texture of your choice.  Of course you can change any of
+these, they are just what I like.
+
+My example petz each have a green eye and a blue eye; one pet has them textured 
+with the hair6 "brindle" effect, and the other with the hay.bmp which you'll find 
+in the game's Resource\Wallpaper directory.  If you set the "flag" for the hay.bmp 
+to 90, your colour will show through in a way that _I_ like anyway :-)
+If that sounded like double-dutch to you, take a look at my LNZ file
+breakdown chunks where I talk about the [Texture List], or one of my other
+howtos.
+
+Oh, and you can add paint ballz to this also if you wish -- the eye ball allows
+paint but the iris does not.
+
+Happy hexing
+
+Carolyn

@@ -1,0 +1,53 @@
+
+
+>I hexed a breed, but didn't know how to make the feet fluffy and fuzzy.
+
+Change the numbers for fuzz in the [Ballz Info] section, in the Fuzz column.
+This alters the fuzziness/fluffines of the adults in any breedfile.  You
+may also wish to change the numbers, in the same section, in the sizeDiff
+column.
+
+Note that some breedz have also extra tail ballz etc in [Add Ballz]. You may
+wish to change the numbers in the fuzz and ballsize columns there also, for
+specific added ballz (such as tail ballz in Great Danes).
+
+If the Fuzzification isn't enough, or is too much, or doesn't show up at 
+all in a puppy or kitten, change the sizes under the 
+[Ball Size Override].  For example:
+
+0, 20
+24, 20
+31, 20
+7, 20
+16, 20
+40, 20
+12, 30
+13, 30
+36, 30
+37, 30
+23, 20
+47, 20
+
+The first column is the ball number, the second column the size.  This
+would be what you would want to change to make the feet, hands, wrists
+etc smaller or bigger.  Then, with the fuzz, I don't recommend using a
+number greater than 9:
+
+[Fuzz Override]
+0, 9
+24, 9
+31, 9
+7, 9
+16, 9
+40, 9
+12, 9
+13, 9
+36, 9
+37, 9
+23, 9
+47, 9
+
+
+Hope that helps
+
+Carolyn Horn

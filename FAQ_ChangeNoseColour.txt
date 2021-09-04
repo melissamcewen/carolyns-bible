@@ -1,0 +1,21 @@
+
+
+>I've noticed on a few of your dogz/wildz that the noses are a color other 
+>than black.  I would be extremely interested in knowing how you change the 
+>entire color of the nose.  It would make some of my breedz look so much 
+>better!!
+
+Ah yes, this is a little obscure.  Took me a while to work it out.
+First off, you need to change the colour and outline colour for the 
+;L nostril, ;R nostril, and ;nose (bottom) ballz.
+
+Next, and this is the obscure bit, you need to change the Outline type
+(otlntTyp) for the two nostrils.  I use -5 as the number for that, and
+it works a treat.
+
+Hope that helps -- happy hexing!
+
+Carolyn Horn
+
+Note that for 2nd-gens the nostrils will revert to black.  See my notes
+on 2nd-gens for information on dealing with this problem.

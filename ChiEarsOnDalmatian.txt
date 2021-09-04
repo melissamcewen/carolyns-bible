@@ -1,0 +1,200 @@
+
+My oh my, people do have a passion for putting different ears on their breedz...  
+Well, here is yet another ear-changing "howto", this time for putting chihuahua ears 
+on a Dalmatian.
+
+Just to make it a little different for myself and for people who are getting tired 
+of ear "howto"s, I also include how to put whiskers on your dogz.
+
+Included in this zipfile is a test Dogz 4 breedfile which is a Dalmatian with chi 
+ears and whiskers and some different colouring.  This breedfile has been stripped of
+its sounds so as to decrease its size for downloading, and it _WILL_ overwrite
+your Dalmatian breed, so remember to keep a backup of your original if you use this.
+If you have a different version of the game and you want to see the dog, then just 
+copy the .lnz section of this file into a copy of your game's Dalmatian.dog file.
+After all, you are a hexer, aren't you :-)
+
+Just a note as to my editing methods so that with any luck all that I go on about in
+most of my tutorials or "howto"s will make sense.  
+This is my method: open the breedfile into Hex Workshop (or some other true hex
+editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string 
+[Little one] and place your cursor in front of it.  Scroll down and select from 
+there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. 
+Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file 
+from the drop-down file menu in the hex editor.  Place the cursor in it and choose 
+Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad. 
+This is the .lnz section of the breedfile (or .clz section of a clothes file),
+which _is_ actually itself a small text file.
+And for people who wonder what to do with it when you've finished editing it; well, 
+you open it in the hex editor again, check that it's the same size as it was before, 
+and then copy/paste it over the same place whence it came!
+
+Now, on to putting chi ears on your Dalmatian:
+
+In [Move] replace this:
+
+4,	-6,	15,	6,	52	
+5,	3,	12,	16,	52	
+6,	0,	-2,	15,	52	
+28,	6,	15,	6,	52	
+29,	-3,	12,	16,	52	
+30,	0,	-2,	15,	52	
+
+with this:
+
+6,	18,	-35,	5,	52	
+30,	-18,	-35,	5,	52	
+
+Under [Omissions] add this:
+
+4
+28
+5
+29
+
+In add ball replace all the stuff from 77 upwards with the chi stuff, altering the colours 
+to suit your breed of course:
+
+;upper ears 77
+6,	28,	-60,	-15,	 49,	0,	0,	-1,	0,	-1,	15,	0,	0,	1 
+30,	-18,	-20,	-15,	 49,	0,	0,	-1,	0,	-1,	15,	0,	0,	1 
+;tongue 79
+63,	0,	0,	0,	1,	0,	0,	-1,	-1,	-1,	-1,	0,	0,	1,	63 
+;cheeks 80
+56,	15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+56,	-15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+;upperlip 82
+15,	0,	0,	-3,	 40,	0,	0,	-1,	0,	-1,	27,	0,	0,	1
+;ears 83
+6,	-20,	-5,	-18,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+6,	-5,	5,	6,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	0
+6,	10,	25,	-10,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+30,	20,	-5,	-18,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+30,	5,	5,	6,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	0
+30,	-10,	25,	-10,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+;whiskas89
+15,	30, 0, 0	109	0	0	0	-1	-1	0	0	0
+15,	35, 15, 0	109	0	0	0	-1	-1	0	0	0
+39,	-30, 0, 0	109	0	0	0	-1	-1	0	0	0
+39,	-35, 15, 0	109	0	0	0	-1	-1	0	0	0
+;base ears 93 
+52,	40,	-40,	10,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	1 
+52,	30,	-35,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	43,	-18,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	-40,	-40,	10,	 49,	0,	0,	0,	0,	-1,	26,	0,	0,	1 
+52,	-30,	-35,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1 
+52,	-43,	-18,	0,	 41,	0,	0,	0,	0,	-1,	16,	0,	0,	1
+
+
+Now replace the new Chi cheeks:
+
+;cheeks 80
+56,	15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+56,	-15,	5,	20,	105,	0,	0,	-1,	0,	-1,	40,	0,	0,	1 
+
+with the old dali cheeks again:
+
+;cheeks 80
+51,	17,	-29,	28,	10,	0,	0,	1,	0,	-2,	47,	0,	0,	1 
+51,	-17,	-29,	28,	10,	0,	0,	1,	0,	0,	47,	0,	0,	1 
+
+then add on the end the mouth corners of the dali
+
+;mouth corners (was 80-81) 99-100
+51,	8,	-3,	5,	10,	0,	0,	0,	0,	-2,	22,	0,	0,	1 
+51,	-8,	-3,	5,	10,	0,	0,	0,	0,	0,	22,	0,	0,	1 
+
+
+Now, the ball numbers for the cheeks are no longer 78 and 79, and the mouth corners are no longer 80, 81.  
+They are now 80, 81, 99, 100. Also the tongue addball is now 79.  You need to remember this for the Linez.
+
+If you _don't_ want the Whiskas in this breed, just list those balls and the upperlip one under [Omissions]:
+
+82
+89
+90
+91
+92
+
+in [Linez] change 77 to 79 so that the tongue ballz all join up correctly
+63, 	79, 	0,	-1,	244, 	244,	100,	100		;tongue
+79, 	64, 	0,	-1,	244, 	244,	100,	100		;tongue
+
+Replace the ear linez info with this 
+
+6,	83,	0,	-1,	-1,	-1,	100,	100
+84,	6,	0,	-1,	-1,	-1,	100,	100
+6,	85,	0,	-1,	-1,	-1,	100,	100
+83,	77,	0,	-1,	244,	25,	100,	100
+84,	77,	0,	-1,	-1,	-1,	100,	100
+93,	85,	0,	-1,	-1,	-1,	100,	100
+85,	77,	0,	-1,	25,	244,	100,	100
+93,	83,	0,	-1,	-1,	-1,	100,	100
+30,	86,	0,	-1,	-1,	-1,	100,	100
+87,	30,	0,	-1,	-1,	-1,	100,	100
+30,	88,	0,	-1,	-1,	-1,	100,	100
+86,	78,	0,	-1,	25,	244,	100,	100
+87,	78,	0,	-1,	-1,	-1,	100,	100
+96,	88,	0,	-1,	-1,	-1,	100,	100
+88,	78,	0,	-1,	244,	25,	100,	100
+96,	86,	0,	-1,	-1,	-1,	100,	100 
+93,	6,	0,	-1,	-1,	-1,	100,	100 
+83,	94,	0,	-1,	244,	25,	100,	100 
+85,	95,	0,	-1,	25,	244,	100,	100 
+93,	94,	0,	-1,	-1,	-1,	100,	100 
+93,	95,	0,	-1,	-1,	-1,	100,	100 
+96,	30,	0,	-1,	-1,	-1,	100,	100 
+86,	97,	0,	-1,	25,	244,	100,	100 
+88,	98,	0,	-1,	244,	25,	100,	100 
+96,	97,	0,	-1,	-1,	-1,	100,	100 
+96,	98,	0,	-1,	-1,	-1,	100,	100
+
+Now, you have to re-connect the cheek and mouth-corner ballz properly since you 
+moved them from 78 etc to 80 etc.  So instead of this:
+
+56,	78,	1,	-1,	-1,	-1,	100,	100
+56,	79,	1,	-1,	-1,	-1,	100,	100
+53,	80,	0,	-1,	-1,	-1,	100,	100
+53,	81,	0,	-1,	-1,	-1,	100,	100
+80,	51,	0,	-1,	-1,	-1,	100,	100
+81,	51,	0,	-1,	-1,	-1,	100,	100
+51,	56,	0,	244,	244,	244,	0,	100
+78,	15,	0,	-1,	-1,	-1,	100,	70
+;79,	39,	0,	-1,	-1,	-1,	100,	70
+;78,	15,	0,	-1,	-1,	-1,	100,	70
+78,	80,	0,	-1,	-1,	244,	75,	90	0
+79,	81,	0,	-1,	244,	-1,	75,	90	0
+
+you want this
+
+56,	80,	1,	-1,	-1,	-1,	100,	100
+56,	81,	1,	-1,	-1,	-1,	100,	100
+53,	99,	0,	-1,	-1,	-1,	100,	100
+53,	100,	0,	-1,	-1,	-1,	100,	100
+99,	51,	0,	-1,	-1,	-1,	100,	100
+100,	51,	0,	-1,	-1,	-1,	100,	100
+51,	56,	0,	244,	244,	244,	0,	100
+80,	15,	0,	-1,	-1,	-1,	100,	70
+80,	99,	0,	-1,	-1,	244,	75,	90	0
+81,	100,	0,	-1,	244,	-1,	75,	90	0
+
+If you want your breed to have whiskers, add this to the .lnz file somewhere:
+
+[Whiskers]
+;start, end, color
+15, 89, 45
+15, 90, 45
+39, 91, 45
+39, 92, 45
+
+And finally, in [Ballz Info] you'll want to change the size of ballz 6 and 30 each to -4.
+
+You can of course tweak the various ballz and linez to suit yourself, but that's the basics 
+of how to do it.
+
+Enjoy!
+
+Carolyn Horn
+
+
+

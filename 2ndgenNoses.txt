@@ -1,0 +1,55 @@
+
+2nd-gen further discoveries
+===========================
+
+Kailyn's splendid solution for dogz nose-colours works very well for
+some breedz, but in others it does not always produce the intended
+result.
+
+I have found a solution which works very nicely, especially when used
+in conjunction with Kailyn's paint ballz.  Here's the way I do it:
+
+In [Add Ball], add a ball for each of the three crucial nose balls
+(17, 41 nostrils and 55 nose bottom) such that it is slightly larger 
+than the ball to which it is being added, and is at position 0, 0, 0.
+Here's an example; you would want to change the colour from 89, this
+is just an example!
+
+;these are ballz 95, 96 and 97 in this example
+;base	x	y	z	color otlnCol spckCol  fuzz   group outline ballsize bodyarea  addGroup texture
+17 	0 	0 	0 	89 	-1 	0 	-1 	0 	-1 	30 	8 	0 	0
+41 	0 	0 	0 	89 	-1 	0 	-1 	0 	-1 	30 	8 	0 	0
+55 	0 	0 	0 	89 	-1 	0 	-1 	0 	-1 	30 	8 	0 	0
+
+That should do it.
+
+Then, if you want to add Kailyn's [Paint Ballz] put this -- remembering that if your added 
+balls are not ballz numbers 95, 96, 97 you will have to change the numbers in the first column to suit.
+
+;baseball diameter   direction	      color outlinecolor fuzz  outline  group  texture
+95,	35	0,	0,	-1	15	-1	-1	-1	-1	-1
+96,	35	0,	0,	-1	15	-1	-1	-1	-1	-1
+;left nostril
+95	305	1	0	0	89	-1	-1	-1	5	-1
+95	305	-1	0	0	89	-1	-1	-1	5	-1
+95	305	0	0	-1	89	-1	-1	-1	5	-1
+95	305	0	1	0	89	-1	-1	-1	5	-1
+95	305	0	-1	0	89	-1	-1	-1	5	-1
+95	305	0	0	1	89	-1	-1	-1	5	-1
+;right nostril
+96	305	-1	0	0	89	-1	-1	-1	5	-1
+96	305	0	-1	0	89	-1	-1	-1	5	-1
+96	305	0	1	0	89	-1	-1	-1	5	-1
+96	305	0	0	-1	89	-1	-1	-1	5	-1
+96	305	0	0	1	89	-1	-1	-1	5	-1
+96	305	1	0	0	89	-1	-1	-1	5	-1
+;nose bottom
+97	305	0	-1	0	89	-1	-1	-1	5	-1
+97	305	0	1	0	89	-1	-1	-1	5	-1
+97	305	0	0	-1	89	-1	-1	-1	5	-1
+97	305	0	0	1	89	-1	-1	-1	5	-1
+97	305	1	0	0	89	-1	-1	-1	5	-1
+97	305	-1	0	0	89	-1	-1	-1	5	-1
+
+
+

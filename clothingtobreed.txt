@@ -1,0 +1,197 @@
+
+Adding useful bits and pieces from clothing .CLZ files to .LNZ files
+====================================================================
+
+Oo-okay. I want to put a moustache on my Breed or Babyz that's similar to the clothing item
+for the Petz 4 Host, Pepe. First I'll show you what's in the clothing file.  Then I'll show
+you first how to add it to a breedfile, and finally I'll show you how to make a new Babyz
+with it.
+
+Okay, here's the .clz data for Pepe's moustache,  Don't panic, I'll explain what 
+you need from it later:
+
+[Add Clothing]
+;kind: Shirt, (etc)
+NoseThing
+; textures                           isremapable    width height (optional)
+\art\textures\hair10.bmp             0
+\art\textures\hair10.bmp             1
+end ; textures
+; petscale  ballscale  baseBallSize
+  110        108        14
+;bBall 		offset       color  outCol  fuzz  colGroup  outType  size  texture
+#2.A ; Dog
+-55    0,	5,	6   35     15      0     0         -1      0    -1
+#1 ; Cat
+-24   0,	19,	-46   35     15      0     0         -1      0    -1
+##  
+;
+0   	-12,	6,	0         30     25      1    0         -1     24    1
+0   	  12,	6,	0         30     25      1    0        -1     24    1
+0   	-20,	12,	6         30     25      1    0         -1     18    1
+0   	20,	12,	6         30     25      1    0        -1     18    1
+0   	-18,	24,	10         30     25      1    0         -1     16    1
+0   	18,	24,	10         30     25      1    0         -1     16    1
+0   	-26,	36,	14         30     25      1    0         -1     12    1
+0   	 26,	36,	14         30     25      1    0         -1     12    1
+end ; add balls
+;start end  	fuzz  	col  	lfCol  	rtCol 	sThck 	eThick 	fulloutline
+;1    	2      0     	-1   	35   	35   	100    	100    	1, 1, 
+1    	3      0     	-1   	35   	35   	100    	100    	1, 1, 
+3    	5      0     	-1   	35   	35   	100    	100    	1, 1, 
+5    	7      0     	-1   	35   	35   	100    	100    	1, 1, 
+2    	4      0     	-1   	35   	35   	100    	100    	1, 1, 
+4    	6      0     	-1   	35   	35   	100    	100    	1, 1, 
+6    	8      0     	-1   	35   	35   	100    	100    	1, 1, 
+end ; linez
+
+PETZ or ODDBALLZ
+================
+
+For the Petz or Oddballz breedfile, or babyz .lnz file, we need to understand what we 
+want to take out  of this.  This is add-ball clothing, so the data will need to go 
+into [Add Ball] and we'll need to take note of ball numbers so that the Linez data will work.
+
+Also there is one extra problem in the way of copy/pasting; there are too few
+columns of data in the clothing file.  Look at the headers in the .clz:
+
+;bBall 	offset  color  outCol  fuzz  colGroup  outType  size  texture
+
+as opposed to the breed:
+
+;base	x y z   color otlnCol spckCol fuzz group outline ballsize bodyarea addGroup texture
+
+The "offset" column in the clothing file is in fact three columns -- equivalent to
+the x,y,z columns in the breed.  So in reality we have these 11 columns of numbers
+to take from the clz file:
+
+;bBall 	x y z  color  outCol  fuzz  colGroup  outType  size  texture
+
+Now, these 11 columns are too few.  The game expects to see 14 columns of data for
+each add ball in a breedfile.  You're going to have to put in extra columns (of 0 or 
+-1 or whatever you choose) where the breed expects to see spckCol, bodyarea and addGroup 
+numbers -- or your extra ballz just won't show up.
+
+I'm going to put this on a Petz cat breed, a Calico.  First of all, I need to take the
+line which becomes my base ball (ignore the minus sign):
+
+24	0,	19,	-46	35	15	0	0	-1	0	-1
+
+I paste that into my Calico .LNZ  after the [Add Ball] ear data, so it becomes ball
+number 92.  I insert the necessary extra columns where the game would expect to see
+something for speckle colour, bodyarea, and addGroup:  
+
+;92
+24	0,	19,	-46	35	15	0	0	0	-1	0	0	0	-1
+
+Then I take the add ball data
+from the .CLZ:
+
+0	-12,	6,	0	30	25	1	0	-1	24	1
+0	12,	6,	0	30	25	1	0	-1	24	1
+0	-20,	12,	6	30	25	1	0	-1	18	1
+0	20,	12,	6	30	25	1	0	-1	18	1
+0	-18,	24,	10	30	25	1	0	-1	16	1
+0	18,	24,	10	30	25	1	0	-1	16	1
+0	-26,	36,	14	30	25	1	0	-1	12	1
+0	26,	36,	14	30	25	1	0	-1	12	1
+
+and I change that to have the extra columns and to use ball number 92 as the base ball.
+If I were to leave the base ball as 0, this clothing item would be relative to the 
+left ankle instead of the head, LOL! So what I have now is this:
+
+;92
+24	0,	19,	-46	35	15	0	0	0	-1	0	0	0	-1
+;93-100
+92	-12,	6,	0	30	25	0	1	0	-1	24	0	0	1
+92	12,	6,	0	30	25	0	1	0	-1	24	0	0	1
+92	-20,	12,	6	30	25	0	1	0	-1	18	0	0	1
+92	20,	12,	6	30	25	0	1	0	-1	18	0	0	1
+92	-18,	24,	10	30	25	0	1	0	-1	16	0	0	1
+92	18,	24,	10	30	25	0	1	0	-1	16	0	0	1
+92	-26,	36,	14	30	25	0	1	0	-1	12	0	0	1
+92	26,	36,	14	30	25	0	1	0	-1	12	0	0	1
+
+Right, now I need to join up ballz 93 through 100 suitably in [Linez].  First,
+I take the linez data from the .CLZ:
+
+1    	3      0     	-1   	35   	35   	100    	100    	1, 1, 
+3    	5      0     	-1   	35   	35   	100    	100    	1, 1, 
+5    	7      0     	-1   	35   	35   	100    	100    	1, 1, 
+2    	4      0     	-1   	35   	35   	100    	100    	1, 1, 
+4    	6      0     	-1   	35   	35   	100    	100    	1, 1, 
+6    	8      0     	-1   	35   	35   	100    	100    	1, 1,
+
+Now in this instance you see there are two extra columns.  That doesn't matter;
+the breed's .LNZ can handle the extra data, it's just that we don't usually
+see anything there.
+
+But I do need to change the ball numbers from 1 etc to 93 etc!  I do this, as
+usual with Add Ball ballz that need to be joined, by counting down the lines of ball 
+data so that I know which ball is which ball number.  Since we've already understood
+that ball 0 in this clothing item becomes ball 92 in this particular breedfile, we
+know that ball 1 becomes 93, ball 2 becomes 94 etc.
+
+So then I have:
+
+93    	95      0     	-1   	35   	35   	100    	100    	1, 1, 
+95    	97      0     	-1   	35   	35   	100    	100    	1, 1, 
+97    	99      0     	-1   	35   	35   	100    	100    	1, 1, 
+94    	96      0     	-1   	35   	35   	100    	100    	1, 1, 
+96    	98      0     	-1   	35   	35   	100    	100    	1, 1, 
+98    	100      0     	-1   	35   	35   	100    	100    	1, 1,
+
+Now, when I run the game, I can see that the moustache is set too far back.
+It's a simple matter to change the -46 of the base ball 92 to -76, bring out a pet
+again, and eureka!  Pepe's moustache on a cat breed.
+
+BABYZ
+======
+
+On to Babyz.  I take the .LNZ file Brg.lnz and the code 5509-mbaa-aaaR-gbd.
+To the end of the hair ballz I add this, using the nose middle ball 84 as base,
+noting that the moustache is add ballz 148-156 in this case, changing the colours 
+to Babyz blacks, and making sure that the texture is _not_ the "clear" one (which is 
+usually texture number 1, i.e. second in the Texture List):
+
+; moustache
+;148
+84	0,	19,	-46	35	15	0	0	0	-1	0	0	0	-1
+; 149-156
+148	-12,	6,	0	50	50	0	1	0	-1	24	0	0	3
+148	12,	6,	0	50	50	0	1	0	-1	24	0	0	3
+148	-20,	12,	6	50	50	0	1	0	-1	18	0	0	3
+148	20,	12,	6	50	50	0	1	0	-1	18	0	0	3
+148	-18,	24,	10	50	50	0	1	0	-1	16	0	0	3
+148	18,	24,	10	50	50	0	1	0	-1	16	0	0	3
+148	-26,	36,	14	50	50	0	1	0	-1	12	0	0	3
+148	26,	36,	14	50	50	0	1	0	-1	12	0	0	3
+
+and to the [Linez], this:
+
+149    	151      0     	-1   	50   	50   	100    	100    	1, 1, 
+151    	153      0     	-1   	50   	50   	100    	100    	1, 1, 
+153    	155      0     	-1   	50   	50   	100    	100    	1, 1, 
+150    	152      0     	-1   	50   	50   	100    	100    	1, 1, 
+152    	154      0     	-1   	50   	50   	100    	100    	1, 1, 
+154    	156      0     	-1   	50   	50   	100    	100    	1, 1,
+
+So far so good.  But it doesn't look right, the tache is too far forward.  
+So the end result is this:
+
+; moustache
+;148
+84	0,	19,	-6	35	15	0	0	0	-1	0	0	0	-1
+
+And Pepe the moustachioed babyz is born :-)
+
+Enjoy
+
+Carolyn
+
+
+
+
+
+
+

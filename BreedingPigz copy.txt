@@ -1,0 +1,96 @@
+
+Breeding -- The special case of the Bunny and Pig
+=================================================
+
+This is for Petz 3 owners who have downloaded Petz 4 pigz petfiles 
+from the Internet and want to have them appear in their game _and_ 
+to be able to breed.  The original Petz 4 pigz and bunniez are spayed; 
+P.F.Magic made the breedfile such that it would only produce spayed petz.
+
+NOTE -- as with all Petz 5 petz, you won't be able to run Petz 5 bunnies
+or pigz in your Petz 3 game anyway.  This is just for Petz 4 ones.
+
+First of all, I must remind you -- please, please, _please_ keep backup 
+copies of any pets that you intend to edit, or indeed of any pets at all 
+that are in the game!  Disasters can happen, although I've not personally 
+had any problems with the procedures and files mentioned here.
+
+Editing the .pet file to un-spay the pet
+----------------------------------------
+
+As with other spayed pets, it is possible to "un-spay" any pig or bunny 
+pets which were adopted from the original P.F.Magic Petz 4 breedfiles.
+
+What you need to look for when un-neutering a pet, is one byte which is set 
+to "01" when it needs to be "00". Look for YALP 
+
+It will look like this:
+
+For female un-neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For male un-neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For female neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For male neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+So, it's all in those 4 bytes directly after the III.  If the second byte 
+is 01 (looking in the hexadecimal numbers section), it's a female; if 00, 
+a male.  If the third byte is 01, it's spayed; if 00, not spayed.  You 
+can of course change these.  But this is a petfile, so you have to keep 
+the checksum the same.  What you can do is scroll up until you get to the 
+text/numbers data, where there are a bunch of Paint Ballz numbers, and 
+reduce or increase a number there by the amount you increased or decreased 
+the bytes in the neuter/gender area.
+
+Adopting un-spayed bunnies and pigz
+-----------------------------------
+
+I have made this breedfile for Dogz 3 owners, using the data from the 
+Petz 4 pigz.  Any pigz adopted from this breedfile will be able to breed -- 
+also any previously-spayed pigz which you have un-spayed as above.
+
+Breeding with your unspayed pets
+--------------------------------
+
+Pigz and Bunniez both need the "offset byte" of the relevant breedfile to 
+be FFFF, not the usual pig.dog's number FC03 or bunny.cat's FD03.  Please 
+note that you probably can't have both FFFF breedfiles in the game at once, 
+so your bunniez and pigz won't be able to play with each other unless you 
+change that offset.  But if you change the offset, then any downloaded pig 
+or bunny petfiles will probably not be able to breed with it unless you 
+change it back to FFFF first.
+
+The enclosed breedfile contains all the Pig original breed information, 
+but has the normal dog behaviour section that I believe is needed and also 
+has the FFFF number.  This results in the loving pair of pets going through 
+their normal courtship procedure and announcing a happy event; I've tested 
+this throroughly over the past couple of days, and there have been no problems 
+with my game or pets.  One thing that you will notice to be different is the 
+fact that the downloaded pigz will be silent; this is because I do not have 
+the time to insert the proper pig sounds into the file.  However, any pigz 
+which you have adopted from the Adoption Centre using this breedfile, or 
+any babies that a couple of pigz have together, will be able to speak pig 
+if you download my pig-hog sounds and place them in a directory, off the 
+dogz directory, called "pighog".
+
+One last thing -- you will probably find that most of your piglets are born 
+extremely small, and that when fully grown they are smaller than their parents.  
+This seems to be a quirk of the game, which does of course randomly make smaller 
+babies for all breeds but seems more prone to doing so for the "species" breedz.
+
+Enjoy!
+
+Carolyn

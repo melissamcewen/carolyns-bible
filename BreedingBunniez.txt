@@ -1,0 +1,107 @@
+
+Breeding -- The special case of the Bunny and Pig
+=================================================
+
+First of all, I must remind you -- please, please, _please_ keep 
+backup copies of any pets that you intend to edit, or indeed of any 
+pets at all that are in the game!  Disasters can happen, although I've 
+not personally had any problems with the procedures and files mentioned 
+here.
+
+Editing the .pet file to un-spay the pet
+----------------------------------------
+
+As with other spayed pets, it is possible to "un-spay" any pig or bunny 
+pets which were adopted from the original P.F.Magic Petz 4 breedfiles.
+
+What you need to look for when un-neutering a pet, is one byte which is 
+set to "01" when it needs to be "00". Look for YALP 
+
+It will look like this:
+
+For female un-neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For male un-neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0000 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For female neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0001 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+For male neutered
+
+00021808 | 702E 662E 6D61 6769 6370 6574 7A49 4949 | p.f.magicpetzIII
+00021824 | 0000 0100 0001 0000 0059 414C 501E 0000 | .........YALP...
+
+So, it's all in those 4 bytes directly after the III.  If the second byte 
+is 01 (looking in the hexadecimal numbers section), it's a female; if 00, 
+a male.  If the third byte is 01, it's spayed; if 00, not spayed.  You can 
+of course change these.  But this is a petfile, so you have to keep the 
+checksum the same.  What you can do is scroll up until you get to the 
+text/numbers data, where there are a bunch of Paint Ballz numbers, and 
+reduce or increase a number there by the amount you increased or decreased 
+the bytes in the neuter/gender area.
+
+Adopting un-spayed bunnies and pigz
+-----------------------------------
+
+Whiskers of Whiskers's Petz Sites discovered that you can in fact alter the 
+pig.dog and bunny.cat breedfiles so that all adopted pets will not be neutered.  
+The key is in the section of the breedfile where we have the unique ID (what 
+we all call the "offset byte").  In the pig, for instance, it looks like this:
+
+00060352 | 0000 0000 5769 6C62 7572 0000 0000 0000 | ....Wilbur......
+00060368 | 0000 0000 0000 0000 0000 0000 0000 0000 | ................
+00060384 | 0000 0000 FC03 0000 1900 0000 0000 0000 | ................
+
+Three bytes after the offset number (FC03) there is the number 19.  Change that 
+to 01, and the breedfile will no longer "spay" pets.
+
+Breeding with your unspayed pets
+--------------------------------
+
+Bunnies and pigs are a little more complicated to breed from than other pets. 
+Unspayed ones are perfectly capable of breeding, but there is a quirk which makes it 
+necessary to juggle things a bit.  I repeat, this juggling is only needed for 
+the P4 and P5 bunnies and pigs; there is no problem with breeding from other petfiles, 
+which were spayed and have been unspayed, of any different species for Petz 3, 4 or 5.
+
+First off, it doesn't look as though they will actually breed with the default 
+bunny file; I might be wrong about that, but I suspect that the file simply has 
+missing the necessary behaviour for breeding. Certainly, I have now spent a long 
+time testing, with two bunnies who were very fond of each other but couldn't keep 
+properly focussed on each other when the bunny file was in place, but who went 
+through the correct behaviours very fast when I substituted a renamed and slightly 
+altered version of one of my own bunny-type files (the cotton bunny).  
+
+Secondly, they need the "offset byte" of the relevant breedfile to be FFFF, not 
+the usual bunny's number FD03.  Similarly, non-spayed pigs adopted from the 
+P.F.Magic pig.dog file need FFFF instead of FC03.  Please note that you probably 
+can't have FFFF versions of both breedfiles in the game at once.
+
+I have now made a breedfile which contains all the Bunny original breed information, 
+including furfiles, but has the normal cat behaviour section that I believe is needed 
+and also has the FFFF number.  This results in the loving pair of pets going through 
+their normal courtship procedure and announcing a happy event; I've tested this 
+throroughly over the past couple of days, and there have been no problems with my 
+game or pets.
+
+So to get the maximum enjoyment from playing with and breeding from your own bunniez, 
+use the default file so you can have them hop about and behave like bunnies until 
+you want them to breed.  Then take the breedfile that I have made (included in the 
+zipfile with this information) and put it in place of the original.  The couple will 
+then go through the courtship process and announce a happy event.  You need to keep 
+the FFFF file in place until the baby is born.  You can use the original again then 
+if you wish, but will need to have my version in place when the baby is due to come 
+out separately from its mother.  After that you can go back to using the original 
+until you want to breed bunniez again :-)
+
+Enjoy!
+
+Carolyn

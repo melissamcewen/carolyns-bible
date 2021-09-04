@@ -1,0 +1,173 @@
+
+Lop ears on a cat
+=================
+
+In this zipfile you should find a copy of an overwriting Persian breedfile.  This is for example purposes only; the sounds have all been stripped out to make it zip up smaller, and it is not a well finished breed.
+
+This example is on a Persian.  I'm hoping that you can understand what I'm saying, so that if you want to use a different breed as base you'll be able to figure it out.
+
+Just a note as to my editing methods so that with any luck all this will make sense.  This is what I do: open the breedfile into Hex Workshop (or your some other true hex editor -- not VIM, and _definitely_ _not_ Wordpad).  Search for the text string [Little one] and place your cursor in front of it.  Scroll down and select from there to the end of the .lnz section, which finishes with PFM_[V2.001] (c) 1997 PF. Magic, Inc.  Choose "copy" from the drop-down edit menu.  Now open a new, empty file from the drop-down file menu in the hex editor.  Place the cursor in it and choose Paste from the edit menu.  Save it as breed.txt.  Now open breed.txt in Notepad.  What you'll see here are extracts copied from Notepad.  It is possible to edit in a modern-day Resource Editor such as the one at http://www.users.on.net/johnson/resourcehacker/ which is fine, as you get to see the .lnz file the way it's supposed to be and you don't have to keep the file size always the same.  Please don't ask me how to use the tools; whether you use a hex editor or a resource editor, I shall assume that you have practised a bit and know how to use it.
+
+Right, you want to put ears like a Mutt onto a Persian.  Note that although it's possible to flop the ear downwards in a similar manner, catz don't flap their ears around like dogz so they won't be as floppy in movement.
+
+One thing to remember is that the dogz have one extra basic ear ball on each side in [Ballz Info], so you want to make a decision as to which earball you are going to equate to which in the catz breed.  As a useful rule of thumb, let's assume that the Mutt's ear tip ball 4 is equivalent to the ear tip 9 in the Persian, the ear-base ball 6 is equivalent to ear-base 8.  That would make 28 equivalent to 11, and 30 equivalent to 10.  The mutt's middle-ear ballz will have to be put into the cat's Add Ball  section and adjusted to look right.  Also, the mutt's base-ear ballz are set higher on its head and are smaller than the catz' base-ear ballz, so we are going to have to do some shifting in [Move].
+
+In the [Move] section, you want to change this, which is already in the Persian:
+
+;ears
+9,	-5, 0, -20
+11,	5, 0, -20
+
+to something like this:
+
+;ears
+8,	23,	-25,	-6
+10,	-23,	-25,	-6
+9,	10,	60,	-10
+11,	-10,	60,	-10
+
+In the Persian, the [Project Ball] section does not contain any altered spacing for ears, so we don't need to do anything about that.
+
+Now, the Persian has some extra ballz added in [Add Ball]:
+
+;ears 80
+8, 	-10, 	-25, 	-8, 	19, 	(etc)
+8, 	10, 	-19, 	5, 	19, 	
+8, 	25, 	-1, 	-10, 	19, 	
+10, 	10, 	-25, 	-8, 	19, 	
+10, 	-10, 	-19, 	5, 	19, 	
+10, 	-25, 	-1, 	-10, 	19, 	
+8, 	6, 	-10, 	-8, 	19, 	
+9, 	-9, 	9, 	-7, 	 7, 	
+10, 	-6, 	-10, 	-3, 	19, 	
+11, 	9, 	9, 	-9, 	 7, 	
+9, 	-9, 	9, 	-7, 	19, 	
+11, 	9, 	9, 	-7, 	19, 	
+
+The Mutt's ears have fewer added ballz:
+
+;ears 82
+4, 	0, 	5, 	-14, 	95, 	(etc)
+28, 	0, 	5, 	-14, 	95, 	 
+4, 	0, 	10, 	-7, 	95, 	
+28, 	0, 	10, 	-7, 	95, 	
+4, 	1, 	-3, 	-7, 	95, 	
+28, 	-1, 	-3, 	-7, 	95, 	
+
+but remember that Dogz have a third base earball on each side.  Also note that the added Mutt earballz are ball numbers 82 to 87, whereas the Persian extra ballz are 80 upwards.  This gives us a possible place to put the extra basic ball that a dog has for its ears, so that we don't have to re-jig things too much in linez.  All we have to remember is that when, in Linez, we see 5 or 29 we put 80 or 81.  Now, as it happens, we don't have any Add Ball ballz after the ears in the Persian, so we can just comment-out or remove the four last ones.  If there had happened to be some other added ballz listed after the ears, we would have had to leave these four and list them in [Omissions].
+
+So this is how this part could now look:
+
+;ears 80
+8, 	1,	12,	-6 	19, 	(etc)
+10, 	-1,	12,	-6 	19, 	
+9, 	0, 	5, 	-14, 	95, 	(etc)
+11, 	0, 	5, 	-14, 	95, 	 
+9, 	0, 	10, 	-7, 	95, 	
+11, 	0, 	10, 	-7, 	95, 	
+9, 	1, 	-3, 	-7, 	95, 	
+11, 	-1, 	-3, 	-7, 	95, 	
+;10,	-6, 	-10, 	-3, 	19, 	
+;11,	9, 	9, 	-9, 	 7, 	
+;9,	-9, 	9, 	-7, 	19, 	
+;11,	9, 	9, 	-7, 	19, 	
+
+Now in fact this doesn't look right at all on the cat, since catz' shapes are radically different from dogz', and some alterations are going to be needed.  In my rough example I found this to work quite well:
+
+;ears 80
+8, 	20,	12,	-6 	19, 	(etc)
+10, 	-20,	12,	-6 	19, 	
+9, 	0, 	5, 	14, 	15, 	
+11, 	0, 	5, 	14, 	15, 	 
+9, 	0, 	10, 	17, 	15, 	
+11, 	0, 	10, 	17, 	15, 	
+9, 	1, 	-3, 	17, 	15, 	
+11, 	-1, 	-3, 	17, 	15, 	
+
+Check on [Omissions] -- in these particular breedz, no earballs are listed there so none of them are omitted, so no puzzling missing ballz.
+
+In the Persian you have these ear [Linez]
+
+;left ear
+80, 	8, (etc)
+82, 	8,
+80, 	9,
+81, 	9,
+81, 	82,
+82, 	9,
+81, 	80,
+87, 	86,
+;right ear
+83, 	10,
+85, 	10,
+83, 	11,
+84, 	11,
+84, 	85,
+85, 	11,
+84, 	83,
+89, 	88,
+
+The Mutt:
+
+;ears
+6,	 5, (etc)
+5,	 4,
+30,	 29,
+29,	 28,
+;
+82,	 4,
+82,	 5,
+83,	 28,
+83,	 29,
+82,	 84,
+4,	 84,
+83,	 85,
+28,	 85,
+
+Well, we want to connect it all up pretty much as for the mutt. here's how it should look now:
+
+;ears
+8,	 80, (etc)
+80,	 9,
+10,	 81,
+81,	 11,
+82,	 9,
+82,	 80,
+83,	 11,
+83,	 81,
+82,	 84,
+9,	 84,
+83,	 85,
+11,	 85,
+
+I thought the shape didn't look so good like that on the cat, so I changed the last lines to this:
+
+8,	 84, (etc)
+83,	 85,
+10,	 85,
+
+
+Okay, we're all set.  It just remains to go down to the [Ballz Info] section and change the Persian ear ballz' sizeDif ear numbers from 
+
+ -15,
+ 20,
+ -15,
+ 20,
+
+to a much smaller size for the ear base:
+
+ -36
+ 20
+ -36
+ 20
+
+I also changed the [Ear Extension] to 110; not strictly necessary, but something you might want to fiddle with.
+
+A note here -- with some breedz you may want to keep an eye on the [Thin/Fat] section in case there are ear ballz numbers listed in there, and of course some breedz may have ear ball sizes listed in the kitten's [Ball Size Override] section (down below the [Ballz Info]).  Everything I've mentioned up to this point relates to the adult cat; you'll have to make any adjustments to the kitten stage that may be necessary too.
+
+Enjoy!
+
+Carolyn
+
+
+
