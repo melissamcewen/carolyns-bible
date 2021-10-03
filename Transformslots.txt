@@ -1,0 +1,68 @@
+
+How to get the maximum no. of Transformations for your breed
+====================================================
+
+You can have 5 Transformations for any given breed, but if you do that 
+in my external-lnz "easy" packages, some of them will definitely overwrite 
+each other.  I give you here an explanation and a solution for those who
+want to have five Transformations for each of their new breedz.
+
+The Explanation:
+===============
+
+External-lnz Transformations are picked up by the game from a limited 
+number of "slots".
+
+A "slot" in this context refers to how many names there can be for
+Transformations. There are 51 name-slots. I managed to slip all the 
+breed ones into usable slots, and one of them ended up left over. I chose 
+to make it the 102 sheep on account of it was identical to the Zott 
+one apart from the furfile. The actual names which I used could of 
+course have been different, but I'd have had to alter the main game-file 
+in order to do that, and it didn't seem to me to serve any gainful 
+purpose since I was unable to increase the number of name-slots. 
+Incidentally it would also be possible to redirect any given slot to 
+anywhere else on the drive -- but any breed using these externally would 
+still be having to overwrite another's.
+
+I did indeed try, my game now has apparent extra name-slots in it -- but 
+the Transformer won't pick up on them. If I put any number greater than 51 
+into the Farminator Switches list for a breed, the Transformer simply 
+returns me to the basic breed shape when it gets to that one. I imagine 
+that a programmer with 16-bit Assembly language knowledge and the necessary 
+tools would be able to alter this -- but I'm just a hexer. 
+
+The solution:
+=============
+
+_However_, if you use internal-lnz breedz (the original unexternalised 
+game ones, to be precise) along with my "alternative" LNZ package, you 
+can give each of the breedz five individual Transforms, or at least some 
+of them anyway -- I've not counted and checked the whole set this way. 
+Some of the Transforms will have to be external, since the breedfile must
+stay the same size (unless you want to re-calculate by hand everything 
+from the List onwards, Aaaargh), but I'm sure you can live with that. 
+
+Skorch, for instance, has only two -- he does really, it's controlled 
+by the adult .lnz. The Skeleton and the "baby" which are FUTURE10.lnz 
+and FUTURE11.lnz and are switches 39 and 40. So unpack the 
+alternativesTransforms.zip into your non-external game. Open Skorch.odd 
+in a hex editor and, in the "I am Skorch!" .lnz find the Farminator 
+Switches. Change the list 39, 40, 39, 40, 39 to, say, 39, 40, 49, 48, 
+47 and you will see that he's got three extra Transformations -- in 
+this case they happen to look like some of Snowbo's, but you could edit 
+them to be unique to Skorch. I can't face writing up an in-depth "howto" 
+about that -- and I don't want to frighten off non-hexie players -- but 
+I make you a present of it for your own hexing fun.
+
+When you distribute one of these special full-transform breedz, package 
+the .odd and .odx files along with the extra .lnz files, and explain in 
+a readme  where the players will need to place these files.  You'll need 
+to explain carefully or make them install automatically, because players 
+can get it wrong and end up with game-crashes.
+
+Enjoy!
+
+Carolyn Horn
+
+
